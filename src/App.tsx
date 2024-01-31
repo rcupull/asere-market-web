@@ -1,35 +1,32 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { Route, Routes } from "react-router-dom";
+import { Home } from "./pages/home";
+import { SignIn } from "./pages/sign-in";
+import { Layout } from "./layout";
+import { SignUp } from "./pages/sign-up";
+import { Dashboard } from "./pages/dashboard";
+import { withAuthenticatedRoute } from "./components/autenticated-route";
+import { ValidateAccount } from "./pages/validate-account";
+import { NotFound } from "./pages/not-found";
+import { Admin } from "./pages/admin";
 
-function App() {
-  const [count, setCount] = useState(0)
-
+export const App = (): JSX.Element => {
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
-}
-
-export default App
+    <Layout>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/sign-in" element={<SignIn />} />
+        <Route path="/sign-up" element={<SignUp />} />
+        <Route path="/not-found" element={<NotFound />} />
+        <Route path="/validate-account" element={<ValidateAccount />} />
+        <Route
+          path="/dashboard"
+          element={withAuthenticatedRoute(<Dashboard />, ["user"])}
+        />
+        <Route
+          path="/admin"
+          element={withAuthenticatedRoute(<Admin />, ["admin"])}
+        />
+      </Routes>
+    </Layout>
+  );
+};
