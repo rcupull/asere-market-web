@@ -1,7 +1,6 @@
 import { AnyRecord } from "./general";
-import { AxiosResponse } from "axios";
 
-export type OnAfterSuccess<Data = any> = (reponse: AxiosResponse<Data>) => void;
+export type OnAfterSuccess<Data = any> = (reponse: Data) => void;
 export type OnAfterFailed = (error: ApiError) => void;
 
 export type FetchOptions<Data = any> = {
@@ -10,6 +9,7 @@ export type FetchOptions<Data = any> = {
 };
 
 export interface FetchResource<Args = undefined, Data = any> {
+  data: FetchData<Data>;
   fetch: (args: Args, options?: FetchOptions<Data>) => void;
   status: FetchStatus;
 }
@@ -27,7 +27,7 @@ export type Params = Record<
   string | number | boolean | undefined | Array<any>
 >;
 
-export type FetchMethod = "get" | "post" | "put" | "del";
+export type FetchMethod = "get" | "post" | "put" | "delete";
 
 export type GetEndpoint = (args: {
   path: string;
@@ -59,4 +59,4 @@ export type FetchStatus = {
   wasCalled: boolean;
 };
 
-export type FetchData<Data = unknown> = AxiosResponse<Data> | null;
+export type FetchData<Data = unknown> = Data | null;

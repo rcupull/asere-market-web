@@ -69,7 +69,7 @@ export const useFetch = <Data = any>(): UseFetchReturn<Data> => {
       setStatus("BUSY");
       const { method, url, data, headers = {}, responseTransform } = args;
 
-      let response = await axios({
+      const axiosResponse = await axios({
         url,
         method,
         data,
@@ -78,6 +78,8 @@ export const useFetch = <Data = any>(): UseFetchReturn<Data> => {
           token: authData?.token,
         },
       });
+
+      let response = axiosResponse.data;
 
       if (responseTransform) {
         response = responseTransform(response);

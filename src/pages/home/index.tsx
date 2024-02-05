@@ -1,6 +1,9 @@
+import { useEffect } from "react";
 import { HeroSectionCentered } from "../../components/hero-section-centered";
 import { ProductSimple } from "../../components/product-simple";
 import { ProductsGroup } from "../../components/products-group";
+import { useFetch } from "../../hooks/useFetch";
+import { getEndpoint } from "../../utils/api";
 
 const productItems = [
   {
@@ -24,6 +27,18 @@ const productItems = [
 ];
 
 export const Home = () => {
+  const [posts, , handleFetchPosts] = useFetch();
+
+  console.log("posts", posts);
+  useEffect(() => {
+    handleFetchPosts({
+      method: "get",
+      url: getEndpoint({
+        path: "/post",
+      }),
+    });
+  }, []);
+
   return (
     <main>
       <HeroSectionCentered />

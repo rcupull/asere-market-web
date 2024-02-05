@@ -1,6 +1,7 @@
 import { Fragment } from "react";
 import { Link } from "react-router-dom";
 import cn from "classnames";
+import { StyleProps } from "../../types/general";
 
 interface SideBarItem {
   label: string;
@@ -9,13 +10,16 @@ interface SideBarItem {
   divider?: boolean;
 }
 
-export interface SideBarProps {
-  className?: string;
+export interface SideBarProps extends StyleProps {
   items: Array<SideBarItem>;
   collapse?: boolean;
 }
 
-export const SideBar = ({ className, items, collapse }: SideBarProps) => {
+export const SideBar = ({
+  className,
+  items,
+  collapse,
+}: SideBarProps) => {
   return (
     <div
       className={cn(

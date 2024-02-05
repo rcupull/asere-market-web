@@ -1,15 +1,16 @@
-export type UserRoleT = "user" | "admin";
+import { BaseIdentity } from "./general";
 
-export interface UserT {
+export type UserRole = "user" | "admin";
+
+export interface User extends BaseIdentity {
   name: string;
   email: string;
   password: string;
-  role: UserRoleT;
-  createdAt: Date;
+  role: UserRole;
   validated: boolean;
 }
 
-export type UserData = UserT | null;
+export type UserData = User | null;
 
 export interface AuthData {
   user: UserData;

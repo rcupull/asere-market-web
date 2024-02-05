@@ -5,9 +5,7 @@ import { Layout } from "./layout";
 import { SignUp } from "./pages/sign-up";
 import { Dashboard } from "./pages/dashboard";
 import { withAuthenticatedRoute } from "./components/autenticated-route";
-import { ValidateAccount } from "./pages/validate-account";
 import { NotFound } from "./pages/not-found";
-import { Admin } from "./pages/admin";
 
 export const App = (): JSX.Element => {
   return (
@@ -17,14 +15,13 @@ export const App = (): JSX.Element => {
         <Route path="/sign-in" element={<SignIn />} />
         <Route path="/sign-up" element={<SignUp />} />
         <Route path="/not-found" element={<NotFound />} />
-        <Route path="/validate-account" element={<ValidateAccount />} />
         <Route
           path="/dashboard"
-          element={withAuthenticatedRoute(<Dashboard />, ["user"])}
+          element={withAuthenticatedRoute(<Dashboard />, ["user", "admin"])}
         />
         <Route
-          path="/admin"
-          element={withAuthenticatedRoute(<Admin />, ["admin"])}
+          path="/dashboard/:section"
+          element={withAuthenticatedRoute(<Dashboard />, ["user", "admin"])}
         />
       </Routes>
     </Layout>

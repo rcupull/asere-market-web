@@ -9,7 +9,7 @@ import { cookiesUtils } from "../cookies";
 interface AuthState {
   authData: AuthData | null;
   onSignIn: FetchResource<{ email: string; password: string }, AuthData>;
-  onSignUp: FetchResource<{ email: string; password: string; name: string }>;
+  onSignUp: FetchResource<{ email: string; password: string; name: string}>;
   onSignOut: FetchResource;
   onValidate: FetchResource<{email: string; code: string }>;
   isAdmin: boolean;
@@ -35,10 +35,10 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     (cookiesUtils.getCookie("authData") as AuthData) || null
   );
 
-  const [, singInStatus, fetchSignIn] = useFetch<AuthData>();
-  const [, singUpStatus, fetchSignUp] = useFetch();
-  const [, singOutStatus, fetchSignOut] = useFetch();
-  const [, validateStatus, fetchValidate] = useFetch();
+  const [singInData, singInStatus, fetchSignIn] = useFetch<AuthData>();
+  const [singUpData, singUpStatus, fetchSignUp] = useFetch();
+  const [singOutData, singOutStatus, fetchSignOut] = useFetch();
+  const [validateData, validateStatus, fetchValidate] = useFetch();
 
   const value: AuthState = {
     isAuthenticated: !!authData,
@@ -46,6 +46,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     isUser: authData?.user?.role === "user",
     authData,
     onValidate: {
+      data: validateData,
       status: validateStatus,
       fetch: ({ code, email }, options = {}) => {
         fetchValidate(
@@ -59,6 +60,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       },
     },
     onSignUp: {
+      data: singUpData,
       status: singUpStatus,
       fetch: ({ email, name, password }, options = {}) => {
         fetchSignUp(
@@ -72,6 +74,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       },
     },
     onSignIn: {
+      data: singInData,
       status: singInStatus,
       fetch: ({ email, password }, options = {}) => {
         fetchSignIn(
@@ -83,10 +86,9 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
           {
             ...options,
             onAfterSuccess: (response) => {
-              const { data } = response
               
-              cookiesUtils.setCookie("authData", data);
-              setAuthData(data);
+              cookiesUtils.setCookie("authData", response);
+              setAuthData(response);
 
               options?.onAfterSuccess?.(response);
             },
@@ -95,6 +97,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       },
     },
     onSignOut: {
+      data: singOutData,
       status: singOutStatus,
       fetch: (_, options) => {
         const { token } = authData || {}

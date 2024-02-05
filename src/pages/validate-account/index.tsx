@@ -1,12 +1,13 @@
-import { Formik, Field } from "formik";
+import { Formik } from "formik";
 import { useAuth } from "../../features/auth";
-import { getClassNames } from "../../constants/styles";
 import { useRouter } from "../../features/router";
 import { getFormError } from "../../utils/validation";
+import { Input } from "../../components/input";
+import { Button } from "../../components/button";
 
 export const ValidateAccount = () => {
   const { onValidate } = useAuth();
-  const { pushRoute } = useRouter()
+  const { pushRoute } = useRouter();
 
   return (
     <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
@@ -25,8 +26,7 @@ export const ValidateAccount = () => {
         <Formik
           initialValues={{ email: "", code: "" }}
           validate={(values) => {
-
-            return  getFormError(values, [
+            return getFormError(values, [
               {
                 field: "email",
                 type: "required",
@@ -49,7 +49,7 @@ export const ValidateAccount = () => {
               {
                 onAfterSuccess: () => {
                   setSubmitting(false);
-                  pushRoute('/sign-in');
+                  pushRoute("/sign-in");
                 },
                 onAfterFailed: () => {
                   setSubmitting(false);
@@ -61,47 +61,31 @@ export const ValidateAccount = () => {
           {({ errors, touched, handleSubmit, isSubmitting }) => {
             return (
               <form onSubmit={handleSubmit}>
-                <div>
-                  <label htmlFor="name" className={getClassNames().auth.label}>
-                    Code
-                  </label>
-                  <div className="mt-2">
-                    <Field
-                      id="code"
-                      name="code"
-                      autoComplete="off"
-                      className={getClassNames().auth.input}
-                    />
-                    {errors.code && touched.code && errors.code}
-                  </div>
-                </div>
+                <Input
+                  id="code"
+                  name="code"
+                  autoComplete="off"
+                  label="Code"
+                  error={errors.code && touched.code && errors.code}
+                />
 
-                <div className="mt-6">
-                  <label htmlFor="email" className={getClassNames().auth.label}>
-                    Email address
-                  </label>
-                  <div className="mt-2">
-                    <Field
-                      id="email"
-                      name="email"
-                      type="email"
-                      autoComplete="email"
-                      className={getClassNames().auth.input}
-                    />
-                    {errors.email && touched.email && errors.email}
-                  </div>
-                </div>
+                <Input
+                  id="email"
+                  name="email"
+                  type="email"
+                  autoComplete="email"
+                  label="Email address"
+                  error={errors.email && touched.email && errors.email}
+                  className="mt-6"
+                />
 
-                <div className="mt-6">
-                  <button
-                    type="submit"
-                    disabled={isSubmitting}
-                    className={getClassNames().auth.button}
-                  >
-                    Validate
-                  </button>
-                </div>
-
+                <Button
+                  label="Validate"
+                  type="submit"
+                  disabled={isSubmitting}
+                  isBusy={onValidate.status.isBusy}
+                  className="mt-6 w-full"
+                />
               </form>
             );
           }}

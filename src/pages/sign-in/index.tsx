@@ -1,14 +1,15 @@
-import { Formik, Field } from "formik";
+import { Formik } from "formik";
 import { useAuth } from "../../features/auth";
-import { getClassNames } from "../../constants/styles";
 import { Link } from "react-router-dom";
 import { useRouter } from "../../features/router";
 import { getFormError } from "../../utils/validation";
+import { Input } from "../../components/input";
+import { Button } from "../../components/button";
 
 export const SignIn = () => {
   const { onSignIn } = useAuth();
 
-  const { pushRoute } = useRouter()
+  const { pushRoute } = useRouter();
 
   return (
     <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
@@ -27,8 +28,7 @@ export const SignIn = () => {
         <Formik
           initialValues={{ email: "", password: "" }}
           validate={(values) => {
-
-            return  getFormError(values, [
+            return getFormError(values, [
               {
                 field: "email",
                 type: "required",
@@ -46,24 +46,13 @@ export const SignIn = () => {
           onSubmit={(values, { setSubmitting }) => {
             const { email, password } = values;
 
-
             onSignIn.fetch(
               { email, password },
               {
-                onAfterSuccess: (response) => {
+                onAfterSuccess: () => {
                   setSubmitting(false);
+                  pushRoute("/dashboard");
 
-                  const { data } = response
-
-                  const role = data.user?.role;
-
-                  if(role === 'admin'){
-                    return pushRoute('/admin')
-                  }
-
-                  if(role === 'user'){
-                    return pushRoute('/dashboard')
-                  }
                 },
                 onAfterFailed: () => {
                   setSubmitting(false);
@@ -75,60 +64,32 @@ export const SignIn = () => {
           {({ errors, touched, handleSubmit, isSubmitting }) => {
             return (
               <form onSubmit={handleSubmit}>
-                <div>
-                  <label htmlFor="email" className={getClassNames().auth.label}>
-                    Email address
-                  </label>
-                  <div className="mt-2">
-                    <Field
-                      id="email"
-                      name="email"
-                      type="email"
-                      autoComplete="email"
-                      className={getClassNames().auth.input}
-                    />
-                    {errors.email && touched.email && errors.email}
-                  </div>
-                </div>
+                <Input
+                  id="email"
+                  name="email"
+                  type="email"
+                  autoComplete="email"
+                  label="Email address"
+                  error={errors.email && touched.email && errors.email}
+                />
 
-                <div className="mt-6">
-                  <div className="flex items-center justify-between">
-                    <label
-                      htmlFor="password"
-                      className={getClassNames().auth.label}
-                    >
-                      Password
-                    </label>
-                    {/* <div className="text-sm">
-                      <a
-                        href="#"
-                        className="font-semibold text-indigo-600 hover:text-indigo-500"
-                      >
-                        Forgot password?
-                      </a>
-                    </div> */}
-                  </div>
-                  <div className="mt-2">
-                    <Field
-                      id="password"
-                      name="password"
-                      type="password"
-                      autoComplete="current-password"
-                      className={getClassNames().auth.input}
-                    />
-                    {errors.password && touched.password && errors.password}
-                  </div>
-                </div>
+                <Input
+                  id="password"
+                  name="password"
+                  type="password"
+                  autoComplete="current-password"
+                  label="Password"
+                  error={errors.password && touched.password && errors.password}
+                  className="mt-6"
+                />
 
-                <div className="mt-6">
-                  <button
-                    type="submit"
-                    disabled={isSubmitting}
-                    className={getClassNames().auth.button}
-                  >
-                    Sign in
-                  </button>
-                </div>
+                <Button
+                  label="Sign in"
+                  type="submit"
+                  disabled={isSubmitting}
+                  isBusy={onSignIn.status.isBusy}
+                  className="mt-6 w-full"
+                />
 
                 <div className="w-100 text-sm flex pt-4">
                   <Link

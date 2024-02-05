@@ -1,6 +1,5 @@
 import { createContext, useContext } from "react";
-import { BrowserRouter, useLocation } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, BrowserRouter, useLocation } from "react-router-dom";
 
 interface RouterState {
   pushRoute: (route: string) => void;
@@ -9,7 +8,7 @@ interface RouterState {
 
 const RouterContext = createContext<RouterState>({
   pushRoute: () => {},
-  pathname: '/'
+  pathname: '/',
 });
 
 export const useRouter = () => useContext(RouterContext);
