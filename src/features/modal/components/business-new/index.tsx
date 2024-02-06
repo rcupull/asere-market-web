@@ -19,7 +19,7 @@ export interface BusinessNewProps {
 export const BusinessNew = ({ onAfterSuccess }: BusinessNewProps) => {
   const { onClose } = useModal();
 
-  const { addOne } = useBusinessApi();
+  const businessApi = useBusinessApi();
 
   const submitPortal = useSubmitPortal();
 
@@ -87,12 +87,12 @@ export const BusinessNew = ({ onAfterSuccess }: BusinessNewProps) => {
             {submitPortal.getPortal(
               <Button
                 label="Guardar"
-                isBusy={addOne.status.isBusy}
+                isBusy={businessApi.addOne.status.isBusy}
                 disabled={!isValid}
                 onClick={() => {
                   const { category, name } = values;
 
-                  addOne.fetch(
+                  businessApi.addOne.fetch(
                     {
                       category,
                       name,

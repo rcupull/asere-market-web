@@ -20,7 +20,7 @@ export interface PostNewProps {
 export const PostNew = ({ onAfterSuccess, businessId }: PostNewProps) => {
   const { onClose } = useModal();
 
-  const posts = usePostsApi();
+  const postsApi = usePostsApi();
 
   const submitPortal = useSubmitPortal();
 
@@ -124,12 +124,12 @@ export const PostNew = ({ onAfterSuccess, businessId }: PostNewProps) => {
             {submitPortal.getPortal(
               <Button
                 label="Guardar"
-                isBusy={posts.addOne.status.isBusy}
+                isBusy={postsApi.addOne.status.isBusy}
                 disabled={!isValid}
                 onClick={() => {
                   const { description, name, amountAvailable, currency, price } = values;
 
-                  posts.addOne.fetch(
+                  postsApi.addOne.fetch(
                     {
                       name,
                       businessId,
@@ -138,7 +138,12 @@ export const PostNew = ({ onAfterSuccess, businessId }: PostNewProps) => {
                       price,
                       amountAvailable,
                     },
-                    { onAfterSuccess },
+                    {
+                      onAfterSuccess: (response) => {
+                        onAfterSuccess?.(response);
+                        onClose();
+                      },
+                    },
                   );
                 }}
                 variant="primary"

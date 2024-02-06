@@ -1,51 +1,70 @@
 import { useEffect } from 'react';
 
+import { Button } from 'components/button';
 import { Table } from 'components/table';
 
+import { useModal } from 'features/modal';
 import { usePostsApi } from 'features/post/api';
 
 import { RowActions } from './RowActions';
+
+import { TableTopActions } from 'pages/dashboard/components/table-top-actions';
 
 export interface TablePostsProps {
   businessId: string;
 }
 
-export const TabelPosts = ({ businessId }: TablePostsProps) => {
-  const posts = usePostsApi();
+export const TablePosts = ({ businessId }: TablePostsProps) => {
+  const postsApi = usePostsApi();
+  const { pushModal } = useModal();
 
   useEffect(() => {
     onRefresh();
   }, []);
 
-  const onRefresh = () => posts.getAll.fetch({ businessId });
+  const onRefresh = () => postsApi.getAll.fetch({ businessIds: [businessId] });
 
   return (
-    <Table
-      heads={[
-        null,
-        'Nombre',
-        'Descripión',
-        'Moneda',
-        'Precio',
-        'Disponibilidad',
-        'Fecha de Creación',
-      ]}
-      getRowProps={(rowData) => {
-        const { name, createdAt, description, currency, price, amountAvailable } = rowData;
+    <>
+      <TableTopActions backButton>
+        <Button
+          label="Nuevo post"
+          onClick={() =>
+            pushModal('PostNew', {
+              businessId,
+              onAfterSuccess: () => onRefresh(),
+            })
+          }
+          className="ml-auto"
+        />
+      </TableTopActions>
+      <Table
+        heads={[
+          null,
+          'Nombre',
+          'Descripión',
+          'Moneda',
+          'Precio',
+          'Disponibilidad',
+          'Fecha de Creación',
+        ]}
+        getRowProps={(rowData) => {
+          const { name, createdAt, description, currency, price, amountAvailable } = rowData;
 
-        return {
-          nodes: [
-            <RowActions key="RowActions" rowData={rowData} onRefresh={onRefresh} />,
-            name,
-            description,
-            currency,
-            price,
-            amountAvailable,
-            createdAt,
-          ],
-        };
-      }}
-      data={posts.getAll.data}
-    />
+          return {
+            nodes: [
+              <RowActions key="RowActions" rowData={rowData} onRefresh={onRefresh} />,
+              name,
+              description,
+              currency,
+              price,
+              amountAvailable,
+              createdAt,
+            ],
+          };
+        }}
+        data={postsApi.getAll.data}
+      />
+    </>
   );
 };

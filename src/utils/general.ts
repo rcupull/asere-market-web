@@ -1,4 +1,4 @@
-import { EmptyObjectOf, Nullable } from 'types/general';
+import { AnyRecord, EmptyObjectOf, Nullable } from 'types/general';
 
 export const isNullOrUndefined = (value: unknown): value is null | undefined => {
   return value === null || value === undefined;
@@ -23,4 +23,11 @@ export const isEmpty = <T = object>(
   }
 
   return false;
+};
+
+export const getFlattenJson = (value: AnyRecord): AnyRecord => {
+  return Object.entries(value).reduce(
+    (acc, [k, v]) => (isNullOrUndefinedOrEmptyString(v) ? acc : { ...acc, [k]: v }),
+    {},
+  );
 };

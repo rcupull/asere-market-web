@@ -1,23 +1,24 @@
 import { useFetch } from 'hooks/useFetch';
 
-import { FetchResource } from 'types/api';
+import { FetchResource, FetchResourceWithPagination, PaginatedData } from 'types/api';
 import { Business } from 'types/business';
 import { getEndpoint } from 'utils/api';
+import { getPaginationResources } from 'utils/pagination';
 
 export const useBusinessApi = (): {
-  getAll: FetchResource<undefined, Array<Business>>;
+  getAll: FetchResourceWithPagination<undefined, Business>;
   getOne: FetchResource<{ id: string }, Business>;
   addOne: FetchResource<{ name: string; category: string }, Business>;
   removeOne: FetchResource<{ id: string }, void>;
 } => {
-  const [getAllData, getAllStatus, getAllFetch] = useFetch<Array<Business>>();
+  const [getAllData, getAllStatus, getAllFetch] = useFetch<PaginatedData<Business>>();
   const [getOneData, getOneStatus, getOneFetch] = useFetch<Business>();
   const [addOneData, addOneStatus, addOneFetch] = useFetch<Business>();
   const [removeOneData, removeOneStatus, removeOneFetch] = useFetch();
 
   return {
     getAll: {
-      data: getAllData,
+      ...getPaginationResources(getAllData),
       status: getAllStatus,
       fetch: (_, options = {}) => {
         getAllFetch(

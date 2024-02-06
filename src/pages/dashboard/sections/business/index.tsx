@@ -9,13 +9,15 @@ import { useRouter } from 'features/router';
 
 import { RowActions } from './RowActions';
 
+import { TableTopActions } from 'pages/dashboard/components/table-top-actions';
+
 export const SectionBusiness = () => {
-  const { getAll } = useBusinessApi();
+  const businessApi = useBusinessApi();
 
   const { pushModal } = useModal();
   const { pushRoute, pathname } = useRouter();
 
-  const onRefresh = () => getAll.fetch(undefined);
+  const onRefresh = () => businessApi.getAll.fetch(undefined);
 
   useEffect(() => {
     onRefresh();
@@ -23,7 +25,7 @@ export const SectionBusiness = () => {
 
   return (
     <div>
-      <div className="flex w-full">
+      <TableTopActions>
         <Button
           label="Nuevo"
           onClick={() =>
@@ -33,7 +35,7 @@ export const SectionBusiness = () => {
           }
           className="ml-auto"
         />
-      </div>
+      </TableTopActions>
       <Table
         heads={[null, 'Nombre', 'Category', 'Fecha de Creación']}
         getRowProps={(rowData) => {
@@ -49,7 +51,7 @@ export const SectionBusiness = () => {
             ],
           };
         }}
-        data={getAll.data}
+        data={businessApi.getAll.data}
       />
     </div>
   );

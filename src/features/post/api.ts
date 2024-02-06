@@ -1,11 +1,13 @@
 import { useFetch } from 'hooks/useFetch';
 
-import { FetchResource } from 'types/api';
+import { FetchResource, FetchResourceWithPagination, PaginatedData } from 'types/api';
+import { AnyRecord } from 'types/general';
 import { Post, PostCurrency } from 'types/post';
 import { getEndpoint } from 'utils/api';
+import { getPaginationResources } from 'utils/pagination';
 
 export const usePostsApi = (): {
-  getAll: FetchResource<{ businessId?: string }, Array<Post>>;
+  getAll: FetchResourceWithPagination<{ businessIds?: Array<string>; filters?: AnyRecord }, Post>;
   getOne: FetchResource<{ id: string }, Post>;
   addOne: FetchResource<
     {
@@ -20,25 +22,40 @@ export const usePostsApi = (): {
   >;
   removeOne: FetchResource<{ id: string }, void>;
 } => {
-  const [getAllData, getAllStatus, getAllFetch] = useFetch<Array<Post>>();
+  const [getAllData, getAllStatus, getAllFetch] = useFetch<PaginatedData<Post>>();
   const [getOneData, getOneStatus, getOneFetch] = useFetch<Post>();
   const [addOneData, addOneStatus, addOneFetch] = useFetch<Post>();
   const [removeOneData, removeOneStatus, removeOneFetch] = useFetch();
 
   return {
     getAll: {
-      data: getAllData,
+      ...getPaginationResources(getAllData),
       status: getAllStatus,
-      fetch: ({ businessId }, options = {}) => {
+      fetch: ({ businessIds, filters = {} }, options = {}) => {
+        const getUrl = (): string => {
+          if (!businessIds?.length) {
+            return getEndpoint({ path: '/posts', params: { ...filters } });
+          }
+
+          if (businessIds?.length === 1) {
+            return getEndpoint({
+              path: '/business/:businessId/posts',
+              urlParams: { businessId: businessIds[0] },
+              params: { ...filters },
+            });
+          }
+
+          // businessIds?.length > 1
+          return getEndpoint({
+            path: '/posts',
+            params: { businessIds, ...filters },
+          });
+        };
+
         getAllFetch(
           {
             method: 'get',
-            url: businessId
-              ? getEndpoint({
-                  path: '/business/:businessId/posts',
-                  urlParams: { businessId },
-                })
-              : getEndpoint({ path: '/posts' }),
+            url: getUrl(),
           },
           options,
         );

@@ -1,20 +1,15 @@
 import { useEffect } from 'react';
 
-import { Button } from 'components/button';
-
 import { useBusinessApi } from 'features/business/api';
-import { useModal } from 'features/modal';
 
 import { useParams } from 'hooks/useReactRouter';
 
-import { TabelPosts } from './table-posts';
+import { TablePosts } from './table-posts';
 
 export const SectionBusinessSelected = () => {
   const { businessId } = useParams();
 
-  const bussiness = useBusinessApi();
-
-  const { pushModal } = useModal();
+  const businessApi = useBusinessApi();
 
   useEffect(() => {
     onGetBussiness();
@@ -24,23 +19,11 @@ export const SectionBusinessSelected = () => {
     return <></>;
   }
 
-  const onGetBussiness = () => bussiness.getOne.fetch({ id: businessId });
+  const onGetBussiness = () => businessApi.getOne.fetch({ id: businessId });
 
   return (
     <div>
-      <div className="flex w-full">
-        <Button
-          label="Nuevo"
-          onClick={() =>
-            pushModal('PostNew', {
-              businessId,
-              onAfterSuccess: () => onGetBussiness(),
-            })
-          }
-          className="ml-auto"
-        />
-      </div>
-      <TabelPosts businessId={businessId} />
+      <TablePosts businessId={businessId} />
     </div>
   );
 };

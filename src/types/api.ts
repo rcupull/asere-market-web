@@ -14,6 +14,29 @@ export interface FetchResource<Args = undefined, Data = any> {
   status: FetchStatus;
 }
 
+export interface PaginatedData<D extends AnyRecord = AnyRecord> {
+  data: Array<D>;
+  paginator: {
+    dataCount: number;
+    offset: number;
+    limit: number;
+    pageCount: number;
+    page: number;
+    pagingCounter: number;
+    hasPrevPage: boolean;
+    hasNextPage: boolean;
+    prevPage?: boolean;
+    nextPage?: boolean;
+  };
+}
+
+export interface FetchResourceWithPagination<Args = undefined, D extends AnyRecord = AnyRecord> {
+  data: PaginatedData<D>['data'] | null;
+  paginator?: PaginatedData<D>['paginator'] | null;
+  fetch: (args: Args, options?: FetchOptions<PaginatedData<D>>) => void;
+  status: FetchStatus;
+}
+
 export type ApiStatus = 'NOT_STARTED' | 'BUSY' | 'SUCCESS' | 'FAILED';
 
 export interface ApiError {

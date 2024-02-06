@@ -4,10 +4,10 @@ import { Ellipsis } from 'react-css-spinners';
 import cn from 'classnames';
 
 const primaryStyles =
-  'bg-indigo-600 leading-6 text-white  hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 disabled:bg-indigo-300 ';
+  'bg-indigo-600 text-white  hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 disabled:bg-indigo-300 ';
 const errorStyles = 'bg-red-600 text-white  hover:bg-red-500 disabled:bg-red-300';
 const outlinedStyles =
-  'bg-white text-gray-900  ring-1 ring-inset ring-gray-300 hover:bg-gray-50 disabled:text-gray-500';
+  'bg-white text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 disabled:text-gray-500';
 
 export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: 'primary' | 'outlined' | 'error';
@@ -22,7 +22,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>((props, ref) =>
     <button
       ref={ref}
       className={cn(
-        'relative px-3 py-1.5 text-sm shadow-sm font-semibold rounded-md flex justify-center disabled:cursor-not-allowed',
+        'relative px-3 py-1.5 text-sm shadow-sm font-semibold rounded-md flex justify-center disabled:cursor-not-allowed leading-6',
         {
           [primaryStyles]: variant === 'primary',
           [outlinedStyles]: variant === 'outlined',
