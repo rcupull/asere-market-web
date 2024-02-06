@@ -4,11 +4,13 @@ import { Button } from "../../../../components/button";
 import { useModal } from "../../../../features/modal";
 import { RowActions } from "./RowActions";
 import { useBusinessApi } from "../../../../features/business/api";
+import { useRouter } from "../../../../features/router";
 
 export const SectionBusiness = () => {
   const { getAll } = useBusinessApi();
 
   const { pushModal } = useModal();
+  const { pushRoute, pathname } = useRouter();
 
   const onRefresh = () =>  getAll.fetch(undefined);
 
@@ -32,9 +34,10 @@ export const SectionBusiness = () => {
       <Table
         heads={[null, "Nombre", "Category", "Fecha de Creación"]}
         getRowProps={(rowData) => {
-          const { name, category, createdAt } = rowData;
+          const { name, category, createdAt, _id } = rowData;
 
           return {
+            onClick: ()=> pushRoute(`${pathname}/${_id}`),
             nodes: [
               <RowActions rowData={rowData} onRefresh={onRefresh}/>,
               name,

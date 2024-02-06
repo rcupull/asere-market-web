@@ -9,9 +9,6 @@ export const SectionPosts = () => {
   const [, , handleFetchPosts] = useFetch();
 
 
-  const { pushModal } = useModal();
-
-
   useEffect(() => {
     handleFetchPosts({
       method: "get",
@@ -24,7 +21,7 @@ export const SectionPosts = () => {
   return (
     <div>
       <div className="flex w-full">
-        <Button label="Nuevo" onClick={() => pushModal('PostNew', {})} className="ml-auto" />
+        {/* <Button label="Nuevo" onClick={() => pushModal('PostNew', { businessId})} className="ml-auto" /> */}
       </div>
       <Table
         heads={[]}

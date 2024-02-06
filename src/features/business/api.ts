@@ -1,7 +1,7 @@
-import { FetchResource } from "../../../types/api";
-import { useFetch } from "../../../hooks/useFetch";
-import { Business } from "../../../types/business";
-import { getEndpoint } from "../../../utils/api";
+import { FetchResource } from "../../types/api";
+import { useFetch } from "../../hooks/useFetch";
+import { Business } from "../../types/business";
+import { getEndpoint } from "../../utils/api";
 
 export const useBusinessApi = (): {
   getAll: FetchResource<undefined, Array<Business>>;
