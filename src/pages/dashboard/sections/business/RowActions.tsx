@@ -1,7 +1,9 @@
-import { Button } from "../../../../components/button";
-import { useBusinessApi } from "../../../../features/business/api";
-import { useModal } from "../../../../features/modal";
-import { Business } from "../../../../types/business";
+import { Button } from 'components/button';
+
+import { useBusinessApi } from 'features/business/api';
+import { useModal } from 'features/modal';
+
+import { Business } from 'types/business';
 
 export interface RowActionsProps {
   rowData: Business;
@@ -11,13 +13,13 @@ export const RowActions = ({ rowData, onRefresh }: RowActionsProps) => {
   const { pushModal } = useModal();
 
   const handleDelete = () => {
-    pushModal("Confirmation", {
+    pushModal('Confirmation', {
       useProps: () => {
         const { removeOne } = useBusinessApi();
         const { onClose } = useModal();
 
         return {
-          content: "Seguro que desea eliminar este negocio?",
+          content: 'Seguro que desea eliminar este negocio?',
           primaryBtn: (
             <Button
               label="Eliminar"
@@ -30,7 +32,7 @@ export const RowActions = ({ rowData, onRefresh }: RowActionsProps) => {
                       onClose();
                       onRefresh();
                     },
-                  }
+                  },
                 )
               }
             />

@@ -1,5 +1,6 @@
-import { Modal } from ".";
-import { Button } from "../button";
+import { Button } from 'components/button';
+
+import { Modal } from '.';
 
 export default {
   component: Modal,
@@ -11,12 +12,7 @@ export const Default = () => (
     content="Are you sure you want to deactivate your account? All
     of your data will be permanently removed. This action
     cannot be undone."
-    primaryBtn={
-      <Button
-        variant="primary"
-        label=  "Deactivate"
-      />
-    }
+    primaryBtn={<Button variant="primary" label="Deactivate" />}
   />
 );
 
@@ -26,17 +22,7 @@ export const WithSecoundary = () => (
     content="Are you sure you want to deactivate your account? All
     of your data will be permanently removed. This action
     cannot be undone."
-    primaryBtn={
-      <Button
-        variant="primary"
-        label=  "Deactivate"
-      />
-    }
-    secondaryBtn={
-      <Button
-        variant="outlined"
-        label=  "Reject"
-      />
-    }
+    primaryBtn={<Button variant="primary" label="Deactivate" />}
+    secondaryBtn={<Button variant="outlined" label="Reject" />}
   />
 );

@@ -1,7 +1,10 @@
-import { useEffect } from "react";
-import { useFetch } from "../../hooks/useFetch";
-import { SideBar } from "./components/side-bar";
-import { getEndpoint } from "../../utils/api";
+import { useEffect } from 'react';
+
+import { useFetch } from 'hooks/useFetch';
+
+import { SideBar } from './components/side-bar';
+
+import { getEndpoint } from 'utils/api';
 
 export interface DashboardProps {}
 
@@ -10,8 +13,8 @@ export const Admin = () => {
 
   useEffect(() => {
     handleCall({
-      method: "get",
-      url: getEndpoint({ path: "/user" }),
+      method: 'get',
+      url: getEndpoint({ path: '/user' }),
     });
   }, []);
 

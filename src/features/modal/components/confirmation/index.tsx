@@ -1,7 +1,7 @@
-import { useModal } from "../..";
-import { Button } from "../../../../components/button";
-import { Modal, ModalProps } from "../../../../components/modal";
+import { Button } from 'components/button';
+import { Modal, ModalProps } from 'components/modal';
 
+import { useModal } from 'features/modal';
 
 export interface ConfirmationProps {
   useProps: () => Partial<ModalProps>;
@@ -21,13 +21,11 @@ export const Confirmation = ({ useProps }: ConfirmationProps) => {
           label="Confirmar"
           variant="primary"
           onClick={() => {
-            alert("Some confirmation message");
+            alert('Some confirmation message');
           }}
         />
       }
-      secondaryBtn={
-        <Button label="Cerrar" onClick={() => onClose()} variant="outlined" />
-      }
+      secondaryBtn={<Button label="Cerrar" onClick={() => onClose()} variant="outlined" />}
       {...props}
     />
   );

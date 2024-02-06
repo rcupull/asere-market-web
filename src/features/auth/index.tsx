@@ -1,17 +1,20 @@
-import { createContext, useContext, useState } from "react";
-import { AuthData } from "../../types/auth";
-import { FetchResource } from "../../types/api";
-import { dummyFetchResource } from "../../constants/api";
-import { useFetch } from "../../hooks/useFetch";
-import { getEndpoint } from "../../utils/api";
-import { cookiesUtils } from "../cookies";
+import { createContext, useContext, useState } from 'react';
+
+import { cookiesUtils } from 'features/cookies';
+
+import { useFetch } from 'hooks/useFetch';
+
+import { dummyFetchResource } from 'constants/api';
+import { FetchResource } from 'types/api';
+import { AuthData } from 'types/auth';
+import { getEndpoint } from 'utils/api';
 
 interface AuthState {
   authData: AuthData | null;
   onSignIn: FetchResource<{ email: string; password: string }, AuthData>;
-  onSignUp: FetchResource<{ email: string; password: string; name: string}>;
+  onSignUp: FetchResource<{ email: string; password: string; name: string }>;
   onSignOut: FetchResource;
-  onValidate: FetchResource<{email: string; code: string }>;
+  onValidate: FetchResource<{ email: string; code: string }>;
   isAdmin: boolean;
   isUser: boolean;
   isAuthenticated: boolean;
@@ -25,14 +28,14 @@ const AuthContext = createContext<AuthState>({
   onValidate: dummyFetchResource,
   isAdmin: false,
   isUser: false,
-  isAuthenticated:false
+  isAuthenticated: false,
 });
 
 export const useAuth = () => useContext(AuthContext);
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [authData, setAuthData] = useState<AuthData | null>(
-    (cookiesUtils.getCookie("authData") as AuthData) || null
+    (cookiesUtils.getCookie('authData') as AuthData) || null,
   );
 
   const [singInData, singInStatus, fetchSignIn] = useFetch<AuthData>();
@@ -42,8 +45,8 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
   const value: AuthState = {
     isAuthenticated: !!authData,
-    isAdmin: authData?.user?.role === "admin",
-    isUser: authData?.user?.role === "user",
+    isAdmin: authData?.user?.role === 'admin',
+    isUser: authData?.user?.role === 'user',
     authData,
     onValidate: {
       data: validateData,
@@ -51,11 +54,11 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       fetch: ({ code, email }, options = {}) => {
         fetchValidate(
           {
-            method: "post",
-            url: getEndpoint({ path: "/auth/validate" }),
+            method: 'post',
+            url: getEndpoint({ path: '/auth/validate' }),
             data: { code, email },
           },
-          options
+          options,
         );
       },
     },
@@ -65,11 +68,11 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       fetch: ({ email, name, password }, options = {}) => {
         fetchSignUp(
           {
-            method: "post",
-            url: getEndpoint({ path: "/auth/sign-up" }),
+            method: 'post',
+            url: getEndpoint({ path: '/auth/sign-up' }),
             data: { email, password, name },
           },
-          options
+          options,
         );
       },
     },
@@ -79,20 +82,19 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       fetch: ({ email, password }, options = {}) => {
         fetchSignIn(
           {
-            method: "post",
-            url: getEndpoint({ path: "/auth/sign-in" }),
+            method: 'post',
+            url: getEndpoint({ path: '/auth/sign-in' }),
             data: { email, password },
           },
           {
             ...options,
             onAfterSuccess: (response) => {
-              
-              cookiesUtils.setCookie("authData", response);
+              cookiesUtils.setCookie('authData', response);
               setAuthData(response);
 
               options?.onAfterSuccess?.(response);
             },
-          }
+          },
         );
       },
     },
@@ -100,29 +102,28 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       data: singOutData,
       status: singOutStatus,
       fetch: (_, options) => {
-        const { token } = authData || {}
+        const { token } = authData || {};
 
-        if(!token){
-          console.log("has no token");
-          return 
+        if (!token) {
+          console.log('has no token');
+          return;
         }
 
         fetchSignOut(
           {
-            method: "post",
-            url: getEndpoint({ path: "/auth/sign-out" }),
+            method: 'post',
+            url: getEndpoint({ path: '/auth/sign-out' }),
             data: { token },
           },
           {
             ...options,
             onAfterSuccess: (response) => {
-
-              cookiesUtils.removeCookie("authData");
+              cookiesUtils.removeCookie('authData');
               setAuthData(null);
 
               options?.onAfterSuccess?.(response);
             },
-          }
+          },
         );
       },
     },

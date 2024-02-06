@@ -1,13 +1,16 @@
-import { Button } from "../../../../components/button";
-import { Input } from "../../../../components/input";
-import { Modal } from "../../../../components/modal";
-import { getFormError } from "../../../../utils/validation";
-import { useModal } from "../../../modal";
-import { Formik } from "formik";
-import { useSubmitPortal } from "../../../../hooks/useSubmitPortal";
-import { useBusinessApi } from "../../../business/api";
-import { Select } from "../../../../components/select";
-import { BusinessCategory } from "../../../../types/business";
+import { Button } from 'components/button';
+import { Input } from 'components/input';
+import { Modal } from 'components/modal';
+import { Select } from 'components/select';
+
+import { useBusinessApi } from 'features/business/api';
+import { useModal } from 'features/modal';
+
+import { useSubmitPortal } from 'hooks/useSubmitPortal';
+
+import { Formik } from 'formik';
+import { BusinessCategory } from 'types/business';
+import { getFormError } from 'utils/validation';
 
 export interface BusinessNewProps {
   onAfterSuccess?: (response: any) => void;
@@ -23,25 +26,24 @@ export const BusinessNew = ({ onAfterSuccess }: BusinessNewProps) => {
   const newPostForm = (
     <Formik
       initialValues={{
-        category: "",
-        name: "",
+        category: '',
+        name: '',
       }}
       validate={(values) => {
         return getFormError(values, [
           {
-            field: "category",
-            type: "required",
+            field: 'category',
+            type: 'required',
           },
           {
-            field: "name",
-            type: "required",
+            field: 'name',
+            type: 'required',
           },
         ]);
       }}
       onSubmit={() => {}}
     >
       {({ errors, touched, handleChange, values, isValid }) => {
-
         return (
           <form>
             <Input
@@ -56,25 +58,25 @@ export const BusinessNew = ({ onAfterSuccess }: BusinessNewProps) => {
             <Select<{ category: BusinessCategory; label: string }>
               items={[
                 {
-                  category: "food",
-                  label: "Comida",
+                  category: 'food',
+                  label: 'Comida',
                 },
                 {
-                  category: "clothing",
-                  label: "Vestuario",
+                  category: 'clothing',
+                  label: 'Vestuario',
                 },
                 {
-                  category: "service",
-                  label: "Servicios",
+                  category: 'service',
+                  label: 'Servicios',
                 },
                 {
-                  category: "tool",
-                  label: "Herramientas",
+                  category: 'tool',
+                  label: 'Herramientas',
                 },
               ]}
               renderOption={({ label }) => label}
               renderValue={({ label }) => label}
-              optionToValue={({category})=>category}
+              optionToValue={({ category }) => category}
               name="category"
               onChange={handleChange}
               label="Categoría"
@@ -100,11 +102,11 @@ export const BusinessNew = ({ onAfterSuccess }: BusinessNewProps) => {
                         onClose();
                         onAfterSuccess?.(response);
                       },
-                    }
+                    },
                   );
                 }}
                 variant="primary"
-              />
+              />,
             )}
           </form>
         );
@@ -117,9 +119,7 @@ export const BusinessNew = ({ onAfterSuccess }: BusinessNewProps) => {
       title="Crear Negocio"
       content={newPostForm}
       primaryBtn={<div ref={submitPortal.ref} />}
-      secondaryBtn={
-        <Button label="Cerrar" onClick={() => onClose()} variant="outlined" />
-      }
+      secondaryBtn={<Button label="Cerrar" onClick={() => onClose()} variant="outlined" />}
     />
   );
 };

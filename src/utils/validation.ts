@@ -1,4 +1,4 @@
-import { AnyRecord } from "../types/general";
+import { AnyRecord } from 'types/general';
 
 const emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
 
@@ -18,11 +18,11 @@ export const getFormError = <V extends AnyRecord, F extends keyof V = keyof V>(
   value: V,
   validations: Array<{
     field: F;
-    type: "required" | "email" | "equal" | "custom";
+    type: 'required' | 'email' | 'equal' | 'custom';
     equalField?: F;
     customCb?: (fieldValue: any) => boolean;
     message?: string;
-  }>
+  }>,
 ): Partial<Record<F, string>> => {
   const out: Partial<Record<F, string>> = {};
 
@@ -33,17 +33,17 @@ export const getFormError = <V extends AnyRecord, F extends keyof V = keyof V>(
 
     const fieldValue = value[field];
 
-    if (type === "required" && !validationsCallback.required(fieldValue)) {
+    if (type === 'required' && !validationsCallback.required(fieldValue)) {
       out[field] = message || `This field is required.`;
     }
 
-    if (type === "email" && !validationsCallback.email(fieldValue)) {
+    if (type === 'email' && !validationsCallback.email(fieldValue)) {
       out[field] = message || `This field must be a valid email.`;
     }
 
-    if (type === "custom") {
+    if (type === 'custom') {
       if (!customCb) {
-        return console.log("customCb not found");
+        return console.log('customCb not found');
       }
 
       if (!customCb(fieldValue)) {
@@ -51,14 +51,13 @@ export const getFormError = <V extends AnyRecord, F extends keyof V = keyof V>(
       }
     }
 
-    if (type === "equal") {
+    if (type === 'equal') {
       if (!equalField) {
-        return console.log("equalField not found");
+        return console.log('equalField not found');
       }
 
       if (!validationsCallback.equal(fieldValue, value[equalField])) {
-        out[field] =
-          message || `This field must be equal to ${equalField.toString()}.`;
+        out[field] = message || `This field must be equal to ${equalField.toString()}.`;
       }
     }
   });

@@ -1,19 +1,19 @@
-import { useEffect } from "react";
-import { Table } from "../../../../components/table";
-import { useFetch } from "../../../../hooks/useFetch";
-import { getEndpoint } from "../../../../utils/api";
-import { Button } from "../../../../components/button";
-import { useModal } from "../../../../features/modal";
+import { useEffect } from 'react';
+
+import { Table } from 'components/table';
+
+import { useFetch } from 'hooks/useFetch';
+
+import { getEndpoint } from 'utils/api';
 
 export const SectionPosts = () => {
   const [, , handleFetchPosts] = useFetch();
 
-
   useEffect(() => {
     handleFetchPosts({
-      method: "get",
+      method: 'get',
       url: getEndpoint({
-        path: "/posts",
+        path: '/posts',
       }),
     });
   }, []);

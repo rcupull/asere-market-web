@@ -1,9 +1,11 @@
-import { Formik } from "formik";
-import { useAuth } from "../../features/auth";
-import { useRouter } from "../../features/router";
-import { getFormError } from "../../utils/validation";
-import { Input } from "../../components/input";
-import { Button } from "../../components/button";
+import { Button } from 'components/button';
+import { Input } from 'components/input';
+
+import { useAuth } from 'features/auth';
+import { useRouter } from 'features/router';
+
+import { Formik } from 'formik';
+import { getFormError } from 'utils/validation';
 
 export const ValidateAccount = () => {
   const { onValidate } = useAuth();
@@ -24,20 +26,20 @@ export const ValidateAccount = () => {
 
       <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
         <Formik
-          initialValues={{ email: "", code: "" }}
+          initialValues={{ email: '', code: '' }}
           validate={(values) => {
             return getFormError(values, [
               {
-                field: "email",
-                type: "required",
+                field: 'email',
+                type: 'required',
               },
               {
-                field: "email",
-                type: "email",
+                field: 'email',
+                type: 'email',
               },
               {
-                field: "code",
-                type: "required",
+                field: 'code',
+                type: 'required',
               },
             ]);
           }}
@@ -49,12 +51,12 @@ export const ValidateAccount = () => {
               {
                 onAfterSuccess: () => {
                   setSubmitting(false);
-                  pushRoute("/sign-in");
+                  pushRoute('/sign-in');
                 },
                 onAfterFailed: () => {
                   setSubmitting(false);
                 },
-              }
+              },
             );
           }}
         >

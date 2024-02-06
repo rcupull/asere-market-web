@@ -1,4 +1,4 @@
-import { Table } from ".";
+import { Table } from '.';
 
 export default {
   component: Table,
@@ -15,9 +15,7 @@ const node1 = (
     </div>
 
     <div className="ml-4">
-      <div className="text-sm font-medium leading-5 text-gray-900">
-        John Doe
-      </div>
+      <div className="text-sm font-medium leading-5 text-gray-900">John Doe</div>
       <div className="text-sm leading-5 text-gray-500">john@example.com</div>
     </div>
   </div>
@@ -41,14 +39,14 @@ export const Default = (): JSX.Element => {
     <>
       <Table
         data={[{}, {}, {}, {}, {}, {}]}
-        heads={["Name", "Title", "Status", "Role"]}
+        heads={['Name', 'Title', 'Status', 'Role']}
         getRowProps={() => ({
           nodes: [
             node1,
             node2,
             node3,
-            "Owner",
-            <a href="#" className="text-indigo-600 hover:text-indigo-900">
+            'Owner',
+            <a key={0} href="#" className="text-indigo-600 hover:text-indigo-900">
               Edit
             </a>,
           ],

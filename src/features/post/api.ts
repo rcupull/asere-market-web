@@ -1,7 +1,8 @@
-import { FetchResource } from "../../types/api";
-import { useFetch } from "../../hooks/useFetch";
-import { getEndpoint } from "../../utils/api";
-import { Post, PostCurrency } from "../../types/post";
+import { useFetch } from 'hooks/useFetch';
+
+import { FetchResource } from 'types/api';
+import { Post, PostCurrency } from 'types/post';
+import { getEndpoint } from 'utils/api';
 
 export const usePostsApi = (): {
   getAll: FetchResource<{ businessId?: string }, Array<Post>>;
@@ -31,15 +32,15 @@ export const usePostsApi = (): {
       fetch: ({ businessId }, options = {}) => {
         getAllFetch(
           {
-            method: "get",
+            method: 'get',
             url: businessId
               ? getEndpoint({
-                  path: "/business/:businessId/posts",
+                  path: '/business/:businessId/posts',
                   urlParams: { businessId },
                 })
-              : getEndpoint({ path: "/posts" }),
+              : getEndpoint({ path: '/posts' }),
           },
-          options
+          options,
         );
       },
     },
@@ -49,15 +50,15 @@ export const usePostsApi = (): {
       fetch: ({ id }, options = {}) => {
         getOneFetch(
           {
-            method: "get",
+            method: 'get',
             url: getEndpoint({
-              path: "/posts/:id",
+              path: '/posts/:id',
               urlParams: {
                 id,
               },
             }),
           },
-          options
+          options,
         );
       },
     },
@@ -66,18 +67,18 @@ export const usePostsApi = (): {
       status: addOneStatus,
       fetch: (
         { name, businessId, currency, description, price, amountAvailable },
-        options = {}
+        options = {},
       ) => {
         addOneFetch(
           {
-            method: "post",
+            method: 'post',
             url: getEndpoint({
-              path: "/business/:businessId/posts",
+              path: '/business/:businessId/posts',
               urlParams: { businessId },
             }),
             data: { name, currency, description, price, amountAvailable },
           },
-          options
+          options,
         );
       },
     },
@@ -87,13 +88,13 @@ export const usePostsApi = (): {
       fetch: ({ id }, options = {}) => {
         removeOneFetch(
           {
-            method: "delete",
+            method: 'delete',
             url: getEndpoint({
-              path: "/posts/:id",
+              path: '/posts/:id',
               urlParams: { id },
             }),
           },
-          options
+          options,
         );
       },
     },

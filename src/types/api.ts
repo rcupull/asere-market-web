@@ -1,4 +1,4 @@
-import { AnyRecord } from "./general";
+import { AnyRecord } from './general';
 
 export type OnAfterSuccess<Data = any> = (reponse: Data) => void;
 export type OnAfterFailed = (error: ApiError) => void;
@@ -14,7 +14,7 @@ export interface FetchResource<Args = undefined, Data = any> {
   status: FetchStatus;
 }
 
-export type ApiStatus = "NOT_STARTED" | "BUSY" | "SUCCESS" | "FAILED";
+export type ApiStatus = 'NOT_STARTED' | 'BUSY' | 'SUCCESS' | 'FAILED';
 
 export interface ApiError {
   message: string;
@@ -22,12 +22,9 @@ export interface ApiError {
 
 export type UrlParams = AnyRecord;
 export type Headers = Record<string, string>;
-export type Params = Record<
-  string,
-  string | number | boolean | undefined | Array<any>
->;
+export type Params = Record<string, string | number | boolean | undefined | Array<any>>;
 
-export type FetchMethod = "get" | "post" | "put" | "delete";
+export type FetchMethod = 'get' | 'post' | 'put' | 'delete';
 
 export type GetEndpoint = (args: {
   path: string;

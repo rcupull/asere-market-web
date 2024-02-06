@@ -1,6 +1,6 @@
-import { BaseIdentity } from "./general";
+import { BaseIdentity } from './general';
 
-export type PostCurrency = "CUP" | "USD" | "MLC";
+export type PostCurrency = 'CUP' | 'USD' | 'MLC';
 
 export interface PostImage {
   url: string;

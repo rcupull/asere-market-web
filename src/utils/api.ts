@@ -1,22 +1,19 @@
-import qs from "query-string";
+import { isEmpty, isNullOrUndefined } from './general';
 
-import { isEmpty, isNullOrUndefined } from "./general";
-import { GetEndpoint, Params, UrlParams } from "../types/api";
+import qs from 'query-string';
+import { GetEndpoint, Params, UrlParams } from 'types/api';
 
 export const paramsSerializer = (params: Params): string =>
-  qs.stringify(params, { arrayFormat: "comma" });
+  qs.stringify(params, { arrayFormat: 'comma' });
 
 export const apiErrorsMesages = {
-  networkError: "Network Error",
-  incorrectUsernameOrPassword: "Incorrect username or password.",
+  networkError: 'Network Error',
+  incorrectUsernameOrPassword: 'Incorrect username or password.',
   userNotAutorized:
-    "PreAuthentication failed with error Usted no tiene acceso a los recursos de esta aplicación.",
+    'PreAuthentication failed with error Usted no tiene acceso a los recursos de esta aplicación.',
 };
 
-export const injectUrlParams = (
-  url: string,
-  urlParams: UrlParams = {}
-): string => {
+export const injectUrlParams = (url: string, urlParams: UrlParams = {}): string => {
   let filledUrl = url;
 
   Object.entries(urlParams).forEach(([key, value]) => {

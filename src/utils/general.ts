@@ -1,15 +1,11 @@
-import { EmptyObjectOf, Nullable } from "../types/general";
+import { EmptyObjectOf, Nullable } from 'types/general';
 
-export const isNullOrUndefined = (
-  value: unknown
-): value is null | undefined => {
+export const isNullOrUndefined = (value: unknown): value is null | undefined => {
   return value === null || value === undefined;
 };
 
-export const isNullOrUndefinedOrEmptyString = (
-  value: unknown
-): value is null | undefined | "" => {
-  return isNullOrUndefined(value) || value === "";
+export const isNullOrUndefinedOrEmptyString = (value: unknown): value is null | undefined | '' => {
+  return isNullOrUndefined(value) || value === '';
 };
 
 export const compact = <T = any>(value: Array<Nullable<T>>): Array<T> => {
@@ -17,11 +13,11 @@ export const compact = <T = any>(value: Array<Nullable<T>>): Array<T> => {
 };
 
 export const isEmpty = <T = object>(
-  value: T | null | undefined
+  value: T | null | undefined,
 ): value is EmptyObjectOf<T> | null | undefined => {
   if (!value) return true;
 
-  if (typeof value === "object") {
+  if (typeof value === 'object') {
     const keys = Object.keys(value);
     return !keys.length;
   }

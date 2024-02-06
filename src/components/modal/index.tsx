@@ -1,6 +1,6 @@
-import { Fragment, cloneElement } from "react";
-import { Dialog, Transition } from "@headlessui/react";
-import { ExclamationTriangleIcon } from "@heroicons/react/24/outline";
+import { Dialog, Transition } from '@headlessui/react';
+import { ExclamationTriangleIcon } from '@heroicons/react/24/outline';
+import { cloneElement, Fragment } from 'react';
 
 export interface ModalProps {
   title: string;
@@ -9,12 +9,7 @@ export interface ModalProps {
   secondaryBtn?: React.ReactElement;
 }
 
-export const Modal = ({
-  title,
-  content,
-  primaryBtn,
-  secondaryBtn,
-}: ModalProps) => {
+export const Modal = ({ title, content, primaryBtn, secondaryBtn }: ModalProps) => {
   return (
     <Transition.Root show={true} as={Fragment}>
       <Dialog
@@ -69,12 +64,12 @@ export const Modal = ({
                 <div className="bg-gray-50 px-4 py-3 sm:flex sm:flex-row sm:px-6">
                   {primaryBtn &&
                     cloneElement(primaryBtn, {
-                      className: "w-full sm:w-auto ml-auto",
+                      className: 'w-full sm:w-auto ml-auto',
                     })}
 
                   {secondaryBtn &&
                     cloneElement(secondaryBtn, {
-                      className: "w-full sm:w-auto mt-3 sm:mt-0 ml-0 sm:ml-3",
+                      className: 'w-full sm:w-auto mt-3 sm:mt-0 ml-0 sm:ml-3',
                     })}
                 </div>
               </Dialog.Panel>

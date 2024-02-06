@@ -1,4 +1,4 @@
-import { ProductSimple } from ".";
+import { ProductSimple } from '.';
 
 export default {
   component: ProductSimple,
@@ -9,6 +9,6 @@ export const Default = (): JSX.Element => (
     imageSrc="https://tailwindui.com/img/ecommerce-images/category-page-04-image-card-01.jpg"
     href="#"
     name="Earthen Bottle"
-    price={"$78"}
+    price="$78"
   />
 );

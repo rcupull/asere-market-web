@@ -1,4 +1,4 @@
-import { Badge } from ".";
+import { Badge } from '.';
 
 export default {
   component: Badge,
@@ -7,11 +7,11 @@ export default {
 export const Variants = () => (
   <>
     <Badge variant="error" />
-    <br/>
-    <br/>
+    <br />
+    <br />
     <Badge variant="info" />
-    <br/>
-    <br/>
+    <br />
+    <br />
     <Badge variant="success" />
   </>
 );

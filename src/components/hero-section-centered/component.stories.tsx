@@ -1,4 +1,4 @@
-import { HeroSectionCentered } from ".";
+import { HeroSectionCentered } from '.';
 
 export default {
   component: HeroSectionCentered,

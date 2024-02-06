@@ -1,4 +1,4 @@
-import { Nullable, StyleProps } from "../../types/general";
+import { Nullable, StyleProps } from 'types/general';
 
 export interface FormFieldWrapperProps extends StyleProps {
   error?: Nullable<string>;
@@ -14,9 +14,7 @@ export const FormFieldWrapper = ({
   return (
     <div className={className}>
       {label && (
-        <label className="block text-sm font-medium leading-6 text-gray-900 mb-2">
-          {label}
-        </label>
+        <label className="block text-sm font-medium leading-6 text-gray-900 mb-2">{label}</label>
       )}
       {children}
       {error}

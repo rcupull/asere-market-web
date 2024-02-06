@@ -1,7 +1,10 @@
-import { useEffect } from "react";
-import { usePostsApi } from "../../../../../features/post/api";
-import { Table } from "../../../../../components/table";
-import { RowActions } from "./RowActions";
+import { useEffect } from 'react';
+
+import { Table } from 'components/table';
+
+import { usePostsApi } from 'features/post/api';
+
+import { RowActions } from './RowActions';
 
 export interface TablePostsProps {
   businessId: string;
@@ -18,20 +21,21 @@ export const TabelPosts = ({ businessId }: TablePostsProps) => {
 
   return (
     <Table
-      heads={[null, "Nombre", "Descripión", "Moneda", "Precio", "Disponibilidad", "Fecha de Creación"]}
+      heads={[
+        null,
+        'Nombre',
+        'Descripión',
+        'Moneda',
+        'Precio',
+        'Disponibilidad',
+        'Fecha de Creación',
+      ]}
       getRowProps={(rowData) => {
-        const {
-          name,
-          createdAt,
-          description,
-          currency,
-          price,
-          amountAvailable,
-        } = rowData;
+        const { name, createdAt, description, currency, price, amountAvailable } = rowData;
 
         return {
           nodes: [
-            <RowActions rowData={rowData} onRefresh={onRefresh} />,
+            <RowActions key="RowActions" rowData={rowData} onRefresh={onRefresh} />,
             name,
             description,
             currency,

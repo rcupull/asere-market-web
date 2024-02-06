@@ -1,6 +1,7 @@
-import { ProductsGroup } from ".";
-import { ProductSimple } from "../product-simple";
-import { ProductInlinePrice } from "../product-inline-price";
+import { ProductInlinePrice } from 'components/product-inline-price';
+import { ProductSimple } from 'components/product-simple';
+
+import { ProductsGroup } from '.';
 
 export default {
   component: ProductsGroup,
@@ -8,22 +9,19 @@ export default {
 
 const productItems = [
   {
-    title: "Earthen Bottle",
-    price: "$78",
-    imageSrc:
-      "https://tailwindui.com/img/ecommerce-images/category-page-04-image-card-01.jpg",
+    title: 'Earthen Bottle',
+    price: '$78',
+    imageSrc: 'https://tailwindui.com/img/ecommerce-images/category-page-04-image-card-01.jpg',
   },
   {
-    title: "Nomad Tumbler",
-    price: "$129",
-    imageSrc:
-      "https://tailwindui.com/img/ecommerce-images/category-page-04-image-card-02.jpg",
+    title: 'Nomad Tumbler',
+    price: '$129',
+    imageSrc: 'https://tailwindui.com/img/ecommerce-images/category-page-04-image-card-02.jpg',
   },
   {
-    title: "Hanging Beste",
-    price: "$78",
-    imageSrc:
-      "https://tailwindui.com/img/ecommerce-images/category-page-04-image-card-03.jpg",
+    title: 'Hanging Beste',
+    price: '$78',
+    imageSrc: 'https://tailwindui.com/img/ecommerce-images/category-page-04-image-card-03.jpg',
   },
 ];
 

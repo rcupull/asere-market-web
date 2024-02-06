@@ -1,9 +1,13 @@
-import { useEffect } from "react";
-import { Button } from "../../../../components/button";
-import { useModal } from "../../../../features/modal";
-import { useBusinessApi } from "../../../../features/business/api";
-import { useParams } from "../../../../hooks/useReactRouter";
-import { TabelPosts } from "./table-posts";
+import { useEffect } from 'react';
+
+import { Button } from 'components/button';
+
+import { useBusinessApi } from 'features/business/api';
+import { useModal } from 'features/modal';
+
+import { useParams } from 'hooks/useReactRouter';
+
+import { TabelPosts } from './table-posts';
 
 export const SectionBusinessSelected = () => {
   const { businessId } = useParams();
@@ -28,7 +32,7 @@ export const SectionBusinessSelected = () => {
         <Button
           label="Nuevo"
           onClick={() =>
-            pushModal("PostNew", {
+            pushModal('PostNew', {
               businessId,
               onAfterSuccess: () => onGetBussiness(),
             })

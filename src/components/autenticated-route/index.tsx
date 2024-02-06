@@ -1,10 +1,12 @@
-import { Navigate } from "react-router-dom";
-import { useAuth } from "../../features/auth";
-import {  UserRole } from "../../types/auth";
+import { Navigate } from 'react-router-dom';
+
+import { useAuth } from 'features/auth';
+
+import { UserRole } from 'types/auth';
 
 export interface PrivateRouteProps {
   children: React.ReactNode;
-  roles?: Array<UserRole>
+  roles?: Array<UserRole>;
 }
 export const AuthenticatedRoute = ({ children, roles }: PrivateRouteProps) => {
   const { authData } = useAuth();
@@ -15,7 +17,7 @@ export const AuthenticatedRoute = ({ children, roles }: PrivateRouteProps) => {
     return <Navigate to="/sign-in" />;
   }
 
-  if(role && roles?.length && !roles.includes(role)){
+  if (role && roles?.length && !roles.includes(role)) {
     return <Navigate to="/not-found" />;
   }
 
@@ -23,7 +25,5 @@ export const AuthenticatedRoute = ({ children, roles }: PrivateRouteProps) => {
 };
 
 export const withAuthenticatedRoute = (element: React.ReactNode, roles?: Array<UserRole>) => (
-  <AuthenticatedRoute roles={roles}>
-    {element}
-  </AuthenticatedRoute>
+  <AuthenticatedRoute roles={roles}>{element}</AuthenticatedRoute>
 );

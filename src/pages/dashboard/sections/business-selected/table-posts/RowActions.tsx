@@ -1,7 +1,9 @@
-import { Button } from "../../../../../components/button";
-import { useModal } from "../../../../../features/modal";
-import { usePostsApi } from "../../../../../features/post/api";
-import { Post } from "../../../../../types/post";
+import { Button } from 'components/button';
+
+import { useModal } from 'features/modal';
+import { usePostsApi } from 'features/post/api';
+
+import { Post } from 'types/post';
 
 export interface RowActionsProps {
   rowData: Post;
@@ -11,13 +13,13 @@ export const RowActions = ({ rowData, onRefresh }: RowActionsProps) => {
   const { pushModal } = useModal();
 
   const handleDelete = () => {
-    pushModal("Confirmation", {
+    pushModal('Confirmation', {
       useProps: () => {
         const { removeOne } = usePostsApi();
         const { onClose } = useModal();
 
         return {
-          content: "Seguro que desea eliminar este post?",
+          content: 'Seguro que desea eliminar este post?',
           primaryBtn: (
             <Button
               label="Eliminar"
@@ -30,7 +32,7 @@ export const RowActions = ({ rowData, onRefresh }: RowActionsProps) => {
                       onClose();
                       onRefresh();
                     },
-                  }
+                  },
                 )
               }
             />

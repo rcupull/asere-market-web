@@ -1,13 +1,16 @@
-import { Button } from "../../../../components/button";
-import { Input } from "../../../../components/input";
-import { Modal } from "../../../../components/modal";
-import { getFormError } from "../../../../utils/validation";
-import { useModal } from "../..";
-import { Formik } from "formik";
-import { useSubmitPortal } from "../../../../hooks/useSubmitPortal";
-import { usePostsApi } from "../../../post/api";
-import { Select } from "../../../../components/select";
-import { Post, PostCurrency } from "../../../../types/post";
+import { Button } from 'components/button';
+import { Input } from 'components/input';
+import { Modal } from 'components/modal';
+import { Select } from 'components/select';
+
+import { useModal } from 'features/modal';
+import { usePostsApi } from 'features/post/api';
+
+import { useSubmitPortal } from 'hooks/useSubmitPortal';
+
+import { Formik } from 'formik';
+import { Post, PostCurrency } from 'types/post';
+import { getFormError } from 'utils/validation';
 
 export interface PostNewProps {
   onAfterSuccess?: (response: any) => void;
@@ -24,29 +27,29 @@ export const PostNew = ({ onAfterSuccess, businessId }: PostNewProps) => {
   const newPostForm = (
     <Formik<Pick<Post, 'name' | 'description' | 'currency' | 'amountAvailable' | 'price'>>
       initialValues={{
-        description: "",
-        name: "",
-        currency: "CUP",
+        description: '',
+        name: '',
+        currency: 'CUP',
         price: 0,
         amountAvailable: 0,
       }}
       validate={(values) => {
         return getFormError(values, [
           {
-            field: "description",
-            type: "required",
+            field: 'description',
+            type: 'required',
           },
           {
-            field: "name",
-            type: "required",
+            field: 'name',
+            type: 'required',
           },
           {
-            field: "currency",
-            type: "required",
+            field: 'currency',
+            type: 'required',
           },
           {
-            field: "price",
-            type: "required",
+            field: 'price',
+            type: 'required',
           },
         ]);
       }}
@@ -70,9 +73,7 @@ export const PostNew = ({ onAfterSuccess, businessId }: PostNewProps) => {
               autoComplete="post_description"
               label="Descripción"
               onChange={handleChange}
-              error={
-                errors.description && touched.description && errors.description
-              }
+              error={errors.description && touched.description && errors.description}
               className="mt-6"
             />
 
@@ -87,16 +88,16 @@ export const PostNew = ({ onAfterSuccess, businessId }: PostNewProps) => {
               className="mt-6"
             />
 
-            <Select<{ currency: PostCurrency; }>
+            <Select<{ currency: PostCurrency }>
               items={[
                 {
-                  currency: "CUP",
+                  currency: 'CUP',
                 },
                 {
-                  currency: "MLC",
+                  currency: 'MLC',
                 },
                 {
-                  currency: "USD",
+                  currency: 'USD',
                 },
               ]}
               renderOption={({ currency }) => currency}
@@ -116,11 +117,7 @@ export const PostNew = ({ onAfterSuccess, businessId }: PostNewProps) => {
               label="Cantidad disponible"
               type="number"
               onChange={handleChange}
-              error={
-                errors.amountAvailable &&
-                touched.amountAvailable &&
-                errors.amountAvailable
-              }
+              error={errors.amountAvailable && touched.amountAvailable && errors.amountAvailable}
               className="mt-6"
             />
 
@@ -130,13 +127,7 @@ export const PostNew = ({ onAfterSuccess, businessId }: PostNewProps) => {
                 isBusy={posts.addOne.status.isBusy}
                 disabled={!isValid}
                 onClick={() => {
-                  const {
-                    description,
-                    name,
-                    amountAvailable,
-                    currency,
-                    price,
-                  } = values;
+                  const { description, name, amountAvailable, currency, price } = values;
 
                   posts.addOne.fetch(
                     {
@@ -147,11 +138,11 @@ export const PostNew = ({ onAfterSuccess, businessId }: PostNewProps) => {
                       price,
                       amountAvailable,
                     },
-                    { onAfterSuccess }
+                    { onAfterSuccess },
                   );
                 }}
                 variant="primary"
-              />
+              />,
             )}
           </form>
         );
@@ -164,9 +155,7 @@ export const PostNew = ({ onAfterSuccess, businessId }: PostNewProps) => {
       title="Nuevo Post"
       content={newPostForm}
       primaryBtn={<div ref={submitPortal.ref} />}
-      secondaryBtn={
-        <Button label="Cerrar" onClick={() => onClose()} variant="outlined" />
-      }
+      secondaryBtn={<Button label="Cerrar" onClick={() => onClose()} variant="outlined" />}
     />
   );
 };

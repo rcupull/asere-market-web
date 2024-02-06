@@ -1,10 +1,13 @@
-import { useEffect } from "react";
-import { Table } from "../../../../components/table";
-import { Button } from "../../../../components/button";
-import { useModal } from "../../../../features/modal";
-import { RowActions } from "./RowActions";
-import { useBusinessApi } from "../../../../features/business/api";
-import { useRouter } from "../../../../features/router";
+import { useEffect } from 'react';
+
+import { Button } from 'components/button';
+import { Table } from 'components/table';
+
+import { useBusinessApi } from 'features/business/api';
+import { useModal } from 'features/modal';
+import { useRouter } from 'features/router';
+
+import { RowActions } from './RowActions';
 
 export const SectionBusiness = () => {
   const { getAll } = useBusinessApi();
@@ -12,10 +15,10 @@ export const SectionBusiness = () => {
   const { pushModal } = useModal();
   const { pushRoute, pathname } = useRouter();
 
-  const onRefresh = () =>  getAll.fetch(undefined);
+  const onRefresh = () => getAll.fetch(undefined);
 
   useEffect(() => {
-    onRefresh()
+    onRefresh();
   }, []);
 
   return (
@@ -24,7 +27,7 @@ export const SectionBusiness = () => {
         <Button
           label="Nuevo"
           onClick={() =>
-            pushModal("BusinessNew", {
+            pushModal('BusinessNew', {
               onAfterSuccess: onRefresh,
             })
           }
@@ -32,14 +35,14 @@ export const SectionBusiness = () => {
         />
       </div>
       <Table
-        heads={[null, "Nombre", "Category", "Fecha de Creación"]}
+        heads={[null, 'Nombre', 'Category', 'Fecha de Creación']}
         getRowProps={(rowData) => {
           const { name, category, createdAt, _id } = rowData;
 
           return {
-            onClick: ()=> pushRoute(`${pathname}/${_id}`),
+            onClick: () => pushRoute(`${pathname}/${_id}`),
             nodes: [
-              <RowActions rowData={rowData} onRefresh={onRefresh}/>,
+              <RowActions key="RowActions" rowData={rowData} onRefresh={onRefresh} />,
               name,
               category,
               createdAt,

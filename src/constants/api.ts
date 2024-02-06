@@ -1,4 +1,4 @@
-import { FetchResource, FetchStatus } from "../types/api";
+import { FetchResource, FetchStatus } from 'types/api';
 
 export const dummyStatus: FetchStatus = {
   error: null,
@@ -10,6 +10,7 @@ export const dummyStatus: FetchStatus = {
 };
 
 export const dummyFetchResource: FetchResource<any> = {
+  data: null,
   fetch: () => {},
   status: dummyStatus,
 };

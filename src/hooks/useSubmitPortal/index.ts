@@ -1,5 +1,5 @@
-import { RefCallback, useState } from "react";
-import { createPortal } from "react-dom";
+import { RefCallback, useState } from 'react';
+import { createPortal } from 'react-dom';
 
 export const useSubmitPortal = (): {
   ref: RefCallback<HTMLElement>;

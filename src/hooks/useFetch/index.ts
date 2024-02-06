@@ -1,5 +1,10 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState } from 'react';
 
+import { useAuth } from 'features/auth';
+
+import { useDebouncedValue } from 'hooks/useDebouncedValue';
+
+import axios from 'axios';
 import {
   ApiError,
   ApiStatus,
@@ -9,10 +14,7 @@ import {
   Headers,
   OnAfterFailed,
   OnAfterSuccess,
-} from "../../types/api";
-import { useDebouncedValue } from "../useDebouncedValue";
-import axios from "axios";
-import { useAuth } from "../../features/auth";
+} from 'types/api';
 
 export type FetchOptions<Data = any> = {
   onAfterSuccess?: OnAfterSuccess<Data>;
@@ -28,19 +30,19 @@ export type FetchFnCall<Data = unknown> = (
     headers?: Headers;
     responseTransform?: (res: any) => any;
   },
-  options?: Omit<FetchOptions<Data>, "fetchWhenMount">
+  options?: Omit<FetchOptions<Data>, 'fetchWhenMount'>,
 ) => void;
 export type UseFetchReturn<Data = unknown> = [
   FetchData<Data>,
   FetchStatus,
   FetchFnCall<Data>,
-  FetchFnReset
+  FetchFnReset,
 ];
 
 export const useFetch = <Data = any>(): UseFetchReturn<Data> => {
   const [response, setResponse] = useState<FetchData<Data>>(null);
   const [error, setError] = useState<ApiError | null>(null);
-  const [status, setStatus] = useState<ApiStatus>("NOT_STARTED");
+  const [status, setStatus] = useState<ApiStatus>('NOT_STARTED');
   const [wasCalled, setWasCalled] = useState<boolean>(false);
 
   const { authData } = useAuth();
@@ -48,25 +50,25 @@ export const useFetch = <Data = any>(): UseFetchReturn<Data> => {
   const debouncedStatus = useDebouncedValue<ApiStatus>(status, 100);
 
   useEffect(() => {
-    if (debouncedStatus === "SUCCESS") {
-      setStatus("NOT_STARTED");
+    if (debouncedStatus === 'SUCCESS') {
+      setStatus('NOT_STARTED');
     }
   }, [debouncedStatus]);
 
   const handleReset = () => {
     setResponse(null);
     setError(null);
-    setStatus("NOT_STARTED");
+    setStatus('NOT_STARTED');
     setWasCalled(false);
   };
 
   const handleFetch: FetchFnCall<Data> = async (args, options) => {
-    if (!args) throw new Error("Should set some fetch args");
+    if (!args) throw new Error('Should set some fetch args');
 
     const { onAfterSuccess, onAfterFailed } = options || {};
 
     try {
-      setStatus("BUSY");
+      setStatus('BUSY');
       const { method, url, data, headers = {}, responseTransform } = args;
 
       const axiosResponse = await axios({
@@ -87,13 +89,13 @@ export const useFetch = <Data = any>(): UseFetchReturn<Data> => {
 
       setResponse(response);
       onAfterSuccess?.(response);
-      setStatus("SUCCESS");
+      setStatus('SUCCESS');
       setWasCalled(true);
     } catch (e) {
       onAfterFailed?.(e as ApiError);
       setResponse(null);
       setError(e as ApiError);
-      setStatus("FAILED");
+      setStatus('FAILED');
       setWasCalled(true);
     }
   };
@@ -101,10 +103,10 @@ export const useFetch = <Data = any>(): UseFetchReturn<Data> => {
   return [
     response,
     {
-      isNotStarted: status === "NOT_STARTED",
-      isBusy: status === "BUSY",
-      isFailed: status === "FAILED",
-      isSuccess: status === "SUCCESS",
+      isNotStarted: status === 'NOT_STARTED',
+      isBusy: status === 'BUSY',
+      isFailed: status === 'FAILED',
+      isSuccess: status === 'SUCCESS',
       error,
       wasCalled,
     },

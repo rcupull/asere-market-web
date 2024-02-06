@@ -1,4 +1,4 @@
-import cn from "classnames";
+import cn from 'classnames';
 export interface Props {
   className?: string;
   href: string;
@@ -19,10 +19,7 @@ export const ProductInlinePrice = ({
   price,
 }: Props) => {
   return (
-    <div
-      data-id="ProductInlinePrice"
-      className={cn("group relative", className)}
-    >
+    <div data-id="ProductInlinePrice" className={cn('group relative', className)}>
       <div className="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none group-hover:opacity-75 lg:h-80">
         <img
           src={imageSrc}

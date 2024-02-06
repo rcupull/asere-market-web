@@ -1,10 +1,13 @@
-import { Formik } from "formik";
-import { useAuth } from "../../features/auth";
-import { Link } from "react-router-dom";
-import { useRouter } from "../../features/router";
-import { getFormError } from "../../utils/validation";
-import { Input } from "../../components/input";
-import { Button } from "../../components/button";
+import { Link } from 'react-router-dom';
+
+import { Button } from 'components/button';
+import { Input } from 'components/input';
+
+import { useAuth } from 'features/auth';
+import { useRouter } from 'features/router';
+
+import { Formik } from 'formik';
+import { getFormError } from 'utils/validation';
 
 export const SignUp = () => {
   const { onSignUp } = useAuth();
@@ -26,33 +29,33 @@ export const SignUp = () => {
       <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
         <Formik
           initialValues={{
-            email: "",
-            password: "",
-            confirmPassword: "",
-            name: "",
+            email: '',
+            password: '',
+            confirmPassword: '',
+            name: '',
           }}
           validate={(values) => {
             return getFormError(values, [
               {
-                field: "email",
-                type: "required",
+                field: 'email',
+                type: 'required',
               },
               {
-                field: "email",
-                type: "email",
+                field: 'email',
+                type: 'email',
               },
               {
-                field: "password",
-                type: "required",
+                field: 'password',
+                type: 'required',
               },
               {
-                field: "name",
-                type: "required",
+                field: 'name',
+                type: 'required',
               },
               {
-                field: "confirmPassword",
-                type: "equal",
-                equalField: "password",
+                field: 'confirmPassword',
+                type: 'equal',
+                equalField: 'password',
               },
             ]);
           }}
@@ -65,19 +68,18 @@ export const SignUp = () => {
                 onAfterSuccess: () => {
                   setSubmitting(false);
 
-                  pushRoute("/validate-account");
+                  pushRoute('/validate-account');
                 },
                 onAfterFailed: () => {
                   setSubmitting(false);
                 },
-              }
+              },
             );
           }}
         >
           {({ errors, touched, handleSubmit, isSubmitting }) => {
             return (
               <form onSubmit={handleSubmit}>
-
                 <Input
                   id="name"
                   name="name"
@@ -103,16 +105,11 @@ export const SignUp = () => {
                     type="password"
                     autoComplete="password"
                     label="Password"
-                    error={
-                      errors.password && touched.password && errors.password
-                    }
+                    error={errors.password && touched.password && errors.password}
                     className="mt-6"
                   />
                   <div className="absolute top-0 right-0 text-sm">
-                    <a
-                      href="#"
-                      className="font-semibold text-indigo-600 hover:text-indigo-500"
-                    >
+                    <a href="#" className="font-semibold text-indigo-600 hover:text-indigo-500">
                       Forgot password?
                     </a>
                   </div>
@@ -124,9 +121,7 @@ export const SignUp = () => {
                   type="password"
                   label="Confirm Password"
                   error={
-                    errors.confirmPassword &&
-                    touched.confirmPassword &&
-                    errors.confirmPassword
+                    errors.confirmPassword && touched.confirmPassword && errors.confirmPassword
                   }
                   className="mt-6"
                 />

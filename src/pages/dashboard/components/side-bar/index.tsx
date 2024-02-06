@@ -1,6 +1,8 @@
-import { SideBar as SideBarBase } from "../../../../components/side-bar";
-import { XMarkIcon, BookmarkIcon } from "@heroicons/react/24/outline";
-import { StyleProps } from "../../../../types/general";
+import { BookmarkIcon, XMarkIcon } from '@heroicons/react/24/outline';
+
+import { SideBar as SideBarBase } from 'components/side-bar';
+
+import { StyleProps } from 'types/general';
 
 export interface SideBarProps extends StyleProps {}
 
@@ -10,13 +12,13 @@ export const SideBar = ({ className }: SideBarProps) => {
       className={className}
       items={[
         {
-          label: "Negocios",
-          href: "/dashboard/business",
+          label: 'Negocios',
+          href: '/dashboard/business',
           svg: BookmarkIcon,
         },
         {
-          label: "Settings",
-          href: "/dashboard/settings",
+          label: 'Settings',
+          href: '/dashboard/settings',
           svg: XMarkIcon,
         },
       ]}

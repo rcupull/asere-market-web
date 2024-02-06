@@ -1,5 +1,6 @@
-import { useEffect, useRef, useState } from "react";
-import { useDebouncer } from "../useDebouncer";
+import { useEffect, useRef, useState } from 'react';
+
+import { useDebouncer } from 'hooks/useDebouncer';
 
 export function useDebouncedValue<T = any>(value: T, delay = 0): T {
   const previousValue = useRef(value);

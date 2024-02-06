@@ -1,26 +1,26 @@
-import { Fragment, useEffect, useState } from "react";
-import { Listbox, Transition } from "@headlessui/react";
-import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/20/solid";
-import { AnyRecord, StyleProps } from "../../types/general";
-import cn from "classnames";
-import { FormFieldWrapper, FormFieldWrapperProps } from "../form-field-wrapper";
-import { useField } from "formik";
+import { Listbox, Transition } from '@headlessui/react';
+import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid';
+import { Fragment, useEffect, useState } from 'react';
 
-export interface SelectProps<Option extends AnyRecord = AnyRecord, Value extends any = any>
+import { FormFieldWrapper, FormFieldWrapperProps } from 'components/form-field-wrapper';
+
+import cn from 'classnames';
+import { useField } from 'formik';
+import { AnyRecord, StyleProps } from 'types/general';
+
+export interface SelectProps<Option extends AnyRecord = AnyRecord, Value = any>
   extends StyleProps,
     FormFieldWrapperProps {
   onChange?: (e: React.ChangeEvent) => void;
   value?: Value;
   items: Array<Option>;
-  optionToValue?: (option: Option)=>Value
+  optionToValue?: (option: Option) => Value;
   renderOption: (option: Option) => React.ReactNode;
   renderValue: (option: Option) => React.ReactNode;
   name: string;
 }
 
-export const Select = <Value extends AnyRecord = AnyRecord>(
-  props: SelectProps<Value>
-) => {
+export const Select = <Value extends AnyRecord = AnyRecord>(props: SelectProps<Value>) => {
   const {
     value,
     items,
@@ -31,7 +31,7 @@ export const Select = <Value extends AnyRecord = AnyRecord>(
     className,
     error,
     name,
-    optionToValue
+    optionToValue,
   } = props;
   const [state, setState] = useState<Value>();
 
@@ -51,7 +51,9 @@ export const Select = <Value extends AnyRecord = AnyRecord>(
         onChange={(newSelectedOption) => {
           setState(newSelectedOption);
 
-          const newSelectedValue = optionToValue ? optionToValue(newSelectedOption) : newSelectedOption;
+          const newSelectedValue = optionToValue
+            ? optionToValue(newSelectedOption)
+            : newSelectedOption;
 
           field.onChange({
             target: {
@@ -62,20 +64,15 @@ export const Select = <Value extends AnyRecord = AnyRecord>(
         }}
       >
         {({ open }) => (
-          <div className={cn("relative w-64")}>
+          <div className={cn('relative w-64')}>
             <Listbox.Button
               name={field.name}
               onBlur={field.onBlur}
               className="relative w-full cursor-pointer rounded-md bg-white py-1.5 pl-3 pr-10 text-left text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 sm:text-sm sm:leading-6"
             >
-              <div className="flex items-center h-5">
-                {state && renderValue(state)}
-              </div>
+              <div className="flex items-center h-5">{state && renderValue(state)}</div>
               <span className="pointer-events-none absolute inset-y-0 right-0 ml-3 flex items-center pr-2">
-                <ChevronUpDownIcon
-                  className="h-5 w-5 text-gray-400"
-                  aria-hidden="true"
-                />
+                <ChevronUpDownIcon className="h-5 w-5 text-gray-400" aria-hidden="true" />
               </span>
             </Listbox.Button>
 
@@ -92,35 +89,29 @@ export const Select = <Value extends AnyRecord = AnyRecord>(
                     <Listbox.Option
                       key={index}
                       className={({ active }) => {
-                        return cn(
-                          "text-gray-900 relative select-none cursor-pointer",
-                          {
-                            ["bg-indigo-600 text-white"]: active,
-                          }
-                        );
+                        return cn('text-gray-900 relative select-none cursor-pointer', {
+                          ['bg-indigo-600 text-white']: active,
+                        });
                       }}
                       value={item}
                     >
                       {({ selected }) => (
                         <div
-                          className={cn("p-2", {
-                            ["bg-gray-200"]: selected,
+                          className={cn('p-2', {
+                            ['bg-gray-200']: selected,
                           })}
                         >
-                          <div className={"flex items-center ml-3 truncate"}>
+                          <div className="flex items-center ml-3 truncate">
                             {renderOption(item)}
                           </div>
 
                           {selected && (
                             <span
                               className={cn(
-                                "bg-inherit absolute inset-y-0 right-0 flex items-center pr-4 text-indigo-600"
+                                'bg-inherit absolute inset-y-0 right-0 flex items-center pr-4 text-indigo-600',
                               )}
                             >
-                              <CheckIcon
-                                className="h-5 w-5"
-                                aria-hidden="true"
-                              />
+                              <CheckIcon className="h-5 w-5" aria-hidden="true" />
                             </span>
                           )}
                         </div>

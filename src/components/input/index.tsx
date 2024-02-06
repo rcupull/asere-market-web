@@ -1,6 +1,8 @@
-import { Field } from "formik";
-import { forwardRef } from "react";
-import { FormFieldWrapper, FormFieldWrapperProps } from "../form-field-wrapper";
+import { forwardRef } from 'react';
+
+import { FormFieldWrapper, FormFieldWrapperProps } from 'components/form-field-wrapper';
+
+import { Field } from 'formik';
 
 export interface InputProps
   extends React.InputHTMLAttributes<HTMLInputElement>,

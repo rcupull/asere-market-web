@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useRef } from 'react';
 
 export interface UseDebouncerReturn {
   (callback: (...args: any[]) => void, delay?: number): void;

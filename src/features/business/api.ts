@@ -1,7 +1,8 @@
-import { FetchResource } from "../../types/api";
-import { useFetch } from "../../hooks/useFetch";
-import { Business } from "../../types/business";
-import { getEndpoint } from "../../utils/api";
+import { useFetch } from 'hooks/useFetch';
+
+import { FetchResource } from 'types/api';
+import { Business } from 'types/business';
+import { getEndpoint } from 'utils/api';
 
 export const useBusinessApi = (): {
   getAll: FetchResource<undefined, Array<Business>>;
@@ -21,10 +22,10 @@ export const useBusinessApi = (): {
       fetch: (_, options = {}) => {
         getAllFetch(
           {
-            method: "get",
-            url: getEndpoint({ path: "/business" }),
+            method: 'get',
+            url: getEndpoint({ path: '/business' }),
           },
-          options
+          options,
         );
       },
     },
@@ -34,15 +35,15 @@ export const useBusinessApi = (): {
       fetch: ({ id }, options = {}) => {
         getOneFetch(
           {
-            method: "get",
+            method: 'get',
             url: getEndpoint({
-              path: "/business/:id",
+              path: '/business/:id',
               urlParams: {
                 id,
               },
             }),
           },
-          options
+          options,
         );
       },
     },
@@ -52,13 +53,13 @@ export const useBusinessApi = (): {
       fetch: ({ name, category }, options = {}) => {
         addOneFetch(
           {
-            method: "post",
+            method: 'post',
             url: getEndpoint({
-              path: "/business",
+              path: '/business',
             }),
             data: { name, category },
           },
-          options
+          options,
         );
       },
     },
@@ -68,13 +69,13 @@ export const useBusinessApi = (): {
       fetch: ({ id }, options = {}) => {
         removeOneFetch(
           {
-            method: "delete",
+            method: 'delete',
             url: getEndpoint({
-              path: "/business/:id",
+              path: '/business/:id',
               urlParams: { id },
             }),
           },
-          options
+          options,
         );
       },
     },

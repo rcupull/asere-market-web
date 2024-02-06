@@ -1,9 +1,10 @@
-import { Fragment } from "react";
-import { Menu, Transition } from "@headlessui/react";
-import cn from "classnames";
-import { useAuth } from "../../features/auth";
+import { Menu, Transition } from '@headlessui/react';
+import { Fragment } from 'react';
+import { Link } from 'react-router-dom';
 
-import { Link } from "react-router-dom";
+import { useAuth } from 'features/auth';
+
+import cn from 'classnames';
 
 interface MenuItem {
   label: string;
@@ -29,7 +30,7 @@ export const UserMenu = ({ className, imageSrc, items }: Props) => {
   }
 
   return (
-    <Menu data-id="UserMenu" as="div" className={cn("relative", className)}>
+    <Menu data-id="UserMenu" as="div" className={cn('relative', className)}>
       <div>
         <Menu.Button className="relative flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
           <span className="absolute -inset-1.5" />
@@ -54,8 +55,8 @@ export const UserMenu = ({ className, imageSrc, items }: Props) => {
                   href={item.href}
                   onClick={item.onClick}
                   className={cn(
-                    active ? "bg-gray-100" : "",
-                    "block px-4 py-2 text-sm text-gray-700"
+                    active ? 'bg-gray-100' : '',
+                    'block px-4 py-2 text-sm text-gray-700',
                   )}
                 >
                   {item.label}

@@ -1,9 +1,9 @@
-import { createContext, useContext } from "react";
-import { useNavigate, BrowserRouter, useLocation } from "react-router-dom";
+import { createContext, useContext } from 'react';
+import { BrowserRouter, useLocation, useNavigate } from 'react-router-dom';
 
 interface RouterState {
   pushRoute: (route: string) => void;
-  pathname: string
+  pathname: string;
 }
 
 const RouterContext = createContext<RouterState>({
@@ -15,7 +15,7 @@ export const useRouter = () => useContext(RouterContext);
 
 const RouterProviderBase = ({ children }: { children: React.ReactNode }) => {
   const navigate = useNavigate();
-  const { pathname } = useLocation()
+  const { pathname } = useLocation();
 
   const value: RouterState = {
     pathname,
@@ -24,9 +24,7 @@ const RouterProviderBase = ({ children }: { children: React.ReactNode }) => {
     },
   };
 
-  return (
-    <RouterContext.Provider value={value}>{children}</RouterContext.Provider>
-  );
+  return <RouterContext.Provider value={value}>{children}</RouterContext.Provider>;
 };
 
 export const RouterProvider = ({ children }: { children: React.ReactNode }) => {

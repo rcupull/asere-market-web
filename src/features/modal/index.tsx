@@ -1,16 +1,15 @@
-import { createContext, useContext, useState } from "react";
-import { AnyRecord } from "../../types/general";
-import {  PostNew } from "./components/post-new";
-import { ModalId, ModalWindowProps } from "./types";
-import { Confirmation } from "./components/confirmation";
-import { BusinessNew } from "./components/business-new";
+import { createContext, useContext, useState } from 'react';
+
+import { BusinessNew } from './components/business-new';
+import { Confirmation } from './components/confirmation';
+import { PostNew } from './components/post-new';
+import { ModalId, ModalWindowProps } from './types';
+
+import { AnyRecord } from 'types/general';
 
 type ModalProps = AnyRecord;
 
-type PushModal = <Id extends ModalId>(
-  id: Id,
-  props: ModalWindowProps<Id>
-) => void;
+type PushModal = <Id extends ModalId>(id: Id, props: ModalWindowProps<Id>) => void;
 
 interface ModalData {
   modalId?: ModalId;
@@ -60,9 +59,9 @@ export const ModalProvider = ({ children }: { children: React.ReactNode }) => {
 
   return (
     <ModalContext.Provider value={value}>
-      {render("PostNew", PostNew)}
-      {render("BusinessNew", BusinessNew)}
-      {render("Confirmation", Confirmation)}
+      {render('PostNew', PostNew)}
+      {render('BusinessNew', BusinessNew)}
+      {render('Confirmation', Confirmation)}
       {children}
     </ModalContext.Provider>
   );
