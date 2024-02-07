@@ -1,8 +1,10 @@
 import { Fragment } from 'react';
 import { Link } from 'react-router-dom';
 
-import cn from 'classnames';
+import { useRouter } from 'features/router';
+
 import { StyleProps } from 'types/general';
+import { cn } from 'utils/general';
 
 interface SideBarItem {
   label: string;
@@ -17,21 +19,29 @@ export interface SideBarProps extends StyleProps {
 }
 
 export const SideBar = ({ className, items, collapse }: SideBarProps) => {
+  const { pathname } = useRouter();
+
   return (
     <div
+      data-id="SideBar"
       className={cn(
-        'flex flex-col items-center w-fit h-full overflow-hidden text-gray-400 bg-gray-900 rounded pb-3',
+        'flex flex-col items-center w-full h-full overflow-hidden text-gray-400 bg-gray-800 pb-3',
         className,
       )}
     >
       {items?.map((item, index) => {
         const Svg = item.svg;
+
+        const isActive = pathname.includes(item.href);
         return (
           <Fragment key={index}>
             {item.divider && <hr className="w-full border-gray-700" />}
 
             <Link
-              className="flex items-center w-full h-12 px-3 mt-2 rounded hover:bg-gray-700 hover:text-gray-300"
+              className={cn(
+                'flex items-center w-full h-12 px-3 mt-2 rounded hover:bg-gray-700 hover:text-gray-300',
+                { ['bg-gray-600 text-gray-200']: isActive },
+              )}
               to={item.href}
             >
               <Svg className="w-6 h-6 stroke-current" />

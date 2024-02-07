@@ -31,31 +31,14 @@ export const usePostsApi = (): {
     getAll: {
       ...getPaginationResources(getAllData),
       status: getAllStatus,
-      fetch: ({ businessIds, filters = {} }, options = {}) => {
-        const getUrl = (): string => {
-          if (!businessIds?.length) {
-            return getEndpoint({ path: '/posts', params: { ...filters } });
-          }
-
-          if (businessIds?.length === 1) {
-            return getEndpoint({
-              path: '/business/:businessId/posts',
-              urlParams: { businessId: businessIds[0] },
-              params: { ...filters },
-            });
-          }
-
-          // businessIds?.length > 1
-          return getEndpoint({
-            path: '/posts',
-            params: { businessIds, ...filters },
-          });
-        };
-
+      fetch: ({ businessIds = [], filters = {} }, options = {}) => {
         getAllFetch(
           {
             method: 'get',
-            url: getUrl(),
+            url: getEndpoint({
+              path: '/posts',
+              params: { businessIds, ...filters },
+            }),
           },
           options,
         );
@@ -90,10 +73,9 @@ export const usePostsApi = (): {
           {
             method: 'post',
             url: getEndpoint({
-              path: '/business/:businessId/posts',
-              urlParams: { businessId },
+              path: '/posts',
             }),
-            data: { name, currency, description, price, amountAvailable },
+            data: { businessId, name, currency, description, price, amountAvailable },
           },
           options,
         );

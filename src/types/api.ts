@@ -14,20 +14,22 @@ export interface FetchResource<Args = undefined, Data = any> {
   status: FetchStatus;
 }
 
+export interface Paginator {
+  dataCount: number;
+  offset: number;
+  limit: number;
+  pageCount: number;
+  page: number;
+  pagingCounter: number;
+  hasPrevPage: boolean;
+  hasNextPage: boolean;
+  prevPage?: boolean;
+  nextPage?: boolean;
+}
+
 export interface PaginatedData<D extends AnyRecord = AnyRecord> {
   data: Array<D>;
-  paginator: {
-    dataCount: number;
-    offset: number;
-    limit: number;
-    pageCount: number;
-    page: number;
-    pagingCounter: number;
-    hasPrevPage: boolean;
-    hasNextPage: boolean;
-    prevPage?: boolean;
-    nextPage?: boolean;
-  };
+  paginator: Paginator;
 }
 
 export interface FetchResourceWithPagination<Args = undefined, D extends AnyRecord = AnyRecord> {

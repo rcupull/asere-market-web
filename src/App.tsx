@@ -4,11 +4,13 @@ import { withAuthenticatedRoute } from './components/autenticated-route';
 import { Layout } from './layout';
 import { Dashboard } from './pages/dashboard';
 import { SectionBusiness } from './pages/dashboard/sections/business';
-import { SectionBusinessSelected } from './pages/dashboard/sections/business-selected';
+import { SectionBusinessId } from './pages/dashboard/sections/business-id';
 import { Home } from './pages/home';
 import { NotFound } from './pages/not-found';
 import { SignIn } from './pages/sign-in';
 import { SignUp } from './pages/sign-up';
+
+import { SectionSettings } from 'pages/dashboard/sections/settings';
 
 export const App = (): JSX.Element => {
   return (
@@ -22,6 +24,9 @@ export const App = (): JSX.Element => {
           path="/dashboard"
           element={withAuthenticatedRoute(<Navigate to="/dashboard/business" />, ['user'])}
         />
+
+        {/* ///////////////////////////////////////////////////////////////////// */}
+        
         <Route
           path="/dashboard/business"
           element={withAuthenticatedRoute(<Dashboard section={<SectionBusiness />} />, ['user'])}
@@ -29,9 +34,14 @@ export const App = (): JSX.Element => {
 
         <Route
           path="/dashboard/business/:businessId"
-          element={withAuthenticatedRoute(<Dashboard section={<SectionBusinessSelected />} />, [
-            'user',
-          ])}
+          element={withAuthenticatedRoute(<Dashboard section={<SectionBusinessId />} />, ['user'])}
+        />
+
+        {/* ///////////////////////////////////////////////////////////////////// */}
+
+        <Route
+          path="/dashboard/settings"
+          element={withAuthenticatedRoute(<Dashboard section={<SectionSettings />} />, ['user'])}
         />
       </Routes>
     </Layout>

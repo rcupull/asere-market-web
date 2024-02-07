@@ -2,9 +2,8 @@ import { Disclosure } from '@headlessui/react';
 import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import { Link } from 'react-router-dom';
 
-import cn from 'classnames';
 import { Nullable } from 'types/general';
-import { compact } from 'utils/general';
+import { cn , compact } from 'utils/general';
 
 interface Item {
   name: string;
@@ -20,7 +19,7 @@ export const NavBar = ({ items: itemsProp, userMenu }: Props) => {
   const items = compact(itemsProp);
 
   return (
-    <Disclosure as="nav" className="bg-gray-800">
+    <Disclosure data-id="NavBar" as="nav" className="bg-gray-800">
       {({ open }) => (
         <>
           <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">

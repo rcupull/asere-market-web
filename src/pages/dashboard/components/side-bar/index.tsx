@@ -1,4 +1,4 @@
-import { BookmarkIcon, XMarkIcon } from '@heroicons/react/24/outline';
+import { BookmarkIcon, Cog8ToothIcon } from '@heroicons/react/24/outline';
 
 import { SideBar as SideBarBase } from 'components/side-bar';
 
@@ -19,7 +19,7 @@ export const SideBar = ({ className }: SideBarProps) => {
         {
           label: 'Settings',
           href: '/dashboard/settings',
-          svg: XMarkIcon,
+          svg: Cog8ToothIcon,
         },
       ]}
     />

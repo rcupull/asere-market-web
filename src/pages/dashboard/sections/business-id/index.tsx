@@ -6,7 +6,9 @@ import { useParams } from 'hooks/useReactRouter';
 
 import { TablePosts } from './table-posts';
 
-export const SectionBusinessSelected = () => {
+import { LayoutSection } from 'pages/@common/layout-section';
+
+export const SectionBusinessId = () => {
   const { businessId } = useParams();
 
   const businessApi = useBusinessApi();
@@ -22,8 +24,8 @@ export const SectionBusinessSelected = () => {
   const onGetBussiness = () => businessApi.getOne.fetch({ id: businessId });
 
   return (
-    <div>
+    <LayoutSection title={businessApi.getOne.data?.name} backButton>
       <TablePosts businessId={businessId} />
-    </div>
+    </LayoutSection>
   );
 };

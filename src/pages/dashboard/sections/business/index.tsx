@@ -9,6 +9,7 @@ import { useRouter } from 'features/router';
 
 import { RowActions } from './RowActions';
 
+import { LayoutSection } from 'pages/@common/layout-section';
 import { TableTopActions } from 'pages/dashboard/components/table-top-actions';
 
 export const SectionBusiness = () => {
@@ -24,10 +25,10 @@ export const SectionBusiness = () => {
   }, []);
 
   return (
-    <div>
+    <LayoutSection title='Negocios'>
       <TableTopActions>
         <Button
-          label="Nuevo"
+          label="Nuevo negocio"
           onClick={() =>
             pushModal('BusinessNew', {
               onAfterSuccess: onRefresh,
@@ -53,6 +54,6 @@ export const SectionBusiness = () => {
         }}
         data={businessApi.getAll.data}
       />
-    </div>
+    </LayoutSection>
   );
 };

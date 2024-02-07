@@ -4,9 +4,9 @@ import { Fragment, useEffect, useState } from 'react';
 
 import { FormFieldWrapper, FormFieldWrapperProps } from 'components/form-field-wrapper';
 
-import cn from 'classnames';
 import { useField } from 'formik';
 import { AnyRecord, StyleProps } from 'types/general';
+import { cn } from 'utils/general';
 
 export interface SelectProps<Option extends AnyRecord = AnyRecord, Value = any>
   extends StyleProps,

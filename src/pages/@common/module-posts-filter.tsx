@@ -3,10 +3,9 @@ import { Input } from 'components/input';
 
 import { useSubmitPortal } from 'hooks/useSubmitPortal';
 
-import cn from 'classnames';
 import { Formik } from 'formik';
 import { StyleProps } from 'types/general';
-import { getFlattenJson } from 'utils/general';
+import { cn, getFlattenJson } from 'utils/general';
 export interface ModulePostsFilterProps extends StyleProps {
   isBusy: boolean;
   onChange: (newValue: { search?: string }) => void;

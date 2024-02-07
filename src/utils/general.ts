@@ -1,3 +1,4 @@
+import classnames from 'classnames';
 import { AnyRecord, EmptyObjectOf, Nullable } from 'types/general';
 
 export const isNullOrUndefined = (value: unknown): value is null | undefined => {
@@ -31,3 +32,13 @@ export const getFlattenJson = (value: AnyRecord): AnyRecord => {
     {},
   );
 };
+
+export const getRange = (count = 0): Array<number> => {
+  return [...Array(count).keys()];
+};
+
+export const getLine = <T = undefined>(count = 0, fill?: T): Array<T> => {
+  return getRange(count).map(() => fill as T);
+};
+
+export const cn = classnames;

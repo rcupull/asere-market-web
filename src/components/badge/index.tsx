@@ -5,7 +5,9 @@ import {
 } from '@heroicons/react/24/outline';
 import { useMemo } from 'react';
 
-import cn from 'classnames';
+import { cn } from 'utils/general';
+
+
 
 export interface BadgeProps {
   className?: string;

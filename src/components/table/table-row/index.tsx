@@ -1,4 +1,4 @@
-import cn from 'classnames';
+import { cn } from 'utils/general';
 
 export interface TableRowProps {
   nodes: Array<React.ReactNode>;

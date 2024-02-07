@@ -1,7 +1,8 @@
 import { forwardRef } from 'react';
 import { Ellipsis } from 'react-css-spinners';
 
-import cn from 'classnames';
+import { StyleProps } from 'types/general';
+import { cn } from 'utils/general';
 
 const primaryStyles =
   'bg-indigo-600 text-white  hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 disabled:bg-indigo-300 ';
@@ -11,12 +12,13 @@ const outlinedStyles =
 
 export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: 'primary' | 'outlined' | 'error';
-  label: string;
+  label?: string;
   isBusy?: boolean;
+  svg?: React.FunctionComponent<StyleProps>
 }
 
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>((props, ref) => {
-  const { className, variant = 'primary', label, isBusy, disabled, ...omittedProps } = props;
+  const { className, variant = 'primary', label, isBusy, disabled, svg: Svg, ...omittedProps } = props;
 
   return (
     <button
@@ -33,6 +35,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>((props, ref) =>
       disabled={disabled || isBusy}
       {...omittedProps}
     >
+      {Svg && <Svg className={cn("h-5 w-5", {['mr-2']: label})} />}
       {label}
       {isBusy && (
         <Ellipsis

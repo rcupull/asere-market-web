@@ -1,8 +1,9 @@
 import { TableRow, TableRowProps } from './table-row';
 
-import { AnyRecord } from 'types/general';
+import { AnyRecord, StyleProps } from 'types/general';
+import { cn } from 'utils/general';
 
-export interface TableProps<RowData extends AnyRecord = AnyRecord> {
+export interface TableProps<RowData extends AnyRecord = AnyRecord> extends StyleProps {
   heads: Array<React.ReactNode>;
   getRowProps: (rowData: RowData, rowIndex: number) => TableRowProps;
   data: Array<RowData> | null;
@@ -12,9 +13,11 @@ export const Table = <RowData extends AnyRecord = AnyRecord>({
   heads,
   getRowProps,
   data,
+  className
 }: TableProps<RowData>) => {
   return (
-    <table className="min-w-full">
+    <div className={cn('overflow-auto max-h-screen', className)}>
+      <table className="min-w-full table-auto">
       <thead>
         <tr>
           {heads.map((head, index) => {
@@ -30,12 +33,13 @@ export const Table = <RowData extends AnyRecord = AnyRecord>({
         </tr>
       </thead>
 
-      <tbody className="bg-white">
+      <tbody className="bg-white ">
         {data?.map((d, index) => {
           const rowProps = getRowProps(d, index);
           return <TableRow key={index} {...rowProps} />;
         })}
       </tbody>
     </table>
+    </div>
   );
 };

@@ -1,12 +1,11 @@
 import { SideBar } from './components/side-bar';
 
+import { LayoutDashboard } from 'pages/@common/layout-dashboard';
+
 export interface DashboardProps {
   section: React.ReactNode;
 }
 
 export const Dashboard = ({ section }: DashboardProps): JSX.Element => (
-  <div className="flex min-h-full flex-1 justify-center px-6 py-12 lg:px-8">
-    <SideBar />
-    <div className="w-full p-3">{section}</div>
-  </div>
+  <LayoutDashboard sideBar={<SideBar />}>{section}</LayoutDashboard>
 );

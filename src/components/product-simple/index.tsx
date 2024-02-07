@@ -1,6 +1,6 @@
 import {CameraIcon} from '@heroicons/react/24/outline';
 
-import cn from 'classnames';
+import { cn } from 'utils/general';
 export interface Props {
   className?: string;
   href: string;

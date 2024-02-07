@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 import { useAuth } from 'features/auth';
 
-import cn from 'classnames';
+import { cn } from 'utils/general';
 
 interface MenuItem {
   label: string;

@@ -1,3 +1,5 @@
+import { ClipboardIcon } from '@heroicons/react/20/solid';
+
 import { Button } from '.';
 
 export default {
@@ -5,6 +7,10 @@ export default {
 };
 
 export const Default = (): JSX.Element => <Button label="Label" />;
+
+export const WithSvg = (): JSX.Element => <Button  svg={ClipboardIcon} />;
+
+export const WithSvgAndLabel = (): JSX.Element => <Button  label="Label" svg={ClipboardIcon} />;
 
 export const IsBusy = (): JSX.Element => <Button label="Label" isBusy />;
 
