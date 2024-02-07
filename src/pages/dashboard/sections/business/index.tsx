@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 
-import { Button } from 'components/button';
+import { ButtonNew } from 'components/button-new';
 import { Table } from 'components/table';
 
 import { useBusinessApi } from 'features/business/api';
@@ -25,9 +25,9 @@ export const SectionBusiness = () => {
   }, []);
 
   return (
-    <LayoutSection title='Negocios'>
+    <LayoutSection title="Negocios">
       <TableTopActions>
-        <Button
+        <ButtonNew
           label="Nuevo negocio"
           onClick={() =>
             pushModal('BusinessNew', {

@@ -5,7 +5,7 @@ import { Button, ButtonProps } from 'components/button';
 
 import { Paginator } from 'types/api';
 import { StyleProps } from 'types/general';
-import { cn , getRange, isNullOrUndefined } from 'utils/general';
+import { cn, getRange, isNullOrUndefined } from 'utils/general';
 
 const NavButton = ({ className, ...omittedProps }: ButtonProps) => {
   return (
@@ -20,7 +20,7 @@ const NavButton = ({ className, ...omittedProps }: ButtonProps) => {
   );
 };
 
-export interface PaginationProps extends StyleProps{
+export interface PaginationProps extends StyleProps {
   onChange?: (newPaginator: Paginator) => void;
   paginator?: Paginator | null;
 }
@@ -141,7 +141,12 @@ export const Pagination = ({ paginator, onChange, className }: PaginationProps) 
   );
 
   return (
-    <div className={cn("flex items-center justify-between border-t border-gray-200 bg-white px-4 py-3 sm:px-6", className)}>
+    <div
+      className={cn(
+        'flex items-center justify-between border-t border-gray-200 bg-white px-4 py-3 sm:px-6',
+        className,
+      )}
+    >
       {xsPaginator}
       {smPaginator}
     </div>

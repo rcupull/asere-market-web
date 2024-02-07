@@ -1,4 +1,5 @@
-import { Button } from 'components/button';
+import { ButtonRemove } from 'components/button-remove';
+import { IconButtonRemove } from 'components/icon-button-remove ';
 
 import { useBusinessApi } from 'features/business/api';
 import { useModal } from 'features/modal';
@@ -21,8 +22,7 @@ export const RowActions = ({ rowData, onRefresh }: RowActionsProps) => {
         return {
           content: 'Seguro que desea eliminar este negocio?',
           primaryBtn: (
-            <Button
-              label="Eliminar"
+            <ButtonRemove
               isBusy={businessApi.removeOne.status.isBusy}
               onClick={() =>
                 businessApi.removeOne.fetch(
@@ -44,7 +44,7 @@ export const RowActions = ({ rowData, onRefresh }: RowActionsProps) => {
 
   return (
     <div>
-      <Button label="Remove" onClick={handleDelete} variant="error" />
+      <IconButtonRemove onClick={handleDelete} />
     </div>
   );
 };

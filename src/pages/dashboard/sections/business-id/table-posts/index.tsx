@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 
-import { Button } from 'components/button';
+import { ButtonNew } from 'components/button-new';
 import { Table } from 'components/table';
 
 import { useModal } from 'features/modal';
@@ -26,8 +26,8 @@ export const TablePosts = ({ businessId }: TablePostsProps) => {
 
   return (
     <>
-      <TableTopActions backButton>
-        <Button
+      <TableTopActions>
+        <ButtonNew
           label="Nuevo post"
           onClick={() =>
             pushModal('PostNew', {

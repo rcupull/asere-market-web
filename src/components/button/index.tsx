@@ -14,11 +14,19 @@ export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElemen
   variant?: 'primary' | 'outlined' | 'error';
   label?: string;
   isBusy?: boolean;
-  svg?: React.FunctionComponent<StyleProps>
+  svg?: React.FunctionComponent<StyleProps>;
 }
 
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>((props, ref) => {
-  const { className, variant = 'primary', label, isBusy, disabled, svg: Svg, ...omittedProps } = props;
+  const {
+    className,
+    variant = 'primary',
+    label,
+    isBusy,
+    disabled,
+    svg: Svg,
+    ...omittedProps
+  } = props;
 
   return (
     <button
@@ -35,7 +43,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>((props, ref) =>
       disabled={disabled || isBusy}
       {...omittedProps}
     >
-      {Svg && <Svg className={cn("h-5 w-5", {['mr-2']: label})} />}
+      {Svg && <Svg className={cn('h-5 w-5', { ['mr-2']: label })} />}
       {label}
       {isBusy && (
         <Ellipsis

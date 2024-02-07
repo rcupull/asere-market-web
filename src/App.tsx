@@ -26,7 +26,7 @@ export const App = (): JSX.Element => {
         />
 
         {/* ///////////////////////////////////////////////////////////////////// */}
-        
+
         <Route
           path="/dashboard/business"
           element={withAuthenticatedRoute(<Dashboard section={<SectionBusiness />} />, ['user'])}

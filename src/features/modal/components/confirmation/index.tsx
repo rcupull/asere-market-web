@@ -1,15 +1,12 @@
 import { Button } from 'components/button';
+import { ButtonClose } from 'components/button-close';
 import { Modal, ModalProps } from 'components/modal';
-
-import { useModal } from 'features/modal';
 
 export interface ConfirmationProps {
   useProps: () => Partial<ModalProps>;
 }
 
 export const Confirmation = ({ useProps }: ConfirmationProps) => {
-  const { onClose } = useModal();
-
   const props = useProps();
 
   return (
@@ -25,7 +22,7 @@ export const Confirmation = ({ useProps }: ConfirmationProps) => {
           }}
         />
       }
-      secondaryBtn={<Button label="Cerrar" onClick={() => onClose()} variant="outlined" />}
+      secondaryBtn={<ButtonClose />}
       {...props}
     />
   );

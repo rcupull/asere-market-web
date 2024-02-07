@@ -23,24 +23,23 @@ export const Default = () => {
   });
 
   const handleChange = (newPaginator: Paginator) => {
-    const out = {...newPaginator}
+    const out = { ...newPaginator };
 
     const { page, pageCount } = out;
 
+    out.hasPrevPage = page > 1;
+    out.hasNextPage = page < pageCount;
 
-    out.hasPrevPage = page > 1
-    out.hasNextPage = page < pageCount
-
-    setPaginator(out)
-  }
+    setPaginator(out);
+  };
 
   return (
     <>
-    <Pagination onChange={handleChange} paginator={paginator} />
-    <br/>
-    <br/>
-    <br/>
-    <Pagination onChange={handleChange} paginator={paginator} />
+      <Pagination onChange={handleChange} paginator={paginator} />
+      <br />
+      <br />
+      <br />
+      <Pagination onChange={handleChange} paginator={paginator} />
     </>
   );
 };

@@ -3,7 +3,7 @@ import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import { Link } from 'react-router-dom';
 
 import { Nullable } from 'types/general';
-import { cn , compact } from 'utils/general';
+import { cn, compact } from 'utils/general';
 
 interface Item {
   name: string;

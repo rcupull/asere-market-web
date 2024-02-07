@@ -4,9 +4,9 @@ import { ModulePosts } from 'pages/@common/module-posts';
 
 export const Home = () => {
   return (
-    <main className='flex flex-col items-center px-32'>
+    <main className="flex flex-col items-center px-32">
       <HeroSectionCentered />
-      <ModulePosts title='Recientes' className='w-full'/>
+      <ModulePosts title="Recientes" className="w-full" />
     </main>
   );
 };

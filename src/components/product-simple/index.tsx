@@ -1,4 +1,4 @@
-import {CameraIcon} from '@heroicons/react/24/outline';
+import { CameraIcon } from '@heroicons/react/24/outline';
 
 import { cn } from 'utils/general';
 export interface Props {
@@ -21,8 +21,8 @@ export const ProductSimple = ({ className, imageSrc, imageAlt, href, name, price
             className="h-full w-full object-cover object-center group-hover:opacity-75"
           />
         ) : (
-          <div className='flex items-center justify-center h-64 w-64'>
-            <CameraIcon className='h-32 w-32 text-gray-400'/>
+          <div className="flex items-center justify-center h-64 w-64">
+            <CameraIcon className="h-32 w-32 text-gray-400" />
           </div>
         )}
       </div>

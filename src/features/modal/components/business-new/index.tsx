@@ -1,4 +1,5 @@
 import { Button } from 'components/button';
+import { ButtonClose } from 'components/button-close';
 import { Input } from 'components/input';
 import { Modal } from 'components/modal';
 import { Select } from 'components/select';
@@ -119,7 +120,7 @@ export const BusinessNew = ({ onAfterSuccess }: BusinessNewProps) => {
       title="Crear Negocio"
       content={newPostForm}
       primaryBtn={<div ref={submitPortal.ref} />}
-      secondaryBtn={<Button label="Cerrar" onClick={() => onClose()} variant="outlined" />}
+      secondaryBtn={<ButtonClose />}
     />
   );
 };

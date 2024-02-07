@@ -20,9 +20,6 @@ export const SectionPosts = () => {
 
   return (
     <div>
-      <div className="flex w-full">
-        {/* <Button label="Nuevo" onClick={() => pushModal('PostNew', { businessId})} className="ml-auto" /> */}
-      </div>
       <Table
         heads={[]}
         getRowProps={() => ({

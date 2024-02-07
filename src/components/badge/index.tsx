@@ -7,8 +7,6 @@ import { useMemo } from 'react';
 
 import { cn } from 'utils/general';
 
-
-
 export interface BadgeProps {
   className?: string;
   variant: 'error' | 'info' | 'success';
