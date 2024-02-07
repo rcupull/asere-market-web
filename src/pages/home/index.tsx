@@ -1,12 +1,13 @@
 import { HeroSectionCentered } from 'components/hero-section-centered';
 
+import { LayoutSingle } from 'pages/@common/layout-single';
 import { ModulePosts } from 'pages/@common/module-posts';
 
 export const Home = () => {
   return (
-    <main className="flex flex-col items-center px-32">
+    <LayoutSingle>
       <HeroSectionCentered />
       <ModulePosts title="Recientes" className="w-full" />
-    </main>
+    </LayoutSingle>
   );
 };

@@ -1,9 +1,12 @@
 import { ButtonRemove } from 'components/button-remove';
 import { IconButtonRemove } from 'components/icon-button-remove ';
+import { IconButtonView } from 'components/icon-button-view';
 
 import { useBusinessApi } from 'features/business/api';
 import { useModal } from 'features/modal';
+import { useRouter } from 'features/router';
 
+import { RowActionsContainer } from 'pages/@common/row-actions-container';
 import { Business } from 'types/business';
 
 export interface RowActionsProps {
@@ -12,6 +15,7 @@ export interface RowActionsProps {
 }
 export const RowActions = ({ rowData, onRefresh }: RowActionsProps) => {
   const { pushModal } = useModal();
+  const { pushRoute } = useRouter();
 
   const handleDelete = () => {
     pushModal('Confirmation', {
@@ -43,8 +47,13 @@ export const RowActions = ({ rowData, onRefresh }: RowActionsProps) => {
   };
 
   return (
-    <div>
-      <IconButtonRemove onClick={handleDelete} />
-    </div>
+    <RowActionsContainer>
+      <IconButtonRemove stopPropagation onClick={handleDelete} />
+      <IconButtonView
+        title="Ver página"
+        stopPropagation
+        onClick={() => pushRoute(`${rowData._id}`)}
+      />
+    </RowActionsContainer>
   );
 };

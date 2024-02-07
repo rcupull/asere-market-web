@@ -5,5 +5,5 @@ import { IconButton, IconButtonProps } from 'components/icon-button';
 export interface IconButtonRemoveProps extends IconButtonProps {}
 
 export const IconButtonRemove = (props: IconButtonRemoveProps) => (
-  <IconButton svg={XCircleIcon} {...props} variant="error" />
+  <IconButton svg={XCircleIcon} title="Eliminar" {...props} variant="error" />
 );

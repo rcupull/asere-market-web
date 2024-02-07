@@ -10,6 +10,7 @@ import { NotFound } from './pages/not-found';
 import { SignIn } from './pages/sign-in';
 import { SignUp } from './pages/sign-up';
 
+import { Business } from 'pages/business';
 import { SectionSettings } from 'pages/dashboard/sections/settings';
 
 export const App = (): JSX.Element => {
@@ -25,8 +26,6 @@ export const App = (): JSX.Element => {
           element={withAuthenticatedRoute(<Navigate to="/dashboard/business" />, ['user'])}
         />
 
-        {/* ///////////////////////////////////////////////////////////////////// */}
-
         <Route
           path="/dashboard/business"
           element={withAuthenticatedRoute(<Dashboard section={<SectionBusiness />} />, ['user'])}
@@ -37,12 +36,12 @@ export const App = (): JSX.Element => {
           element={withAuthenticatedRoute(<Dashboard section={<SectionBusinessId />} />, ['user'])}
         />
 
-        {/* ///////////////////////////////////////////////////////////////////// */}
-
         <Route
           path="/dashboard/settings"
           element={withAuthenticatedRoute(<Dashboard section={<SectionSettings />} />, ['user'])}
         />
+
+        <Route path="/:businessId" element={<Business />} />
       </Routes>
     </Layout>
   );
