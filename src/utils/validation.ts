@@ -14,19 +14,21 @@ const validationsCallback = {
   },
 };
 
-export const getFormError = <V extends AnyRecord, F extends keyof V = keyof V>(
+interface Validation<V extends AnyRecord, F extends keyof V = keyof V> {
+  field: F;
+  type: 'required' | 'email' | 'equal' | 'custom';
+  equalField?: F;
+  customCb?: (fieldValue: any) => Promise<boolean>;
+  message?: string;
+}
+
+export const getFormError = async <V extends AnyRecord, F extends keyof V = keyof V>(
   value: V,
-  validations: Array<{
-    field: F;
-    type: 'required' | 'email' | 'equal' | 'custom';
-    equalField?: F;
-    customCb?: (fieldValue: any) => boolean;
-    message?: string;
-  }>,
-): Partial<Record<F, string>> => {
+  validations: Array<Validation<V, F>>,
+): Promise<Partial<Record<F, string>>> => {
   const out: Partial<Record<F, string>> = {};
 
-  validations.forEach((validation) => {
+  const getValidationPromise = async (validation: Validation<V, F>): Promise<void> => {
     const { field, type, message, equalField, customCb } = validation;
 
     if (out[field]) return; //return if has error
@@ -46,7 +48,7 @@ export const getFormError = <V extends AnyRecord, F extends keyof V = keyof V>(
         return console.log('customCb not found');
       }
 
-      if (!customCb(fieldValue)) {
+      if (!(await customCb(fieldValue))) {
         out[field] = message || `Campo inválido`;
       }
     }
@@ -60,7 +62,11 @@ export const getFormError = <V extends AnyRecord, F extends keyof V = keyof V>(
         out[field] = message || `El campo debe ser ${equalField.toString()}.`;
       }
     }
-  });
+  };
+
+  const validationPromises = validations.map(getValidationPromise);
+
+  await Promise.all(validationPromises);
 
   return out;
 };

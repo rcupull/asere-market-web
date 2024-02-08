@@ -7,9 +7,11 @@ import { Select } from 'components/select';
 import { useBusinessApi } from 'features/business/api';
 import { useModal } from 'features/modal';
 
+import { useDebouncer } from 'hooks/useDebouncer';
 import { useSubmitPortal } from 'hooks/useSubmitPortal';
 
 import { Formik } from 'formik';
+import { FormRouteName } from 'pages/@common/form-route-name';
 import { BusinessCategory } from 'types/business';
 import { getRouteName } from 'utils/business';
 import { getFormError } from 'utils/validation';
@@ -22,6 +24,7 @@ export const BusinessNew = ({ onAfterSuccess }: BusinessNewProps) => {
   const { onClose } = useModal();
 
   const businessApi = useBusinessApi();
+  const debouncer = useDebouncer();
 
   const submitPortal = useSubmitPortal();
 
@@ -30,6 +33,7 @@ export const BusinessNew = ({ onAfterSuccess }: BusinessNewProps) => {
       initialValues={{
         category: '',
         name: '',
+        routeName: '',
       }}
       validate={(values) => {
         return getFormError(values, [
@@ -40,6 +44,27 @@ export const BusinessNew = ({ onAfterSuccess }: BusinessNewProps) => {
           {
             field: 'name',
             type: 'required',
+          },
+          {
+            field: 'routeName',
+            type: 'custom',
+            message: 'Ese nombre de negocio ya existe.',
+            customCb: async (routeName) => {
+              return new Promise((resolve) => {
+                debouncer(() => {
+                  businessApi.getAll.fetch(
+                    { routeName },
+                    {
+                      onAfterSuccess: (response) => {
+                        const { data } = response;
+                        const exists = !!data.length;
+                        resolve(!exists);
+                      },
+                    },
+                  );
+                }, 1000);
+              });
+            },
           },
         ]);
       }}
@@ -53,8 +78,19 @@ export const BusinessNew = ({ onAfterSuccess }: BusinessNewProps) => {
               name="name"
               autoComplete="business-name"
               label="Nombre del negocio"
-              onChange={handleChange}
-              error={errors.name && touched.name && errors.name}
+              onChange={(e) => {
+                handleChange({
+                  target: { value: getRouteName(e.target.value), name: 'routeName' },
+                });
+                handleChange(e);
+              }}
+              error={(errors.name && touched.name && errors.name) || errors.routeName}
+            />
+
+            <FormRouteName
+              routeName={values.routeName}
+              error={!!errors.routeName}
+              className="mt-3"
             />
 
             <Select<{ category: BusinessCategory; label: string }>
@@ -92,13 +128,13 @@ export const BusinessNew = ({ onAfterSuccess }: BusinessNewProps) => {
                 isBusy={businessApi.addOne.status.isBusy}
                 disabled={!isValid}
                 onClick={() => {
-                  const { category, name } = values;
+                  const { category, name, routeName } = values;
 
                   businessApi.addOne.fetch(
                     {
                       category,
                       name,
-                      routeName: getRouteName(name),
+                      routeName,
                     },
                     {
                       onAfterSuccess: (response) => {
