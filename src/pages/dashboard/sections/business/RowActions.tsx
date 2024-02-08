@@ -52,7 +52,7 @@ export const RowActions = ({ rowData, onRefresh }: RowActionsProps) => {
       <IconButtonView
         title="Ver página"
         stopPropagation
-        onClick={() => pushRoute(`${rowData._id}`)}
+        onClick={() => pushRoute(rowData.routeName)}
       />
     </RowActionsContainer>
   );

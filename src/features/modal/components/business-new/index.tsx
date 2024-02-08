@@ -11,6 +11,7 @@ import { useSubmitPortal } from 'hooks/useSubmitPortal';
 
 import { Formik } from 'formik';
 import { BusinessCategory } from 'types/business';
+import { getRouteName } from 'utils/business';
 import { getFormError } from 'utils/validation';
 
 export interface BusinessNewProps {
@@ -97,6 +98,7 @@ export const BusinessNew = ({ onAfterSuccess }: BusinessNewProps) => {
                     {
                       category,
                       name,
+                      routeName: getRouteName(name),
                     },
                     {
                       onAfterSuccess: (response) => {

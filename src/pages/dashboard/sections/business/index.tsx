@@ -18,7 +18,7 @@ export const SectionBusiness = () => {
   const { pushModal } = useModal();
   const { pushRoute, pathname } = useRouter();
 
-  const onRefresh = () => businessApi.getAll.fetch(undefined);
+  const onRefresh = () => businessApi.getAll.fetch({});
 
   useEffect(() => {
     onRefresh();

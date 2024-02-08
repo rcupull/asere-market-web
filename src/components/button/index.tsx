@@ -48,7 +48,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>((props, ref) =>
         if (stopPropagation) {
           e.stopPropagation();
         }
-        
+
         onClick?.(e);
       }}
       {...omittedProps}

@@ -6,9 +6,9 @@ import { getEndpoint } from 'utils/api';
 import { getPaginationResources } from 'utils/pagination';
 
 export const useBusinessApi = (): {
-  getAll: FetchResourceWithPagination<undefined, Business>;
+  getAll: FetchResourceWithPagination<{ routeName?: string }, Business>;
   getOne: FetchResource<{ id: string }, Business>;
-  addOne: FetchResource<{ name: string; category: string }, Business>;
+  addOne: FetchResource<{ name: string; routeName: string; category: string }, Business>;
   removeOne: FetchResource<{ id: string }, void>;
 } => {
   const [getAllData, getAllStatus, getAllFetch] = useFetch<PaginatedData<Business>>();
@@ -20,11 +20,11 @@ export const useBusinessApi = (): {
     getAll: {
       ...getPaginationResources(getAllData),
       status: getAllStatus,
-      fetch: (_, options = {}) => {
+      fetch: ({ routeName }, options = {}) => {
         getAllFetch(
           {
             method: 'get',
-            url: getEndpoint({ path: '/business' }),
+            url: getEndpoint({ path: '/business', params: { routeName } }),
           },
           options,
         );
@@ -51,14 +51,14 @@ export const useBusinessApi = (): {
     addOne: {
       data: addOneData,
       status: addOneStatus,
-      fetch: ({ name, category }, options = {}) => {
+      fetch: ({ name, category, routeName }, options = {}) => {
         addOneFetch(
           {
             method: 'post',
             url: getEndpoint({
               path: '/business',
             }),
-            data: { name, category },
+            data: { name, category, routeName },
           },
           options,
         );

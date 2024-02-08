@@ -41,7 +41,7 @@ export const App = (): JSX.Element => {
           element={withAuthenticatedRoute(<Dashboard section={<SectionSettings />} />, ['user'])}
         />
 
-        <Route path="/:businessId" element={<Business />} />
+        <Route path="/:routeName" element={<Business />} />
       </Routes>
     </Layout>
   );
