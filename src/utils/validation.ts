@@ -34,11 +34,11 @@ export const getFormError = <V extends AnyRecord, F extends keyof V = keyof V>(
     const fieldValue = value[field];
 
     if (type === 'required' && !validationsCallback.required(fieldValue)) {
-      out[field] = message || `This field is required.`;
+      out[field] = message || `Campo requerido.`;
     }
 
     if (type === 'email' && !validationsCallback.email(fieldValue)) {
-      out[field] = message || `This field must be a valid email.`;
+      out[field] = message || `Email inválido.`;
     }
 
     if (type === 'custom') {
@@ -47,7 +47,7 @@ export const getFormError = <V extends AnyRecord, F extends keyof V = keyof V>(
       }
 
       if (!customCb(fieldValue)) {
-        out[field] = message || `Invalid field`;
+        out[field] = message || `Campo inválido`;
       }
     }
 
@@ -57,7 +57,7 @@ export const getFormError = <V extends AnyRecord, F extends keyof V = keyof V>(
       }
 
       if (!validationsCallback.equal(fieldValue, value[equalField])) {
-        out[field] = message || `This field must be equal to ${equalField.toString()}.`;
+        out[field] = message || `El campo debe ser ${equalField.toString()}.`;
       }
     }
   });

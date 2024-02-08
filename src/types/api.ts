@@ -23,8 +23,8 @@ export interface Paginator {
   pagingCounter: number;
   hasPrevPage: boolean;
   hasNextPage: boolean;
-  prevPage?: boolean;
-  nextPage?: boolean;
+  prevPage?: number;
+  nextPage?: number;
 }
 
 export interface PaginatedData<D extends AnyRecord = AnyRecord> {

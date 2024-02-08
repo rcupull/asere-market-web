@@ -17,7 +17,7 @@ export const FormFieldWrapper = ({
         <label className="block text-sm font-medium leading-6 text-gray-900 mb-2">{label}</label>
       )}
       {children}
-      {error}
+      <span className='text-red-500 text-xs'>{error}</span>
     </div>
   );
 };

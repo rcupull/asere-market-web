@@ -11,6 +11,7 @@ import { RowActions } from './RowActions';
 
 import { LayoutSection } from 'pages/@common/layout-section';
 import { TableTopActions } from 'pages/dashboard/components/table-top-actions';
+import { getDateString } from 'utils/date';
 
 export const SectionBusiness = () => {
   const businessApi = useBusinessApi();
@@ -38,7 +39,7 @@ export const SectionBusiness = () => {
         />
       </TableTopActions>
       <Table
-        heads={[null, 'Nombre', 'Category', 'Fecha de Creación']}
+        heads={[null, 'Nombre', 'Categoría', 'Fecha de creación']}
         getRowProps={(rowData) => {
           const { name, category, createdAt, _id } = rowData;
 
@@ -48,7 +49,7 @@ export const SectionBusiness = () => {
               <RowActions key="RowActions" rowData={rowData} onRefresh={onRefresh} />,
               name,
               category,
-              createdAt,
+              getDateString({date: createdAt, showTime: true }),
             ],
           };
         }}

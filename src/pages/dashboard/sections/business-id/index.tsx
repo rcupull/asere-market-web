@@ -7,6 +7,7 @@ import { useParams } from 'hooks/useReactRouter';
 import { TablePosts } from './table-posts';
 
 import { LayoutSection } from 'pages/@common/layout-section';
+import { LayoutSectionSub } from 'pages/@common/layout-section-sub';
 
 export const SectionBusinessId = () => {
   const { businessId } = useParams();
@@ -23,13 +24,14 @@ export const SectionBusinessId = () => {
 
   const onGetBussiness = () => businessApi.getOne.fetch({ id: businessId });
 
+  const businessName = businessApi.getOne.data?.name;
+  const title = businessName ? `Negocio (${businessName})` : '';
 
-  const title = businessApi.getOne.data?.name ? `Negocio (${businessApi.getOne.data?.name})` : "";
-
-  
   return (
     <LayoutSection title={title} backButton>
-      <TablePosts businessId={businessId} />
+      <LayoutSectionSub title="Publicaciones">
+        <TablePosts businessId={businessId} />
+      </LayoutSectionSub>
     </LayoutSection>
   );
 };

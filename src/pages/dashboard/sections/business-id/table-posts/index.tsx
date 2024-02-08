@@ -9,6 +9,7 @@ import { usePostsApi } from 'features/post/api';
 import { RowActions } from './RowActions';
 
 import { TableTopActions } from 'pages/dashboard/components/table-top-actions';
+import { getDateString } from 'utils/date';
 
 export interface TablePostsProps {
   businessId: string;
@@ -42,9 +43,9 @@ export const TablePosts = ({ businessId }: TablePostsProps) => {
         heads={[
           null,
           'Nombre',
-          'Descripión',
-          'Moneda',
+          'Descripción',
           'Precio',
+          'Moneda',
           'Disponibilidad',
           'Fecha de Creación',
         ]}
@@ -56,10 +57,10 @@ export const TablePosts = ({ businessId }: TablePostsProps) => {
               <RowActions key="RowActions" rowData={rowData} onRefresh={onRefresh} />,
               name,
               description,
-              currency,
               price,
+              currency,
               amountAvailable,
-              createdAt,
+              getDateString({date: createdAt, showTime: true }),
             ],
           };
         }}

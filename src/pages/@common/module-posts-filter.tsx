@@ -8,7 +8,7 @@ import { StyleProps } from 'types/general';
 import { cn, getFlattenJson } from 'utils/general';
 export interface ModulePostsFilterProps extends StyleProps {
   isBusy: boolean;
-  onChange: (newValue: { search?: string }) => void;
+  onChange: (args: { search?: string }) => void;
 }
 
 export const ModulePostsFilter = ({ isBusy, onChange, className }: ModulePostsFilterProps) => {
@@ -45,7 +45,7 @@ export const ModulePostsFilter = ({ isBusy, onChange, className }: ModulePostsFi
                   label="Limpiar"
                   onClick={() => {
                     handleReset();
-                    onChange({});
+                    onChange({search: undefined});
                   }}
                   variant="outlined"
                   className="ml-2"
