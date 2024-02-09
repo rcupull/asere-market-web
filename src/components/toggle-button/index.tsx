@@ -17,7 +17,6 @@ export const ToggleButton = ({ className, value, onChange }: ToggleButtonProps) 
   }, [value]);
 
   const handleChange = (newValue: boolean) => {
-
     setState(newValue);
     onChange?.(newValue);
   };

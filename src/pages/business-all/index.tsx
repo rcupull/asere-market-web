@@ -27,7 +27,7 @@ export const BusinessAll = () => {
   };
 
   return (
-    <LayoutSingle>
+    <LayoutSingle title="Todas las tiendas">
       <div>
         <div className="flex">
           <SearchFilter
@@ -36,20 +36,20 @@ export const BusinessAll = () => {
             onChange={(search) => handleChangeFilters({ search })}
           />
         </div>
-       <LayoutSectionSub>
-       <ProductsGroup>
-          {businessApis.getAllPublic.data?.map(({ name, category, routeName }, index) => {
-            return (
-              <BusinessCardSimple
-                key={index}
-                href={`/${routeName}`}
-                name={name}
-                category={category}
-              />
-            );
-          })}
-        </ProductsGroup>
-       </LayoutSectionSub>
+        <LayoutSectionSub>
+          <ProductsGroup>
+            {businessApis.getAllPublic.data?.map(({ name, category, routeName }, index) => {
+              return (
+                <BusinessCardSimple
+                  key={index}
+                  href={`/${routeName}`}
+                  name={name}
+                  category={category}
+                />
+              );
+            })}
+          </ProductsGroup>
+        </LayoutSectionSub>
 
         <Pagination
           className="w-full mt-6"

@@ -12,7 +12,14 @@ export interface BusinessCardSimpleProps {
   name: string;
 }
 
-export const BusinessCardSimple = ({ className, imageSrc, imageAlt, href, name, category }: BusinessCardSimpleProps) => {
+export const BusinessCardSimple = ({
+  className,
+  imageSrc,
+  imageAlt,
+  href,
+  name,
+  category,
+}: BusinessCardSimpleProps) => {
   return (
     <a data-id="ProductSimple" className={cn('group', className)} href={href}>
       <div className="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-lg bg-gray-200 xl:aspect-h-8 xl:aspect-w-7 flex items-center justify-center">

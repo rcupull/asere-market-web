@@ -2,12 +2,13 @@ import { Disclosure } from '@headlessui/react';
 import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import { Link } from 'react-router-dom';
 
+import { useRouter } from 'features/router';
+
 import { Nullable } from 'types/general';
 import { cn, compact } from 'utils/general';
 
 interface Item {
   name: string;
-  current?: boolean;
   href: string;
 }
 export interface Props {
@@ -17,6 +18,8 @@ export interface Props {
 
 export const NavBar = ({ items: itemsProp, userMenu }: Props) => {
   const items = compact(itemsProp);
+
+  const { pathname } = useRouter();
 
   return (
     <Disclosure data-id="NavBar" as="nav" className="bg-gray-800">
@@ -46,21 +49,24 @@ export const NavBar = ({ items: itemsProp, userMenu }: Props) => {
                 </div>
                 <div className="hidden sm:ml-6 sm:block">
                   <div className="flex space-x-4">
-                    {items.map((item) => (
-                      <Link
-                        key={item.name}
-                        to={item.href}
-                        className={cn(
-                          item.current
-                            ? 'bg-gray-900 text-white'
-                            : 'text-gray-300 hover:bg-gray-700 hover:text-white',
-                          'rounded-md px-3 py-2 text-sm font-medium',
-                        )}
-                        aria-current={item.current ? 'page' : undefined}
-                      >
-                        {item.name}
-                      </Link>
-                    ))}
+                    {items.map((item) => {
+                      const current = pathname === item?.href;
+                      return (
+                        <Link
+                          key={item.name}
+                          to={item.href}
+                          className={cn(
+                            current
+                              ? 'bg-gray-900 text-white'
+                              : 'text-gray-300 hover:bg-gray-700 hover:text-white',
+                            'rounded-md px-3 py-2 text-sm font-medium',
+                          )}
+                          aria-current={current ? 'page' : undefined}
+                        >
+                          {item.name}
+                        </Link>
+                      );
+                    })}
                   </div>
                 </div>
               </div>
@@ -82,22 +88,26 @@ export const NavBar = ({ items: itemsProp, userMenu }: Props) => {
 
           <Disclosure.Panel className="sm:hidden">
             <div className="space-y-1 px-2 pb-3 pt-2">
-              {items.map((item) => (
-                <Disclosure.Button
-                  key={item.name}
-                  as="a"
-                  href={item.href}
-                  className={cn(
-                    item.current
-                      ? 'bg-gray-900 text-white'
-                      : 'text-gray-300 hover:bg-gray-700 hover:text-white',
-                    'block rounded-md px-3 py-2 text-base font-medium',
-                  )}
-                  aria-current={item.current ? 'page' : undefined}
-                >
-                  {item.name}
-                </Disclosure.Button>
-              ))}
+              {items.map((item) => {
+                const current = pathname === item?.href;
+
+                return (
+                  <Disclosure.Button
+                    key={item.name}
+                    as="a"
+                    href={item.href}
+                    className={cn(
+                      current
+                        ? 'bg-gray-900 text-white'
+                        : 'text-gray-300 hover:bg-gray-700 hover:text-white',
+                      'block rounded-md px-3 py-2 text-base font-medium',
+                    )}
+                    aria-current={current ? 'page' : undefined}
+                  >
+                    {item.name}
+                  </Disclosure.Button>
+                );
+              })}
             </div>
           </Disclosure.Panel>
         </>

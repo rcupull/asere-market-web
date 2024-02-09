@@ -2,22 +2,19 @@ import { NavBar } from 'components/nav-bar';
 import { UserMenu } from 'components/user-menu';
 
 import { useAuth } from 'features/auth';
-import { useRouter } from 'features/router';
 
 export const RootNavBar = () => {
   const { onSignOut, isAdmin, isUser } = useAuth();
-  const { pathname } = useRouter();
-
-  const isCurrent = (href: string) => pathname === href;
 
   return (
     <NavBar
       items={[
-        { name: 'Home', href: '/', current: isCurrent('/') },
-        { name: 'Todas las tiendas', href: '/business', current: isCurrent('/business') },
-        isUser && { name: 'Panel', href: '/dashboard', current: isCurrent('/dashboard') },
-        { name: 'Sobre Nosotros', href: '/about-us', current: isCurrent('/about-us') },
-        isAdmin && { name: 'Admin', href: '/admin', current: isCurrent('/admin') },
+        { name: 'Home', href: '/' },
+        { name: 'Todas las tiendas', href: '/business' },
+        { name: 'Precios', href: '/price' },
+        isUser && { name: 'Panel', href: '/dashboard' },
+        { name: 'Sobre Nosotros', href: '/about-us' },
+        isAdmin && { name: 'Admin', href: '/admin' },
       ]}
       userMenu={
         <UserMenu

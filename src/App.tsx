@@ -10,9 +10,11 @@ import { NotFound } from './pages/not-found';
 import { SignIn } from './pages/sign-in';
 import { SignUp } from './pages/sign-up';
 
+import { AboutUs } from 'pages/about-us';
 import { BusinessAll } from 'pages/business-all';
 import { BusinessOne } from 'pages/business-one';
 import { SectionSettings } from 'pages/dashboard/sections/settings';
+import { Price } from 'pages/price';
 import { ValidateAccount } from 'pages/validate-account';
 
 export const App = (): JSX.Element => {
@@ -24,6 +26,8 @@ export const App = (): JSX.Element => {
         <Route path="/sign-up" element={<SignUp />} />
         <Route path="/not-found" element={<NotFound />} />
         <Route path="/validate-account" element={<ValidateAccount />} />
+        <Route path="/price" element={<Price />} />
+        <Route path="/about-us" element={<AboutUs />} />
         <Route
           path="/dashboard"
           element={withAuthenticatedRoute(<Navigate to="/dashboard/business" />, ['user'])}
@@ -45,7 +49,6 @@ export const App = (): JSX.Element => {
         />
 
         <Route path="/business" element={<BusinessAll />} />
-
 
         <Route path="/:routeName" element={<BusinessOne />} />
       </Routes>

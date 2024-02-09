@@ -5,7 +5,5 @@ export default {
 };
 
 export const Default = (): JSX.Element => {
-  return (
-      <ToggleButton />
-  );
+  return <ToggleButton />;
 };
