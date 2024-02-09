@@ -10,7 +10,8 @@ import { NotFound } from './pages/not-found';
 import { SignIn } from './pages/sign-in';
 import { SignUp } from './pages/sign-up';
 
-import { Business } from 'pages/business';
+import { BusinessAll } from 'pages/business-all';
+import { BusinessOne } from 'pages/business-one';
 import { SectionSettings } from 'pages/dashboard/sections/settings';
 import { ValidateAccount } from 'pages/validate-account';
 
@@ -43,7 +44,10 @@ export const App = (): JSX.Element => {
           element={withAuthenticatedRoute(<Dashboard section={<SectionSettings />} />, ['user'])}
         />
 
-        <Route path="/:routeName" element={<Business />} />
+        <Route path="/business" element={<BusinessAll />} />
+
+
+        <Route path="/:routeName" element={<BusinessOne />} />
       </Routes>
     </Layout>
   );

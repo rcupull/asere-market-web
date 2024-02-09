@@ -2,12 +2,13 @@ import { useFetch } from 'hooks/useFetch';
 
 import { FetchResource, FetchResourceWithPagination, PaginatedData } from 'types/api';
 import { Business } from 'types/business';
+import { AnyRecord } from 'types/general';
 import { getEndpoint } from 'utils/api';
 import { getPaginationResources } from 'utils/pagination';
 
 export const useBusinessApi = (): {
-  getAll: FetchResourceWithPagination<{ routeName?: string }, Business>;
-  getAllPublic: FetchResourceWithPagination<{ routeName?: string }, Business>;
+  getAll: FetchResourceWithPagination<{ routeName?: string; filters?: AnyRecord }, Business>;
+  getAllPublic: FetchResourceWithPagination<{ routeName?: string; filters?: AnyRecord }, Business>;
   getOne: FetchResource<{ id: string }, Business>;
   getOnePublic: FetchResource<{ id: string }, Business>;
   addOne: FetchResource<{ name: string; routeName: string; category: string }, Business>;
@@ -27,11 +28,11 @@ export const useBusinessApi = (): {
     getAll: {
       ...getPaginationResources(getAllData),
       status: getAllStatus,
-      fetch: ({ routeName }, options = {}) => {
+      fetch: ({ routeName, filters }, options = {}) => {
         getAllFetch(
           {
             method: 'get',
-            url: getEndpoint({ path: '/business', params: { routeName } }),
+            url: getEndpoint({ path: '/business', params: { routeName, ...filters } }),
           },
           options,
         );
@@ -40,11 +41,11 @@ export const useBusinessApi = (): {
     getAllPublic: {
       ...getPaginationResources(getAllPublicData),
       status: getAllPublicStatus,
-      fetch: ({ routeName }, options = {}) => {
+      fetch: ({ routeName, filters }, options = {}) => {
         getAllPublicFetch(
           {
             method: 'get',
-            url: getEndpoint({ path: '/public/business', params: { routeName } }),
+            url: getEndpoint({ path: '/public/business', params: { routeName, ...filters } }),
           },
           options,
         );

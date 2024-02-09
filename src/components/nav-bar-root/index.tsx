@@ -14,6 +14,7 @@ export const RootNavBar = () => {
     <NavBar
       items={[
         { name: 'Home', href: '/', current: isCurrent('/') },
+        { name: 'Todas las tiendas', href: '/business', current: isCurrent('/business') },
         isUser && { name: 'Panel', href: '/dashboard', current: isCurrent('/dashboard') },
         { name: 'Sobre Nosotros', href: '/about-us', current: isCurrent('/about-us') },
         isAdmin && { name: 'Admin', href: '/admin', current: isCurrent('/admin') },

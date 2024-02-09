@@ -5,13 +5,13 @@ import { useSubmitPortal } from 'hooks/useSubmitPortal';
 
 import { Formik } from 'formik';
 import { StyleProps } from 'types/general';
-import { cn, getFlattenJson } from 'utils/general';
-export interface ModulePostsFilterProps extends StyleProps {
+import { cn } from 'utils/general';
+export interface SearchFilterProps extends StyleProps {
   isBusy: boolean;
-  onChange: (args: { search?: string }) => void;
+  onChange: (search: string | undefined) => void;
 }
 
-export const ModulePostsFilter = ({ isBusy, onChange, className }: ModulePostsFilterProps) => {
+export const SearchFilter = ({ isBusy, onChange, className }: SearchFilterProps) => {
   const submitBtnPortal = useSubmitPortal();
   const clearBtnPortal = useSubmitPortal();
 
@@ -33,7 +33,7 @@ export const ModulePostsFilter = ({ isBusy, onChange, className }: ModulePostsFi
                   label="Buscar"
                   isBusy={isBusy}
                   onClick={() => {
-                    onChange(getFlattenJson(values));
+                    onChange(values.search);
                   }}
                   variant="primary"
                   className="ml-2"
@@ -45,7 +45,7 @@ export const ModulePostsFilter = ({ isBusy, onChange, className }: ModulePostsFi
                   label="Limpiar"
                   onClick={() => {
                     handleReset();
-                    onChange({ search: undefined });
+                    onChange(undefined);
                   }}
                   variant="outlined"
                   className="ml-2"

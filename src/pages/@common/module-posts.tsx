@@ -6,9 +6,9 @@ import { ProductsGroup } from 'components/products-group';
 
 import { usePostsApi } from 'features/post/api';
 
-import { ModulePostsFilter } from './module-posts-filter';
+import { SearchFilter } from './search-filter';
 
-import { StyleProps } from 'types/general';
+import { AnyRecord, StyleProps } from 'types/general';
 
 export interface ModulePostsProps extends StyleProps {
   businessIds?: Array<string>;
@@ -24,17 +24,19 @@ export const ModulePosts = ({ businessIds, title, className }: ModulePostsProps)
     postsApi.getAll.fetch({ businessIds });
   }, []);
 
+  const handleChangeFilters = (partialFilter: AnyRecord) => {
+    const newFilters = { ...filters, ...partialFilter };
+    setFilters(newFilters);
+    postsApi.getAll.fetch({ filters: newFilters });
+  };
+
   return (
     <div className={className}>
       <div className="flex">
-        <ModulePostsFilter
+        <SearchFilter
           className="ml-auto"
           isBusy={postsApi.getAll.status.isBusy}
-          onChange={(f) => {
-            const newFilters = { ...filters, ...f };
-            setFilters(newFilters);
-            postsApi.getAll.fetch({ businessIds, filters: newFilters });
-          }}
+          onChange={(search) => handleChangeFilters({ search })}
         />
       </div>
       <ProductsGroup title={title}>
@@ -54,11 +56,7 @@ export const ModulePosts = ({ businessIds, title, className }: ModulePostsProps)
       <Pagination
         className="w-full mt-6"
         paginator={postsApi.getAll?.paginator}
-        onChange={({ page }) => {
-          const newFilters = { ...filters, page };
-          setFilters(newFilters);
-          postsApi.getAll.fetch({ businessIds, filters: newFilters });
-        }}
+        onChange={({ page }) => handleChangeFilters({ page })}
       />
     </div>
   );

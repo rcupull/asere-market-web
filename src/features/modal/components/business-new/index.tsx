@@ -14,7 +14,7 @@ import { useSubmitPortal } from 'hooks/useSubmitPortal';
 import { Formik } from 'formik';
 import { FormRouteName } from 'pages/@common/form-route-name';
 import { BusinessCategory } from 'types/business';
-import { getRouteName } from 'utils/business';
+import { getBusinessCategoryLabel, getRouteName } from 'utils/business';
 
 export interface BusinessNewProps {
   onAfterSuccess?: (response: any) => void;
@@ -96,19 +96,19 @@ export const BusinessNew = ({ onAfterSuccess }: BusinessNewProps) => {
               items={[
                 {
                   category: 'food',
-                  label: 'Comida',
+                  label: getBusinessCategoryLabel('food'),
                 },
                 {
                   category: 'clothing',
-                  label: 'Vestuario',
+                  label: getBusinessCategoryLabel('clothing'),
                 },
                 {
                   category: 'service',
-                  label: 'Servicios',
+                  label: getBusinessCategoryLabel('service'),
                 },
                 {
                   category: 'tool',
-                  label: 'Herramientas',
+                  label: getBusinessCategoryLabel('tool'),
                 },
               ]}
               renderOption={({ label }) => label}
