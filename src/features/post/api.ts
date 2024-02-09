@@ -8,7 +8,12 @@ import { getPaginationResources } from 'utils/pagination';
 
 export const usePostsApi = (): {
   getAll: FetchResourceWithPagination<{ businessIds?: Array<string>; filters?: AnyRecord }, Post>;
+  getAllPublic: FetchResourceWithPagination<
+    { businessIds?: Array<string>; filters?: AnyRecord },
+    Post
+  >;
   getOne: FetchResource<{ id: string }, Post>;
+  getOnePublic: FetchResource<{ id: string }, Post>;
   addOne: FetchResource<
     {
       businessId: string;
@@ -23,7 +28,11 @@ export const usePostsApi = (): {
   removeOne: FetchResource<{ id: string }, void>;
 } => {
   const [getAllData, getAllStatus, getAllFetch] = useFetch<PaginatedData<Post>>();
+  const [getAllPublicData, getAllPublicStatus, getAllPublicFetch] = useFetch<PaginatedData<Post>>();
+
   const [getOneData, getOneStatus, getOneFetch] = useFetch<Post>();
+  const [getOnePublicData, getOnePublicStatus, getOnePublicFetch] = useFetch<Post>();
+
   const [addOneData, addOneStatus, addOneFetch] = useFetch<Post>();
   const [removeOneData, removeOneStatus, removeOneFetch] = useFetch();
 
@@ -44,6 +53,22 @@ export const usePostsApi = (): {
         );
       },
     },
+    getAllPublic: {
+      ...getPaginationResources(getAllPublicData),
+      status: getAllPublicStatus,
+      fetch: ({ businessIds = [], filters = {} }, options = {}) => {
+        getAllPublicFetch(
+          {
+            method: 'get',
+            url: getEndpoint({
+              path: '/public/posts',
+              params: { businessIds, ...filters },
+            }),
+          },
+          options,
+        );
+      },
+    },
     getOne: {
       data: getOneData,
       status: getOneStatus,
@@ -53,6 +78,24 @@ export const usePostsApi = (): {
             method: 'get',
             url: getEndpoint({
               path: '/posts/:id',
+              urlParams: {
+                id,
+              },
+            }),
+          },
+          options,
+        );
+      },
+    },
+    getOnePublic: {
+      data: getOnePublicData,
+      status: getOnePublicStatus,
+      fetch: ({ id }, options = {}) => {
+        getOnePublicFetch(
+          {
+            method: 'get',
+            url: getEndpoint({
+              path: '/public/posts/:id',
               urlParams: {
                 id,
               },

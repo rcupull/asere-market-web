@@ -7,11 +7,11 @@ import { Select } from 'components/select';
 import { useModal } from 'features/modal';
 import { usePostsApi } from 'features/post/api';
 
+import { useGetFormErrors } from 'hooks/useGetFormErrors';
 import { useSubmitPortal } from 'hooks/useSubmitPortal';
 
 import { Formik } from 'formik';
 import { Post, PostCurrency } from 'types/post';
-import { getFormError } from 'utils/validation';
 
 export interface PostNewProps {
   onAfterSuccess?: (response: any) => void;
@@ -24,6 +24,7 @@ export const PostNew = ({ onAfterSuccess, businessId }: PostNewProps) => {
   const postsApi = usePostsApi();
 
   const submitPortal = useSubmitPortal();
+  const { getFormErrors } = useGetFormErrors();
 
   const newPostForm = (
     <Formik<Pick<Post, 'name' | 'description' | 'currency' | 'amountAvailable' | 'price'>>
@@ -35,7 +36,7 @@ export const PostNew = ({ onAfterSuccess, businessId }: PostNewProps) => {
         amountAvailable: 0,
       }}
       validate={(values) => {
-        return getFormError(values, [
+        return getFormErrors(values, [
           {
             field: 'description',
             type: 'required',

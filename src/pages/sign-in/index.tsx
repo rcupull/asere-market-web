@@ -6,13 +6,15 @@ import { Input } from 'components/input';
 import { useAuth } from 'features/auth';
 import { useRouter } from 'features/router';
 
+import { useGetFormErrors } from 'hooks/useGetFormErrors';
+
 import { Formik } from 'formik';
-import { getFormError } from 'utils/validation';
 
 export const SignIn = () => {
   const { onSignIn } = useAuth();
 
   const { pushRoute } = useRouter();
+  const { getFormErrors } = useGetFormErrors();
 
   return (
     <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
@@ -31,7 +33,7 @@ export const SignIn = () => {
         <Formik
           initialValues={{ email: '', password: '' }}
           validate={(values) => {
-            return getFormError(values, [
+            return getFormErrors(values, [
               {
                 field: 'email',
                 type: 'required',

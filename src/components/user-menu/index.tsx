@@ -29,6 +29,10 @@ export const UserMenu = ({ className, imageSrc, items }: Props) => {
     );
   }
 
+  const { user } = authData;
+
+  const { email, name } = user;
+
   return (
     <Menu data-id="UserMenu" as="div" className={cn('relative', className)}>
       <div>
@@ -47,7 +51,12 @@ export const UserMenu = ({ className, imageSrc, items }: Props) => {
         leaveFrom="transform opacity-100 scale-100"
         leaveTo="transform opacity-0 scale-95"
       >
-        <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+        <Menu.Items className="absolute right-0 z-10 mt-2 w-52 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+          <div className="px-2 py-3 flex flex-col items-center border">
+            <span className="text-sm border px-2 py-1 rounded-2xl">{name}</span>
+            <span className="text-xs mt-2">{email}</span>
+          </div>
+
           {items?.map((item) => (
             <Menu.Item key={item.label}>
               {({ active }) => (

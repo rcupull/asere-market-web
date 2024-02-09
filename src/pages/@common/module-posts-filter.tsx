@@ -45,7 +45,7 @@ export const ModulePostsFilter = ({ isBusy, onChange, className }: ModulePostsFi
                   label="Limpiar"
                   onClick={() => {
                     handleReset();
-                    onChange({search: undefined});
+                    onChange({ search: undefined });
                   }}
                   variant="outlined"
                   className="ml-2"

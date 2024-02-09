@@ -43,5 +43,10 @@ export const getLine = <T = undefined>(count = 0, fill?: T): Array<T> => {
 
 export const cn = classnames;
 
-export const replaceAll = (value: string, match: string, replace: string): string =>
-  value.split(match).join(replace);
+export const replaceAll = (value: string, match: string, replace: string): string => {
+  return value.split(match).join(replace);
+};
+
+export const deepJsonCopy = <T extends AnyRecord = AnyRecord>(json: T) => {
+  return JSON.parse(JSON.stringify(json));
+};

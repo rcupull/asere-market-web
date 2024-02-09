@@ -6,12 +6,14 @@ import { Input } from 'components/input';
 import { useAuth } from 'features/auth';
 import { useRouter } from 'features/router';
 
+import { useGetFormErrors } from 'hooks/useGetFormErrors';
+
 import { Formik } from 'formik';
-import { getFormError } from 'utils/validation';
 
 export const SignUp = () => {
   const { onSignUp } = useAuth();
   const { pushRoute } = useRouter();
+  const { getFormErrors } = useGetFormErrors();
 
   return (
     <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
@@ -35,7 +37,7 @@ export const SignUp = () => {
             name: '',
           }}
           validate={(values) => {
-            return getFormError(values, [
+            return getFormErrors(values, [
               {
                 field: 'email',
                 type: 'required',
@@ -84,7 +86,7 @@ export const SignUp = () => {
                   id="name"
                   name="name"
                   autoComplete="name"
-                  label="Nombre de la tienda"
+                  label="Nombre"
                   error={errors.name && touched.name && errors.name}
                 />
 
@@ -93,7 +95,7 @@ export const SignUp = () => {
                   name="email"
                   type="email"
                   autoComplete="email"
-                  label="Email address"
+                  label="Correo electrónico"
                   error={errors.email && touched.email && errors.email}
                   className="mt-6"
                 />
@@ -104,22 +106,22 @@ export const SignUp = () => {
                     name="password"
                     type="password"
                     autoComplete="password"
-                    label="Password"
+                    label="Contraseña"
                     error={errors.password && touched.password && errors.password}
                     className="mt-6"
                   />
-                  <div className="absolute top-0 right-0 text-sm">
+                  {/* <div className="absolute top-0 right-0 text-sm">
                     <a href="#" className="font-semibold text-indigo-600 hover:text-indigo-500">
                       Forgot password?
                     </a>
-                  </div>
+                  </div> */}
                 </div>
 
                 <Input
                   id="confirmPassword"
                   name="confirmPassword"
                   type="password"
-                  label="Confirm Password"
+                  label="Confirmar contraseña"
                   error={
                     errors.confirmPassword && touched.confirmPassword && errors.confirmPassword
                   }
@@ -127,7 +129,7 @@ export const SignUp = () => {
                 />
 
                 <Button
-                  label="Register"
+                  label="Registrar"
                   type="submit"
                   disabled={isSubmitting}
                   isBusy={onSignUp.status.isBusy}

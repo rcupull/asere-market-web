@@ -12,6 +12,7 @@ import { SignUp } from './pages/sign-up';
 
 import { Business } from 'pages/business';
 import { SectionSettings } from 'pages/dashboard/sections/settings';
+import { ValidateAccount } from 'pages/validate-account';
 
 export const App = (): JSX.Element => {
   return (
@@ -21,6 +22,7 @@ export const App = (): JSX.Element => {
         <Route path="/sign-in" element={<SignIn />} />
         <Route path="/sign-up" element={<SignUp />} />
         <Route path="/not-found" element={<NotFound />} />
+        <Route path="/validate-account" element={<ValidateAccount />} />
         <Route
           path="/dashboard"
           element={withAuthenticatedRoute(<Navigate to="/dashboard/business" />, ['user'])}

@@ -60,7 +60,7 @@ export const TablePosts = ({ businessId }: TablePostsProps) => {
               price,
               currency,
               amountAvailable,
-              getDateString({date: createdAt, showTime: true }),
+              getDateString({ date: createdAt, showTime: true }),
             ],
           };
         }}

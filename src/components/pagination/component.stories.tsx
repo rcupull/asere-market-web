@@ -14,11 +14,11 @@ export const Default = () => {
     hasNextPage: true,
     hasPrevPage: true,
     limit: 10,
-    nextPage: false,
+    nextPage: undefined,
     offset: 0,
     page: 3,
     pagingCounter: 0,
-    prevPage: false,
+    prevPage: undefined,
     pageCount: 18,
   });
 

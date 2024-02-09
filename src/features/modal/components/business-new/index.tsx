@@ -8,13 +8,13 @@ import { useBusinessApi } from 'features/business/api';
 import { useModal } from 'features/modal';
 
 import { useDebouncer } from 'hooks/useDebouncer';
+import { useGetFormErrors } from 'hooks/useGetFormErrors';
 import { useSubmitPortal } from 'hooks/useSubmitPortal';
 
 import { Formik } from 'formik';
 import { FormRouteName } from 'pages/@common/form-route-name';
 import { BusinessCategory } from 'types/business';
 import { getRouteName } from 'utils/business';
-import { getFormError } from 'utils/validation';
 
 export interface BusinessNewProps {
   onAfterSuccess?: (response: any) => void;
@@ -28,15 +28,18 @@ export const BusinessNew = ({ onAfterSuccess }: BusinessNewProps) => {
 
   const submitPortal = useSubmitPortal();
 
+  const { getFormErrors } = useGetFormErrors();
+
+  const routeValidationErrorMessage = 'Ese nombre de negocio ya existe.';
+
   const newPostForm = (
     <Formik
       initialValues={{
         category: '',
         name: '',
-        routeName: '',
       }}
       validate={(values) => {
-        return getFormError(values, [
+        return getFormErrors(values, [
           {
             field: 'category',
             type: 'required',
@@ -46,13 +49,14 @@ export const BusinessNew = ({ onAfterSuccess }: BusinessNewProps) => {
             type: 'required',
           },
           {
-            field: 'routeName',
+            field: 'name',
             type: 'custom',
-            message: 'Ese nombre de negocio ya existe.',
-            customCb: async (routeName) => {
+            message: routeValidationErrorMessage,
+            customCb: async (name) => {
+              const routeName = getRouteName(name);
               return new Promise((resolve) => {
                 debouncer(() => {
-                  businessApi.getAll.fetch(
+                  businessApi.getAllPublic.fetch(
                     { routeName },
                     {
                       onAfterSuccess: (response) => {
@@ -62,7 +66,7 @@ export const BusinessNew = ({ onAfterSuccess }: BusinessNewProps) => {
                       },
                     },
                   );
-                }, 1000);
+                }, 500);
               });
             },
           },
@@ -78,18 +82,13 @@ export const BusinessNew = ({ onAfterSuccess }: BusinessNewProps) => {
               name="name"
               autoComplete="business-name"
               label="Nombre del negocio"
-              onChange={(e) => {
-                handleChange({
-                  target: { value: getRouteName(e.target.value), name: 'routeName' },
-                });
-                handleChange(e);
-              }}
-              error={(errors.name && touched.name && errors.name) || errors.routeName}
+              onChange={handleChange}
+              error={errors.name}
             />
 
             <FormRouteName
-              routeName={values.routeName}
-              error={!!errors.routeName}
+              routeName={getRouteName(values.name)}
+              error={routeValidationErrorMessage === errors.name}
               className="mt-3"
             />
 
@@ -128,13 +127,13 @@ export const BusinessNew = ({ onAfterSuccess }: BusinessNewProps) => {
                 isBusy={businessApi.addOne.status.isBusy}
                 disabled={!isValid}
                 onClick={() => {
-                  const { category, name, routeName } = values;
+                  const { category, name } = values;
 
                   businessApi.addOne.fetch(
                     {
                       category,
                       name,
-                      routeName,
+                      routeName: getRouteName(name),
                     },
                     {
                       onAfterSuccess: (response) => {

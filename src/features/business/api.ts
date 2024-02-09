@@ -7,12 +7,19 @@ import { getPaginationResources } from 'utils/pagination';
 
 export const useBusinessApi = (): {
   getAll: FetchResourceWithPagination<{ routeName?: string }, Business>;
+  getAllPublic: FetchResourceWithPagination<{ routeName?: string }, Business>;
   getOne: FetchResource<{ id: string }, Business>;
+  getOnePublic: FetchResource<{ id: string }, Business>;
   addOne: FetchResource<{ name: string; routeName: string; category: string }, Business>;
   removeOne: FetchResource<{ id: string }, void>;
 } => {
   const [getAllData, getAllStatus, getAllFetch] = useFetch<PaginatedData<Business>>();
+  const [getAllPublicData, getAllPublicStatus, getAllPublicFetch] =
+    useFetch<PaginatedData<Business>>();
+
   const [getOneData, getOneStatus, getOneFetch] = useFetch<Business>();
+  const [getOnePublicData, getOnePublicStatus, getOnePublicFetch] = useFetch<Business>();
+
   const [addOneData, addOneStatus, addOneFetch] = useFetch<Business>();
   const [removeOneData, removeOneStatus, removeOneFetch] = useFetch();
 
@@ -30,6 +37,19 @@ export const useBusinessApi = (): {
         );
       },
     },
+    getAllPublic: {
+      ...getPaginationResources(getAllPublicData),
+      status: getAllPublicStatus,
+      fetch: ({ routeName }, options = {}) => {
+        getAllPublicFetch(
+          {
+            method: 'get',
+            url: getEndpoint({ path: '/public/business', params: { routeName } }),
+          },
+          options,
+        );
+      },
+    },
     getOne: {
       data: getOneData,
       status: getOneStatus,
@@ -39,6 +59,24 @@ export const useBusinessApi = (): {
             method: 'get',
             url: getEndpoint({
               path: '/business/:id',
+              urlParams: {
+                id,
+              },
+            }),
+          },
+          options,
+        );
+      },
+    },
+    getOnePublic: {
+      data: getOnePublicData,
+      status: getOnePublicStatus,
+      fetch: ({ id }, options = {}) => {
+        getOnePublicFetch(
+          {
+            method: 'get',
+            url: getEndpoint({
+              path: '/public/business/:id',
               urlParams: {
                 id,
               },

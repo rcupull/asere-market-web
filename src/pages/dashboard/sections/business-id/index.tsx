@@ -25,10 +25,9 @@ export const SectionBusinessId = () => {
   const onGetBussiness = () => businessApi.getOne.fetch({ id: businessId });
 
   const businessName = businessApi.getOne.data?.name;
-  const title = businessName ? `Negocio (${businessName})` : '';
 
   return (
-    <LayoutSection title={title} backButton>
+    <LayoutSection title={businessName} backButton>
       <LayoutSectionSub title="Publicaciones">
         <TablePosts businessId={businessId} />
       </LayoutSectionSub>

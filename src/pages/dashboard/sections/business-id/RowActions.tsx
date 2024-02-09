@@ -1,3 +1,4 @@
+import { Badge } from 'components/badge';
 import { ButtonRemove } from 'components/button-remove';
 import { IconButtonRemove } from 'components/icon-button-remove ';
 
@@ -21,6 +22,7 @@ export const RowActions = ({ rowData, onRefresh }: RowActionsProps) => {
 
         return {
           content: 'Seguro que desea eliminar este negocio?',
+          badge: <Badge variant="error" />,
           primaryBtn: (
             <ButtonRemove
               isBusy={businessApi.removeOne.status.isBusy}

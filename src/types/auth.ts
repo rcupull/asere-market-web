@@ -8,11 +8,12 @@ export interface User extends BaseIdentity {
   password: string;
   role: UserRole;
   validated: boolean;
+  businessIds: Array<string>;
 }
 
 export type UserData = User | null;
 
 export interface AuthData {
-  user: UserData;
+  user: User;
   token: string;
 }
