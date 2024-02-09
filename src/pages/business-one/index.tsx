@@ -11,18 +11,18 @@ export const BusinessOne = () => {
 
   const businessApis = useBusinessApi();
 
-  const business = businessApis.getAll.data?.[0];
-
   useEffect(() => {
     if (routeName) {
-      businessApis.getAll.fetch({ routeName });
+      businessApis.getAllPublic.fetch({ routeName });
     }
   }, [routeName]);
+
+  const business = businessApis.getAllPublic.data?.[0];
 
   if (!business) return <></>;
 
   return (
-    <LayoutSingle>
+    <LayoutSingle title={business.name}>
       <ModulePosts title="Recientes" businessIds={[business._id]} className="w-full" />
     </LayoutSingle>
   );

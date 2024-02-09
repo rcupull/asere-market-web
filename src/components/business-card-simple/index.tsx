@@ -1,4 +1,5 @@
 import { CameraIcon } from '@heroicons/react/24/outline';
+import { Link } from 'react-router-dom';
 
 import { BusinessCategory } from 'types/business';
 import { getBusinessCategoryLabel } from 'utils/business';
@@ -21,7 +22,7 @@ export const BusinessCardSimple = ({
   category,
 }: BusinessCardSimpleProps) => {
   return (
-    <a data-id="ProductSimple" className={cn('group', className)} href={href}>
+    <Link data-id="ProductSimple" className={cn('group', className)} to={href}>
       <div className="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-lg bg-gray-200 xl:aspect-h-8 xl:aspect-w-7 flex items-center justify-center">
         {imageSrc ? (
           <img
@@ -37,6 +38,6 @@ export const BusinessCardSimple = ({
       </div>
       <h3 className="mt-4 text-sm text-gray-700">{name}</h3>
       <h3 className="mt-4 text-sm text-gray-700">{getBusinessCategoryLabel(category)}</h3>
-    </a>
+    </Link>
   );
 };
