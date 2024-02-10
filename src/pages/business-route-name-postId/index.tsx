@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
-import { ProductSimple } from 'components/product-simple';
+import { ClothingProductGrid1 } from 'components/clothing-product-grid-1';
 
 import { usePostsApi } from 'features/post/api';
 
@@ -22,8 +22,7 @@ export const BusinessRouteNamePostId = () => {
 
   return (
     <LayoutPage title={post?.name} backButton>
-      {'<Improve>'}
-      {post && <ProductSimple name={post.name} price={`${post.price} ${post.currency}`} href="#" />}
+     <ClothingProductGrid1  />
     </LayoutPage>
   );
 };
