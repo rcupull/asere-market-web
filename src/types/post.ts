@@ -8,7 +8,7 @@ export interface PostImage {
 
 export interface Post extends BaseIdentity {
   images?: Array<PostImage>;
-  businessId: string;
+  routeName: string;
   description: string;
   name: string;
   price: number;

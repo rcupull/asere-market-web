@@ -15,10 +15,10 @@ import { Post, PostCurrency } from 'types/post';
 
 export interface PostNewProps {
   onAfterSuccess?: (response: any) => void;
-  businessId: string;
+  routeName: string;
 }
 
-export const PostNew = ({ onAfterSuccess, businessId }: PostNewProps) => {
+export const PostNew = ({ onAfterSuccess, routeName }: PostNewProps) => {
   const { onClose } = useModal();
 
   const userApi = useUserApi();
@@ -134,7 +134,7 @@ export const PostNew = ({ onAfterSuccess, businessId }: PostNewProps) => {
                   userApi.addOnePost.fetch(
                     {
                       name,
-                      businessId,
+                      routeName,
                       currency,
                       description,
                       price,

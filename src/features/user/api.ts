@@ -20,7 +20,7 @@ export const useUserApi = (): {
   //
   addOnePost: FetchResource<
     {
-      businessId: string;
+      routeName: string;
       name: string;
       description: string;
       amountAvailable?: number;
@@ -116,10 +116,7 @@ export const useUserApi = (): {
     addOnePost: {
       data: addOnePostFetch[0],
       status: addOnePostFetch[1],
-      fetch: (
-        { name, businessId, currency, description, price, amountAvailable },
-        options = {},
-      ) => {
+      fetch: ({ name, routeName, currency, description, price, amountAvailable }, options = {}) => {
         addOnePostFetch[2](
           {
             method: 'post',
@@ -127,7 +124,7 @@ export const useUserApi = (): {
               path: '/user/:userId/posts',
               urlParams: { userId },
             }),
-            data: { businessId, name, currency, description, price, amountAvailable },
+            data: { routeName, name, currency, description, price, amountAvailable },
           },
           options,
         );

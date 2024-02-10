@@ -15,7 +15,7 @@ import { LayoutSectionSub } from 'pages/@common/layout-section-sub';
 import { TableTopActions } from 'pages/dashboard/components/table-top-actions';
 import { getDateString } from 'utils/date';
 
-export const SectionBusiness = () => {
+export const DashboardBusiness = () => {
   const userApi = useUserApi();
 
   const { pushModal } = useModal();
@@ -47,10 +47,10 @@ export const SectionBusiness = () => {
         <Table
           heads={[null, 'Nombre', 'Categoría', 'Fecha de creación']}
           getRowProps={(rowData) => {
-            const { name, category, createdAt, _id } = rowData;
+            const { name, category, createdAt, routeName } = rowData;
 
             return {
-              onClick: () => pushRoute(`${pathname}/${_id}`),
+              onClick: () => pushRoute(`${pathname}/${routeName}`),
               nodes: [
                 <RowActions key="RowActions" rowData={rowData} onRefresh={onRefresh} />,
                 name,

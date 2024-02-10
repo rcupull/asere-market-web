@@ -9,8 +9,8 @@ import { TablePosts } from './table-posts';
 import { LayoutSection } from 'pages/@common/layout-section';
 import { LayoutSectionSub } from 'pages/@common/layout-section-sub';
 
-export const SectionBusinessId = () => {
-  const { businessId } = useParams();
+export const DashboardBusinessRouteName = () => {
+  const { routeName } = useParams();
 
   const businessApi = useBusinessApi();
 
@@ -18,18 +18,21 @@ export const SectionBusinessId = () => {
     onGetBussiness();
   }, []);
 
-  if (!businessId) {
+
+  const onGetBussiness = () => routeName && businessApi.getOne.fetch({ routeName });
+
+  const business = businessApi.getOne.data
+
+  if (!business) {
     return <></>;
   }
 
-  const onGetBussiness = () => businessApi.getOne.fetch({ id: businessId });
-
-  const businessName = businessApi.getOne.data?.name;
+  const businessName = business.name;
 
   return (
     <LayoutSection title={businessName} backButton>
       <LayoutSectionSub>
-        <TablePosts businessId={businessId} />
+        {routeName &&  <TablePosts routeName={routeName} />}
       </LayoutSectionSub>
     </LayoutSection>
   );

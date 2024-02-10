@@ -8,7 +8,7 @@ import { getPaginationResources } from 'utils/pagination';
 
 export const useBusinessApi = (): {
   getAll: FetchResourceWithPagination<{ routeName?: string; filters?: AnyRecord }, Business>;
-  getOne: FetchResource<{ id: string }, Business>;
+  getOne: FetchResource<{ routeName: string }, Business>;
 } => {
   const [getAllData, getAllStatus, getAllFetch] = useFetch<PaginatedData<Business>>();
   const [getOneData, getOneStatus, getOneFetch] = useFetch<Business>();
@@ -30,14 +30,14 @@ export const useBusinessApi = (): {
     getOne: {
       data: getOneData,
       status: getOneStatus,
-      fetch: ({ id }, options = {}) => {
+      fetch: ({ routeName }, options = {}) => {
         getOneFetch(
           {
             method: 'get',
             url: getEndpoint({
-              path: '/business/:id',
+              path: '/business/:routeName',
               urlParams: {
-                id,
+                routeName,
               },
             }),
           },

@@ -6,7 +6,7 @@ import { useFetch } from 'hooks/useFetch';
 
 import { getEndpoint } from 'utils/api';
 
-export const SectionPosts = () => {
+export const DashboardPosts = () => {
   const [, , handleFetchPosts] = useFetch();
 
   useEffect(() => {

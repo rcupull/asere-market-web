@@ -4,9 +4,9 @@ import { SideBar as SideBarBase } from 'components/side-bar';
 
 import { StyleProps } from 'types/general';
 
-export interface SideBarProps extends StyleProps {}
+export interface DashboardSideBarProps extends StyleProps {}
 
-export const SideBar = ({ className }: SideBarProps) => {
+export const DashboardSideBar = ({ className }: DashboardSideBarProps) => {
   return (
     <SideBarBase
       className={className}

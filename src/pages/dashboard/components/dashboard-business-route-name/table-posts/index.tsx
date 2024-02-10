@@ -13,10 +13,10 @@ import { TableTopActions } from 'pages/dashboard/components/table-top-actions';
 import { getDateString } from 'utils/date';
 
 export interface TablePostsProps {
-  businessId: string;
+  routeName: string;
 }
 
-export const TablePosts = ({ businessId }: TablePostsProps) => {
+export const TablePosts = ({ routeName }: TablePostsProps) => {
   const postsApi = usePostsApi();
   const { pushModal } = useModal();
 
@@ -24,7 +24,7 @@ export const TablePosts = ({ businessId }: TablePostsProps) => {
     onRefresh();
   }, []);
 
-  const onRefresh = () => postsApi.getAll.fetch({ businessIds: [businessId] });
+  const onRefresh = () => postsApi.getAll.fetch({ routeNames: [routeName] });
 
   return (
     <>
@@ -33,7 +33,7 @@ export const TablePosts = ({ businessId }: TablePostsProps) => {
           label="Nueva publicación"
           onClick={() =>
             pushModal('PostNew', {
-              businessId,
+              routeName,
               onAfterSuccess: () => onRefresh(),
             })
           }
