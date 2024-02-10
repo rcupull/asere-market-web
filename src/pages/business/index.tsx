@@ -1,5 +1,3 @@
-import { useEffect } from 'react';
-
 import { BusinessCardSimple } from 'components/business-card-simple';
 import { CardGroup } from 'components/card-group';
 import { Pagination } from 'components/pagination';
@@ -11,30 +9,31 @@ import { useFilters } from 'hooks/useFilters';
 import { LayoutPage } from 'pages/@common/layout-page';
 import { LayoutPageSection } from 'pages/@common/layout-page-section';
 import { SearchFilter } from 'pages/@common/search-filter';
+import { AnyRecord } from 'types/general';
 
 export const Business = () => {
-  const businessApis = useBusinessApi();
+  const businessApi = useBusinessApi().getAll;
 
-  useEffect(() => {
-    businessApis.getAll.fetch({});
-  }, []);
+  const onRefresh = (filters: AnyRecord) => businessApi.fetch({ filters });
 
-  const filters = useFilters({
-    onChange: (filters) => businessApis.getAll.fetch({ filters }),
+  const filters = useFilters<{ search?: string; page?: number }>({
+    onChange: (filters) => onRefresh(filters),
   });
+
 
   return (
     <LayoutPage title="Todas las tiendas">
       <LayoutPageSection>
         <div className="flex justify-end">
           <SearchFilter
-            isBusy={businessApis.getAll.status.isBusy}
+            isBusy={businessApi.status.isBusy}
             onChange={(search) => filters.onMergeFilters({ search })}
+            value={filters.value.search}
           />
         </div>
 
         <CardGroup className="mt-6">
-          {businessApis.getAll.data?.map(({ name, category, routeName }, index) => {
+          {businessApi.data?.map(({ name, category, routeName }, index) => {
             return (
               <BusinessCardSimple
                 key={index}
@@ -48,7 +47,7 @@ export const Business = () => {
 
         <Pagination
           className="w-full mt-6"
-          paginator={businessApis.getAll?.paginator}
+          paginator={businessApi?.paginator}
           onChange={({ page }) => filters.onMergeFilters({ page })}
         />
       </LayoutPageSection>

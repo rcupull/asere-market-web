@@ -23,7 +23,7 @@ export const usePostsApi = (): {
             method: 'get',
             url: getEndpoint({
               path: '/posts',
-              params: { routeNames, ...filters },
+              query: { routeNames, ...filters },
             }),
           },
           options,

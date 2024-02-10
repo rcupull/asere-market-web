@@ -1,10 +1,10 @@
 import { isEmpty, isNullOrUndefined } from './general';
 
 import qs from 'query-string';
-import { GetEndpoint, Params, UrlParams } from 'types/api';
+import { GetEndpoint, Query, UrlParams } from 'types/api';
 
-export const paramsSerializer = (params: Params): string =>
-  qs.stringify(params, { arrayFormat: 'comma' });
+export const paramsSerializer = (query: Query): string =>
+  qs.stringify(query, { arrayFormat: 'comma' });
 
 export const apiErrorsMesages = {
   networkError: 'Network Error',
@@ -28,22 +28,22 @@ export const injectUrlParams = (url: string, urlParams: UrlParams = {}): string 
 
 export const fillPath = ({
   path,
-  params,
+  query,
   urlParams,
 }: {
   path: string;
-  params?: Params;
+  query?: Query;
   urlParams?: UrlParams;
 }): string => {
   const flattenPath = injectUrlParams(path, urlParams);
 
-  const getFlattenParams = (value: Params): Params =>
+  const getFlattenParams = (value: Query): Query =>
     Object.entries(value).reduce((acc, [k, v]) => {
       if (isNullOrUndefined(v)) return acc;
       return { ...acc, [k]: v };
     }, {});
 
-  const flattenParams = params && getFlattenParams(params);
+  const flattenParams = query && getFlattenParams(query);
 
   if (isEmpty(flattenParams)) {
     return flattenPath;
@@ -52,10 +52,10 @@ export const fillPath = ({
   return `${flattenPath}?${paramsSerializer(flattenParams)}`;
 };
 
-export const getEndpoint: GetEndpoint = ({ path, params, urlParams }) => {
+export const getEndpoint: GetEndpoint = ({ path, query, urlParams }) => {
   const flattenPath = fillPath({
     path,
-    params,
+    query,
     urlParams,
   });
 

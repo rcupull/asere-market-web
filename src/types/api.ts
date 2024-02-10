@@ -1,5 +1,8 @@
 import { AnyRecord } from './general';
 
+//eslint-disable-next-line
+import { ParsedQuery } from 'query-string';
+
 export type OnAfterSuccess<Data = any> = (reponse: Data) => void;
 export type OnAfterFailed = (error: ApiError) => void;
 
@@ -47,15 +50,11 @@ export interface ApiError {
 
 export type UrlParams = AnyRecord;
 export type Headers = Record<string, string>;
-export type Params = Record<string, string | number | boolean | undefined | Array<any>>;
+export type Query = ParsedQuery<string | number | boolean | undefined>;
 
 export type FetchMethod = 'get' | 'post' | 'put' | 'delete';
 
-export type GetEndpoint = (args: {
-  path: string;
-  params?: Params;
-  urlParams?: UrlParams;
-}) => string;
+export type GetEndpoint = (args: { path: string; query?: Query; urlParams?: UrlParams }) => string;
 
 export interface BasicFetchArgs {
   method: FetchMethod;
@@ -66,7 +65,7 @@ export interface BasicFetchArgs {
 }
 
 export interface FetchArgs extends BasicFetchArgs {
-  params?: Params;
+  query?: Query;
   urlParams?: UrlParams;
 }
 

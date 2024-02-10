@@ -8,18 +8,20 @@ import { StyleProps } from 'types/general';
 import { cn } from 'utils/general';
 export interface SearchFilterProps extends StyleProps {
   isBusy: boolean;
-  onChange: (search: string | undefined) => void;
+  onChange?: (search: string | undefined) => void;
+  value?: string;
 }
 
-export const SearchFilter = ({ isBusy, onChange, className }: SearchFilterProps) => {
+export const SearchFilter = ({ isBusy, onChange, className, value }: SearchFilterProps) => {
   const submitBtnPortal = useSubmitPortal();
   const clearBtnPortal = useSubmitPortal();
 
   return (
     <div className={cn('flex items-center', className)}>
       <Formik
+        enableReinitialize
         initialValues={{
-          search: '',
+          search: value || '',
         }}
         onSubmit={() => {}}
       >
@@ -32,8 +34,9 @@ export const SearchFilter = ({ isBusy, onChange, className }: SearchFilterProps)
                 <Button
                   label="Buscar"
                   isBusy={isBusy}
+                  value={value}
                   onClick={() => {
-                    onChange(values.search);
+                    onChange?.(values.search);
                   }}
                   variant="primary"
                   className="ml-2"
@@ -45,7 +48,7 @@ export const SearchFilter = ({ isBusy, onChange, className }: SearchFilterProps)
                   label="Limpiar"
                   onClick={() => {
                     handleReset();
-                    onChange(undefined);
+                    onChange?.(undefined);
                   }}
                   variant="outlined"
                   className="ml-2"

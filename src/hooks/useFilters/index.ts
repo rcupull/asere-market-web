@@ -1,9 +1,13 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
+
+import { useRouter } from 'features/router';
 
 import { AnyRecord } from 'types/general';
 
 interface UseFiltersArgs<S> {
   onChange?: (state: S) => void;
+  notPersisteInRoute?: boolean;
+  notCallChangeWhenMount?: boolean;
   initialFilters?: S;
 }
 
@@ -11,21 +15,33 @@ export const useFilters = <S extends AnyRecord = AnyRecord>(
   args: UseFiltersArgs<S>,
 ): {
   onMergeFilters: (partialFilter: S) => void;
-  state: S;
+  value: S;
 } => {
-  const { onChange, initialFilters = {} } = args || {};
+  const { onChange, initialFilters = {}, notPersisteInRoute, notCallChangeWhenMount } = args || {};
+  const [localState, setLocalState] = useState<S>(initialFilters as S);
+  const { query: queryState, onChangeQuery: onChangeQueryState } = useRouter();
 
-  const [state, setState] = useState<S>(initialFilters as S);
+  const filterValue = (notPersisteInRoute ? localState : queryState) as S;
+  const handleChangeFilterState = notPersisteInRoute ? setLocalState : onChangeQueryState;
 
-  const onMergeFilters = (partialState: S) => {
-    const newState = { ...state, ...partialState };
-    setState(newState);
-
-    onChange?.(newState);
+  const onMergeFilters = (partialValue: S) => {
+    const newValue = { ...filterValue, ...partialValue };
+    handleChangeFilterState(newValue);
   };
+
+  const refMounted = useRef<boolean>(false);
+
+  useEffect(() => {
+    if (notCallChangeWhenMount && !refMounted.current) {
+      refMounted.current = true;
+      return;
+    }
+    refMounted.current = true;
+    onChange?.(filterValue);
+  }, [filterValue]);
 
   return {
     onMergeFilters,
-    state,
+    value: filterValue,
   };
 };

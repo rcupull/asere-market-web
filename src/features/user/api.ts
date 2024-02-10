@@ -54,7 +54,7 @@ export const useUserApi = (): {
             url: getEndpoint({
               path: '/user/:userId/business',
               urlParams: { userId },
-              params: { routeName, ...filters },
+              query: { routeName, ...filters },
             }),
           },
           options,

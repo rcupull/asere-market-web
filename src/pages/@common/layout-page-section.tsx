@@ -11,7 +11,7 @@ export const LayoutPageSection = ({
   className,
 }: LayoutSectionSubProps): JSX.Element => {
   return (
-    <div className={cn('mt-4', className)}>
+    <div className={cn('mt-4 w-full', className)}>
       {title && <h2 className="text-xl mt-3 mb-2">{title}</h2>}
 
       {children}

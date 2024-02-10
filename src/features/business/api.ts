@@ -21,7 +21,7 @@ export const useBusinessApi = (): {
         getAllFetch(
           {
             method: 'get',
-            url: getEndpoint({ path: '/business', params: { routeName, ...filters } }),
+            url: getEndpoint({ path: '/business', query: { routeName, ...filters } }),
           },
           options,
         );

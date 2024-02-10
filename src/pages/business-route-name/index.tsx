@@ -11,46 +11,44 @@ import { usePostsApi } from 'features/post/api';
 import { useFilters } from 'hooks/useFilters';
 
 import { LayoutPage } from 'pages/@common/layout-page';
+import { LayoutPageSection } from 'pages/@common/layout-page-section';
 import { SearchFilter } from 'pages/@common/search-filter';
-import { AnyRecord } from 'types/general';
 
 export const BusinessRouteName = () => {
   const { routeName } = useParams();
 
-  const businessApis = useBusinessApi();
-  const postsApi = usePostsApi();
+  const businessApis = useBusinessApi().getOne;
 
-  const business = businessApis.getOne.data;
+  const business = businessApis.data;
+
+  const postsApi = usePostsApi().getAll;
 
 
-  const onFetchPosts = (routeName: string, filters?: AnyRecord) => postsApi.getAll.fetch({ routeNames: [routeName], filters });
+  const filters = useFilters<{ search?: string; page?: number }>({
+    onChange: (filters) => routeName && postsApi.fetch({ routeNames: [routeName], filters }),
+  });
 
   useEffect(() => {
     if (routeName) {
-      businessApis.getOne.fetch({ routeName });
-      onFetchPosts(routeName);
+      businessApis.fetch({ routeName });
     }
-  }, [routeName]);
+  }, []);
 
-
-  const filters = useFilters({
-    onChange: (filters) => routeName && onFetchPosts(routeName, filters),
-  });
-
-  if (!business) return <></>;
 
   return (
-    <LayoutPage title={business.name} backButton>
+    <LayoutPage title={business?.name} backButton>
 
-      <div>
+
+      <LayoutPageSection title='Publicaciones'>
         <div className="flex justify-end">
           <SearchFilter
-            isBusy={postsApi.getAll.status.isBusy}
+            isBusy={postsApi.status.isBusy}
             onChange={(search) => filters.onMergeFilters({ search })}
+            value={filters.value.search}
           />
         </div>
-        <CardGroup className='mt-2'>
-          {postsApi.getAll.data?.map(({ name, price, currency, _id}, index) => {
+        <CardGroup className="mt-2">
+          {postsApi.data?.map(({ name, price, currency, _id }, index) => {
             return (
               <ProductSimple
                 key={index}
@@ -64,11 +62,11 @@ export const BusinessRouteName = () => {
         </CardGroup>
 
         <Pagination
-        className='mt-2'
-          paginator={postsApi.getAll?.paginator}
+          className="mt-2"
+          paginator={postsApi?.paginator}
           onChange={({ page }) => filters.onMergeFilters({ page })}
         />
-      </div>
+      </LayoutPageSection>
     </LayoutPage>
   );
 };
