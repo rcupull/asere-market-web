@@ -11,7 +11,7 @@ import { LayoutSingle } from 'pages/@common/layout-single';
 import { SearchFilter } from 'pages/@common/search-filter';
 import { AnyRecord } from 'types/general';
 
-export const BusinessAll = () => {
+export const Business = () => {
   const [filters, setFilters] = useState({});
 
   const businessApis = useBusinessApi();

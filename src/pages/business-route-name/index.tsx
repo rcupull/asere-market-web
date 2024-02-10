@@ -6,7 +6,7 @@ import { useBusinessApi } from 'features/business/api';
 import { LayoutSingle } from 'pages/@common/layout-single';
 import { ModulePosts } from 'pages/@common/module-posts';
 
-export const BusinessOne = () => {
+export const BusinessRouteName = () => {
   const { routeName } = useParams();
 
   const businessApis = useBusinessApi();

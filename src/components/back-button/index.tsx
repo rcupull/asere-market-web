@@ -1,11 +1,11 @@
 import { ArrowLeftIcon } from '@heroicons/react/24/outline';
-import { useNavigate } from 'react-router-dom';
+import {  useNavigate } from 'react-router-dom';
+
+import { IconButton } from 'components/icon-button';
 
 export const BackButton = () => {
   const navigate = useNavigate();
   return (
-    <a onClick={() => navigate(-1)}>
-      <ArrowLeftIcon className="h-6 w-6 text-gray-600 cursor-pointer font-bold" />
-    </a>
+    <IconButton onClick={() => navigate(-1)} svg={ArrowLeftIcon} className='ring-0'/>
   );
 };

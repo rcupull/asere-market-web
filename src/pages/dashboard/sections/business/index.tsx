@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 
 import { ButtonNew } from 'components/button-new';
+import { ButtonRefresh } from 'components/button-refresh';
 import { Table } from 'components/table';
 
 import { useModal } from 'features/modal';
@@ -28,7 +29,7 @@ export const SectionBusiness = () => {
 
   return (
     <LayoutSection title="Negocios">
-      <LayoutSectionSub title="Mis Negocios">
+      <LayoutSectionSub>
         <TableTopActions>
           <ButtonNew
             label="Nuevo negocio"
@@ -39,7 +40,10 @@ export const SectionBusiness = () => {
             }
             className="ml-auto"
           />
+
+          <ButtonRefresh onClick={onRefresh} />
         </TableTopActions>
+
         <Table
           heads={[null, 'Nombre', 'Categoría', 'Fecha de creación']}
           getRowProps={(rowData) => {

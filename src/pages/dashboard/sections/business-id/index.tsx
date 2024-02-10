@@ -28,7 +28,7 @@ export const SectionBusinessId = () => {
 
   return (
     <LayoutSection title={businessName} backButton>
-      <LayoutSectionSub title="Publicaciones">
+      <LayoutSectionSub>
         <TablePosts businessId={businessId} />
       </LayoutSectionSub>
     </LayoutSection>

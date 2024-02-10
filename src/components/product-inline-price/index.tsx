@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom';
+
 import { cn } from 'utils/general';
 export interface Props {
   className?: string;
@@ -30,10 +32,10 @@ export const ProductInlinePrice = ({
       <div className="mt-4 flex justify-between">
         <div>
           <h3 className="text-sm text-gray-700">
-            <a href={href}>
+            <Link to={href}>
               <span aria-hidden="true" className="absolute inset-0" />
               {name}
-            </a>
+            </Link>
           </h3>
           <p className="mt-1 text-sm text-gray-500">{description}</p>
         </div>

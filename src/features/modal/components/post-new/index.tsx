@@ -159,7 +159,7 @@ export const PostNew = ({ onAfterSuccess, businessId }: PostNewProps) => {
 
   return (
     <Modal
-      title="Nuevo Post"
+      title="Nueva publicación"
       content={newPostForm}
       primaryBtn={<div ref={submitPortal.ref} />}
       secondaryBtn={<ButtonClose />}

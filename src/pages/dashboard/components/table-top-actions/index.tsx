@@ -6,7 +6,7 @@ export interface TableTopActionsProps extends ChildrenProp, StyleProps {}
 export const TableTopActions = ({ children, className }: TableTopActionsProps) => {
   return (
     <div
-      className={cn('border-solid border-2 border-gray-200 flex w-full p-1 rounded-lg', className)}
+      className={cn('flex w-full px-1 py-3 gap-3', className)}
     >
       {children}
     </div>

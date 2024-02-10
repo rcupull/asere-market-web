@@ -10,9 +10,11 @@ export interface LayoutSectionProps extends ChildrenProp {
 export const LayoutSection = ({ backButton, title, children }: LayoutSectionProps): JSX.Element => {
   return (
     <div>
-      {backButton && <BackButton />}
+      <div className="flex items-center">
+        {backButton && <BackButton />}
 
-      {title && <h1 className="text-2xl font-bold mt-3">{title}</h1>}
+        {title && <h1 className="ml-auto text-2xl font-bold">{title}</h1>}
+      </div>
 
       {children}
     </div>

@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 
 import { ButtonNew } from 'components/button-new';
+import { ButtonRefresh } from 'components/button-refresh';
 import { Table } from 'components/table';
 
 import { useModal } from 'features/modal';
@@ -29,7 +30,7 @@ export const TablePosts = ({ businessId }: TablePostsProps) => {
     <>
       <TableTopActions>
         <ButtonNew
-          label="Nuevo post"
+          label="Nueva publicación"
           onClick={() =>
             pushModal('PostNew', {
               businessId,
@@ -38,6 +39,8 @@ export const TablePosts = ({ businessId }: TablePostsProps) => {
           }
           className="ml-auto"
         />
+
+        <ButtonRefresh onClick={onRefresh} />
       </TableTopActions>
       <Table
         heads={[

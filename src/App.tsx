@@ -11,8 +11,8 @@ import { SignIn } from './pages/sign-in';
 import { SignUp } from './pages/sign-up';
 
 import { AboutUs } from 'pages/about-us';
-import { BusinessAll } from 'pages/business-all';
-import { BusinessOne } from 'pages/business-one';
+import { Business } from 'pages/business';
+import {  BusinessRouteName } from 'pages/business-route-name';
 import { SectionSettings } from 'pages/dashboard/sections/settings';
 import { Price } from 'pages/price';
 import { ValidateAccount } from 'pages/validate-account';
@@ -48,9 +48,9 @@ export const App = (): JSX.Element => {
           element={withAuthenticatedRoute(<Dashboard section={<SectionSettings />} />, ['user'])}
         />
 
-        <Route path="/business" element={<BusinessAll />} />
+        <Route path="/business" element={<Business />} />
 
-        <Route path="/:routeName" element={<BusinessOne />} />
+        <Route path="/:routeName" element={<BusinessRouteName />} />
       </Routes>
     </Layout>
   );
