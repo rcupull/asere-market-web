@@ -17,13 +17,13 @@ export const BusinessAll = () => {
   const businessApis = useBusinessApi();
 
   useEffect(() => {
-    businessApis.getAllPublic.fetch({});
+    businessApis.getAll.fetch({});
   }, []);
 
   const handleChangeFilters = (partialFilter: AnyRecord) => {
     const newFilters = { ...filters, ...partialFilter };
     setFilters(newFilters);
-    businessApis.getAllPublic.fetch({ filters: newFilters });
+    businessApis.getAll.fetch({ filters: newFilters });
   };
 
   return (
@@ -32,13 +32,13 @@ export const BusinessAll = () => {
         <div className="flex">
           <SearchFilter
             className="ml-auto"
-            isBusy={businessApis.getAllPublic.status.isBusy}
+            isBusy={businessApis.getAll.status.isBusy}
             onChange={(search) => handleChangeFilters({ search })}
           />
         </div>
         <LayoutSectionSub>
           <ProductsGroup>
-            {businessApis.getAllPublic.data?.map(({ name, category, routeName }, index) => {
+            {businessApis.getAll.data?.map(({ name, category, routeName }, index) => {
               return (
                 <BusinessCardSimple
                   key={index}
@@ -53,7 +53,7 @@ export const BusinessAll = () => {
 
         <Pagination
           className="w-full mt-6"
-          paginator={businessApis.getAllPublic?.paginator}
+          paginator={businessApis.getAll?.paginator}
           onChange={({ page }) => handleChangeFilters({ page })}
         />
       </div>

@@ -3,7 +3,7 @@ import { ButtonRemove } from 'components/button-remove';
 import { IconButtonRemove } from 'components/icon-button-remove ';
 
 import { useModal } from 'features/modal';
-import { usePostsApi } from 'features/post/api';
+import { useUserApi } from 'features/user/api';
 
 import { Post } from 'types/post';
 
@@ -17,7 +17,7 @@ export const RowActions = ({ rowData, onRefresh }: RowActionsProps) => {
   const handleDelete = () => {
     pushModal('Confirmation', {
       useProps: () => {
-        const postsApi = usePostsApi();
+        const userApi = useUserApi();
         const { onClose } = useModal();
 
         return {
@@ -25,9 +25,9 @@ export const RowActions = ({ rowData, onRefresh }: RowActionsProps) => {
           badge: <Badge variant="error" />,
           primaryBtn: (
             <ButtonRemove
-              isBusy={postsApi.removeOne.status.isBusy}
+              isBusy={userApi.removeOnePost.status.isBusy}
               onClick={() =>
-                postsApi.removeOne.fetch(
+                userApi.removeOnePost.fetch(
                   { id: rowData._id },
                   {
                     onAfterSuccess: () => {

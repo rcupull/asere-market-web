@@ -3,9 +3,9 @@ import { useEffect } from 'react';
 import { ButtonNew } from 'components/button-new';
 import { Table } from 'components/table';
 
-import { useBusinessApi } from 'features/business/api';
 import { useModal } from 'features/modal';
 import { useRouter } from 'features/router';
+import { useUserApi } from 'features/user/api';
 
 import { RowActions } from './RowActions';
 
@@ -15,12 +15,12 @@ import { TableTopActions } from 'pages/dashboard/components/table-top-actions';
 import { getDateString } from 'utils/date';
 
 export const SectionBusiness = () => {
-  const businessApi = useBusinessApi();
+  const userApi = useUserApi();
 
   const { pushModal } = useModal();
   const { pushRoute, pathname } = useRouter();
 
-  const onRefresh = () => businessApi.getAll.fetch({});
+  const onRefresh = () => userApi.getAllBussiness.fetch({});
 
   useEffect(() => {
     onRefresh();
@@ -55,7 +55,7 @@ export const SectionBusiness = () => {
               ],
             };
           }}
-          data={businessApi.getAll.data}
+          data={userApi.getAllBussiness.data}
         />
       </LayoutSectionSub>
     </LayoutSection>

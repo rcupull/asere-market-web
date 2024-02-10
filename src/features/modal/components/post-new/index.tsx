@@ -5,7 +5,7 @@ import { Modal } from 'components/modal';
 import { Select } from 'components/select';
 
 import { useModal } from 'features/modal';
-import { usePostsApi } from 'features/post/api';
+import { useUserApi } from 'features/user/api';
 
 import { useGetFormErrors } from 'hooks/useGetFormErrors';
 import { useSubmitPortal } from 'hooks/useSubmitPortal';
@@ -21,7 +21,7 @@ export interface PostNewProps {
 export const PostNew = ({ onAfterSuccess, businessId }: PostNewProps) => {
   const { onClose } = useModal();
 
-  const postsApi = usePostsApi();
+  const userApi = useUserApi();
 
   const submitPortal = useSubmitPortal();
   const { getFormErrors } = useGetFormErrors();
@@ -126,12 +126,12 @@ export const PostNew = ({ onAfterSuccess, businessId }: PostNewProps) => {
             {submitPortal.getPortal(
               <Button
                 label="Guardar"
-                isBusy={postsApi.addOne.status.isBusy}
+                isBusy={userApi.addOnePost.status.isBusy}
                 disabled={!isValid}
                 onClick={() => {
                   const { description, name, amountAvailable, currency, price } = values;
 
-                  postsApi.addOne.fetch(
+                  userApi.addOnePost.fetch(
                     {
                       name,
                       businessId,

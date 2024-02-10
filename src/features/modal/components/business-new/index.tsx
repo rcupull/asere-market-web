@@ -6,6 +6,7 @@ import { Select } from 'components/select';
 
 import { useBusinessApi } from 'features/business/api';
 import { useModal } from 'features/modal';
+import { useUserApi } from 'features/user/api';
 
 import { useDebouncer } from 'hooks/useDebouncer';
 import { useGetFormErrors } from 'hooks/useGetFormErrors';
@@ -24,6 +25,9 @@ export const BusinessNew = ({ onAfterSuccess }: BusinessNewProps) => {
   const { onClose } = useModal();
 
   const businessApi = useBusinessApi();
+
+  const userApi = useUserApi();
+
   const debouncer = useDebouncer();
 
   const submitPortal = useSubmitPortal();
@@ -56,7 +60,7 @@ export const BusinessNew = ({ onAfterSuccess }: BusinessNewProps) => {
               const routeName = getRouteName(name);
               return new Promise((resolve) => {
                 debouncer(() => {
-                  businessApi.getAllPublic.fetch(
+                  businessApi.getAll.fetch(
                     { routeName },
                     {
                       onAfterSuccess: (response) => {
@@ -124,12 +128,12 @@ export const BusinessNew = ({ onAfterSuccess }: BusinessNewProps) => {
             {submitPortal.getPortal(
               <Button
                 label="Guardar"
-                isBusy={businessApi.addOne.status.isBusy}
+                isBusy={userApi.addOneBusiness.status.isBusy}
                 disabled={!isValid}
                 onClick={() => {
                   const { category, name } = values;
 
-                  businessApi.addOne.fetch(
+                  userApi.addOneBusiness.fetch(
                     {
                       category,
                       name,

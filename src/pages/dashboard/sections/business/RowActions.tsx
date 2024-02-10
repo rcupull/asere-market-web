@@ -3,9 +3,9 @@ import { ButtonRemove } from 'components/button-remove';
 import { IconButtonRemove } from 'components/icon-button-remove ';
 import { IconButtonView } from 'components/icon-button-view';
 
-import { useBusinessApi } from 'features/business/api';
 import { useModal } from 'features/modal';
 import { useRouter } from 'features/router';
+import { useUserApi } from 'features/user/api';
 
 import { RowActionsContainer } from 'pages/@common/row-actions-container';
 import { Business } from 'types/business';
@@ -21,7 +21,7 @@ export const RowActions = ({ rowData, onRefresh }: RowActionsProps) => {
   const handleDelete = () => {
     pushModal('Confirmation', {
       useProps: () => {
-        const businessApi = useBusinessApi();
+        const userApi = useUserApi();
         const { onClose } = useModal();
 
         return {
@@ -29,9 +29,9 @@ export const RowActions = ({ rowData, onRefresh }: RowActionsProps) => {
           badge: <Badge variant="error" />,
           primaryBtn: (
             <ButtonRemove
-              isBusy={businessApi.removeOne.status.isBusy}
+              isBusy={userApi.removeOneBusiness.status.isBusy}
               onClick={() =>
-                businessApi.removeOne.fetch(
+                userApi.removeOneBusiness.fetch(
                   { id: rowData._id },
                   {
                     onAfterSuccess: () => {

@@ -13,11 +13,11 @@ export const BusinessOne = () => {
 
   useEffect(() => {
     if (routeName) {
-      businessApis.getAllPublic.fetch({ routeName });
+      businessApis.getAll.fetch({ routeName });
     }
   }, [routeName]);
 
-  const business = businessApis.getAllPublic.data?.[0];
+  const business = businessApis.getAll.data?.[0];
 
   if (!business) return <></>;
 

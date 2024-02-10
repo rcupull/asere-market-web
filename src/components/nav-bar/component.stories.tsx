@@ -22,10 +22,10 @@ export const Default = (): JSX.Element => (
     <NavBar
       userMenu={useMenu}
       items={[
-        { name: 'Dashboard', href: '#', current: true },
-        null && { name: 'Team', href: '#', current: false },
-        { name: 'Projects', href: '#', current: false },
-        { name: 'Calendar', href: '#', current: false },
+        { name: 'Dashboard', href: '#' },
+        null && { name: 'Team', href: '#' },
+        { name: 'Projects', href: '#' },
+        { name: 'Calendar', href: '#' },
       ]}
     />
   </div>
