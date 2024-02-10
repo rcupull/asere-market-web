@@ -1,23 +1,19 @@
 import { RadioGroup } from '@headlessui/react';
 import { useEffect, useState } from 'react';
 
-import { StyleProps } from 'types/general';
+import { ProductClothingSizeProps } from '../types';
+
 import { PostClothingSize } from 'types/post';
 import { cn } from 'utils/general';
 
-export interface ProductClothingSize1Props extends StyleProps {
-  title?: string;
-  items?: Array<PostClothingSize>;
-  value?: PostClothingSize;
-  onChange?: (value: PostClothingSize) => void;
-}
+export type ProductClothingSize1Props = ProductClothingSizeProps;
 
 export const ProductClothingSize1 = ({
   value,
   className,
   onChange,
   title,
-  items
+  items,
 }: ProductClothingSize1Props) => {
   const [state, setState] = useState<PostClothingSize>();
 

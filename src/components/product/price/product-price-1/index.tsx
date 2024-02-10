@@ -1,9 +1,6 @@
-import { PostCurrency } from 'types/post';
+import { ProductPriceProps } from '../types';
 
-export interface ProductPrice1Props {
-  price?: number;
-  currency?: PostCurrency;
-}
+export type ProductPrice1Props = ProductPriceProps;
 
 export const ProductPrice1 = ({ currency, price }: ProductPrice1Props) => {
   return (

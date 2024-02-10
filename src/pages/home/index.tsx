@@ -1,8 +1,7 @@
-
 import { CardGroup } from 'components/card-group';
 import { HeroSectionCentered } from 'components/hero-section-centered';
 import { Pagination } from 'components/pagination';
-import { ProductSimple } from 'components/product-simple';
+import { ProductSimple } from 'components/product/product-simple';
 
 import { usePostsApi } from 'features/post/api';
 
@@ -15,11 +14,9 @@ import { SearchFilter } from 'pages/@common/search-filter';
 export const Home = () => {
   const postsApi = usePostsApi().getAll;
 
-
   const filters = useFilters<{ search?: string; page?: number }>({
     onChange: (filters) => postsApi.fetch({ filters }),
   });
-  
 
   return (
     <LayoutPage>

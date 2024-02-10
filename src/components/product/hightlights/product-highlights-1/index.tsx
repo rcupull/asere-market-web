@@ -1,8 +1,6 @@
-import { StyleProps } from 'types/general';
-export interface ProductHighLights1Props extends StyleProps {
-  title?: string;
-  value?: Array<string>;
-}
+import { ProductHighLightsProps } from '../types';
+
+export type ProductHighLights1Props = ProductHighLightsProps;
 
 export const ProductHighLights1 = ({ title, value, className }: ProductHighLights1Props) => {
   return (

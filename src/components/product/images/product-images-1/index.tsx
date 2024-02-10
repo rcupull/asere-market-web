@@ -1,13 +1,11 @@
 import { UnknownImage } from 'components/unknown-image';
 
-import { StyleProps } from 'types/general';
+import { ProductImagesProps } from '../types';
+
 import { PostImage } from 'types/post';
 import { cn } from 'utils/general';
 
-export interface ProductImages1Props extends StyleProps {
-  value?: Array<PostImage>;
-}
-
+export type ProductImages1Props = ProductImagesProps;
 export const ProductImages1 = ({ value, className }: ProductImages1Props) => {
   const renderImage = (image: PostImage | undefined): React.ReactNode => {
     if (!image) {

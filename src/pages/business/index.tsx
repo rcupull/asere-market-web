@@ -20,7 +20,6 @@ export const Business = () => {
     onChange: (filters) => onRefresh(filters),
   });
 
-
   return (
     <LayoutPage title="Todas las tiendas">
       <LayoutPageSection>

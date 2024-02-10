@@ -1,5 +1,5 @@
-import { ProductInlinePrice } from 'components/product-inline-price';
-import { ProductSimple } from 'components/product-simple';
+import { ProductInlinePrice } from 'components/product/product-inline-price';
+import { ProductSimple } from 'components/product/product-simple';
 
 import { CardGroup } from '.';
 

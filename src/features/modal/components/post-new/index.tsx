@@ -27,13 +27,12 @@ export const PostNew = ({ onAfterSuccess, routeName }: PostNewProps) => {
   const { getFormErrors } = useGetFormErrors();
 
   const newPostForm = (
-    <Formik<Pick<Post, 'name' | 'description' | 'currency' | 'amountAvailable' | 'price'>>
+    <Formik<Pick<Post, 'name' | 'description' | 'currency' | 'price'>>
       initialValues={{
         description: '',
         name: '',
         currency: 'CUP',
         price: 0,
-        amountAvailable: 0,
       }}
       validate={(values) => {
         return getFormErrors(values, [
@@ -112,24 +111,13 @@ export const PostNew = ({ onAfterSuccess, routeName }: PostNewProps) => {
               className="mt-6"
             />
 
-            <Input
-              id="post_amountAvailable"
-              name="amountAvailable"
-              autoComplete="post_amountAvailable"
-              label="Cantidad disponible"
-              type="number"
-              onChange={handleChange}
-              error={errors.amountAvailable && touched.amountAvailable && errors.amountAvailable}
-              className="mt-6"
-            />
-
             {submitPortal.getPortal(
               <Button
                 label="Guardar"
                 isBusy={userApi.addOnePost.status.isBusy}
                 disabled={!isValid}
                 onClick={() => {
-                  const { description, name, amountAvailable, currency, price } = values;
+                  const { description, name, currency, price } = values;
 
                   userApi.addOnePost.fetch(
                     {
@@ -138,7 +126,6 @@ export const PostNew = ({ onAfterSuccess, routeName }: PostNewProps) => {
                       currency,
                       description,
                       price,
-                      amountAvailable,
                     },
                     {
                       onAfterSuccess: (response) => {

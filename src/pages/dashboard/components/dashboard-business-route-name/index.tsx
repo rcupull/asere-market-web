@@ -18,10 +18,9 @@ export const DashboardBusinessRouteName = () => {
     onGetBussiness();
   }, []);
 
-
   const onGetBussiness = () => routeName && businessApi.getOne.fetch({ routeName });
 
-  const business = businessApi.getOne.data
+  const business = businessApi.getOne.data;
 
   if (!business) {
     return <></>;
@@ -31,9 +30,7 @@ export const DashboardBusinessRouteName = () => {
 
   return (
     <LayoutSection title={businessName} backButton>
-      <LayoutSectionSub>
-        {routeName &&  <TablePosts routeName={routeName} />}
-      </LayoutSectionSub>
+      <LayoutSectionSub>{routeName && <TablePosts routeName={routeName} />}</LayoutSectionSub>
     </LayoutSection>
   );
 };

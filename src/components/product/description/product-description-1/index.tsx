@@ -1,7 +1,6 @@
-import { StyleProps } from 'types/general';
-export interface ProductDescription1Props extends StyleProps {
-  value?: string;
-}
+import { ProductDescriptionProps } from '../types';
+
+export type ProductDescription1Props = ProductDescriptionProps;
 
 export const ProductDescription1 = ({ value, className }: ProductDescription1Props) => {
   return (

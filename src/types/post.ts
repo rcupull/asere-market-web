@@ -36,8 +36,8 @@ export interface PostClothingSize {
 }
 
 export interface PostClothing extends Post {
-  colors: Array<PostColor>;
-  sizes: Array<PostClothingSize>;
+  colors?: Array<PostColor>;
+  sizes?: Array<PostClothingSize>;
   highlights?: Array<string>;
   details?: string;
 }

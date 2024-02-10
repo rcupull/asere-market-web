@@ -1,29 +1,30 @@
 import { RadioGroup } from '@headlessui/react';
 import { useEffect, useState } from 'react';
 
-import { StyleProps } from 'types/general';
-import {  PostColor } from 'types/post';
+import { ProductColorsProps } from '../types';
+
+import { PostColor } from 'types/post';
 import { cn } from 'utils/general';
 
-export interface ProductColors1Props  extends StyleProps{
-  title?: string
-  items?: Array<PostColor>
-  value?: PostColor;
-  onChange?: (value:PostColor)=>void 
-}
+export type ProductColors1Props = ProductColorsProps;
 
-export const ProductColors1 = ({ title, value, items,onChange, className }: ProductColors1Props) => {
+export const ProductColors1 = ({
+  title,
+  value,
+  items,
+  onChange,
+  className,
+}: ProductColors1Props) => {
   const [state, setState] = useState<PostColor>();
 
-
-  useEffect(()=>{
-    setState(value)
-  },[value])
+  useEffect(() => {
+    setState(value);
+  }, [value]);
 
   const handleChange = (selectedValue: PostColor) => {
-    setState(selectedValue)
-    onChange?.(selectedValue)
-  }
+    setState(selectedValue);
+    onChange?.(selectedValue);
+  };
 
   return (
     <div className={className}>

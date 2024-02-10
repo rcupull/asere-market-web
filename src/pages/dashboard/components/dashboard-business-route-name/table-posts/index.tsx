@@ -43,17 +43,9 @@ export const TablePosts = ({ routeName }: TablePostsProps) => {
         <ButtonRefresh onClick={onRefresh} />
       </TableTopActions>
       <Table
-        heads={[
-          null,
-          'Nombre',
-          'Descripción',
-          'Precio',
-          'Moneda',
-          'Disponibilidad',
-          'Fecha de Creación',
-        ]}
+        heads={[null, 'Nombre', 'Descripción', 'Precio', 'Moneda', 'Fecha de Creación']}
         getRowProps={(rowData) => {
-          const { name, createdAt, description, currency, price, amountAvailable } = rowData;
+          const { name, createdAt, description, currency, price } = rowData;
 
           return {
             nodes: [
@@ -62,7 +54,6 @@ export const TablePosts = ({ routeName }: TablePostsProps) => {
               description,
               price,
               currency,
-              amountAvailable,
               getDateString({ date: createdAt, showTime: true }),
             ],
           };

@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 
 import { CardGroup } from 'components/card-group';
 import { Pagination } from 'components/pagination';
-import { ProductSimple } from 'components/product-simple';
+import { ProductSimple } from 'components/product/product-simple';
 
 import { useBusinessApi } from 'features/business/api';
 import { usePostsApi } from 'features/post/api';
@@ -23,7 +23,6 @@ export const BusinessRouteName = () => {
 
   const postsApi = usePostsApi().getAll;
 
-
   const filters = useFilters<{ search?: string; page?: number }>({
     onChange: (filters) => routeName && postsApi.fetch({ routeNames: [routeName], filters }),
   });
@@ -34,12 +33,9 @@ export const BusinessRouteName = () => {
     }
   }, []);
 
-
   return (
     <LayoutPage title={business?.name} backButton>
-
-
-      <LayoutPageSection title='Publicaciones'>
+      <LayoutPageSection title="Publicaciones">
         <div className="flex justify-end">
           <SearchFilter
             isBusy={postsApi.status.isBusy}

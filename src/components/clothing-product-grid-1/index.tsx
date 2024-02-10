@@ -1,28 +1,46 @@
+import { Button } from 'components/button';
+import { ProductClothingSizeProps } from 'components/product/clothing/types';
+import { ProductColorsProps } from 'components/product/colors/types';
+import { ProductDescriptionProps } from 'components/product/description/types';
+import { ProductDetailsProps } from 'components/product/details/types';
+import { ProductHighLightsProps } from 'components/product/hightlights/types';
+import { ProductImagesProps } from 'components/product/images/types';
+import { ProductPriceProps } from 'components/product/price/types';
+import { ReviewProps } from 'components/review';
+
+import { useSubmitPortal } from 'hooks/useSubmitPortal';
+
 import { Formik } from 'formik';
-import { PostClothing } from 'types/post';
+import { PostClothing, PostColor } from 'types/post';
 
 export interface ClothingProductGrid1Props {
   value?: PostClothing;
+  onAddToCar?: (args: { color?: PostColor; size?: string }) => void;
   render: {
-    images?: (value: PostClothing) => React.ReactNode;
-    price?: (value: PostClothing) => React.ReactNode;
-    review?: (value: PostClothing) => React.ReactNode;
-    colors?: (value: PostClothing) => React.ReactNode;
-    clothingSize?: (value: PostClothing) => React.ReactNode;
-    description?: (value: PostClothing) => React.ReactNode;
-    highLights?: (value: PostClothing) => React.ReactNode;
-    details?: (value: PostClothing) => React.ReactNode;
+    images?: (props: ProductImagesProps) => React.ReactNode;
+    price?: (props: ProductPriceProps) => React.ReactNode;
+    review?: (props: ReviewProps) => React.ReactNode;
+    colors?: (props: ProductColorsProps) => React.ReactNode;
+    clothingSize?: (props: ProductClothingSizeProps) => React.ReactNode;
+    description?: (props: ProductDescriptionProps) => React.ReactNode;
+    highLights?: (props: ProductHighLightsProps) => React.ReactNode;
+    details?: (props: ProductDetailsProps) => React.ReactNode;
   };
 }
 
-export const ClothingProductGrid1 = ({ value, render }: ClothingProductGrid1Props) => {
+export const ClothingProductGrid1 = ({ value, render, onAddToCar }: ClothingProductGrid1Props) => {
+  const submitPortal = useSubmitPortal();
+
   if (!value) return <></>;
+
+  const { colors, currency, price, description, sizes, details, highlights, reviews, images } =
+    value;
 
   return (
     <div className="bg-white">
       <div className="pt-6">
         {/* Image gallery */}
-        {render.images?.(value)}
+        {render.images?.({ value: images })}
 
         {/* Product info */}
         <div className="mx-auto max-w-2xl px-4 pb-16 pt-10 sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:grid-rows-[auto,auto,1fr] lg:gap-x-8 lg:px-8 lg:pb-24 lg:pt-16">
@@ -37,41 +55,69 @@ export const ClothingProductGrid1 = ({ value, render }: ClothingProductGrid1Prop
             <h2 className="sr-only">Product information</h2>
 
             {/* Price */}
-            {render.price?.(value)}
+            {render.price?.({ currency, price })}
 
             {/* Reviews */}
-            <div className="mt-10">{render.review?.(value)}</div>
+            {render.review?.({ value: reviews, className: 'mt-10' })}
 
-            <Formik initialValues={{}} onSubmit={() => {}}>
-              {() => {
+            <Formik
+              initialValues={{
+                color: colors?.[0],
+                size: sizes?.find((size) => size.inStock),
+              }}
+              validate={() => ({})}
+              onSubmit={() => {}}
+            >
+              {({ handleChange, values }) => {
                 return (
                   <form className="mt-10">
                     {/* Colors */}
-                    <div className="mt-10">{render.colors?.(value)}</div>
+                    {render.colors?.({
+                      items: colors,
+                      className: 'mt-10',
+                      title: 'Colores',
+                      value: values.color,
+                      onChange: (color) =>
+                        handleChange({ target: { name: 'color', value: color } }),
+                    })}
 
                     {/* Sizes */}
-                    <div className="mt-10">{render.clothingSize?.(value)}</div>
+                    {render.clothingSize?.({
+                      items: sizes,
+                      className: 'mt-10',
+                      title: 'Tallas',
+                      value: values.size,
+                      onChange: (size) => handleChange({ target: { name: 'size', value: size } }),
+                    })}
 
-                    <button
-                      type="submit"
-                      className="mt-10 flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-                    >
-                      Add to bag
-                    </button>
+                    {submitPortal.getPortal(
+                      <Button
+                        label="Add to bag"
+                        className="mt-10 w-full"
+                        onClick={() => {
+                          const { color, size } = values;
+
+                          //@ts-expect-error ignore
+                          onAddToCar?.({ color, size });
+                        }}
+                      />,
+                    )}
                   </form>
                 );
               }}
             </Formik>
+
+            <div ref={submitPortal.ref} />
           </div>
 
           <div className="py-10 lg:col-span-2 lg:col-start-1 lg:border-r lg:border-gray-200 lg:pb-16 lg:pr-8 lg:pt-6">
             {/* Description and details */}
 
-            {render.description?.(value)}
+            {render.description?.({ value: description })}
 
-            <div className="mt-10">{render.highLights?.(value)}</div>
+            {render.highLights?.({ value: highlights, className: 'mt-10', title: 'Características' })}
 
-            <div className="mt-10">{render.details?.(value)}</div>
+            {render.details?.({ value: details, className: 'mt-10', title: 'Detalles' })}
           </div>
         </div>
       </div>
