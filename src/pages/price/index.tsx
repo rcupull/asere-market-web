@@ -1,10 +1,10 @@
 import { PricePlanCard } from 'components/price-plan-card';
 
-import { LayoutSingle } from 'pages/@common/layout-single';
+import { LayoutPage } from 'pages/@common/layout-page';
 
 export const Price = () => {
   return (
-    <LayoutSingle title="Precios">
+    <LayoutPage title="Precios">
       <div className="flex items-center gap-6">
         <PricePlanCard
           name="Gratis"
@@ -104,6 +104,6 @@ export const Price = () => {
           ]}
         />
       </div>
-    </LayoutSingle>
+    </LayoutPage>
   );
 };

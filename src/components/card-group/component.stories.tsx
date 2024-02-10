@@ -1,10 +1,10 @@
 import { ProductInlinePrice } from 'components/product-inline-price';
 import { ProductSimple } from 'components/product-simple';
 
-import { ProductsGroup } from '.';
+import { CardGroup } from '.';
 
 export default {
-  component: ProductsGroup,
+  component: CardGroup,
 };
 
 const productItems = [
@@ -26,7 +26,7 @@ const productItems = [
 ];
 
 export const WithProductSimple = (): JSX.Element => (
-  <ProductsGroup title="Products">
+  <CardGroup title="Products">
     {productItems.map((item) => (
       <ProductSimple
         key={item.title}
@@ -36,11 +36,11 @@ export const WithProductSimple = (): JSX.Element => (
         imageSrc={item.imageSrc}
       />
     ))}
-  </ProductsGroup>
+  </CardGroup>
 );
 
 export const WithProductInlinePrice = (): JSX.Element => (
-  <ProductsGroup title="Products">
+  <CardGroup title="Products">
     {productItems.map((item) => (
       <ProductInlinePrice
         key={item.title}
@@ -50,5 +50,5 @@ export const WithProductInlinePrice = (): JSX.Element => (
         imageSrc={item.imageSrc}
       />
     ))}
-  </ProductsGroup>
+  </CardGroup>
 );

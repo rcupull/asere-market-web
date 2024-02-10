@@ -1,62 +1,57 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 
 import { BusinessCardSimple } from 'components/business-card-simple';
+import { CardGroup } from 'components/card-group';
 import { Pagination } from 'components/pagination';
-import { ProductsGroup } from 'components/products-group';
 
 import { useBusinessApi } from 'features/business/api';
 
-import { LayoutSectionSub } from 'pages/@common/layout-section-sub';
-import { LayoutSingle } from 'pages/@common/layout-single';
+import { useFilters } from 'hooks/useFilters';
+
+import { LayoutPage } from 'pages/@common/layout-page';
+import { LayoutPageSection } from 'pages/@common/layout-page-section';
 import { SearchFilter } from 'pages/@common/search-filter';
-import { AnyRecord } from 'types/general';
 
 export const Business = () => {
-  const [filters, setFilters] = useState({});
-
   const businessApis = useBusinessApi();
 
   useEffect(() => {
     businessApis.getAll.fetch({});
   }, []);
 
-  const handleChangeFilters = (partialFilter: AnyRecord) => {
-    const newFilters = { ...filters, ...partialFilter };
-    setFilters(newFilters);
-    businessApis.getAll.fetch({ filters: newFilters });
-  };
+  const filters = useFilters({
+    onChange: (filters) => businessApis.getAll.fetch({ filters }),
+  });
 
   return (
-    <LayoutSingle title="Todas las tiendas">
-      <div>
-        <div className="flex">
+    <LayoutPage title="Todas las tiendas">
+      <LayoutPageSection>
+        <div className="flex justify-end">
           <SearchFilter
-            className="ml-auto"
             isBusy={businessApis.getAll.status.isBusy}
-            onChange={(search) => handleChangeFilters({ search })}
+            onChange={(search) => filters.onMergeFilters({ search })}
           />
         </div>
-        <LayoutSectionSub>
-          <ProductsGroup>
-            {businessApis.getAll.data?.map(({ name, category, routeName }, index) => {
-              return (
-                <BusinessCardSimple
-                  key={index}
-                  href={`/${routeName}`}
-                  name={name}
-                  category={category}
-                />
-              );
-            })}
-          </ProductsGroup>
-        </LayoutSectionSub>
+
+        <CardGroup className="mt-6">
+          {businessApis.getAll.data?.map(({ name, category, routeName }, index) => {
+            return (
+              <BusinessCardSimple
+                key={index}
+                href={`/${routeName}`}
+                name={name}
+                category={category}
+              />
+            );
+          })}
+        </CardGroup>
 
         <Pagination
           className="w-full mt-6"
           paginator={businessApis.getAll?.paginator}
-          onChange={({ page }) => handleChangeFilters({ page })}
+          onChange={({ page }) => filters.onMergeFilters({ page })}
         />
-      </div>
-    </LayoutSingle>
+      </LayoutPageSection>
+    </LayoutPage>
   );
 };

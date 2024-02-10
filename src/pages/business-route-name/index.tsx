@@ -1,16 +1,16 @@
 import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
+import { CardGroup } from 'components/card-group';
 import { Pagination } from 'components/pagination';
 import { ProductSimple } from 'components/product-simple';
-import { ProductsGroup } from 'components/products-group';
 
 import { useBusinessApi } from 'features/business/api';
 import { usePostsApi } from 'features/post/api';
 
 import { useFilters } from 'hooks/useFilters';
 
-import { LayoutSingle } from 'pages/@common/layout-single';
+import { LayoutPage } from 'pages/@common/layout-page';
 import { SearchFilter } from 'pages/@common/search-filter';
 import { AnyRecord } from 'types/general';
 
@@ -40,7 +40,7 @@ export const BusinessRouteName = () => {
   if (!business) return <></>;
 
   return (
-    <LayoutSingle title={business.name} backButton>
+    <LayoutPage title={business.name} backButton>
 
       <div>
         <div className="flex justify-end">
@@ -49,7 +49,7 @@ export const BusinessRouteName = () => {
             onChange={(search) => filters.onMergeFilters({ search })}
           />
         </div>
-        <ProductsGroup className='mt-2'>
+        <CardGroup className='mt-2'>
           {postsApi.getAll.data?.map(({ name, price, currency, _id}, index) => {
             return (
               <ProductSimple
@@ -61,7 +61,7 @@ export const BusinessRouteName = () => {
               />
             );
           })}
-        </ProductsGroup>
+        </CardGroup>
 
         <Pagination
         className='mt-2'
@@ -69,6 +69,6 @@ export const BusinessRouteName = () => {
           onChange={({ page }) => filters.onMergeFilters({ page })}
         />
       </div>
-    </LayoutSingle>
+    </LayoutPage>
   );
 };

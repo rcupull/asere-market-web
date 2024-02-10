@@ -5,7 +5,7 @@ import { ProductSimple } from 'components/product-simple';
 
 import { usePostsApi } from 'features/post/api';
 
-import { LayoutSingle } from 'pages/@common/layout-single';
+import { LayoutPage } from 'pages/@common/layout-page';
 
 export const BusinessRouteNamePostId = () => {
   const { postId } = useParams();
@@ -21,9 +21,9 @@ export const BusinessRouteNamePostId = () => {
   const post = postApi.getOne.data;
 
   return (
-    <LayoutSingle title={post?.name} backButton>
+    <LayoutPage title={post?.name} backButton>
       {'<Improve>'}
       {post && <ProductSimple name={post.name} price={`${post.price} ${post.currency}`} href="#" />}
-    </LayoutSingle>
+    </LayoutPage>
   );
 };

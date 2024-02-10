@@ -1,8 +1,8 @@
 import { useEffect } from 'react';
 
+import { CardGroup } from 'components/card-group';
 import { Pagination } from 'components/pagination';
 import { ProductSimple } from 'components/product-simple';
-import { ProductsGroup } from 'components/products-group';
 
 import { usePostsApi } from 'features/post/api';
 
@@ -40,7 +40,7 @@ export const ModulePosts = ({ routeNames, title, className }: ModulePostsProps) 
           onChange={(search) => filters.onMergeFilters({ search })}
         />
       </div>
-      <ProductsGroup title={title}>
+      <CardGroup title={title}>
         {postsApi.getAll.data?.map(({ name, price, currency }, index) => {
           return (
             <ProductSimple
@@ -52,7 +52,7 @@ export const ModulePosts = ({ routeNames, title, className }: ModulePostsProps) 
             />
           );
         })}
-      </ProductsGroup>
+      </CardGroup>
 
       <Pagination
         className="w-full mt-6"

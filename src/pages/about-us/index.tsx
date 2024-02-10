@@ -1,5 +1,5 @@
-import { LayoutSingle } from 'pages/@common/layout-single';
+import { LayoutPage } from 'pages/@common/layout-page';
 
 export const AboutUs = () => {
-  return <LayoutSingle title="Sobre Nosotros"></LayoutSingle>;
+  return <LayoutPage title="Sobre Nosotros"></LayoutPage>;
 };
