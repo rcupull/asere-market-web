@@ -25,67 +25,70 @@ interface Validation<V extends AnyRecord, F extends keyof V = keyof V> {
   message?: string;
 }
 
-export const useGetFormErrors = <V extends AnyRecord, F extends keyof V = keyof V>(): {
-  getFormErrors: (
-    value: V,
-    validations: Array<Validation<V, F>>,
-  ) => Promise<Partial<Record<F, string>>>;
-} => {
+type GetFormErrors<V extends AnyRecord, F extends keyof V = keyof V> = (
+  value: V,
+  validations: Array<Validation<V, F>>,
+) => Promise<Partial<Record<F, string>>>;
+
+export const useGetFormErrors = <V extends AnyRecord, F extends keyof V = keyof V>(): GetFormErrors<
+  V,
+  F
+> => {
   const refValues = useRef<V>();
   const refErrors = useRef<Partial<Record<F, string>>>();
 
-  return {
-    getFormErrors: async (value, validations) => {
-      const errors: Partial<Record<F, string>> = {};
+  const getFormErrors: GetFormErrors<V, F> = async (value, validations) => {
+    const errors: Partial<Record<F, string>> = {};
 
-      const getValidationPromise = async (validation: Validation<V, F>): Promise<void> => {
-        const { field, type, message, equalField, customCb } = validation;
+    const getValidationPromise = async (validation: Validation<V, F>): Promise<void> => {
+      const { field, type, message, equalField, customCb } = validation;
 
-        if (errors[field]) return; //return if has error
-        if (refValues.current?.[field] === value[field]) {
-          errors[field] = refErrors.current?.[field]; // return de same error if has not change the value
-          return;
+      if (errors[field]) return; //return if has error
+      if (refValues.current?.[field] === value[field]) {
+        errors[field] = refErrors.current?.[field]; // return de same error if has not change the value
+        return;
+      }
+
+      const fieldValue = value[field];
+
+      if (type === 'required' && !validationsCallback.required(fieldValue)) {
+        errors[field] = message || `Campo requerido.`;
+      }
+
+      if (type === 'email' && !validationsCallback.email(fieldValue)) {
+        errors[field] = message || `Email inválido.`;
+      }
+
+      if (type === 'custom') {
+        if (!customCb) {
+          return console.log('customCb not found');
         }
 
-        const fieldValue = value[field];
+        if (!(await customCb(fieldValue))) {
+          errors[field] = message || `Campo inválido`;
+        }
+      }
 
-        if (type === 'required' && !validationsCallback.required(fieldValue)) {
-          errors[field] = message || `Campo requerido.`;
+      if (type === 'equal') {
+        if (!equalField) {
+          return console.log('equalField not found');
         }
 
-        if (type === 'email' && !validationsCallback.email(fieldValue)) {
-          errors[field] = message || `Email inválido.`;
+        if (!validationsCallback.equal(fieldValue, value[equalField])) {
+          errors[field] = message || `El campo debe ser ${equalField.toString()}.`;
         }
+      }
+    };
 
-        if (type === 'custom') {
-          if (!customCb) {
-            return console.log('customCb not found');
-          }
+    const validationPromises = validations.map(getValidationPromise);
 
-          if (!(await customCb(fieldValue))) {
-            errors[field] = message || `Campo inválido`;
-          }
-        }
+    await Promise.all(validationPromises);
 
-        if (type === 'equal') {
-          if (!equalField) {
-            return console.log('equalField not found');
-          }
+    refValues.current = value;
+    refErrors.current = errors;
 
-          if (!validationsCallback.equal(fieldValue, value[equalField])) {
-            errors[field] = message || `El campo debe ser ${equalField.toString()}.`;
-          }
-        }
-      };
-
-      const validationPromises = validations.map(getValidationPromise);
-
-      await Promise.all(validationPromises);
-
-      refValues.current = value;
-      refErrors.current = errors;
-
-      return getFlattenJson(errors);
-    },
+    return getFlattenJson(errors);
   };
+
+  return getFormErrors;
 };

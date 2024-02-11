@@ -1,10 +1,12 @@
 import { RefCallback, useState } from 'react';
 import { createPortal } from 'react-dom';
 
-export const useSubmitPortal = (): {
+export interface SubmitPortal {
   ref: RefCallback<HTMLElement>;
   getPortal: (node: React.ReactNode) => React.ReactNode;
-} => {
+}
+
+export const useSubmitPortal = (): SubmitPortal => {
   const [element, setElement] = useState<HTMLElement>();
 
   return {

@@ -26,10 +26,10 @@ export const isEmpty = <T = object>(
   return false;
 };
 
-export const getFlattenJson = (value: AnyRecord): AnyRecord => {
+export const getFlattenJson = <T extends AnyRecord = AnyRecord>(value: T): T => {
   return Object.entries(value).reduce(
     (acc, [k, v]) => (isNullOrUndefinedOrEmptyString(v) ? acc : { ...acc, [k]: v }),
-    {},
+    {} as T,
   );
 };
 

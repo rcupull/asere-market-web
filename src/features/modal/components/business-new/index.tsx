@@ -32,7 +32,7 @@ export const BusinessNew = ({ onAfterSuccess }: BusinessNewProps) => {
 
   const submitPortal = useSubmitPortal();
 
-  const { getFormErrors } = useGetFormErrors();
+  const getFormErrors = useGetFormErrors();
 
   const routeValidationErrorMessage = 'Ese nombre de negocio ya existe.';
 

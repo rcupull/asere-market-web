@@ -11,7 +11,7 @@ import { Formik } from 'formik';
 export const ValidateAccount = () => {
   const { onValidate } = useAuth();
   const { pushRoute } = useRouter();
-  const { getFormErrors } = useGetFormErrors();
+  const getFormErrors = useGetFormErrors();
 
   return (
     <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
