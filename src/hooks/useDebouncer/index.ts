@@ -6,6 +6,7 @@ export interface UseDebouncerReturn {
   cancel(): void;
 }
 export const useDebouncer = (): UseDebouncerReturn => {
+  //@ts-expect-error ignore
   const timeoutId = useRef<NodeJS.Timeout | null>(null);
 
   const out: UseDebouncerReturn = (callback: () => void, delay = 0) => {
