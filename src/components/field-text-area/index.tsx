@@ -4,11 +4,11 @@ import { FormFieldWrapper, FormFieldWrapperProps } from 'components/form-field-w
 
 import { useFormikField } from 'hooks/useFormikField';
 
-export interface TextAreaProps
+export interface FieldTextAreaProps
   extends React.TextareaHTMLAttributes<HTMLTextAreaElement>,
     FormFieldWrapperProps {}
 
-export const TextArea = forwardRef<HTMLTextAreaElement, TextAreaProps>((props, ref) => {
+export const FieldTextArea = forwardRef<HTMLTextAreaElement, FieldTextAreaProps>((props, ref) => {
   const { className, label, ...omittedProps } = props;
 
   const { field, error } = useFormikField(props);

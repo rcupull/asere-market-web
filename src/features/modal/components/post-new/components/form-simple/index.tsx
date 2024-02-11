@@ -1,7 +1,7 @@
 import { Button } from 'components/button';
 import { FieldInput } from 'components/field-input';
+import { FieldTextArea } from 'components/field-text-area';
 import { Select } from 'components/select';
-import { TextArea } from 'components/text-area';
 
 import { useModal } from 'features/modal';
 import { useUserApi } from 'features/user/api';
@@ -69,7 +69,7 @@ export const FormSimple = ({
               label="Nombre del producto"
             />
 
-            <TextArea
+            <FieldTextArea
               id="post_description"
               name="description"
               autoComplete="post_description"

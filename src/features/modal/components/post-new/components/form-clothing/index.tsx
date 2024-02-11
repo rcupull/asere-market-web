@@ -3,8 +3,8 @@ import { FieldClothingSizeSelect } from 'components/field-clothing-size-select';
 import { FieldColorSelect } from 'components/field-colors-select';
 import { FieldInput } from 'components/field-input';
 import { FieldInputImage } from 'components/field-input-image';
+import { FieldTextArea } from 'components/field-text-area';
 import { Select } from 'components/select';
-import { TextArea } from 'components/text-area';
 
 import { useModal } from 'features/modal';
 import { useUserApi } from 'features/user/api';
@@ -75,9 +75,9 @@ export const FormClothing = ({ routeName, submitPortal, onAfterSuccess }: FormCl
           <form>
             <FieldInput name="name" label="Nombre del producto" />
 
-            <TextArea label="Descripción" name="description" rows={3} className="mt-6" />
+            <FieldTextArea label="Descripción" name="description" rows={3} className="mt-6" />
 
-            <TextArea
+            <FieldTextArea
               id="post_details"
               name="details"
               label="Detalles del producto"
