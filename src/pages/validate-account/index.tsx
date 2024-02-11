@@ -1,5 +1,5 @@
 import { Button } from 'components/button';
-import { Input } from 'components/input';
+import { FieldInput } from 'components/field-input';
 
 import { useAuth } from 'features/auth';
 import { useRouter } from 'features/router';
@@ -65,9 +65,9 @@ export const ValidateAccount = () => {
           {({ handleSubmit, isSubmitting }) => {
             return (
               <form onSubmit={handleSubmit}>
-                <Input id="code" name="code" autoComplete="off" label="Code" />
+                <FieldInput id="code" name="code" autoComplete="off" label="Code" />
 
-                <Input
+                <FieldInput
                   id="email"
                   name="email"
                   type="email"

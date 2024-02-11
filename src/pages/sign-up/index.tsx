@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 
 import { Button } from 'components/button';
-import { Input } from 'components/input';
+import { FieldInput } from 'components/field-input';
 
 import { useAuth } from 'features/auth';
 import { useRouter } from 'features/router';
@@ -82,9 +82,9 @@ export const SignUp = () => {
           {({ handleSubmit, isSubmitting }) => {
             return (
               <form onSubmit={handleSubmit}>
-                <Input id="name" name="name" autoComplete="name" label="Nombre" />
+                <FieldInput id="name" name="name" autoComplete="name" label="Nombre" />
 
-                <Input
+                <FieldInput
                   id="email"
                   name="email"
                   type="email"
@@ -94,7 +94,7 @@ export const SignUp = () => {
                 />
 
                 <div className="relative">
-                  <Input
+                  <FieldInput
                     id="password"
                     name="password"
                     type="password"
@@ -109,7 +109,7 @@ export const SignUp = () => {
                   </div> */}
                 </div>
 
-                <Input
+                <FieldInput
                   id="confirmPassword"
                   name="confirmPassword"
                   type="password"

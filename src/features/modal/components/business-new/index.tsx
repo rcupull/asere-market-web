@@ -1,7 +1,7 @@
 import { Badge } from 'components/badge';
 import { Button } from 'components/button';
 import { ButtonClose } from 'components/button-close';
-import { Input } from 'components/input';
+import { FieldInput } from 'components/field-input';
 import { Modal } from 'components/modal';
 import { Select } from 'components/select';
 
@@ -82,7 +82,7 @@ export const BusinessNew = ({ onAfterSuccess }: BusinessNewProps) => {
       {({ errors, values, isValid }) => {
         return (
           <form>
-            <Input
+            <FieldInput
               id="business-name"
               name="name"
               autoComplete="business-name"

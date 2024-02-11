@@ -1,5 +1,5 @@
 import { Button } from 'components/button';
-import { Input } from 'components/input';
+import { FieldInput } from 'components/field-input';
 
 import { useSubmitPortal } from 'hooks/useSubmitPortal';
 
@@ -28,7 +28,7 @@ export const SearchFilter = ({ isBusy, onChange, className, value }: SearchFilte
         {({ handleChange, values, handleReset }) => {
           return (
             <form>
-              <Input name="search" onChange={handleChange} className="w-64" />
+              <FieldInput name="search" onChange={handleChange} className="w-64" />
 
               {submitBtnPortal.getPortal(
                 <Button

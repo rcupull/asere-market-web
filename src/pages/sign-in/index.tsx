@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 
 import { Button } from 'components/button';
-import { Input } from 'components/input';
+import { FieldInput } from 'components/field-input';
 
 import { useAuth } from 'features/auth';
 import { useRouter } from 'features/router';
@@ -68,7 +68,7 @@ export const SignIn = () => {
           {({ handleSubmit, isSubmitting }) => {
             return (
               <form onSubmit={handleSubmit}>
-                <Input
+                <FieldInput
                   id="email"
                   name="email"
                   type="email"
@@ -76,7 +76,7 @@ export const SignIn = () => {
                   label="Email address"
                 />
 
-                <Input
+                <FieldInput
                   id="password"
                   name="password"
                   type="password"

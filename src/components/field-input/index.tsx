@@ -4,11 +4,11 @@ import { FormFieldWrapper, FormFieldWrapperProps } from 'components/form-field-w
 
 import { useFormikField } from 'hooks/useFormikField';
 
-export interface InputProps
+export interface FieldInputProps
   extends React.InputHTMLAttributes<HTMLInputElement>,
     FormFieldWrapperProps {}
 
-export const Input = forwardRef<HTMLInputElement, InputProps>((props, ref) => {
+export const FieldInput = forwardRef<HTMLInputElement, FieldInputProps>((props, ref) => {
   const { className, label, ...omittedProps } = props;
 
   const { field, error } = useFormikField(props);

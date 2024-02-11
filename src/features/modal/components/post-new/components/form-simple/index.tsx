@@ -1,5 +1,5 @@
 import { Button } from 'components/button';
-import { Input } from 'components/input';
+import { FieldInput } from 'components/field-input';
 import { Select } from 'components/select';
 import { TextArea } from 'components/text-area';
 
@@ -62,7 +62,7 @@ export const FormSimple = ({
       {({ values, isValid }) => {
         return (
           <form>
-            <Input
+            <FieldInput
               id="post_name"
               name="name"
               autoComplete="post_name"
@@ -77,7 +77,7 @@ export const FormSimple = ({
               className="mt-6"
             />
 
-            <Input
+            <FieldInput
               id="post_price"
               name="price"
               autoComplete="post_price"
