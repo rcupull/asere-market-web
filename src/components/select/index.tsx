@@ -4,7 +4,8 @@ import { Fragment, useEffect, useState } from 'react';
 
 import { FormFieldWrapper, FormFieldWrapperProps } from 'components/form-field-wrapper';
 
-import { useField } from 'formik';
+import { useFormikField } from 'hooks/useFormikField';
+
 import { AnyRecord, StyleProps } from 'types/general';
 import { cn } from 'utils/general';
 
@@ -21,24 +22,10 @@ export interface SelectProps<Option extends AnyRecord = AnyRecord, Value = any>
 }
 
 export const Select = <Value extends AnyRecord = AnyRecord>(props: SelectProps<Value>) => {
-  const {
-    value,
-    items,
-    onChange,
-    renderOption,
-    renderValue,
-    label,
-    className,
-    error,
-    name,
-    optionToValue,
-  } = props;
+  const { value, items, renderOption, renderValue, label, className, optionToValue } = props;
   const [state, setState] = useState<Value>();
 
-  const [field] = useField({
-    name,
-    onChange,
-  });
+  const { field, error } = useFormikField(props);
 
   useEffect(() => {
     setState(value);

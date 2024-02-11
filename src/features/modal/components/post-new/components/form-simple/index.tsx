@@ -18,7 +18,11 @@ export interface FormSimpleProps {
   onAfterSuccess?: OnAfterSuccess;
 }
 
-export const FormSimple = ({ routeName, submitPortal, onAfterSuccess }: FormSimpleProps): React.ReactNode => {
+export const FormSimple = ({
+  routeName,
+  submitPortal,
+  onAfterSuccess,
+}: FormSimpleProps): React.ReactNode => {
   const { onClose } = useModal();
 
   const userApi = useUserApi();
@@ -54,7 +58,7 @@ export const FormSimple = ({ routeName, submitPortal, onAfterSuccess }: FormSimp
       }}
       onSubmit={() => {}}
     >
-      {({ errors, touched, handleChange, values, isValid }) => {
+      {({ values, isValid }) => {
         return (
           <form>
             <Input
@@ -62,8 +66,6 @@ export const FormSimple = ({ routeName, submitPortal, onAfterSuccess }: FormSimp
               name="name"
               autoComplete="post_name"
               label="Nombre del producto"
-              onChange={handleChange}
-              error={errors.name && touched.name && errors.name}
             />
 
             <Input
@@ -71,8 +73,6 @@ export const FormSimple = ({ routeName, submitPortal, onAfterSuccess }: FormSimp
               name="description"
               autoComplete="post_description"
               label="Descripción"
-              onChange={handleChange}
-              error={errors.description && touched.description && errors.description}
               className="mt-6"
             />
 
@@ -82,8 +82,6 @@ export const FormSimple = ({ routeName, submitPortal, onAfterSuccess }: FormSimp
               autoComplete="post_price"
               label="Precio"
               type="number"
-              onChange={handleChange}
-              error={errors.price && touched.price && errors.price}
               className="mt-6"
             />
 
@@ -103,9 +101,7 @@ export const FormSimple = ({ routeName, submitPortal, onAfterSuccess }: FormSimp
               renderValue={({ currency }) => currency}
               optionToValue={({ currency }) => currency}
               name="currency"
-              onChange={handleChange}
               label="Moneda"
-              error={errors.currency && touched.currency && errors.currency}
               className="mt-6"
             />
 

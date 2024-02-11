@@ -79,16 +79,10 @@ export const SignUp = () => {
             );
           }}
         >
-          {({ errors, touched, handleSubmit, isSubmitting }) => {
+          {({ handleSubmit, isSubmitting }) => {
             return (
               <form onSubmit={handleSubmit}>
-                <Input
-                  id="name"
-                  name="name"
-                  autoComplete="name"
-                  label="Nombre"
-                  error={errors.name && touched.name && errors.name}
-                />
+                <Input id="name" name="name" autoComplete="name" label="Nombre" />
 
                 <Input
                   id="email"
@@ -96,7 +90,6 @@ export const SignUp = () => {
                   type="email"
                   autoComplete="email"
                   label="Correo electrónico"
-                  error={errors.email && touched.email && errors.email}
                   className="mt-6"
                 />
 
@@ -107,7 +100,6 @@ export const SignUp = () => {
                     type="password"
                     autoComplete="password"
                     label="Contraseña"
-                    error={errors.password && touched.password && errors.password}
                     className="mt-6"
                   />
                   {/* <div className="absolute top-0 right-0 text-sm">
@@ -122,9 +114,6 @@ export const SignUp = () => {
                   name="confirmPassword"
                   type="password"
                   label="Confirmar contraseña"
-                  error={
-                    errors.confirmPassword && touched.confirmPassword && errors.confirmPassword
-                  }
                   className="mt-6"
                 />
 

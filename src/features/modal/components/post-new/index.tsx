@@ -3,8 +3,9 @@ import { Modal } from 'components/modal';
 
 import { useSubmitPortal } from 'hooks/useSubmitPortal';
 
-import { FormSimple } from './components/form-simple';
+import { FormClothing } from './components/form-clothing';
 
+// import { FormSimple } from './components/form-simple';
 import { OnAfterSuccess } from 'types/api';
 
 export interface PostNewProps {
@@ -15,8 +16,16 @@ export interface PostNewProps {
 export const PostNew = ({ onAfterSuccess, routeName }: PostNewProps) => {
   const submitPortal = useSubmitPortal();
 
+  // const newPostForm = (
+  //   <FormSimple routeName={routeName} submitPortal={submitPortal} onAfterSuccess={onAfterSuccess} />
+  // );
+
   const newPostForm = (
-    <FormSimple routeName={routeName} submitPortal={submitPortal} onAfterSuccess={onAfterSuccess} />
+    <FormClothing
+      routeName={routeName}
+      submitPortal={submitPortal}
+      onAfterSuccess={onAfterSuccess}
+    />
   );
 
   return (

@@ -1,7 +1,6 @@
 import { Nullable, StyleProps } from 'types/general';
 
 export interface FormFieldWrapperProps extends StyleProps {
-  error?: Nullable<string>;
   label?: string;
 }
 
@@ -10,7 +9,7 @@ export const FormFieldWrapper = ({
   label,
   error,
   children,
-}: FormFieldWrapperProps & { children: React.ReactNode }) => {
+}: FormFieldWrapperProps & { children: React.ReactNode; error?: Nullable<string> }) => {
   return (
     <div className={className}>
       {label && (

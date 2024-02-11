@@ -34,9 +34,8 @@ export const BusinessRouteName = () => {
     }
   }, []);
 
+  if (!routeName) return <></>;
 
-  if(!routeName) return <></>
-  
   return (
     <LayoutPage title={business?.name} backButton>
       <LayoutPageSection title="Publicaciones">
@@ -52,7 +51,7 @@ export const BusinessRouteName = () => {
             return (
               <ProductSimple
                 key={index}
-                href={getPostRoute({routeName, postId: _id})}
+                href={getPostRoute({ routeName, postId: _id })}
                 name={name}
                 price={`${price} ${currency}`}
                 //   imageSrc={images?.[0]}

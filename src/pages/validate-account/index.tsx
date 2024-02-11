@@ -62,16 +62,10 @@ export const ValidateAccount = () => {
             );
           }}
         >
-          {({ errors, touched, handleSubmit, isSubmitting }) => {
+          {({ handleSubmit, isSubmitting }) => {
             return (
               <form onSubmit={handleSubmit}>
-                <Input
-                  id="code"
-                  name="code"
-                  autoComplete="off"
-                  label="Code"
-                  error={errors.code && touched.code && errors.code}
-                />
+                <Input id="code" name="code" autoComplete="off" label="Code" />
 
                 <Input
                   id="email"
@@ -79,7 +73,6 @@ export const ValidateAccount = () => {
                   type="email"
                   autoComplete="email"
                   label="Email address"
-                  error={errors.email && touched.email && errors.email}
                   className="mt-6"
                 />
 

@@ -1,8 +1,13 @@
 import { Formik } from 'formik';
 import { ChildrenProp } from 'types/general';
-export const FormikWrapper = ({ children }: ChildrenProp) => {
+
+interface FormikWrapper extends ChildrenProp {
+  errors?: Record<string, string>;
+}
+
+export const FormikWrapper = ({ children, errors = {} }: FormikWrapper) => {
   return (
-    <Formik initialValues={{}} onSubmit={() => {}}>
+    <Formik initialValues={{}} onSubmit={() => {}} validate={() => errors}>
       {() => {
         return <form>{children}</form>;
       }}

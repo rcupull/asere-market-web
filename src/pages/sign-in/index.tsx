@@ -65,7 +65,7 @@ export const SignIn = () => {
             );
           }}
         >
-          {({ errors, touched, handleSubmit, isSubmitting }) => {
+          {({ handleSubmit, isSubmitting }) => {
             return (
               <form onSubmit={handleSubmit}>
                 <Input
@@ -74,7 +74,6 @@ export const SignIn = () => {
                   type="email"
                   autoComplete="email"
                   label="Email address"
-                  error={errors.email && touched.email && errors.email}
                 />
 
                 <Input
@@ -83,7 +82,6 @@ export const SignIn = () => {
                   type="password"
                   autoComplete="current-password"
                   label="Password"
-                  error={errors.password && touched.password && errors.password}
                   className="mt-6"
                 />
 

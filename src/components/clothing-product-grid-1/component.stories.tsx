@@ -16,8 +16,6 @@ export default {
   component: ClothingProductGrid1,
 };
 
-
-
 export const Default = (): JSX.Element => (
   <FormikWrapper>
     <ClothingProductGrid1

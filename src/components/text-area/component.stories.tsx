@@ -1,25 +1,25 @@
-import { Input } from '.';
+import { TextArea } from '.';
 
 import { FormikWrapper } from 'utils/storybook';
 
 export default {
-  component: Input,
+  component: TextArea,
 };
 
 export const Default = (): JSX.Element => (
   <FormikWrapper>
-    <Input name="field" />
+    <TextArea name="field" />
   </FormikWrapper>
 );
 
 export const Label = (): JSX.Element => (
   <FormikWrapper>
-    <Input name="field" label="Nombre" />
+    <TextArea name="field" label="Nombre" />
   </FormikWrapper>
 );
 
 export const Error = (): JSX.Element => (
   <FormikWrapper errors={{ field: 'invalid field' }}>
-    <Input name="field" label="Nombre" />
+    <TextArea name="field" label="Nombre" />
   </FormikWrapper>
 );

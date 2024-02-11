@@ -115,7 +115,11 @@ export const ClothingProductGrid1 = ({ value, render, onAddToCar }: ClothingProd
 
             {render.description?.({ value: description })}
 
-            {render.highLights?.({ value: highlights, className: 'mt-10', title: 'Características' })}
+            {render.highLights?.({
+              value: highlights,
+              className: 'mt-10',
+              title: 'Características',
+            })}
 
             {render.details?.({ value: details, className: 'mt-10', title: 'Detalles' })}
           </div>

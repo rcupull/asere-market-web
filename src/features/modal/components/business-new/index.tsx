@@ -78,7 +78,7 @@ export const BusinessNew = ({ onAfterSuccess }: BusinessNewProps) => {
       }}
       onSubmit={() => {}}
     >
-      {({ errors, touched, handleChange, values, isValid }) => {
+      {({ errors, values, isValid }) => {
         return (
           <form>
             <Input
@@ -86,8 +86,6 @@ export const BusinessNew = ({ onAfterSuccess }: BusinessNewProps) => {
               name="name"
               autoComplete="business-name"
               label="Nombre del negocio"
-              onChange={handleChange}
-              error={errors.name}
             />
 
             <FormRouteName
@@ -119,9 +117,7 @@ export const BusinessNew = ({ onAfterSuccess }: BusinessNewProps) => {
               renderValue={({ label }) => label}
               optionToValue={({ category }) => category}
               name="category"
-              onChange={handleChange}
               label="Categoría"
-              error={errors.category && touched.category && errors.category}
               className="mt-6"
             />
 

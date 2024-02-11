@@ -37,7 +37,7 @@ export const Business = () => {
             return (
               <BusinessCardSimple
                 key={index}
-                href={getBusinessRoute({routeName})}
+                href={getBusinessRoute({ routeName })}
                 name={name}
                 category={category}
               />
