@@ -3,8 +3,8 @@ import { FieldClothingSizeSelect } from 'components/field-clothing-size-select';
 import { FieldColorSelect } from 'components/field-colors-select';
 import { FieldInput } from 'components/field-input';
 import { FieldInputImage } from 'components/field-input-image';
+import { FieldSelect } from 'components/field-select';
 import { FieldTextArea } from 'components/field-text-area';
-import { Select } from 'components/select';
 
 import { useModal } from 'features/modal';
 import { useUserApi } from 'features/user/api';
@@ -88,9 +88,15 @@ export const FormClothing = ({ routeName, submitPortal, onAfterSuccess }: FormCl
             <FieldInputImage label="Imagen" id="image" name="image" className="mt-6" />
 
             <div className="flex flex-col sm:flex-row items-center gap-6">
-              <FieldInput id="post_price" name="price" label="Precio" type="number" className="mt-6 w-full" />
+              <FieldInput
+                id="post_price"
+                name="price"
+                label="Precio"
+                type="number"
+                className="mt-6 w-full"
+              />
 
-              <Select<{ currency: PostCurrency }>
+              <FieldSelect<{ currency: PostCurrency }>
                 items={[
                   {
                     currency: 'CUP',

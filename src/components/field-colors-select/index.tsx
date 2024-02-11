@@ -70,7 +70,6 @@ export const FieldColorSelect = <V extends Value = Value>(props: FieldColorSelec
   return (
     <FormFieldWrapper label={label} error={error} className={className}>
       <RadioGroup
-        className="mt-4"
         onBlur={(e) => {
           //@ts-expect-error ignore
           e.target.name = field.name; // had code the blur event to detect touch in formik
@@ -86,6 +85,7 @@ export const FieldColorSelect = <V extends Value = Value>(props: FieldColorSelec
 
             return (
               <RadioGroup.Option
+              
                 key={colorMeta.name}
                 value={colorMeta}
                 onClick={() => handleClick(colorMeta.name)}
@@ -93,6 +93,7 @@ export const FieldColorSelect = <V extends Value = Value>(props: FieldColorSelec
                   colorMeta.selectedRingColor,
                   {
                     'ring-2 ring-indigo-600': active,
+                    'ring-2 ring-red-500': !!error,
                   },
                   'relative -m-0.5 flex cursor-pointer items-center justify-center rounded-full p-0.5 focus:outline-none',
                 )}

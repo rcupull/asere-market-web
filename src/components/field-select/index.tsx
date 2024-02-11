@@ -9,7 +9,7 @@ import { useFormikField } from 'hooks/useFormikField';
 import { AnyRecord, StyleProps } from 'types/general';
 import { cn } from 'utils/general';
 
-export interface SelectProps<Option extends AnyRecord = AnyRecord, Value = any>
+export interface FieldSelectProps<Option extends AnyRecord = AnyRecord, Value = any>
   extends StyleProps,
     FormFieldWrapperProps {
   onChange?: (e: React.ChangeEvent) => void;
@@ -21,7 +21,9 @@ export interface SelectProps<Option extends AnyRecord = AnyRecord, Value = any>
   name: string;
 }
 
-export const Select = <Value extends AnyRecord = AnyRecord>(props: SelectProps<Value>) => {
+export const FieldSelect = <Value extends AnyRecord = AnyRecord>(
+  props: FieldSelectProps<Value>,
+) => {
   const { value, items, renderOption, renderValue, label, className, optionToValue } = props;
   const [state, setState] = useState<Value>();
 
@@ -55,7 +57,12 @@ export const Select = <Value extends AnyRecord = AnyRecord>(props: SelectProps<V
             <Listbox.Button
               name={field.name}
               onBlur={field.onBlur}
-              className="relative w-full cursor-pointer rounded-md bg-white py-1.5 pl-3 pr-10 text-left text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 sm:text-sm sm:leading-6"
+              className={cn(
+                'relative w-full cursor-pointer rounded-md bg-white py-1.5 pl-3 pr-10 text-left text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 sm:text-sm sm:leading-6',
+                {
+                  'ring-1 rounded-md ring-red-500 focus:ring-red-500': !!error,
+                },
+              )}
             >
               <div className="flex items-center h-6">{state && renderValue(state)}</div>
               <span className="pointer-events-none absolute inset-y-0 right-0 ml-3 flex items-center pr-2">

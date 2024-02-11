@@ -2,8 +2,8 @@ import { Badge } from 'components/badge';
 import { Button } from 'components/button';
 import { ButtonClose } from 'components/button-close';
 import { FieldInput } from 'components/field-input';
+import { FieldSelect } from 'components/field-select';
 import { Modal } from 'components/modal';
-import { Select } from 'components/select';
 
 import { useBusinessApi } from 'features/business/api';
 import { useModal } from 'features/modal';
@@ -95,7 +95,7 @@ export const BusinessNew = ({ onAfterSuccess }: BusinessNewProps) => {
               className="mt-3"
             />
 
-            <Select<{ category: BusinessCategory; label: string }>
+            <FieldSelect<{ category: BusinessCategory; label: string }>
               items={[
                 {
                   category: 'food',
@@ -145,7 +145,7 @@ export const BusinessNew = ({ onAfterSuccess }: BusinessNewProps) => {
                   );
                 }}
                 variant="primary"
-                className='w-full'
+                className="w-full"
               />,
             )}
           </form>
@@ -158,7 +158,7 @@ export const BusinessNew = ({ onAfterSuccess }: BusinessNewProps) => {
     <Modal
       title="Crear Negocio"
       content={newPostForm}
-      badge={<Badge variant='info'/>}
+      badge={<Badge variant="info" />}
       primaryBtn={<div ref={submitPortal.ref} />}
       secondaryBtn={<ButtonClose />}
     />

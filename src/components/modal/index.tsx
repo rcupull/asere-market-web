@@ -12,7 +12,14 @@ export interface ModalProps extends StyleProps {
   secondaryBtn?: React.ReactElement;
 }
 
-export const Modal = ({ title, content, primaryBtn, secondaryBtn, badge, className }: ModalProps) => {
+export const Modal = ({
+  title,
+  content,
+  primaryBtn,
+  secondaryBtn,
+  badge,
+  className,
+}: ModalProps) => {
   return (
     <Transition.Root show={true} as={Fragment}>
       <Dialog
@@ -20,7 +27,6 @@ export const Modal = ({ title, content, primaryBtn, secondaryBtn, badge, classNa
         className="relative z-10"
         // initialFocus={cancelButtonRef}
         onClose={() => {}}
-        
       >
         <Transition.Child
           as={Fragment}
@@ -45,7 +51,12 @@ export const Modal = ({ title, content, primaryBtn, secondaryBtn, badge, classNa
               leaveFrom="opacity-100 translate-y-0 sm:scale-100"
               leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
             >
-              <Dialog.Panel className={cn("relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8  w-11/12 md:w-8/12 lg:w-8/12", className)}>
+              <Dialog.Panel
+                className={cn(
+                  'relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8  w-11/12 md:w-8/12 lg:w-8/12',
+                  className,
+                )}
+              >
                 <div className="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
                   <div className="sm:flex sm:items-start w-full">
                     {badge && (
@@ -61,7 +72,7 @@ export const Modal = ({ title, content, primaryBtn, secondaryBtn, badge, classNa
                       >
                         {title}
                       </Dialog.Title>
-                      <div className="mt-2">{content}</div> 
+                      <div className="mt-2">{content}</div>
                     </div>
                   </div>
                 </div>

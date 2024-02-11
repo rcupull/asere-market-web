@@ -33,7 +33,7 @@ export const PostNew = ({ onAfterSuccess, routeName }: PostNewProps) => {
     <Modal
       title="Nueva publicación"
       content={newPostForm}
-      badge={<Badge variant='info'/>}
+      badge={<Badge variant="info" />}
       primaryBtn={<div ref={submitPortal.ref} />}
       secondaryBtn={<ButtonClose />}
     />

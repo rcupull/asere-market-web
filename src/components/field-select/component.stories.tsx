@@ -1,11 +1,9 @@
-import { useState } from 'react';
-
-import { Select } from '.';
+import { FieldSelect } from '.';
 
 import { FormikWrapper } from 'utils/storybook';
 
 export default {
-  component: Select,
+  component: FieldSelect,
 };
 
 interface Person {
@@ -77,33 +75,70 @@ const people: Array<Person> = [
   },
 ];
 
-export const Default = (): JSX.Element => {
-  const [value] = useState<Person>();
+export const Default = (): JSX.Element => (
+  <FormikWrapper>
+    <FieldSelect<Person>
+      items={people}
+      name="field"
+      renderOption={({ avatar, name }) => (
+        <>
+          <img src={avatar} alt="" className="h-5 w-5 flex-shrink-0 rounded-full" />
+          <span className="ml-3">{name}</span>
+        </>
+      )}
+      renderValue={({ avatar, name }) => (
+        <>
+          <img src={avatar} alt="" className="h-5 w-5 flex-shrink-0 rounded-full" />
+          <span className="ml-3">{name}</span>
+        </>
+      )}
+    />
+  </FormikWrapper>
+);
 
-  return (
-    <>
-      {JSON.stringify(value)}
-      <FormikWrapper>
-        <Select<Person>
-          items={people}
-          name="name"
-          renderOption={({ avatar, name }) => (
-            <>
-              <img src={avatar} alt="" className="h-5 w-5 flex-shrink-0 rounded-full" />
-              <span className="ml-3">{name}</span>
-            </>
-          )}
-          renderValue={({ avatar, name }) => (
-            <>
-              <img src={avatar} alt="" className="h-5 w-5 flex-shrink-0 rounded-full" />
-              <span className="ml-3">{name}</span>
-            </>
-          )}
-        />
-      </FormikWrapper>
-    </>
-  );
-};
+export const Label = (): JSX.Element => (
+  <FormikWrapper>
+    <FieldSelect<Person>
+      items={people}
+      label="Label"
+      name="field"
+      renderOption={({ avatar, name }) => (
+        <>
+          <img src={avatar} alt="" className="h-5 w-5 flex-shrink-0 rounded-full" />
+          <span className="ml-3">{name}</span>
+        </>
+      )}
+      renderValue={({ avatar, name }) => (
+        <>
+          <img src={avatar} alt="" className="h-5 w-5 flex-shrink-0 rounded-full" />
+          <span className="ml-3">{name}</span>
+        </>
+      )}
+    />
+  </FormikWrapper>
+);
+
+export const Error = (): JSX.Element => (
+  <FormikWrapper errors={{ field: 'invalid field' }}>
+    <FieldSelect<Person>
+      items={people}
+      label="Label"
+      name="field"
+      renderOption={({ avatar, name }) => (
+        <>
+          <img src={avatar} alt="" className="h-5 w-5 flex-shrink-0 rounded-full" />
+          <span className="ml-3">{name}</span>
+        </>
+      )}
+      renderValue={({ avatar, name }) => (
+        <>
+          <img src={avatar} alt="" className="h-5 w-5 flex-shrink-0 rounded-full" />
+          <span className="ml-3">{name}</span>
+        </>
+      )}
+    />
+  </FormikWrapper>
+);
 
 // export const Label = (): JSX.Element => {
 //   const [value, setValue] = useState<Person>();

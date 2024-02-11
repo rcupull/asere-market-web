@@ -1,7 +1,7 @@
 import { Button } from 'components/button';
 import { FieldInput } from 'components/field-input';
+import { FieldSelect } from 'components/field-select';
 import { FieldTextArea } from 'components/field-text-area';
-import { Select } from 'components/select';
 
 import { useModal } from 'features/modal';
 import { useUserApi } from 'features/user/api';
@@ -86,7 +86,7 @@ export const FormSimple = ({
               className="mt-6"
             />
 
-            <Select<{ currency: PostCurrency }>
+            <FieldSelect<{ currency: PostCurrency }>
               items={[
                 {
                   currency: 'CUP',
@@ -131,7 +131,7 @@ export const FormSimple = ({
                   );
                 }}
                 variant="primary"
-                className='w-full'
+                className="w-full"
               />,
             )}
           </form>

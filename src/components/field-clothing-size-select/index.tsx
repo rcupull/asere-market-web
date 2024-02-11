@@ -66,7 +66,6 @@ export const FieldClothingSizeSelect = <V extends Value = Value>(
   return (
     <FormFieldWrapper label={label} error={error} className={className}>
       <RadioGroup
-        className="mt-4"
         onBlur={(e) => {
           //@ts-expect-error ignore
           e.target.name = field.name; // had code the blur event to detect touch in formik
@@ -87,11 +86,12 @@ export const FieldClothingSizeSelect = <V extends Value = Value>(
                 disabled={!size.inStock}
                 onClick={() => handleClick(size)}
                 className={cn(
-                  size.inStock
-                    ? 'cursor-pointer bg-white text-gray-900 shadow-sm'
-                    : 'cursor-not-allowed bg-gray-50 text-gray-200',
-                  active ? 'ring-2 ring-indigo-500' : '',
-                  'group relative flex items-center justify-center rounded-md border py-3 px-4 text-sm font-medium uppercase hover:bg-gray-50 focus:outline-none sm:flex-1 sm:py-6',
+                  'cursor-not-allowed bg-gray-50 text-gray-200 group relative flex items-center justify-center rounded-md border py-3 px-4 text-sm font-medium uppercase hover:bg-gray-50 focus:outline-none sm:flex-1 sm:py-6',
+                  {
+                    'cursor-pointer bg-white text-gray-900 shadow-sm': size.inStock,
+                    'ring-2 ring-indigo-500': active,
+                    'ring-1 rounded-md ring-red-500 focus:ring-red-500': !!error,
+                  }
                 )}
               >
                 <RadioGroup.Label as="span">{size.name}</RadioGroup.Label>

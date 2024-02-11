@@ -6,6 +6,8 @@ import { FormFieldWrapper, FormFieldWrapperProps } from 'components/form-field-w
 
 import { useFormikField } from 'hooks/useFormikField';
 
+import { cn } from 'utils/general';
+
 export interface FieldInputImageProps
   extends React.InputHTMLAttributes<HTMLInputElement>,
     FormFieldWrapperProps {}
@@ -19,7 +21,6 @@ export const FieldInputImage = forwardRef<HTMLInputElement, FieldInputImageProps
   const handleChange = (files?: FileList | null) => {
     const file = files?.[0];
 
-
     setPreviewImage(file && URL.createObjectURL(file));
     field.onChange({
       target: {
@@ -28,10 +29,13 @@ export const FieldInputImage = forwardRef<HTMLInputElement, FieldInputImageProps
       },
     });
   };
+
   return (
     <FormFieldWrapper label={label} error={error} className={className}>
       <div
-        className="relative h-48"
+        className={cn('relative h-48', {
+          'ring-1 rounded-md ring-red-500 focus:ring-red-500': !!error,
+        })}
         onDragOver={(event) => {
           event.preventDefault();
         }}
