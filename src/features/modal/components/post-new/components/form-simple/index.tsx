@@ -1,6 +1,7 @@
 import { Button } from 'components/button';
 import { Input } from 'components/input';
 import { Select } from 'components/select';
+import { TextArea } from 'components/text-area';
 
 import { useModal } from 'features/modal';
 import { useUserApi } from 'features/user/api';
@@ -68,7 +69,7 @@ export const FormSimple = ({
               label="Nombre del producto"
             />
 
-            <Input
+            <TextArea
               id="post_description"
               name="description"
               autoComplete="post_description"
@@ -130,6 +131,7 @@ export const FormSimple = ({
                   );
                 }}
                 variant="primary"
+                className='w-full'
               />,
             )}
           </form>

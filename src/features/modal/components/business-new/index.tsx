@@ -1,3 +1,4 @@
+import { Badge } from 'components/badge';
 import { Button } from 'components/button';
 import { ButtonClose } from 'components/button-close';
 import { Input } from 'components/input';
@@ -144,6 +145,7 @@ export const BusinessNew = ({ onAfterSuccess }: BusinessNewProps) => {
                   );
                 }}
                 variant="primary"
+                className='w-full'
               />,
             )}
           </form>
@@ -156,6 +158,7 @@ export const BusinessNew = ({ onAfterSuccess }: BusinessNewProps) => {
     <Modal
       title="Crear Negocio"
       content={newPostForm}
+      badge={<Badge variant='info'/>}
       primaryBtn={<div ref={submitPortal.ref} />}
       secondaryBtn={<ButtonClose />}
     />

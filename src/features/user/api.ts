@@ -5,7 +5,7 @@ import { useFetch } from 'hooks/useFetch';
 import { FetchResource, FetchResourceWithPagination, PaginatedData } from 'types/api';
 import { Business } from 'types/business';
 import { AnyRecord } from 'types/general';
-import { Post, PostCurrency } from 'types/post';
+import { Post } from 'types/post';
 import { getEndpoint } from 'utils/api';
 import { getPaginationResources } from 'utils/pagination';
 
@@ -19,14 +19,19 @@ export const useUserApi = (): {
   removeOneBusiness: FetchResource<{ id: string }, void>;
   //
   addOnePost: FetchResource<
-    {
-      routeName: string;
-      name: string;
-      description: string;
-      amountAvailable?: number;
-      currency: PostCurrency;
-      price: number;
-    },
+    Pick<
+      Post,
+      | 'routeName'
+      | 'clothingSizes'
+      | 'colors'
+      | 'currency'
+      | 'description'
+      | 'details'
+      | 'highlights'
+      | 'name'
+      | 'price'
+      | 'reviews'
+    >,
     Post
   >;
   removeOnePost: FetchResource<{ id: string }, void>;
@@ -116,7 +121,7 @@ export const useUserApi = (): {
     addOnePost: {
       data: addOnePostFetch[0],
       status: addOnePostFetch[1],
-      fetch: ({ name, routeName, currency, description, price, amountAvailable }, options = {}) => {
+      fetch: (data, options = {}) => {
         addOnePostFetch[2](
           {
             method: 'post',
@@ -124,7 +129,7 @@ export const useUserApi = (): {
               path: '/user/:userId/posts',
               urlParams: { userId },
             }),
-            data: { routeName, name, currency, description, price, amountAvailable },
+            data,
           },
           options,
         );

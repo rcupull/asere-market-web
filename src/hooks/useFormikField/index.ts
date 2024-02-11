@@ -11,7 +11,7 @@ import {
 } from 'formik';
 import { Nullable } from 'types/general';
 
-export type FormikFieldProps<Val> = Omit<FieldHookConfig<Val>, 'name'> & { name?: string };
+export type FormikFieldProps<Val = any> = Omit<FieldHookConfig<Val>, 'name'> & { name?: string };
 
 export const useFormikField = <Val = any>(
   propsOrFieldName: FormikFieldProps<Val>,

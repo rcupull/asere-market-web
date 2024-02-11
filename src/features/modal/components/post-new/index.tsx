@@ -1,3 +1,4 @@
+import { Badge } from 'components/badge';
 import { ButtonClose } from 'components/button-close';
 import { Modal } from 'components/modal';
 
@@ -32,6 +33,7 @@ export const PostNew = ({ onAfterSuccess, routeName }: PostNewProps) => {
     <Modal
       title="Nueva publicación"
       content={newPostForm}
+      badge={<Badge variant='info'/>}
       primaryBtn={<div ref={submitPortal.ref} />}
       secondaryBtn={<ButtonClose />}
     />

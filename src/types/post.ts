@@ -20,24 +20,26 @@ export interface Post extends BaseIdentity {
   price: number;
   currency: PostCurrency;
   reviews?: PostReviews;
+  colors?: Array<PostColor>;
+  highlights?: Array<string>;
+  details?: string;
+  // clothing
+  clothingSizes?: Array<PostClothingSize>;
 }
 
-export interface PostColor {
-  name: string;
-  bgColor: string; // tailwind bg class color. Exmaple : "bg-white"
-  selectedRingColor: string; // tailwind bg class color. Exmaple : "bg-white"
-}
+export type PostColor = 'white' | 'gray' | 'black';
 
+export type PostColorMeta = Record<
+  PostColor,
+  {
+    name: PostColor;
+    bgColor: string;
+    selectedRingColor: string;
+  }
+>;
 // ////////////////CLOTHING
 
 export interface PostClothingSize {
   name: 'XXS' | 'XS' | 'S' | 'M' | 'L' | 'XL' | '2XL' | '3XL';
   inStock: boolean;
-}
-
-export interface PostClothing extends Post {
-  colors?: Array<PostColor>;
-  sizes?: Array<PostClothingSize>;
-  highlights?: Array<string>;
-  details?: string;
 }

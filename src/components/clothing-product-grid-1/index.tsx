@@ -1,6 +1,6 @@
 import { Button } from 'components/button';
+import { FieldColorSelectProps } from 'components/field-colors-select';
 import { ProductClothingSizeProps } from 'components/product/clothing/types';
-import { ProductColorsProps } from 'components/product/colors/types';
 import { ProductDescriptionProps } from 'components/product/description/types';
 import { ProductDetailsProps } from 'components/product/details/types';
 import { ProductHighLightsProps } from 'components/product/hightlights/types';
@@ -11,16 +11,16 @@ import { ReviewProps } from 'components/review';
 import { useSubmitPortal } from 'hooks/useSubmitPortal';
 
 import { Formik } from 'formik';
-import { PostClothing, PostColor } from 'types/post';
+import {  Post, PostColor } from 'types/post';
 
 export interface ClothingProductGrid1Props {
-  value?: PostClothing;
+  value?: Post;
   onAddToCar?: (args: { color?: PostColor; size?: string }) => void;
   render: {
     images?: (props: ProductImagesProps) => React.ReactNode;
     price?: (props: ProductPriceProps) => React.ReactNode;
     review?: (props: ReviewProps) => React.ReactNode;
-    colors?: (props: ProductColorsProps) => React.ReactNode;
+    colors?: (props: FieldColorSelectProps<PostColor>) => React.ReactNode;
     clothingSize?: (props: ProductClothingSizeProps) => React.ReactNode;
     description?: (props: ProductDescriptionProps) => React.ReactNode;
     highLights?: (props: ProductHighLightsProps) => React.ReactNode;
@@ -33,7 +33,7 @@ export const ClothingProductGrid1 = ({ value, render, onAddToCar }: ClothingProd
 
   if (!value) return <></>;
 
-  const { colors, currency, price, description, sizes, details, highlights, reviews, images } =
+  const { colors, currency, price, description, clothingSizes, details, highlights, reviews, images } =
     value;
 
   return (
@@ -63,7 +63,7 @@ export const ClothingProductGrid1 = ({ value, render, onAddToCar }: ClothingProd
             <Formik
               initialValues={{
                 color: colors?.[0],
-                size: sizes?.find((size) => size.inStock),
+                size: clothingSizes?.find((size) => size.inStock),
               }}
               validate={() => ({})}
               onSubmit={() => {}}
@@ -76,14 +76,12 @@ export const ClothingProductGrid1 = ({ value, render, onAddToCar }: ClothingProd
                       items: colors,
                       className: 'mt-10',
                       title: 'Colores',
-                      value: values.color,
-                      onChange: (color) =>
-                        handleChange({ target: { name: 'color', value: color } }),
+                      name: 'color',
                     })}
 
                     {/* Sizes */}
                     {render.clothingSize?.({
-                      items: sizes,
+                      items: clothingSizes,
                       className: 'mt-10',
                       title: 'Tallas',
                       value: values.size,

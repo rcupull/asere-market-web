@@ -5,6 +5,10 @@ export const isNullOrUndefined = (value: unknown): value is null | undefined => 
   return value === null || value === undefined;
 };
 
+export const isNumber = (value: unknown): value is number => {
+  return typeof value === 'number';
+};
+
 export const isNullOrUndefinedOrEmptyString = (value: unknown): value is null | undefined | '' => {
   return isNullOrUndefined(value) || value === '';
 };
@@ -49,4 +53,39 @@ export const replaceAll = (value: string, match: string, replace: string): strin
 
 export const deepJsonCopy = <T extends AnyRecord = AnyRecord>(json: T) => {
   return JSON.parse(JSON.stringify(json));
+};
+
+export const addRow = <T = any>(
+  data: Array<T>,
+  rowData: T,
+  position: 'start' | 'end' = 'end',
+): Array<T> => {
+  const newData = deepJsonCopy(data);
+
+  return position === 'start' ? [rowData, ...newData] : [...newData, rowData];
+};
+
+export const removeRow = <T = any>(data: Array<T>, index: number): Array<T> => {
+  const newData = deepJsonCopy(data);
+  newData.splice(index, 1);
+  return newData;
+};
+
+export const updateRow = <T = any>(data: Array<T>, rowData: T, index: number): Array<T> => {
+  const newData = deepJsonCopy(data);
+  newData[index] = rowData;
+  return newData;
+};
+
+export const relocateRow = <T = any>(
+  data: Array<T>,
+  fromIndex: number,
+  toIndex: number,
+): Array<T> => {
+  const newData = deepJsonCopy(data);
+
+  const element = newData.splice(fromIndex, 1)[0];
+  newData.splice(toIndex, 0, element);
+
+  return newData;
 };

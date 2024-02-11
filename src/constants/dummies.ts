@@ -1,6 +1,6 @@
-import { PostClothing } from 'types/post';
+import { Post } from 'types/post';
 
-export const dummyPostClothing: PostClothing = {
+export const dummyPostClothing: Post = {
   name: 'Basic Tee 6-Pack',
   price: 192,
   currency: 'USD',
@@ -29,12 +29,8 @@ export const dummyPostClothing: PostClothing = {
       alt: 'Model wearing plain white basic tee.',
     },
   ],
-  colors: [
-    { name: 'White', bgColor: 'bg-white', selectedRingColor: 'ring-gray-400' },
-    { name: 'Gray', bgColor: 'bg-gray-200', selectedRingColor: 'ring-gray-400' },
-    { name: 'Black', bgColor: 'bg-gray-900', selectedRingColor: 'ring-gray-900' },
-  ],
-  sizes: [
+  colors: ['white', 'black', 'gray'],
+  clothingSizes: [
     { name: 'XXS', inStock: false },
     { name: 'XS', inStock: true },
     { name: 'S', inStock: true },
