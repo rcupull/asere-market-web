@@ -1,18 +1,24 @@
 import { Badge } from 'components/badge';
 import { ButtonRemove } from 'components/button-remove';
 import { IconButtonRemove } from 'components/icon-button-remove ';
+import { IconButtonView } from 'components/icon-button-view';
 
 import { useModal } from 'features/modal';
+import { useRouter } from 'features/router';
 import { useUserApi } from 'features/user/api';
 
+import { RowActionsContainer } from 'pages/@common/row-actions-container';
 import { Post } from 'types/post';
+import { getPostRoute } from 'utils/business';
 
 export interface RowActionsProps {
   rowData: Post;
+  routeName: string;
   onRefresh: () => void;
 }
-export const RowActions = ({ rowData, onRefresh }: RowActionsProps) => {
+export const RowActions = ({ rowData, onRefresh, routeName }: RowActionsProps) => {
   const { pushModal } = useModal();
+  const { pushRoute } = useRouter();
 
   const handleDelete = () => {
     pushModal('Confirmation', {
@@ -45,8 +51,13 @@ export const RowActions = ({ rowData, onRefresh }: RowActionsProps) => {
   };
 
   return (
-    <div>
+    <RowActionsContainer>
       <IconButtonRemove onClick={handleDelete} />
-    </div>
+      <IconButtonView
+        title="Ver página"
+        stopPropagation
+        onClick={() => pushRoute(getPostRoute({ routeName, postId: rowData._id }))}
+      />
+    </RowActionsContainer>
   );
 };

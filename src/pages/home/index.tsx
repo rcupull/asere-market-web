@@ -10,6 +10,7 @@ import { useFilters } from 'hooks/useFilters';
 import { LayoutPage } from 'pages/@common/layout-page';
 import { LayoutPageSection } from 'pages/@common/layout-page-section';
 import { SearchFilter } from 'pages/@common/search-filter';
+import { getPostRoute } from 'utils/business';
 
 export const Home = () => {
   const postsApi = usePostsApi().getAll;
@@ -34,7 +35,7 @@ export const Home = () => {
             return (
               <ProductSimple
                 key={index}
-                href={`/${routeName}/${_id}`}
+                href={getPostRoute({routeName, postId: _id})}
                 name={name}
                 price={`${price} ${currency}`}
                 //   imageSrc={images?.[0]}

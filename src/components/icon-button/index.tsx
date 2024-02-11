@@ -8,10 +8,10 @@ export const IconButton = ({ className, variant, ...omittedProps }: IconButtonPr
   <Button
     {...omittedProps}
     className={cn(
-      '!rounded-full !p-1',
+      '!rounded-full !p-2 !ring-0',
       {
-        ['text-red-600 ring-red-600']: variant === 'error',
-        ['text-indigo-600 ring-indigo-600']: variant === 'primary',
+        ['text-red-600 hover:bg-red-50']: variant === 'error',
+        ['text-indigo-600 hover:bg-indigo-50']: variant === 'primary',
       },
       className,
     )}

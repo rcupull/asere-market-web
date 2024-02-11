@@ -10,6 +10,7 @@ import { LayoutPage } from 'pages/@common/layout-page';
 import { LayoutPageSection } from 'pages/@common/layout-page-section';
 import { SearchFilter } from 'pages/@common/search-filter';
 import { AnyRecord } from 'types/general';
+import { getBusinessRoute } from 'utils/business';
 
 export const Business = () => {
   const businessApi = useBusinessApi().getAll;
@@ -36,7 +37,7 @@ export const Business = () => {
             return (
               <BusinessCardSimple
                 key={index}
-                href={`/${routeName}`}
+                href={getBusinessRoute({routeName})}
                 name={name}
                 category={category}
               />

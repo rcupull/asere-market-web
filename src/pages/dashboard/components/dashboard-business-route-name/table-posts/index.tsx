@@ -49,7 +49,7 @@ export const TablePosts = ({ routeName }: TablePostsProps) => {
 
           return {
             nodes: [
-              <RowActions key="RowActions" rowData={rowData} onRefresh={onRefresh} />,
+              <RowActions key="RowActions" rowData={rowData} onRefresh={onRefresh} routeName={routeName}/>,
               name,
               description,
               price,

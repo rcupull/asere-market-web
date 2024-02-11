@@ -19,3 +19,11 @@ export const getBusinessCategoryLabel = (category: BusinessCategory): string => 
 
   return record[category];
 };
+
+export const getPostRoute = (args: { routeName: string; postId: string }) => {
+  return `/${args.routeName}/${args.postId}`;
+};
+
+export const getBusinessRoute = (args: { routeName: string }) => {
+  return `/${args.routeName}`;
+};
