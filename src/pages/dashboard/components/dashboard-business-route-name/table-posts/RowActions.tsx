@@ -32,7 +32,7 @@ export const RowActions = ({
   const handleDelete = () => {
     pushModal('Confirmation', {
       useProps: () => {
-        const userApi = useUserPostsApi();
+        const { removeOneUserPost } = useUserPostsApi();
         const { onClose } = useModal();
 
         return {
@@ -40,9 +40,9 @@ export const RowActions = ({
           badge: <Badge variant="error" />,
           primaryBtn: (
             <ButtonRemove
-              isBusy={userApi.removeOnePost.status.isBusy}
+              isBusy={removeOneUserPost.status.isBusy}
               onClick={() =>
-                userApi.removeOnePost.fetch(
+                removeOneUserPost.fetch(
                   { id: rowData._id },
                   {
                     onAfterSuccess: () => {

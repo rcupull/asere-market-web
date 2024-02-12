@@ -7,18 +7,21 @@ import { getEndpoint } from 'utils/api';
 import { getPaginationResources } from 'utils/pagination';
 
 export const usePostsApi = (): {
-  getAll: FetchResourceWithPagination<{ routeNames?: Array<string>; filters?: AnyRecord }, Post>;
-  getOne: FetchResource<{ id: string }, Post>;
+  getAllPosts: FetchResourceWithPagination<
+    { routeNames?: Array<string>; filters?: AnyRecord },
+    Post
+  >;
+  getOnePost: FetchResource<{ id: string }, Post>;
 } => {
-  const [getAllData, getAllStatus, getAllFetch] = useFetch<PaginatedData<Post>>();
-  const [getOneData, getOneStatus, getOneFetch] = useFetch<Post>();
+  const getAllPostsFetch = useFetch<PaginatedData<Post>>();
+  const getOnePostFetch = useFetch<Post>();
 
   return {
-    getAll: {
-      ...getPaginationResources(getAllData),
-      status: getAllStatus,
+    getAllPosts: {
+      ...getPaginationResources(getAllPostsFetch[0]),
+      status: getAllPostsFetch[1],
       fetch: ({ routeNames = [], filters = {} }, options = {}) => {
-        getAllFetch(
+        getAllPostsFetch[2](
           {
             method: 'get',
             url: getEndpoint({
@@ -30,11 +33,11 @@ export const usePostsApi = (): {
         );
       },
     },
-    getOne: {
-      data: getOneData,
-      status: getOneStatus,
+    getOnePost: {
+      data: getOnePostFetch[0],
+      status: getOnePostFetch[1],
       fetch: ({ id }, options = {}) => {
-        getOneFetch(
+        getOnePostFetch[2](
           {
             method: 'get',
             url: getEndpoint({

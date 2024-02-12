@@ -22,10 +22,10 @@ export const BusinessRouteName = () => {
 
   const business = businessApis.data;
 
-  const postsApi = usePostsApi().getAll;
+  const { getAllPosts } = usePostsApi();
 
   const filters = useFilters<{ search?: string; page?: number }>({
-    onChange: (filters) => routeName && postsApi.fetch({ routeNames: [routeName], filters }),
+    onChange: (filters) => routeName && getAllPosts.fetch({ routeNames: [routeName], filters }),
   });
 
   useEffect(() => {
@@ -41,13 +41,13 @@ export const BusinessRouteName = () => {
       <LayoutPageSection title="Publicaciones">
         <div className="flex justify-end">
           <SearchFilter
-            isBusy={postsApi.status.isBusy}
+            isBusy={getAllPosts.status.isBusy}
             onChange={(search) => filters.onMergeFilters({ search })}
             value={filters.value.search}
           />
         </div>
         <CardGroup className="mt-2">
-          {postsApi.data?.map(({ name, price, currency, _id }, index) => {
+          {getAllPosts.data?.map(({ name, price, currency, _id }, index) => {
             return (
               <ProductSimple
                 key={index}
@@ -62,7 +62,7 @@ export const BusinessRouteName = () => {
 
         <Pagination
           className="mt-2"
-          paginator={postsApi?.paginator}
+          paginator={getAllPosts?.paginator}
           onChange={({ page }) => filters.onMergeFilters({ page })}
         />
       </LayoutPageSection>

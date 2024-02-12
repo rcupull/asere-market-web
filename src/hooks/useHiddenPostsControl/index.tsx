@@ -31,7 +31,7 @@ export const useHiddenPostControl = ({
   const { pushModal } = useModal();
   const hasChange = !isEmpty(state);
 
-  const updateManyPosts = useUserPostsApi().updateManyPosts;
+  const { updateManyUserPosts } = useUserPostsApi();
 
   useEffect(() => {
     setState({});
@@ -44,7 +44,7 @@ export const useHiddenPostControl = ({
 
     pushModal('Confirmation', {
       useProps: () => {
-        const userApi = useUserPostsApi();
+        const { removeOneUserPost } = useUserPostsApi();
         const { onClose } = useModal();
 
         return {
@@ -54,7 +54,7 @@ export const useHiddenPostControl = ({
           badge: <Badge variant="error" />,
           primaryBtn: (
             <ButtonRemove
-              isBusy={userApi.removeOnePost.status.isBusy}
+              isBusy={removeOneUserPost.status.isBusy}
               label="Actualizar"
               onClick={() => {
                 onRefresh();
@@ -70,7 +70,7 @@ export const useHiddenPostControl = ({
   const handleSubmit = () => {
     if (isEmpty(state)) return;
 
-    updateManyPosts.fetch(
+    updateManyUserPosts.fetch(
       Object.entries(state).map(([key, value]) => ({
         id: key,
         hidden: value,
@@ -91,7 +91,7 @@ export const useHiddenPostControl = ({
   return {
     onRefresh: handleRefresh,
     submitBtn: hasChange && (
-      <Button label="Guardar" onClick={handleSubmit} isBusy={updateManyPosts.status.isBusy} />
+      <Button label="Guardar" onClick={handleSubmit} isBusy={updateManyUserPosts.status.isBusy} />
     ),
     hasChange,
     onGetHiddenButtonProp: (post: Post) => {

@@ -9,11 +9,11 @@ import { getEndpoint } from 'utils/api';
 import { getPaginationResources } from 'utils/pagination';
 
 export const useUserPostsApi = (): {
-  getAllPosts: FetchResourceWithPagination<
+  getAllUserPosts: FetchResourceWithPagination<
     { routeNames?: Array<string>; filters?: AnyRecord },
     Post
   >;
-  addOnePost: FetchResource<
+  addOneUserPost: FetchResource<
     Pick<
       Post,
       | 'routeName'
@@ -30,9 +30,9 @@ export const useUserPostsApi = (): {
     >,
     Post
   >;
-  removeOnePost: FetchResource<{ id: string }, void>;
-  updateOnePost: FetchResource<{ id: string } & Partial<Post>, void>;
-  updateManyPosts: FetchResource<
+  removeOneUserPost: FetchResource<{ id: string }, void>;
+  updateOneUserPost: FetchResource<{ id: string } & Partial<Post>, void>;
+  updateManyUserPosts: FetchResource<
     Array<
       { id: string } & Partial<
         Pick<
@@ -52,22 +52,22 @@ export const useUserPostsApi = (): {
     void
   >;
 } => {
-  const getAllPostsFetch = useFetch<PaginatedData<Post>>();
-  const addOnePostFetch = useFetch<Post>();
-  const removeOnePostFetch = useFetch();
-  const updateOnePostFetch = useFetch();
-  const updateManyPostsFetch = useFetch();
+  const getAllUserPostsFetch = useFetch<PaginatedData<Post>>();
+  const addOneUserPostFetch = useFetch<Post>();
+  const removeOneUserPostFetch = useFetch();
+  const updateOneUserPostFetch = useFetch();
+  const updateManyUserPostsFetch = useFetch();
 
   const { authData } = useAuth();
 
   const userId = authData?.user._id || '<unknow user>';
 
   return {
-    getAllPosts: {
-      ...getPaginationResources(getAllPostsFetch[0]),
-      status: getAllPostsFetch[1],
+    getAllUserPosts: {
+      ...getPaginationResources(getAllUserPostsFetch[0]),
+      status: getAllUserPostsFetch[1],
       fetch: ({ routeNames = [], filters = {} }, options = {}) => {
-        getAllPostsFetch[2](
+        getAllUserPostsFetch[2](
           {
             method: 'get',
             url: getEndpoint({
@@ -80,11 +80,11 @@ export const useUserPostsApi = (): {
         );
       },
     },
-    addOnePost: {
-      data: addOnePostFetch[0],
-      status: addOnePostFetch[1],
+    addOneUserPost: {
+      data: addOneUserPostFetch[0],
+      status: addOneUserPostFetch[1],
       fetch: (data, options = {}) => {
-        addOnePostFetch[2](
+        addOneUserPostFetch[2](
           {
             method: 'post',
             url: getEndpoint({
@@ -97,11 +97,11 @@ export const useUserPostsApi = (): {
         );
       },
     },
-    removeOnePost: {
-      data: removeOnePostFetch[0],
-      status: removeOnePostFetch[1],
+    removeOneUserPost: {
+      data: removeOneUserPostFetch[0],
+      status: removeOneUserPostFetch[1],
       fetch: ({ id }, options = {}) => {
-        removeOnePostFetch[2](
+        removeOneUserPostFetch[2](
           {
             method: 'delete',
             url: getEndpoint({
@@ -113,11 +113,11 @@ export const useUserPostsApi = (): {
         );
       },
     },
-    updateOnePost: {
-      data: updateOnePostFetch[0],
-      status: updateOnePostFetch[1],
+    updateOneUserPost: {
+      data: updateOneUserPostFetch[0],
+      status: updateOneUserPostFetch[1],
       fetch: ({ id, ...data }, options = {}) => {
-        updateOnePostFetch[2](
+        updateOneUserPostFetch[2](
           {
             method: 'put',
             url: getEndpoint({
@@ -130,11 +130,11 @@ export const useUserPostsApi = (): {
         );
       },
     },
-    updateManyPosts: {
-      data: updateManyPostsFetch[0],
-      status: updateManyPostsFetch[1],
+    updateManyUserPosts: {
+      data: updateManyUserPostsFetch[0],
+      status: updateManyUserPostsFetch[1],
       fetch: (args, options = {}) => {
-        updateManyPostsFetch[2](
+        updateManyUserPostsFetch[2](
           args.map(({ id, ...data }) => {
             return {
               method: 'put',

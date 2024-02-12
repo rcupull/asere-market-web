@@ -6,7 +6,7 @@ import { FieldInputImages } from 'components/field-input-images';
 import { FieldSelect } from 'components/field-select';
 import { FieldTextArea } from 'components/field-text-area';
 
-import { useImagesApi } from 'features/api/useImagesApi';
+import { useUserBusinessImagesApi } from 'features/api/useUserBusinessImagesApi';
 import { useUserPostsApi } from 'features/api/useUserPostsApi';
 import { useModal } from 'features/modal';
 
@@ -26,8 +26,8 @@ export interface FormClothingProps {
 export const FormClothing = ({ routeName, submitPortal, onAfterSuccess }: FormClothingProps) => {
   const { onClose } = useModal();
 
-  const userApi = useUserPostsApi();
-  const imagesApi = useImagesApi();
+  const { addOneUserPost } = useUserPostsApi();
+  const { addManyUserBusinessImages } = useUserBusinessImagesApi();
   const getFormErrors = useGetFormErrors();
 
   return (
@@ -127,17 +127,17 @@ export const FormClothing = ({ routeName, submitPortal, onAfterSuccess }: FormCl
             {submitPortal.getPortal(
               <Button
                 label="Guardar"
-                isBusy={userApi.addOnePost.status.isBusy}
+                isBusy={addOneUserPost.status.isBusy}
                 disabled={!isValid}
                 onClick={() => {
                   const { images } = values;
 
                   if (images.length) {
-                    imagesApi.addPostImages.fetch(
-                      { postImages: images, routeName },
+                    addManyUserBusinessImages.fetch(
+                      { images, routeName },
                       {
                         onAfterSuccess: (response) => {
-                          userApi.addOnePost.fetch(
+                          addOneUserPost.fetch(
                             {
                               ...values,
                               routeName,

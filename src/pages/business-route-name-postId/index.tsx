@@ -19,15 +19,15 @@ import { getImageEndpoint } from 'utils/api';
 export const BusinessRouteNamePostId = () => {
   const { postId } = useParams();
 
-  const postApi = usePostsApi().getOne;
+  const { getOnePost } = usePostsApi();
 
   useEffect(() => {
     if (postId) {
-      postApi.fetch({ id: postId });
+      getOnePost.fetch({ id: postId });
     }
   }, [postId]);
 
-  const post = postApi.data;
+  const post = getOnePost.data;
 
   return (
     <LayoutPage title={post?.name} backButton>

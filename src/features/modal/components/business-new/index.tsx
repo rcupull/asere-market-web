@@ -27,7 +27,7 @@ export const BusinessNew = ({ onAfterSuccess }: BusinessNewProps) => {
 
   const businessApi = useBusinessApi();
 
-  const userApi = useUserBusinessApi();
+  const {  addOneUserBusiness} = useUserBusinessApi();
 
   const debouncer = useDebouncer();
 
@@ -125,12 +125,12 @@ export const BusinessNew = ({ onAfterSuccess }: BusinessNewProps) => {
             {submitPortal.getPortal(
               <Button
                 label="Guardar"
-                isBusy={userApi.addOneBusiness.status.isBusy}
+                isBusy={addOneUserBusiness.status.isBusy}
                 disabled={!isValid}
                 onClick={() => {
                   const { category, name } = values;
 
-                  userApi.addOneBusiness.fetch(
+                  addOneUserBusiness.fetch(
                     {
                       category,
                       name,

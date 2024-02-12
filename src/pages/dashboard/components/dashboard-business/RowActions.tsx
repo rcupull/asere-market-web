@@ -21,7 +21,7 @@ export const RowActions = ({ rowData, onRefresh }: RowActionsProps) => {
   const handleDelete = () => {
     pushModal('Confirmation', {
       useProps: () => {
-        const userApi = useUserBusinessApi();
+        const { removeOneUserBusiness } = useUserBusinessApi();
         const { onClose } = useModal();
 
         return {
@@ -29,9 +29,9 @@ export const RowActions = ({ rowData, onRefresh }: RowActionsProps) => {
           badge: <Badge variant="error" />,
           primaryBtn: (
             <ButtonRemove
-              isBusy={userApi.removeOneBusiness.status.isBusy}
+              isBusy={removeOneUserBusiness.status.isBusy}
               onClick={() =>
-                userApi.removeOneBusiness.fetch(
+                removeOneUserBusiness.fetch(
                   { routeName: rowData.routeName },
                   {
                     onAfterSuccess: () => {

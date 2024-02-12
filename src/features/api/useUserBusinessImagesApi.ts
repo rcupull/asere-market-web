@@ -5,32 +5,32 @@ import { useFetch } from 'hooks/useFetch';
 import { FetchResource } from 'types/api';
 import { getEndpoint } from 'utils/api';
 
-export const useImagesApi = (): {
-  addPostImages: FetchResource<
-    { postImages: Array<File>; routeName: string },
+export const useUserBusinessImagesApi = (): {
+  addManyUserBusinessImages: FetchResource<
+    { images: Array<File>; routeName: string },
     [{ imageSrc: string }]
   >;
 } => {
-  const addPostImageFetch = useFetch();
+  const addManyUserBusinessImagesFetch = useFetch();
 
   const { authData } = useAuth();
 
   const userId = authData?.user._id || '<unknow user>';
 
   return {
-    addPostImages: {
-      data: addPostImageFetch[0],
-      status: addPostImageFetch[1],
-      fetch: ({ postImages, routeName }, options = {}) => {
-        addPostImageFetch[2](
-          postImages.map((postImage) => {
+    addManyUserBusinessImages: {
+      data: addManyUserBusinessImagesFetch[0],
+      status: addManyUserBusinessImagesFetch[1],
+      fetch: ({ images, routeName }, options = {}) => {
+        addManyUserBusinessImagesFetch[2](
+          images.map((image) => {
             const form = new FormData();
-            form.append('postImage', postImage);
+            form.append('image', image);
 
             return {
               method: 'post',
               url: getEndpoint({
-                path: '/user/:userId/business/:routeName/postImage',
+                path: '/user/:userId/business/:routeName/image',
                 urlParams: { userId, routeName },
               }),
               data: form,

@@ -19,18 +19,18 @@ export interface TablePostsProps {
 }
 
 export const TablePosts = ({ routeName }: TablePostsProps) => {
-  const postsApi = useUserPostsApi().getAllPosts;
+  const { getAllUserPosts } = useUserPostsApi();
   const { pushModal } = useModal();
 
   useEffect(() => {
     onRefresh();
   }, []);
 
-  const onRefresh = () => postsApi.fetch({ routeNames: [routeName] });
+  const onRefresh = () => getAllUserPosts.fetch({ routeNames: [routeName] });
 
   const hiddenPostControl = useHiddenPostControl({
     onRefresh,
-    fetchStatus: postsApi.status,
+    fetchStatus: getAllUserPosts.status,
   });
 
   return (
@@ -48,7 +48,7 @@ export const TablePosts = ({ routeName }: TablePostsProps) => {
           className="ml-auto"
         />
 
-        <ButtonRefresh onClick={hiddenPostControl.onRefresh} isBusy={postsApi.status.isBusy} />
+        <ButtonRefresh onClick={hiddenPostControl.onRefresh} isBusy={getAllUserPosts.status.isBusy} />
       </TableTopActions>
       <Table
         heads={[null, 'Nombre', 'Descripción', 'Precio', 'Moneda', 'Fecha de Creación']}
@@ -73,7 +73,7 @@ export const TablePosts = ({ routeName }: TablePostsProps) => {
             ],
           };
         }}
-        data={postsApi.data}
+        data={getAllUserPosts.data}
       />
     </>
   );

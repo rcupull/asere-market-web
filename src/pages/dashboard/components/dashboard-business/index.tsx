@@ -16,12 +16,12 @@ import { TableTopActions } from 'pages/dashboard/components/table-top-actions';
 import { getDateString } from 'utils/date';
 
 export const DashboardBusiness = () => {
-  const userApi = useUserBusinessApi();
+  const { getAllUserBussiness } = useUserBusinessApi();
 
   const { pushModal } = useModal();
   const { pushRoute, pathname } = useRouter();
 
-  const onRefresh = () => userApi.getAllBussiness.fetch({});
+  const onRefresh = () => getAllUserBussiness.fetch({});
 
   useEffect(() => {
     onRefresh();
@@ -59,7 +59,7 @@ export const DashboardBusiness = () => {
               ],
             };
           }}
-          data={userApi.getAllBussiness.data}
+          data={getAllUserBussiness.data}
         />
       </LayoutSectionSub>
     </LayoutSection>

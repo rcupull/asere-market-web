@@ -26,7 +26,7 @@ export const FormSimple = ({
 }: FormSimpleProps): React.ReactNode => {
   const { onClose } = useModal();
 
-  const userApi = useUserPostsApi();
+  const { addOneUserPost } = useUserPostsApi();
   const getFormErrors = useGetFormErrors();
 
   return (
@@ -109,12 +109,12 @@ export const FormSimple = ({
             {submitPortal.getPortal(
               <Button
                 label="Guardar"
-                isBusy={userApi.addOnePost.status.isBusy}
+                isBusy={addOneUserPost.status.isBusy}
                 disabled={!isValid}
                 onClick={() => {
                   const { description, name, currency, price } = values;
 
-                  userApi.addOnePost.fetch(
+                  addOneUserPost.fetch(
                     {
                       name,
                       routeName,

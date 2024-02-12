@@ -14,10 +14,10 @@ import { getImageEndpoint } from 'utils/api';
 import { getPostRoute } from 'utils/business';
 
 export const Home = () => {
-  const postsApi = usePostsApi().getAll;
+  const {getAllPosts } = usePostsApi();
 
   const filters = useFilters<{ search?: string; page?: number }>({
-    onChange: (filters) => postsApi.fetch({ filters }),
+    onChange: (filters) => getAllPosts.fetch({ filters }),
   });
 
   return (
@@ -26,13 +26,13 @@ export const Home = () => {
       <LayoutPageSection>
         <div className="flex justify-end">
           <SearchFilter
-            isBusy={postsApi.status.isBusy}
+            isBusy={getAllPosts.status.isBusy}
             onChange={(search) => filters.onMergeFilters({ search })}
             value={filters.value.search}
           />
         </div>
         <CardGroup title="Recientes">
-          {postsApi.data?.map(({ name, price, currency, routeName, _id, images }, index) => {
+          {getAllPosts.data?.map(({ name, price, currency, routeName, _id, images }, index) => {
             return (
               <ProductSimple
                 key={index}
@@ -48,7 +48,7 @@ export const Home = () => {
 
         <Pagination
           className="w-full mt-6"
-          paginator={postsApi.paginator}
+          paginator={getAllPosts.paginator}
           onChange={({ page }) => filters.onMergeFilters({ page })}
         />
       </LayoutPageSection>
