@@ -27,7 +27,7 @@ export const BusinessNew = ({ onAfterSuccess }: BusinessNewProps) => {
 
   const businessApi = useBusinessApi();
 
-  const {  addOneUserBusiness} = useUserBusinessApi();
+  const { addOneUserBusiness } = useUserBusinessApi();
 
   const debouncer = useDebouncer();
 

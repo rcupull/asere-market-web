@@ -48,7 +48,10 @@ export const TablePosts = ({ routeName }: TablePostsProps) => {
           className="ml-auto"
         />
 
-        <ButtonRefresh onClick={hiddenPostControl.onRefresh} isBusy={getAllUserPosts.status.isBusy} />
+        <ButtonRefresh
+          onClick={hiddenPostControl.onRefresh}
+          isBusy={getAllUserPosts.status.isBusy}
+        />
       </TableTopActions>
       <Table
         heads={[null, 'Nombre', 'Descripción', 'Precio', 'Moneda', 'Fecha de Creación']}

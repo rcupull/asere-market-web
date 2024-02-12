@@ -12,6 +12,8 @@ import { ProductPrice1 } from 'components/product/price/product-price-1';
 import { Review } from 'components/review';
 
 import { usePostsApi } from 'features/api/usePostsApi';
+import { useUserPostsApi } from 'features/api/useUserPostsApi';
+import { useAuth } from 'features/auth';
 
 import { LayoutPage } from 'pages/@common/layout-page';
 import { getImageEndpoint } from 'utils/api';
@@ -19,15 +21,20 @@ import { getImageEndpoint } from 'utils/api';
 export const BusinessRouteNamePostId = () => {
   const { postId } = useParams();
 
+  const { isAuthenticated } = useAuth();
+
   const { getOnePost } = usePostsApi();
+  const { getOneUserPost } = useUserPostsApi();
+
+  const getOnePostApi = isAuthenticated ? getOneUserPost : getOnePost;
 
   useEffect(() => {
     if (postId) {
-      getOnePost.fetch({ id: postId });
+      getOnePostApi.fetch({ id: postId });
     }
   }, [postId]);
 
-  const post = getOnePost.data;
+  const post = getOnePostApi.data;
 
   return (
     <LayoutPage title={post?.name} backButton>

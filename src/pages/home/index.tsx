@@ -14,7 +14,7 @@ import { getImageEndpoint } from 'utils/api';
 import { getPostRoute } from 'utils/business';
 
 export const Home = () => {
-  const {getAllPosts } = usePostsApi();
+  const { getAllPosts } = usePostsApi();
 
   const filters = useFilters<{ search?: string; page?: number }>({
     onChange: (filters) => getAllPosts.fetch({ filters }),

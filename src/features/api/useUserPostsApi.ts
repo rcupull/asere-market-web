@@ -13,6 +13,7 @@ export const useUserPostsApi = (): {
     { routeNames?: Array<string>; filters?: AnyRecord },
     Post
   >;
+  getOneUserPost: FetchResource<{ id: string }, Post>;
   addOneUserPost: FetchResource<
     Pick<
       Post,
@@ -54,6 +55,7 @@ export const useUserPostsApi = (): {
 } => {
   const getAllUserPostsFetch = useFetch<PaginatedData<Post>>();
   const addOneUserPostFetch = useFetch<Post>();
+  const getOneUserPostFetch = useFetch<Post>();
   const removeOneUserPostFetch = useFetch();
   const updateOneUserPostFetch = useFetch();
   const updateManyUserPostsFetch = useFetch();
@@ -74,6 +76,25 @@ export const useUserPostsApi = (): {
               path: '/user/:userId/posts',
               urlParams: { userId },
               query: { routeNames, ...filters },
+            }),
+          },
+          options,
+        );
+      },
+    },
+    getOneUserPost: {
+      data: getOneUserPostFetch[0],
+      status: getOneUserPostFetch[1],
+      fetch: ({ id }, options = {}) => {
+        getOneUserPostFetch[2](
+          {
+            method: 'get',
+            url: getEndpoint({
+              path: '/user/:userId/posts/:id',
+              urlParams: {
+                id,
+                userId,
+              },
             }),
           },
           options,
