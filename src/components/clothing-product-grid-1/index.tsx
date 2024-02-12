@@ -16,7 +16,7 @@ import { Post, PostColor } from 'types/post';
 export interface ClothingProductGrid1Props {
   value?: Post | null;
   onAddToCar?: (args: { color?: PostColor; size?: string }) => void;
-  getImageUrl?: (src: string)=>string;
+  getImageUrl?: (src: string) => string;
   render: {
     images?: (props: ProductImagesProps) => React.ReactNode;
     price?: (props: ProductPriceProps) => React.ReactNode;
@@ -29,7 +29,12 @@ export interface ClothingProductGrid1Props {
   };
 }
 
-export const ClothingProductGrid1 = ({ value, render, onAddToCar, getImageUrl }: ClothingProductGrid1Props) => {
+export const ClothingProductGrid1 = ({
+  value,
+  render,
+  onAddToCar,
+  getImageUrl,
+}: ClothingProductGrid1Props) => {
   const submitPortal = useSubmitPortal();
 
   if (!value) return <></>;
@@ -45,7 +50,6 @@ export const ClothingProductGrid1 = ({ value, render, onAddToCar, getImageUrl }:
     reviews,
     images,
   } = value;
-
 
   return (
     <div className="bg-white">

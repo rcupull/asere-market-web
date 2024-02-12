@@ -4,9 +4,9 @@ import { ButtonNew } from 'components/button-new';
 import { ButtonRefresh } from 'components/button-refresh';
 import { Table } from 'components/table';
 
+import { useUserApi } from 'features/api/useUserApi';
 import { useModal } from 'features/modal';
 import { useRouter } from 'features/router';
-import { useUserApi } from 'features/user/api';
 
 import { RowActions } from './RowActions';
 

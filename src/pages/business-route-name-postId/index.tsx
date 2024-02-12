@@ -11,7 +11,7 @@ import { ProductImages1 } from 'components/product/images/product-images-1';
 import { ProductPrice1 } from 'components/product/price/product-price-1';
 import { Review } from 'components/review';
 
-import { usePostsApi } from 'features/post/api';
+import { usePostsApi } from 'features/api/usePostsApi';
 
 import { LayoutPage } from 'pages/@common/layout-page';
 import { getImageEndpoint } from 'utils/api';

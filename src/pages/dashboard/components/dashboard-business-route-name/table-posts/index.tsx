@@ -4,8 +4,8 @@ import { ButtonNew } from 'components/button-new';
 import { ButtonRefresh } from 'components/button-refresh';
 import { Table } from 'components/table';
 
+import { useUserApi } from 'features/api/useUserApi';
 import { useModal } from 'features/modal';
-import { useUserApi } from 'features/user/api';
 
 import { useHiddenPostControl } from 'hooks/useHiddenPostsControl';
 
@@ -30,7 +30,7 @@ export const TablePosts = ({ routeName }: TablePostsProps) => {
 
   const hiddenPostControl = useHiddenPostControl({
     onRefresh,
-    fetchStatus: postsApi.status
+    fetchStatus: postsApi.status,
   });
 
   return (
@@ -48,7 +48,7 @@ export const TablePosts = ({ routeName }: TablePostsProps) => {
           className="ml-auto"
         />
 
-        <ButtonRefresh onClick={hiddenPostControl.onRefresh} isBusy={postsApi.status.isBusy}/>
+        <ButtonRefresh onClick={hiddenPostControl.onRefresh} isBusy={postsApi.status.isBusy} />
       </TableTopActions>
       <Table
         heads={[null, 'Nombre', 'Descripción', 'Precio', 'Moneda', 'Fecha de Creación']}

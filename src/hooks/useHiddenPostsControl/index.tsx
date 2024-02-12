@@ -5,8 +5,8 @@ import { Button } from 'components/button';
 import { ButtonRemove } from 'components/button-remove';
 import { IconButtonShowHideProps } from 'components/icon-button-show-hide';
 
+import { useUserApi } from 'features/api/useUserApi';
 import { useModal } from 'features/modal';
-import { useUserApi } from 'features/user/api';
 
 import { FetchStatus, OnRefresh } from 'types/api';
 import { Post } from 'types/post';
@@ -38,11 +38,9 @@ export const useHiddenPostControl = ({
   }, [fetchStatus.isSuccess]);
 
   const handleRefresh = () => {
-
-    if(!hasChange) {
+    if (!hasChange) {
       return onRefresh();
     }
-
 
     pushModal('Confirmation', {
       useProps: () => {
@@ -51,12 +49,13 @@ export const useHiddenPostControl = ({
 
         return {
           className: 'max-w-lg',
-          content: 'Seguro que desea actualizar la tabla?. Serán perdidos todos los cambios hechos hasta el momento',
+          content:
+            'Seguro que desea actualizar la tabla?. Serán perdidos todos los cambios hechos hasta el momento',
           badge: <Badge variant="error" />,
           primaryBtn: (
             <ButtonRemove
               isBusy={userApi.removeOnePost.status.isBusy}
-              label='Actualizar'
+              label="Actualizar"
               onClick={() => {
                 onRefresh();
                 onClose();

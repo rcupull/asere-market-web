@@ -3,7 +3,7 @@ import { HeroSectionCentered } from 'components/hero-section-centered';
 import { Pagination } from 'components/pagination';
 import { ProductSimple } from 'components/product/product-simple';
 
-import { usePostsApi } from 'features/post/api';
+import { usePostsApi } from 'features/api/usePostsApi';
 
 import { useFilters } from 'hooks/useFilters';
 

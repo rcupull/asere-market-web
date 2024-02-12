@@ -6,9 +6,9 @@ import { FieldInputImages } from 'components/field-input-images';
 import { FieldSelect } from 'components/field-select';
 import { FieldTextArea } from 'components/field-text-area';
 
-import { useImagesApi } from 'features/images/api';
+import { useImagesApi } from 'features/api/useImagesApi';
+import { useUserApi } from 'features/api/useUserApi';
 import { useModal } from 'features/modal';
-import { useUserApi } from 'features/user/api';
 
 import { useGetFormErrors } from 'hooks/useGetFormErrors';
 import { SubmitPortal } from 'hooks/useSubmitPortal';

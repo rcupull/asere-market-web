@@ -6,13 +6,13 @@ import { cn } from 'utils/general';
 export interface Props {
   className?: string;
   href: string;
-  image?: PostImage
+  image?: PostImage;
   name: string;
   price: string;
-  getImageUrl?: (src: string)=>string
+  getImageUrl?: (src: string) => string;
 }
 
-export const ProductSimple = ({ className, image, href, name, price , getImageUrl}: Props) => {
+export const ProductSimple = ({ className, image, href, name, price, getImageUrl }: Props) => {
   return (
     <Link data-id="ProductSimple" className={cn('group', className)} to={href}>
       <div className="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-lg bg-gray-200 xl:aspect-h-8 xl:aspect-w-7 flex items-center justify-center">

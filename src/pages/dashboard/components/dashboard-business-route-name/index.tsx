@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 
-import { useBusinessApi } from 'features/business/api';
+import { useBusinessApi } from 'features/api/useBusinessApi';
 
 import { useParams } from 'hooks/useReactRouter';
 

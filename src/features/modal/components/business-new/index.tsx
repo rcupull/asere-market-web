@@ -5,9 +5,9 @@ import { FieldInput } from 'components/field-input';
 import { FieldSelect } from 'components/field-select';
 import { Modal } from 'components/modal';
 
-import { useBusinessApi } from 'features/business/api';
+import { useBusinessApi } from 'features/api/useBusinessApi';
+import { useUserApi } from 'features/api/useUserApi';
 import { useModal } from 'features/modal';
-import { useUserApi } from 'features/user/api';
 
 import { useDebouncer } from 'hooks/useDebouncer';
 import { useGetFormErrors } from 'hooks/useGetFormErrors';

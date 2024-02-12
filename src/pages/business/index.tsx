@@ -2,7 +2,7 @@ import { BusinessCardSimple } from 'components/business-card-simple';
 import { CardGroup } from 'components/card-group';
 import { Pagination } from 'components/pagination';
 
-import { useBusinessApi } from 'features/business/api';
+import { useBusinessApi } from 'features/api/useBusinessApi';
 
 import { useFilters } from 'hooks/useFilters';
 

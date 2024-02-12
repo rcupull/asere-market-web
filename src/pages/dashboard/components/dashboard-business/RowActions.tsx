@@ -3,9 +3,9 @@ import { ButtonRemove } from 'components/button-remove';
 import { IconButtonRemove } from 'components/icon-button-remove ';
 import { IconButtonView } from 'components/icon-button-view';
 
+import { useUserApi } from 'features/api/useUserApi';
 import { useModal } from 'features/modal';
 import { useRouter } from 'features/router';
-import { useUserApi } from 'features/user/api';
 
 import { RowActionsContainer } from 'pages/@common/row-actions-container';
 import { Business } from 'types/business';

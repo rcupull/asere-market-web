@@ -3,8 +3,8 @@ import { FieldInput } from 'components/field-input';
 import { FieldSelect } from 'components/field-select';
 import { FieldTextArea } from 'components/field-text-area';
 
+import { useUserApi } from 'features/api/useUserApi';
 import { useModal } from 'features/modal';
-import { useUserApi } from 'features/user/api';
 
 import { useGetFormErrors } from 'hooks/useGetFormErrors';
 import { SubmitPortal } from 'hooks/useSubmitPortal';

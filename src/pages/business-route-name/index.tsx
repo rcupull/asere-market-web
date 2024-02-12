@@ -5,8 +5,8 @@ import { CardGroup } from 'components/card-group';
 import { Pagination } from 'components/pagination';
 import { ProductSimple } from 'components/product/product-simple';
 
-import { useBusinessApi } from 'features/business/api';
-import { usePostsApi } from 'features/post/api';
+import { useBusinessApi } from 'features/api/useBusinessApi';
+import { usePostsApi } from 'features/api/usePostsApi';
 
 import { useFilters } from 'hooks/useFilters';
 

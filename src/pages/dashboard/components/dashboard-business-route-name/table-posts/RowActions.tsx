@@ -4,9 +4,9 @@ import { IconButtonRemove } from 'components/icon-button-remove ';
 import { IconButtonShowHide } from 'components/icon-button-show-hide';
 import { IconButtonView } from 'components/icon-button-view';
 
+import { useUserApi } from 'features/api/useUserApi';
 import { useModal } from 'features/modal';
 import { useRouter } from 'features/router';
-import { useUserApi } from 'features/user/api';
 
 import { HiddenPostControl } from 'hooks/useHiddenPostsControl';
 
@@ -20,10 +20,14 @@ export interface RowActionsProps {
   onRefresh: () => void;
   hiddenPostControl: HiddenPostControl;
 }
-export const RowActions = ({ rowData, onRefresh, routeName, hiddenPostControl }: RowActionsProps) => {
+export const RowActions = ({
+  rowData,
+  onRefresh,
+  routeName,
+  hiddenPostControl,
+}: RowActionsProps) => {
   const { pushModal } = useModal();
   const { pushRoute } = useRouter();
-
 
   const handleDelete = () => {
     pushModal('Confirmation', {
@@ -62,7 +66,7 @@ export const RowActions = ({ rowData, onRefresh, routeName, hiddenPostControl }:
         stopPropagation
         onClick={() => pushRoute(getPostRoute({ routeName, postId: rowData._id }))}
       />
-      <IconButtonShowHide  {...hiddenPostControl.onGetHiddenButtonProp(rowData)} />
+      <IconButtonShowHide {...hiddenPostControl.onGetHiddenButtonProp(rowData)} />
     </RowActionsContainer>
   );
 };
