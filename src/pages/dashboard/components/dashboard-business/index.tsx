@@ -4,7 +4,7 @@ import { ButtonNew } from 'components/button-new';
 import { ButtonRefresh } from 'components/button-refresh';
 import { Table } from 'components/table';
 
-import { useUserApi } from 'features/api/useUserApi';
+import { useUserBusinessApi } from 'features/api/useUserBusinessApi';
 import { useModal } from 'features/modal';
 import { useRouter } from 'features/router';
 
@@ -16,7 +16,7 @@ import { TableTopActions } from 'pages/dashboard/components/table-top-actions';
 import { getDateString } from 'utils/date';
 
 export const DashboardBusiness = () => {
-  const userApi = useUserApi();
+  const userApi = useUserBusinessApi();
 
   const { pushModal } = useModal();
   const { pushRoute, pathname } = useRouter();

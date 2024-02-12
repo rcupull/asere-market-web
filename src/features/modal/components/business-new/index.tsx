@@ -6,7 +6,7 @@ import { FieldSelect } from 'components/field-select';
 import { Modal } from 'components/modal';
 
 import { useBusinessApi } from 'features/api/useBusinessApi';
-import { useUserApi } from 'features/api/useUserApi';
+import { useUserBusinessApi } from 'features/api/useUserBusinessApi';
 import { useModal } from 'features/modal';
 
 import { useDebouncer } from 'hooks/useDebouncer';
@@ -27,7 +27,7 @@ export const BusinessNew = ({ onAfterSuccess }: BusinessNewProps) => {
 
   const businessApi = useBusinessApi();
 
-  const userApi = useUserApi();
+  const userApi = useUserBusinessApi();
 
   const debouncer = useDebouncer();
 

@@ -3,25 +3,16 @@ import { useAuth } from 'features/auth';
 import { useFetch } from 'hooks/useFetch';
 
 import { FetchResource, FetchResourceWithPagination, PaginatedData } from 'types/api';
-import { Business } from 'types/business';
 import { AnyRecord } from 'types/general';
 import { Post } from 'types/post';
 import { getEndpoint } from 'utils/api';
 import { getPaginationResources } from 'utils/pagination';
 
-export const useUserApi = (): {
+export const useUserPostsApi = (): {
   getAllPosts: FetchResourceWithPagination<
     { routeNames?: Array<string>; filters?: AnyRecord },
     Post
   >;
-  getAllBussiness: FetchResourceWithPagination<
-    { routeName?: string; filters?: AnyRecord },
-    Business
-  >;
-  getOneBusiness: FetchResource<{ routeName: string }, Business>;
-  addOneBusiness: FetchResource<{ name: string; routeName: string; category: string }, Business>;
-  removeOneBusiness: FetchResource<{ routeName: string }, void>;
-  //
   addOnePost: FetchResource<
     Pick<
       Post,
@@ -61,13 +52,7 @@ export const useUserApi = (): {
     void
   >;
 } => {
-  const getAllBussinessFetch = useFetch<PaginatedData<Business>>();
   const getAllPostsFetch = useFetch<PaginatedData<Post>>();
-
-  const getOneBusinessFetch = useFetch<Business>();
-  const addOneBusinessFetch = useFetch<Business>();
-  const removeOneBusinessFetch = useFetch();
-
   const addOnePostFetch = useFetch<Post>();
   const removeOnePostFetch = useFetch();
   const updateOnePostFetch = useFetch();
@@ -89,75 +74,6 @@ export const useUserApi = (): {
               path: '/user/:userId/posts',
               urlParams: { userId },
               query: { routeNames, ...filters },
-            }),
-          },
-          options,
-        );
-      },
-    },
-    getAllBussiness: {
-      ...getPaginationResources(getAllBussinessFetch[0]),
-      status: getAllBussinessFetch[1],
-      fetch: ({ routeName, filters }, options = {}) => {
-        getAllBussinessFetch[2](
-          {
-            method: 'get',
-            url: getEndpoint({
-              path: '/user/:userId/business',
-              urlParams: { userId },
-              query: { routeName, ...filters },
-            }),
-          },
-          options,
-        );
-      },
-    },
-    getOneBusiness: {
-      data: getOneBusinessFetch[0],
-      status: getOneBusinessFetch[1],
-      fetch: ({ routeName }, options = {}) => {
-        getOneBusinessFetch[2](
-          {
-            method: 'get',
-            url: getEndpoint({
-              path: '/user/:userId/business/:routeName',
-              urlParams: {
-                routeName,
-                userId,
-              },
-            }),
-          },
-          options,
-        );
-      },
-    },
-    addOneBusiness: {
-      data: addOneBusinessFetch[0],
-      status: addOneBusinessFetch[1],
-      fetch: ({ name, category, routeName }, options = {}) => {
-        addOneBusinessFetch[2](
-          {
-            method: 'post',
-            url: getEndpoint({
-              path: '/user/:userId/business',
-              urlParams: { userId },
-            }),
-            data: { name, category, routeName },
-          },
-          options,
-        );
-      },
-    },
-    removeOneBusiness: {
-      data: removeOneBusinessFetch[0],
-      status: removeOneBusinessFetch[1],
-      fetch: ({ routeName }, options = {}) => {
-        removeOneBusinessFetch[2](
-          {
-            method: 'delete',
-            url: getEndpoint({
-              path: '/user/:userId/business/:routeName',
-              urlParams: { routeName, userId },
             }),
           },
           options,

@@ -7,7 +7,7 @@ import { FieldSelect } from 'components/field-select';
 import { FieldTextArea } from 'components/field-text-area';
 
 import { useImagesApi } from 'features/api/useImagesApi';
-import { useUserApi } from 'features/api/useUserApi';
+import { useUserPostsApi } from 'features/api/useUserPostsApi';
 import { useModal } from 'features/modal';
 
 import { useGetFormErrors } from 'hooks/useGetFormErrors';
@@ -26,7 +26,7 @@ export interface FormClothingProps {
 export const FormClothing = ({ routeName, submitPortal, onAfterSuccess }: FormClothingProps) => {
   const { onClose } = useModal();
 
-  const userApi = useUserApi();
+  const userApi = useUserPostsApi();
   const imagesApi = useImagesApi();
   const getFormErrors = useGetFormErrors();
 

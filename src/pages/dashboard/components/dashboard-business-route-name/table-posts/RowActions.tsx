@@ -4,7 +4,7 @@ import { IconButtonRemove } from 'components/icon-button-remove ';
 import { IconButtonShowHide } from 'components/icon-button-show-hide';
 import { IconButtonView } from 'components/icon-button-view';
 
-import { useUserApi } from 'features/api/useUserApi';
+import { useUserPostsApi } from 'features/api/useUserPostsApi';
 import { useModal } from 'features/modal';
 import { useRouter } from 'features/router';
 
@@ -32,7 +32,7 @@ export const RowActions = ({
   const handleDelete = () => {
     pushModal('Confirmation', {
       useProps: () => {
-        const userApi = useUserApi();
+        const userApi = useUserPostsApi();
         const { onClose } = useModal();
 
         return {
