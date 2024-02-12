@@ -1,4 +1,5 @@
 import { StarIcon } from '@heroicons/react/20/solid';
+import { useMemo } from 'react';
 
 import { StyleProps } from 'types/general';
 import { PostReviews } from 'types/post';
@@ -10,8 +11,22 @@ export interface ReviewProps extends StyleProps {
 }
 
 export const Review = ({ value, onClickToReview, className }: ReviewProps) => {
+  const { average, totalCount } = useMemo(() => {
+    let totalCount = 0;
+    let totalSum = 0;
+
+    value?.forEach((count, index) => {
+      totalCount = totalCount + count;
+      totalSum = totalSum + (index + 1) * count;
+    });
+
+    return {
+      totalCount,
+      average: totalSum / totalCount,
+    };
+  }, [JSON.stringify(value)]);
+
   if (!value) return <></>;
-  const { average, totalCount } = value || {};
 
   return (
     <div className={className}>

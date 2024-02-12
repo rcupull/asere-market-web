@@ -14,7 +14,7 @@ import { Formik } from 'formik';
 import { Post, PostColor } from 'types/post';
 
 export interface ClothingProductGrid1Props {
-  value?: Post;
+  value?: Post | null;
   onAddToCar?: (args: { color?: PostColor; size?: string }) => void;
   render: {
     images?: (props: ProductImagesProps) => React.ReactNode;
@@ -67,12 +67,12 @@ export const ClothingProductGrid1 = ({ value, render, onAddToCar }: ClothingProd
             {render.price?.({ currency, price })}
 
             {/* Reviews */}
-            {render.review?.({ value: reviews, className: 'mt-10' })}
+            {reviews && render.review?.({ value: reviews, className: 'mt-10' })}
 
             <Formik
               initialValues={{
                 color: colors?.[0],
-                size: clothingSizes?.find((size) => size.inStock),
+                size: clothingSizes?.find((size) => size),
               }}
               validate={() => ({})}
               onSubmit={() => {}}
@@ -81,20 +81,22 @@ export const ClothingProductGrid1 = ({ value, render, onAddToCar }: ClothingProd
                 return (
                   <form className="mt-10">
                     {/* Colors */}
-                    {render.colors?.({
-                      items: colors,
-                      className: 'mt-10',
-                      label: 'Colores',
-                      name: 'color',
-                    })}
+                    {!!colors?.length &&
+                      render.colors?.({
+                        items: colors,
+                        className: 'mt-10',
+                        label: 'Colores',
+                        name: 'color',
+                      })}
 
                     {/* Sizes */}
-                    {render.clothingSize?.({
-                      items: clothingSizes,
-                      className: 'mt-10',
-                      label: 'Tallas',
-                      name: 'clothingSizes',
-                    })}
+                    {!!clothingSizes?.length &&
+                      render.clothingSize?.({
+                        sizesInStock: clothingSizes,
+                        className: 'mt-10',
+                        label: 'Tallas',
+                        name: 'clothingSizes',
+                      })}
 
                     {submitPortal.getPortal(
                       <Button
@@ -103,7 +105,6 @@ export const ClothingProductGrid1 = ({ value, render, onAddToCar }: ClothingProd
                         onClick={() => {
                           const { color, size } = values;
 
-                          //@ts-expect-error ignore
                           onAddToCar?.({ color, size });
                         }}
                       />,
@@ -119,15 +120,16 @@ export const ClothingProductGrid1 = ({ value, render, onAddToCar }: ClothingProd
           <div className="py-10 lg:col-span-2 lg:col-start-1 lg:border-r lg:border-gray-200 lg:pb-16 lg:pr-8 lg:pt-6">
             {/* Description and details */}
 
-            {render.description?.({ value: description })}
+            {description && render.description?.({ value: description })}
 
-            {render.highLights?.({
-              value: highlights,
-              className: 'mt-10',
-              title: 'Características',
-            })}
+            {highlights &&
+              render.highLights?.({
+                value: highlights,
+                className: 'mt-10',
+                title: 'Características',
+              })}
 
-            {render.details?.({ value: details, className: 'mt-10', title: 'Detalles' })}
+            {details && render.details?.({ value: details, className: 'mt-10', title: 'Detalles' })}
           </div>
         </div>
       </div>

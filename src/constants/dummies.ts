@@ -5,10 +5,7 @@ export const dummyPostClothing: Post = {
   price: 192,
   currency: 'USD',
   _id: '123',
-  reviews: {
-    average: 4,
-    totalCount: 500,
-  },
+  reviews: [200, 45, 7, 1, 1],
   createdAt: '2021-01-01',
   routeName: 'clothing',
   images: [
@@ -30,16 +27,7 @@ export const dummyPostClothing: Post = {
     },
   ],
   colors: ['white', 'black', 'gray'],
-  clothingSizes: [
-    { name: 'XXS', inStock: false },
-    { name: 'XS', inStock: true },
-    { name: 'S', inStock: true },
-    { name: 'M', inStock: true },
-    { name: 'L', inStock: true },
-    { name: 'XL', inStock: true },
-    { name: '2XL', inStock: true },
-    { name: '3XL', inStock: true },
-  ],
+  clothingSizes: ['M', '3XL', 'XL'],
   description:
     'The Basic Tee 6-Pack allows you to fully express your vibrant personality with three grayscale options. Feeling adventurous? Put on a heather gray tee. Want to be a trendsetter? Try our exclusive colorway: "Black". Need to add an extra pop of color to your outfit? Our white tee has you covered.',
   highlights: [

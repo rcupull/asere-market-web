@@ -2,10 +2,11 @@ import { Button } from 'components/button';
 import { FieldClothingSizeSelect } from 'components/field-clothing-size-select';
 import { FieldColorSelect } from 'components/field-colors-select';
 import { FieldInput } from 'components/field-input';
-import { FieldInputImage } from 'components/field-input-image';
+import { FieldInputImages } from 'components/field-input-images';
 import { FieldSelect } from 'components/field-select';
 import { FieldTextArea } from 'components/field-text-area';
 
+import { useImagesApi } from 'features/images/api';
 import { useModal } from 'features/modal';
 import { useUserApi } from 'features/user/api';
 
@@ -26,6 +27,7 @@ export const FormClothing = ({ routeName, submitPortal, onAfterSuccess }: FormCl
   const { onClose } = useModal();
 
   const userApi = useUserApi();
+  const imagesApi = useImagesApi();
   const getFormErrors = useGetFormErrors();
 
   return (
@@ -33,7 +35,7 @@ export const FormClothing = ({ routeName, submitPortal, onAfterSuccess }: FormCl
       Pick<
         Post,
         'name' | 'currency' | 'clothingSizes' | 'colors' | 'description' | 'price' | 'details'
-      >
+      > & { images: Array<File> }
     >
       initialValues={{
         name: '',
@@ -43,6 +45,7 @@ export const FormClothing = ({ routeName, submitPortal, onAfterSuccess }: FormCl
         description: '',
         colors: [],
         clothingSizes: [],
+        images: [],
       }}
       validate={(values) => {
         return getFormErrors(values, [
@@ -85,7 +88,7 @@ export const FormClothing = ({ routeName, submitPortal, onAfterSuccess }: FormCl
               rows={3}
             />
 
-            <FieldInputImage label="Imagen" id="image" name="image" className="mt-6" />
+            <FieldInputImages label="Imagen" id="images" name="images" className="mt-6" />
 
             <div className="flex flex-col sm:flex-row items-center gap-6">
               <FieldInput
@@ -127,23 +130,34 @@ export const FormClothing = ({ routeName, submitPortal, onAfterSuccess }: FormCl
                 isBusy={userApi.addOnePost.status.isBusy}
                 disabled={!isValid}
                 onClick={() => {
-                  const { description, name, currency, price } = values;
+                  const { images } = values;
 
-                  userApi.addOnePost.fetch(
-                    {
-                      name,
-                      routeName,
-                      currency,
-                      description,
-                      price,
-                    },
-                    {
-                      onAfterSuccess: (response) => {
-                        onAfterSuccess?.(response);
-                        onClose();
+                  if (images.length) {
+                    imagesApi.addPostImage.fetch(
+                      { postImage: images[0], routeName },
+                      {
+                        onAfterSuccess: ({ imageSrc }) => {
+                          userApi.addOnePost.fetch(
+                            {
+                              ...values,
+                              routeName,
+                              images: [
+                                {
+                                  src: imageSrc,
+                                },
+                              ],
+                            },
+                            {
+                              onAfterSuccess: (response) => {
+                                onAfterSuccess?.(response);
+                                onClose();
+                              },
+                            },
+                          );
+                        },
                       },
-                    },
-                  );
+                    );
+                  }
                 }}
                 variant="primary"
                 className="w-full"

@@ -61,3 +61,7 @@ export const getEndpoint: GetEndpoint = ({ path, query, urlParams }) => {
 
   return `http://localhost:4009${flattenPath}`;
 };
+
+export const getImageEndpoint = (src: string) => {
+  return `http://localhost:4009${src}`;
+};

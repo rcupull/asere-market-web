@@ -7,10 +7,7 @@ export interface PostImage {
   alt?: string;
 }
 
-export interface PostReviews {
-  average: number;
-  totalCount: number;
-}
+export type PostReviews = [number, number, number, number, number];
 
 export interface Post extends BaseIdentity {
   images?: Array<PostImage>;
@@ -39,7 +36,4 @@ export type PostColorMeta = Record<
 >;
 // ////////////////CLOTHING
 
-export interface PostClothingSize {
-  name: 'XXS' | 'XS' | 'S' | 'M' | 'L' | 'XL' | '2XL' | '3XL';
-  inStock: boolean;
-}
+export type PostClothingSize = 'XXS' | 'XS' | 'S' | 'M' | 'L' | 'XL' | '2XL' | '3XL';

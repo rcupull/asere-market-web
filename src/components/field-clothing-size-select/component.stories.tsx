@@ -26,20 +26,7 @@ export const Error = (): JSX.Element => (
 
 export const CustomItems = (): JSX.Element => (
   <FormikWrapper>
-    <FieldClothingSizeSelect
-      name="field"
-      label="Sizes"
-      items={[
-        { name: 'XXS', inStock: false },
-        { name: 'XS', inStock: true },
-        { name: 'S', inStock: true },
-        { name: 'M', inStock: false },
-        { name: 'L', inStock: true },
-        { name: 'XL', inStock: true },
-        { name: '2XL', inStock: false },
-        { name: '3XL', inStock: true },
-      ]}
-    />
+    <FieldClothingSizeSelect name="field" label="Sizes" sizesInStock={['2XL', 'L', 'S']} />
   </FormikWrapper>
 );
 

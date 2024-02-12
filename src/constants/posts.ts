@@ -19,12 +19,12 @@ export const allColorMeta: PostColorMeta = {
 };
 
 export const allClotingSize: Array<PostClothingSize> = [
-  { name: 'XXS', inStock: true },
-  { name: 'XS', inStock: true },
-  { name: 'S', inStock: true },
-  { name: 'M', inStock: true },
-  { name: 'L', inStock: true },
-  { name: 'XL', inStock: true },
-  { name: '2XL', inStock: true },
-  { name: '3XL', inStock: true },
+  'XXS',
+  'XS',
+  'S',
+  'M',
+  'L',
+  'XL',
+  '2XL',
+  '3XL',
 ];

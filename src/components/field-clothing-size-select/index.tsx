@@ -14,7 +14,7 @@ type Value = PostClothingSize | Array<PostClothingSize>;
 export interface FieldClothingSizeSelectProps<V extends Value = Value>
   extends FormFieldWrapperProps,
     FormikFieldProps<V> {
-  items?: Array<PostClothingSize>;
+  sizesInStock?: Array<PostClothingSize>;
   multi?: boolean;
 }
 
@@ -23,7 +23,7 @@ export const FieldClothingSizeSelect = <V extends Value = Value>(
 ) => {
   const [state, setState] = useState<V>();
 
-  const { label, className, items, multi } = props;
+  const { label, className, sizesInStock: sizesInStockProp, multi } = props;
   const { field, error } = useFormikField<V>(props);
   const { value } = field;
 
@@ -31,11 +31,13 @@ export const FieldClothingSizeSelect = <V extends Value = Value>(
     setState(value);
   }, [value]);
 
+  const sizesInStock = sizesInStockProp || allClotingSize;
+
   const handleClick = (size: PostClothingSize) => {
     if (multi) {
       let newState = (state ? state : []) as Array<PostClothingSize>;
 
-      const index = newState.findIndex((c) => c.name === size.name);
+      const index = newState.findIndex((c) => c === size);
 
       if (isNumber(index) && index >= 0) {
         //remove color
@@ -74,28 +76,30 @@ export const FieldClothingSizeSelect = <V extends Value = Value>(
       >
         <RadioGroup.Label className="sr-only">Choose a size</RadioGroup.Label>
         <div className="grid grid-cols-4 gap-4 sm:grid-cols-8 lg:grid-cols-4">
-          {(items || allClotingSize)?.map((size) => {
+          {allClotingSize.map((size) => {
             const active = multi
-              ? (state as Array<PostClothingSize>)?.find((c) => c.name === size.name)
-              : (state as PostClothingSize)?.name === size.name;
+              ? (state as Array<PostClothingSize>)?.find((c) => c === size)
+              : state === size;
+
+            const inStock = sizesInStock?.includes(size);
 
             return (
               <RadioGroup.Option
-                key={size.name}
+                key={size}
                 value={size}
-                disabled={!size.inStock}
+                disabled={!inStock}
                 onClick={() => handleClick(size)}
                 className={cn(
                   'cursor-not-allowed bg-gray-50 text-gray-200 group relative flex items-center justify-center rounded-md border py-3 px-4 text-sm font-medium uppercase hover:bg-gray-50 focus:outline-none sm:flex-1 sm:py-6',
                   {
-                    'cursor-pointer bg-white text-gray-900 shadow-sm': size.inStock,
+                    'cursor-pointer bg-white text-gray-900 shadow-sm': inStock,
                     'ring-2 ring-indigo-500': active,
                     'ring-1 rounded-md ring-red-500 focus:ring-red-500': !!error,
-                  }
+                  },
                 )}
               >
-                <RadioGroup.Label as="span">{size.name}</RadioGroup.Label>
-                {size.inStock ? (
+                <RadioGroup.Label as="span">{size}</RadioGroup.Label>
+                {inStock ? (
                   <span
                     className={cn(
                       active ? 'border' : 'border-2',

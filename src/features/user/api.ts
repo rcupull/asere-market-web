@@ -14,9 +14,9 @@ export const useUserApi = (): {
     { routeName?: string; filters?: AnyRecord },
     Business
   >;
-  getOneBusiness: FetchResource<{ id: string }, Business>;
+  getOneBusiness: FetchResource<{ routeName: string }, Business>;
   addOneBusiness: FetchResource<{ name: string; routeName: string; category: string }, Business>;
-  removeOneBusiness: FetchResource<{ id: string }, void>;
+  removeOneBusiness: FetchResource<{ routeName: string }, void>;
   //
   addOnePost: FetchResource<
     Pick<
@@ -31,6 +31,7 @@ export const useUserApi = (): {
       | 'name'
       | 'price'
       | 'reviews'
+      | 'images'
     >,
     Post
   >;
@@ -69,14 +70,14 @@ export const useUserApi = (): {
     getOneBusiness: {
       data: getOneBusinessFetch[0],
       status: getOneBusinessFetch[1],
-      fetch: ({ id }, options = {}) => {
+      fetch: ({ routeName }, options = {}) => {
         getOneBusinessFetch[2](
           {
             method: 'get',
             url: getEndpoint({
-              path: '/user/:userId/business/:id',
+              path: '/user/:userId/business/:routeName',
               urlParams: {
-                id,
+                routeName,
                 userId,
               },
             }),
@@ -105,13 +106,13 @@ export const useUserApi = (): {
     removeOneBusiness: {
       data: removeOneBusinessFetch[0],
       status: removeOneBusinessFetch[1],
-      fetch: ({ id }, options = {}) => {
+      fetch: ({ routeName }, options = {}) => {
         removeOneBusinessFetch[2](
           {
             method: 'delete',
             url: getEndpoint({
-              path: '/user/:userId/business/:id',
-              urlParams: { id, userId },
+              path: '/user/:userId/business/:routeName',
+              urlParams: { routeName, userId },
             }),
           },
           options,
@@ -122,6 +123,7 @@ export const useUserApi = (): {
       data: addOnePostFetch[0],
       status: addOnePostFetch[1],
       fetch: (data, options = {}) => {
+        console.log('addOnePost data', data);
         addOnePostFetch[2](
           {
             method: 'post',

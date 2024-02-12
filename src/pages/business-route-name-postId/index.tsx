@@ -13,21 +13,20 @@ import { Review } from 'components/review';
 
 import { usePostsApi } from 'features/post/api';
 
-import { dummyPostClothing } from 'constants/dummies';
 import { LayoutPage } from 'pages/@common/layout-page';
 
 export const BusinessRouteNamePostId = () => {
   const { postId } = useParams();
 
-  const postApi = usePostsApi();
+  const postApi = usePostsApi().getOne;
 
   useEffect(() => {
     if (postId) {
-      postApi.getOne.fetch({ id: postId });
+      postApi.fetch({ id: postId });
     }
   }, [postId]);
 
-  const post = postApi.getOne.data;
+  const post = postApi.data;
 
   return (
     <LayoutPage title={post?.name} backButton>
@@ -35,7 +34,7 @@ export const BusinessRouteNamePostId = () => {
         onAddToCar={(value) => {
           console.log('value', value);
         }}
-        value={dummyPostClothing}
+        value={post}
         render={{
           images: (props) => <ProductImages1 {...props} />,
           price: (props) => <ProductPrice1 {...props} />,

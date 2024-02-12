@@ -28,7 +28,7 @@ export const RowActions = ({ rowData, onRefresh }: RowActionsProps) => {
               isBusy={userApi.removeOneBusiness.status.isBusy}
               onClick={() =>
                 userApi.removeOneBusiness.fetch(
-                  { id: rowData._id },
+                  { routeName: rowData.routeName },
                   {
                     onAfterSuccess: () => {
                       onClose();

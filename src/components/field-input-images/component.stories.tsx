@@ -1,25 +1,25 @@
-import { FieldInputImage } from '.';
+import { FieldInputImages } from '.';
 
 import { FormikWrapper } from 'utils/storybook';
 
 export default {
-  component: FieldInputImage,
+  component: FieldInputImages,
 };
 
 export const Default = (): JSX.Element => (
   <FormikWrapper>
-    <FieldInputImage name="field" id='name'/>
+    <FieldInputImages name="field" id="name" />
   </FormikWrapper>
 );
 
 export const Label = (): JSX.Element => (
   <FormikWrapper>
-    <FieldInputImage name="field" id='name' label="Nombre" />
+    <FieldInputImages name="field" id="name" label="Nombre" />
   </FormikWrapper>
 );
 
 export const Error = (): JSX.Element => (
   <FormikWrapper errors={{ field: 'invalid field' }}>
-    <FieldInputImage name="field" id='name' label="Nombre" />
+    <FieldInputImages name="field" id="name" label="Nombre" />
   </FormikWrapper>
 );

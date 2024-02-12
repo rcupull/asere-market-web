@@ -3,6 +3,7 @@ import { UnknownImage } from 'components/unknown-image';
 import { ProductImagesProps } from '../types';
 
 import { PostImage } from 'types/post';
+import { getImageEndpoint } from 'utils/api';
 import { cn } from 'utils/general';
 
 export type ProductImages1Props = ProductImagesProps;
@@ -14,7 +15,13 @@ export const ProductImages1 = ({ value, className }: ProductImages1Props) => {
 
     const { src, alt } = image;
 
-    return <img src={src} alt={alt} className="h-full w-full object-cover object-center" />;
+    return (
+      <img
+        src={getImageEndpoint(src)}
+        alt={alt}
+        className="h-full w-full object-cover object-center"
+      />
+    );
   };
 
   return (

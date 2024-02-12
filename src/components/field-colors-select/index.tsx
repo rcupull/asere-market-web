@@ -85,7 +85,6 @@ export const FieldColorSelect = <V extends Value = Value>(props: FieldColorSelec
 
             return (
               <RadioGroup.Option
-              
                 key={colorMeta.name}
                 value={colorMeta}
                 onClick={() => handleClick(colorMeta.name)}
