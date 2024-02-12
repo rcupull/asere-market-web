@@ -10,6 +10,7 @@ import { useFilters } from 'hooks/useFilters';
 import { LayoutPage } from 'pages/@common/layout-page';
 import { LayoutPageSection } from 'pages/@common/layout-page-section';
 import { SearchFilter } from 'pages/@common/search-filter';
+import { getImageEndpoint } from 'utils/api';
 import { getPostRoute } from 'utils/business';
 
 export const Home = () => {
@@ -31,14 +32,15 @@ export const Home = () => {
           />
         </div>
         <CardGroup title="Recientes">
-          {postsApi.data?.map(({ name, price, currency, routeName, _id }, index) => {
+          {postsApi.data?.map(({ name, price, currency, routeName, _id, images }, index) => {
             return (
               <ProductSimple
                 key={index}
                 href={getPostRoute({ routeName, postId: _id })}
                 name={name}
                 price={`${price} ${currency}`}
-                //   imageSrc={images?.[0]}
+                image={images?.[0]}
+                getImageUrl={getImageEndpoint}
               />
             );
           })}

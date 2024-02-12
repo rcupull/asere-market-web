@@ -22,14 +22,16 @@ export type FetchOptions<Data = any> = {
 };
 
 export type FetchFnReset = () => void;
+
+interface FetchFnCallArgs {
+  method: FetchMethod;
+  url: string;
+  data?: any;
+  headers?: Headers;
+}
+
 export type FetchFnCall<Data = unknown> = (
-  args?: {
-    method: FetchMethod;
-    url: string;
-    data?: any;
-    headers?: Headers;
-    responseTransform?: (res: any) => any;
-  },
+  args?: FetchFnCallArgs | Array<FetchFnCallArgs>,
   options?: Omit<FetchOptions<Data>, 'fetchWhenMount'>,
 ) => void;
 export type UseFetchReturn<Data = unknown> = [
@@ -69,23 +71,26 @@ export const useFetch = <Data = any>(): UseFetchReturn<Data> => {
 
     try {
       setStatus('BUSY');
-      const { method, url, data, headers = {}, responseTransform } = args;
 
-      const axiosResponse = await axios({
-        url,
-        method,
-        data,
-        headers: {
-          ...headers,
-          token: authData?.token,
-        },
+      const resourcesArray = args instanceof Array ? args : [args];
+
+      const promises = resourcesArray.map(({ method, url, data, headers = {} }) => {
+        return axios({
+          url,
+          method,
+          data,
+          headers: {
+            ...headers,
+            token: authData?.token,
+          },
+        });
       });
 
-      let response = axiosResponse.data;
+      const responseArray = await Promise.all(promises);
 
-      if (responseTransform) {
-        response = responseTransform(response);
-      }
+      const response = (
+        args instanceof Array ? responseArray.map(({ data }) => data) : responseArray[0].data
+      ) as Data;
 
       setResponse(response);
       onAfterSuccess?.(response);

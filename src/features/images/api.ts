@@ -6,7 +6,10 @@ import { FetchResource } from 'types/api';
 import { getEndpoint } from 'utils/api';
 
 export const useImagesApi = (): {
-  addPostImage: FetchResource<{ postImage: File; routeName: string }, { imageSrc: string }>;
+  addPostImages: FetchResource<
+    { postImages: Array<File>; routeName: string },
+    [{ imageSrc: string }]
+  >;
 } => {
   const addPostImageFetch = useFetch();
 
@@ -15,25 +18,27 @@ export const useImagesApi = (): {
   const userId = authData?.user._id || '<unknow user>';
 
   return {
-    addPostImage: {
+    addPostImages: {
       data: addPostImageFetch[0],
       status: addPostImageFetch[1],
-      fetch: ({ postImage, routeName }, options = {}) => {
-        const form = new FormData();
-        form.append('postImage', postImage);
-
+      fetch: ({ postImages, routeName }, options = {}) => {
         addPostImageFetch[2](
-          {
-            method: 'post',
-            url: getEndpoint({
-              path: '/user/:userId/business/:routeName/postImage',
-              urlParams: { userId, routeName },
-            }),
-            data: form,
-            headers: {
-              'Content-Type': 'multipart/form-data',
-            },
-          },
+          postImages.map((postImage) => {
+            const form = new FormData();
+            form.append('postImage', postImage);
+
+            return {
+              method: 'post',
+              url: getEndpoint({
+                path: '/user/:userId/business/:routeName/postImage',
+                urlParams: { userId, routeName },
+              }),
+              data: form,
+              headers: {
+                'Content-Type': 'multipart/form-data',
+              },
+            };
+          }),
           options,
         );
       },

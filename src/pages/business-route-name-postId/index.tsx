@@ -14,6 +14,7 @@ import { Review } from 'components/review';
 import { usePostsApi } from 'features/post/api';
 
 import { LayoutPage } from 'pages/@common/layout-page';
+import { getImageEndpoint } from 'utils/api';
 
 export const BusinessRouteNamePostId = () => {
   const { postId } = useParams();
@@ -34,6 +35,7 @@ export const BusinessRouteNamePostId = () => {
         onAddToCar={(value) => {
           console.log('value', value);
         }}
+        getImageUrl={getImageEndpoint}
         value={post}
         render={{
           images: (props) => <ProductImages1 {...props} />,

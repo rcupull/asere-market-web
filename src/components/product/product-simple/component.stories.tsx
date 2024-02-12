@@ -6,7 +6,9 @@ export default {
 
 export const Default = (): JSX.Element => (
   <ProductSimple
-    imageSrc="https://tailwindui.com/img/ecommerce-images/category-page-04-image-card-01.jpg"
+    image={{
+      src:"https://tailwindui.com/img/ecommerce-images/category-page-04-image-card-01.jpg"
+    }}
     href="#"
     name="Earthen Bottle"
     price="$78"

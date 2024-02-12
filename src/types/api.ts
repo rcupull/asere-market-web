@@ -61,7 +61,6 @@ export interface BasicFetchArgs {
   url: string;
   data?: any;
   headers?: Headers;
-  responseTransform?: (res: any) => any;
 }
 
 export interface FetchArgs extends BasicFetchArgs {

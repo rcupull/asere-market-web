@@ -133,19 +133,15 @@ export const FormClothing = ({ routeName, submitPortal, onAfterSuccess }: FormCl
                   const { images } = values;
 
                   if (images.length) {
-                    imagesApi.addPostImage.fetch(
-                      { postImage: images[0], routeName },
+                    imagesApi.addPostImages.fetch(
+                      { postImages: images, routeName },
                       {
-                        onAfterSuccess: ({ imageSrc }) => {
+                        onAfterSuccess: (response) => {
                           userApi.addOnePost.fetch(
                             {
                               ...values,
                               routeName,
-                              images: [
-                                {
-                                  src: imageSrc,
-                                },
-                              ],
+                              images: response.map(({ imageSrc }) => ({ src: imageSrc })),
                             },
                             {
                               onAfterSuccess: (response) => {
