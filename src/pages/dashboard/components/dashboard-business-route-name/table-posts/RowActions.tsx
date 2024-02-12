@@ -1,11 +1,14 @@
 import { Badge } from 'components/badge';
 import { ButtonRemove } from 'components/button-remove';
 import { IconButtonRemove } from 'components/icon-button-remove ';
+import { IconButtonShowHide } from 'components/icon-button-show-hide';
 import { IconButtonView } from 'components/icon-button-view';
 
 import { useModal } from 'features/modal';
 import { useRouter } from 'features/router';
 import { useUserApi } from 'features/user/api';
+
+import { HiddenPostControl } from 'hooks/useHiddenPostsControl';
 
 import { RowActionsContainer } from 'pages/@common/row-actions-container';
 import { Post } from 'types/post';
@@ -15,10 +18,12 @@ export interface RowActionsProps {
   rowData: Post;
   routeName: string;
   onRefresh: () => void;
+  hiddenPostControl: HiddenPostControl;
 }
-export const RowActions = ({ rowData, onRefresh, routeName }: RowActionsProps) => {
+export const RowActions = ({ rowData, onRefresh, routeName, hiddenPostControl }: RowActionsProps) => {
   const { pushModal } = useModal();
   const { pushRoute } = useRouter();
+
 
   const handleDelete = () => {
     pushModal('Confirmation', {
@@ -54,10 +59,10 @@ export const RowActions = ({ rowData, onRefresh, routeName }: RowActionsProps) =
     <RowActionsContainer>
       <IconButtonRemove onClick={handleDelete} />
       <IconButtonView
-        title="Ver página"
         stopPropagation
         onClick={() => pushRoute(getPostRoute({ routeName, postId: rowData._id }))}
       />
+      <IconButtonShowHide  {...hiddenPostControl.onGetHiddenButtonProp(rowData)} />
     </RowActionsContainer>
   );
 };

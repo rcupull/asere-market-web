@@ -5,6 +5,7 @@ import { ParsedQuery } from 'query-string';
 
 export type OnAfterSuccess<Data = any> = (reponse: Data) => void;
 export type OnAfterFailed = (error: ApiError) => void;
+export type OnRefresh = () => void;
 
 export type FetchOptions<Data = any> = {
   onAfterSuccess?: OnAfterSuccess<Data>;

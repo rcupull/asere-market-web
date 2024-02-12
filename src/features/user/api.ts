@@ -10,6 +10,10 @@ import { getEndpoint } from 'utils/api';
 import { getPaginationResources } from 'utils/pagination';
 
 export const useUserApi = (): {
+  getAllPosts: FetchResourceWithPagination<
+    { routeNames?: Array<string>; filters?: AnyRecord },
+    Post
+  >;
   getAllBussiness: FetchResourceWithPagination<
     { routeName?: string; filters?: AnyRecord },
     Business
@@ -36,20 +40,61 @@ export const useUserApi = (): {
     Post
   >;
   removeOnePost: FetchResource<{ id: string }, void>;
+  updateOnePost: FetchResource<{ id: string } & Partial<Post>, void>;
+  updateManyPosts: FetchResource<
+    Array<
+      { id: string } & Partial<
+        Pick<
+          Post,
+          | 'hidden'
+          | 'clothingSizes'
+          | 'colors'
+          | 'currency'
+          | 'description'
+          | 'details'
+          | 'highlights'
+          | 'images'
+          | 'price'
+        >
+      >
+    >,
+    void
+  >;
 } => {
   const getAllBussinessFetch = useFetch<PaginatedData<Business>>();
+  const getAllPostsFetch = useFetch<PaginatedData<Post>>();
+
   const getOneBusinessFetch = useFetch<Business>();
   const addOneBusinessFetch = useFetch<Business>();
   const removeOneBusinessFetch = useFetch();
 
   const addOnePostFetch = useFetch<Post>();
   const removeOnePostFetch = useFetch();
+  const updateOnePostFetch = useFetch();
+  const updateManyPostsFetch = useFetch();
 
   const { authData } = useAuth();
 
   const userId = authData?.user._id || '<unknow user>';
 
   return {
+    getAllPosts: {
+      ...getPaginationResources(getAllPostsFetch[0]),
+      status: getAllPostsFetch[1],
+      fetch: ({ routeNames = [], filters = {} }, options = {}) => {
+        getAllPostsFetch[2](
+          {
+            method: 'get',
+            url: getEndpoint({
+              path: '/user/:userId/posts',
+              urlParams: { userId },
+              query: { routeNames, ...filters },
+            }),
+          },
+          options,
+        );
+      },
+    },
     getAllBussiness: {
       ...getPaginationResources(getAllBussinessFetch[0]),
       status: getAllBussinessFetch[1],
@@ -123,7 +168,6 @@ export const useUserApi = (): {
       data: addOnePostFetch[0],
       status: addOnePostFetch[1],
       fetch: (data, options = {}) => {
-        console.log('addOnePost data', data);
         addOnePostFetch[2](
           {
             method: 'post',
@@ -149,6 +193,42 @@ export const useUserApi = (): {
               urlParams: { id, userId },
             }),
           },
+          options,
+        );
+      },
+    },
+    updateOnePost: {
+      data: updateOnePostFetch[0],
+      status: updateOnePostFetch[1],
+      fetch: ({ id, ...data }, options = {}) => {
+        updateOnePostFetch[2](
+          {
+            method: 'put',
+            url: getEndpoint({
+              path: '/user/:userId/posts/:id',
+              urlParams: { id, userId },
+            }),
+            data,
+          },
+          options,
+        );
+      },
+    },
+    updateManyPosts: {
+      data: updateManyPostsFetch[0],
+      status: updateManyPostsFetch[1],
+      fetch: (args, options = {}) => {
+        updateManyPostsFetch[2](
+          args.map(({ id, ...data }) => {
+            return {
+              method: 'put',
+              url: getEndpoint({
+                path: '/user/:userId/posts/:id',
+                urlParams: { id, userId },
+              }),
+              data,
+            };
+          }),
           options,
         );
       },
