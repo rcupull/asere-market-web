@@ -4,7 +4,7 @@ import { ButtonNew } from 'components/button-new';
 import { ButtonRefresh } from 'components/button-refresh';
 import { Table } from 'components/table';
 
-import { useUserPaymentApi } from 'features/api/useUserPaymentApi';
+import { useGetUserPaymentPlan } from 'features/api/useGetUserPaymentPlan';
 import { useUserPostsApi } from 'features/api/useUserPostsApi';
 import { useModal } from 'features/modal';
 
@@ -26,7 +26,6 @@ export const TablePosts = ({ routeName }: TablePostsProps) => {
 
   useEffect(() => {
     onRefresh();
-    getCurrentPaymentPlan.fetch(undefined);
   }, []);
 
   const onRefresh = () => getAllUserPosts.fetch({ routeNames: [routeName] });
@@ -36,13 +35,12 @@ export const TablePosts = ({ routeName }: TablePostsProps) => {
     fetchStatus: getAllUserPosts.status,
   });
 
-  const { getCurrentPaymentPlan } = useUserPaymentApi();
-
+  const { getUserPaymentPlan } = useGetUserPaymentPlan();
 
   const canNotAddNewPost =
     isNumber(getAllUserPosts.data?.length) &&
-    isNumber(getCurrentPaymentPlan.data?.maxBusinessCount) &&
-    getAllUserPosts.data?.length >= getCurrentPaymentPlan.data?.maxBusinessPostsCount;
+    isNumber(getUserPaymentPlan.data?.maxBusinessCount) &&
+    getAllUserPosts.data?.length >= getUserPaymentPlan.data?.maxBusinessPostsCount;
 
   return (
     <>

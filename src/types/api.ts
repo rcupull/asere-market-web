@@ -1,3 +1,5 @@
+import { FetchOptions } from 'hooks/useFetch';
+
 import { AnyRecord } from './general';
 
 //eslint-disable-next-line
@@ -6,11 +8,6 @@ import { ParsedQuery } from 'query-string';
 export type OnAfterSuccess<Data = any> = (reponse: Data) => void;
 export type OnAfterFailed = (error: ApiError) => void;
 export type OnRefresh = () => void;
-
-export type FetchOptions<Data = any> = {
-  onAfterSuccess?: OnAfterSuccess<Data>;
-  onAfterFailed?: OnAfterFailed;
-};
 
 export interface FetchResource<Args = undefined, Data = any> {
   data: FetchData<Data>;

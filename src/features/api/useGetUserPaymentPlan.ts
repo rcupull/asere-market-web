@@ -6,21 +6,21 @@ import { FetchResource } from 'types/api';
 import { PaymentPlan } from 'types/payment';
 import { getEndpoint } from 'utils/api';
 
-export const useUserPaymentApi = (): {
-  getCurrentPaymentPlan: FetchResource<undefined, PaymentPlan>;
+export const useGetUserPaymentPlan = (): {
+  getUserPaymentPlan: FetchResource<undefined, PaymentPlan>;
 } => {
-  const getCurrentPaymentPlanFetch = useFetch<PaymentPlan>();
+  const fetch = useFetch<PaymentPlan>('useGetUserPaymentPlan');
 
   const { authData } = useAuth();
 
   const userId = authData?.user._id || '<unknow user>';
 
   return {
-    getCurrentPaymentPlan: {
-      data: getCurrentPaymentPlanFetch[0],
-      status: getCurrentPaymentPlanFetch[1],
+    getUserPaymentPlan: {
+      data: fetch[0],
+      status: fetch[1],
       fetch: (_, options = {}) => {
-        getCurrentPaymentPlanFetch[2](
+        fetch[2](
           {
             method: 'get',
             url: getEndpoint({

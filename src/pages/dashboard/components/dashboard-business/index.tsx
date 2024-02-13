@@ -4,8 +4,8 @@ import { ButtonNew } from 'components/button-new';
 import { ButtonRefresh } from 'components/button-refresh';
 import { Table } from 'components/table';
 
+import { useGetUserPaymentPlan } from 'features/api/useGetUserPaymentPlan';
 import { useUserBusinessApi } from 'features/api/useUserBusinessApi';
-import { useUserPaymentApi } from 'features/api/useUserPaymentApi';
 import { useModal } from 'features/modal';
 import { useRouter } from 'features/router';
 
@@ -27,11 +27,10 @@ export const DashboardBusiness = () => {
 
   const onRefresh = () => getAllUserBussiness.fetch({});
 
-  const { getCurrentPaymentPlan } = useUserPaymentApi();
+  const { getUserPaymentPlan } = useGetUserPaymentPlan();
 
   useEffect(() => {
     onRefresh();
-    getCurrentPaymentPlan.fetch(undefined);
   }, []);
 
   const hiddenBusinessControl = useHiddenBusinessControl({
@@ -41,8 +40,8 @@ export const DashboardBusiness = () => {
 
   const canNotAddNewBusiness =
     isNumber(getAllUserBussiness.data?.length) &&
-    isNumber(getCurrentPaymentPlan.data?.maxBusinessCount) &&
-    getAllUserBussiness.data?.length >= getCurrentPaymentPlan.data?.maxBusinessCount;
+    isNumber(getUserPaymentPlan.data?.maxBusinessCount) &&
+    getAllUserBussiness.data?.length >= getUserPaymentPlan.data?.maxBusinessCount;
 
   return (
     <LayoutSection title="Negocios">
