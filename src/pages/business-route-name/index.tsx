@@ -5,8 +5,8 @@ import { CardGroup } from 'components/card-group';
 import { Pagination } from 'components/pagination';
 import { ProductSimple } from 'components/product/product-simple';
 
+import { useGetAllPosts } from 'features/api/useGetAllPosts';
 import { useGetBusinessOne } from 'features/api/useGetBusinessOne';
-import { usePostsApi } from 'features/api/usePostsApi';
 
 import { useFilters } from 'hooks/useFilters';
 
@@ -23,7 +23,7 @@ export const BusinessRouteName = () => {
 
   const business = getBusinessOne.data;
 
-  const { getAllPosts } = usePostsApi();
+  const { getAllPosts } = useGetAllPosts();
 
   const filters = useFilters<{ search?: string; page?: number }>({
     onChange: (filters) => routeName && getAllPosts.fetch({ routeNames: [routeName], filters }),

@@ -3,7 +3,7 @@ import { HeroSectionCentered } from 'components/hero-section-centered';
 import { Pagination } from 'components/pagination';
 import { ProductSimple } from 'components/product/product-simple';
 
-import { usePostsApi } from 'features/api/usePostsApi';
+import { useGetAllPosts } from 'features/api/useGetAllPosts';
 
 import { useFilters } from 'hooks/useFilters';
 
@@ -14,7 +14,7 @@ import { getImageEndpoint } from 'utils/api';
 import { getPostRoute } from 'utils/business';
 
 export const Home = () => {
-  const { getAllPosts } = usePostsApi();
+  const { getAllPosts } = useGetAllPosts();
 
   const filters = useFilters<{ search?: string; page?: number }>({
     onChange: (filters) => getAllPosts.fetch({ filters }),

@@ -15,12 +15,10 @@ import {
   OnAfterFailed,
   OnAfterSuccess,
 } from 'types/api';
-import { AnyRecord } from 'types/general';
 
 export type FetchOptions<Data = any> = {
   onAfterSuccess?: OnAfterSuccess<Data>;
   onAfterFailed?: OnAfterFailed;
-  persistent?: boolean;
 };
 
 export type FetchFnReset = () => void;
@@ -43,9 +41,7 @@ export type UseFetchReturn<Data = unknown> = [
   FetchFnReset,
 ];
 
-const persistentRecord: AnyRecord = {};
-
-export const useFetch = <Data = any>(dataId: string): UseFetchReturn<Data> => {
+export const useFetch = <Data = any>(): UseFetchReturn<Data> => {
   const [response, setResponse] = useState<FetchData<Data>>(null);
   const [error, setError] = useState<ApiError | null>(null);
   const [status, setStatus] = useState<ApiStatus>('NOT_STARTED');
@@ -71,7 +67,7 @@ export const useFetch = <Data = any>(dataId: string): UseFetchReturn<Data> => {
   const handleFetch: FetchFnCall<Data> = async (args, options) => {
     if (!args) throw new Error('Should set some fetch args');
 
-    const { onAfterSuccess, onAfterFailed, persistent } = options || {};
+    const { onAfterSuccess, onAfterFailed } = options || {};
 
     try {
       setStatus('BUSY');
@@ -96,10 +92,6 @@ export const useFetch = <Data = any>(dataId: string): UseFetchReturn<Data> => {
         args instanceof Array ? responseArray.map(({ data }) => data) : responseArray[0].data
       ) as Data;
 
-      if (persistent && dataId) {
-        persistentRecord[dataId] = response;
-      }
-
       setResponse(response);
       onAfterSuccess?.(response);
       setStatus('SUCCESS');
@@ -114,7 +106,7 @@ export const useFetch = <Data = any>(dataId: string): UseFetchReturn<Data> => {
   };
 
   return [
-    persistentRecord[dataId] || response,
+    response,
     {
       isNotStarted: status === 'NOT_STARTED',
       isBusy: status === 'BUSY',

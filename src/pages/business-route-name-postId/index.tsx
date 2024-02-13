@@ -11,7 +11,7 @@ import { ProductImages1 } from 'components/product/images/product-images-1';
 import { ProductPrice1 } from 'components/product/price/product-price-1';
 import { Review } from 'components/review';
 
-import { usePostsApi } from 'features/api/usePostsApi';
+import { useGetOnePost } from 'features/api/useGetOnePost';
 import { useUserPostsApi } from 'features/api/useUserPostsApi';
 import { useAuth } from 'features/auth';
 
@@ -23,7 +23,7 @@ export const BusinessRouteNamePostId = () => {
 
   const { isAuthenticated } = useAuth();
 
-  const { getOnePost } = usePostsApi();
+  const { getOnePost } = useGetOnePost();
   const { getOneUserPost } = useUserPostsApi();
 
   const getOnePostApi = isAuthenticated ? getOneUserPost : getOnePost;
