@@ -6,7 +6,7 @@ import { Pagination } from 'components/pagination';
 import { ProductSimple } from 'components/product/product-simple';
 
 import { useGetAllPosts } from 'features/api/useGetAllPosts';
-import { useGetBusinessOne } from 'features/api/useGetBusinessOne';
+import { useGetOneBusiness } from 'features/api/useGetOneBusiness';
 
 import { useFilters } from 'hooks/useFilters';
 
@@ -19,9 +19,9 @@ import { getPostRoute } from 'utils/business';
 export const BusinessRouteName = () => {
   const { routeName } = useParams();
 
-  const {getBusinessOne} = useGetBusinessOne();
+  const {getOneBusiness} = useGetOneBusiness();
 
-  const business = getBusinessOne.data;
+  const business = getOneBusiness.data;
 
   const { getAllPosts } = useGetAllPosts();
 
@@ -31,7 +31,7 @@ export const BusinessRouteName = () => {
 
   useEffect(() => {
     if (routeName) {
-      getBusinessOne.fetch({ routeName });
+      getOneBusiness.fetch({ routeName });
     }
   }, []);
 

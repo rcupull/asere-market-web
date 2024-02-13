@@ -6,16 +6,16 @@ import { AnyRecord } from 'types/general';
 import { getEndpoint } from 'utils/api';
 import { getPaginationResources } from 'utils/pagination';
 
-export const useGetBusinessAll = (): {
-  getBusinessAll: FetchResourceWithPagination<
+export const useGetAllBusiness = (): {
+  getAllBusiness: FetchResourceWithPagination<
     { routeName?: string; filters?: AnyRecord },
     Business
   >;
 } => {
-  const fetch = useFetch<PaginatedData<Business>>('useGetBusinessAll');
+  const fetch = useFetch<PaginatedData<Business>>();
 
   return {
-    getBusinessAll: {
+    getAllBusiness: {
       ...getPaginationResources(fetch[0]),
       status: fetch[1],
       fetch: ({ routeName, filters }, options = {}) => {
