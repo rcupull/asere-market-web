@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 
-import { useUserBusinessApi } from 'features/api/useUserBusinessApi';
+import { useGetOneUserBusiness } from 'features/api/useGetOneUserBusiness';
 
 import { useParams } from 'hooks/useReactRouter';
 
@@ -12,7 +12,7 @@ import { LayoutSectionSub } from 'pages/@common/layout-section-sub';
 export const DashboardBusinessRouteName = () => {
   const { routeName } = useParams();
 
-  const { getOneUserBusiness } = useUserBusinessApi();
+  const { getOneUserBusiness } = useGetOneUserBusiness();
 
   const onGetBussiness = () => routeName && getOneUserBusiness.fetch({ routeName });
 

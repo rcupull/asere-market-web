@@ -5,7 +5,7 @@ import { Button } from 'components/button';
 import { ButtonRemove } from 'components/button-remove';
 import { IconButtonShowHideProps } from 'components/icon-button-show-hide';
 
-import { useUserBusinessApi } from 'features/api/useUserBusinessApi';
+import { useUpdateManyUserBusiness } from 'features/api/useUpdateManyUserBusiness';
 import { useModal } from 'features/modal';
 
 import { FetchStatus, OnRefresh } from 'types/api';
@@ -31,7 +31,7 @@ export const useHiddenBusinessControl = ({
   const { pushModal } = useModal();
   const hasChange = !isEmpty(state);
 
-  const { updateManyUserBussiness } = useUserBusinessApi();
+  const { updateManyUserBussiness } = useUpdateManyUserBusiness();
 
   useEffect(() => {
     setState({});

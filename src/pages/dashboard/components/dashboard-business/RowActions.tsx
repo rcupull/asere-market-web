@@ -4,7 +4,7 @@ import { IconButtonRemove } from 'components/icon-button-remove ';
 import { IconButtonShowHide } from 'components/icon-button-show-hide';
 import { IconButtonView } from 'components/icon-button-view';
 
-import { useUserBusinessApi } from 'features/api/useUserBusinessApi';
+import { useRemoveOneUserBusiness } from 'features/api/useRemoveOneUserBusiness';
 import { useModal } from 'features/modal';
 import { useRouter } from 'features/router';
 
@@ -25,7 +25,7 @@ export const RowActions = ({ rowData, onRefresh, hiddenBusinessControl }: RowAct
   const handleDelete = () => {
     pushModal('Confirmation', {
       useProps: () => {
-        const { removeOneUserBusiness } = useUserBusinessApi();
+        const { removeOneUserBusiness } = useRemoveOneUserBusiness();
         const { onClose } = useModal();
 
         return {

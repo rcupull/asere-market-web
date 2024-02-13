@@ -4,8 +4,8 @@ import { ButtonNew } from 'components/button-new';
 import { ButtonRefresh } from 'components/button-refresh';
 import { Table } from 'components/table';
 
+import { useGetAllUserBusiness } from 'features/api/useGetAllUserBusiness';
 import { useGetUserPaymentPlan } from 'features/api/useGetUserPaymentPlan';
-import { useUserBusinessApi } from 'features/api/useUserBusinessApi';
 import { useModal } from 'features/modal';
 import { useRouter } from 'features/router';
 
@@ -20,7 +20,7 @@ import { getDateString } from 'utils/date';
 import { isNumber } from 'utils/general';
 
 export const DashboardBusiness = () => {
-  const { getAllUserBussiness } = useUserBusinessApi();
+  const { getAllUserBussiness } = useGetAllUserBusiness();
 
   const { pushModal } = useModal();
   const { pushRoute, pathname } = useRouter();

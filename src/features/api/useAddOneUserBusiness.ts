@@ -3,30 +3,34 @@ import { useAuth } from 'features/auth';
 import { useFetch } from 'hooks/useFetch';
 
 import { FetchResource } from 'types/api';
-import { PaymentPlan } from 'types/payment';
+import { Business } from 'types/business';
 import { getEndpoint } from 'utils/api';
 
-export const useGetUserPaymentPlan = (): {
-  getUserPaymentPlan: FetchResource<undefined, PaymentPlan>;
+export const useAddOneUserBusiness = (): {
+  addOneUserBusiness: FetchResource<
+    { name: string; routeName: string; category: string },
+    Business
+  >;
 } => {
-  const fetch = useFetch<PaymentPlan>();
+  const fetch = useFetch<Business>();
 
   const { authData } = useAuth();
 
   const userId = authData?.user._id || '<unknow user>';
 
   return {
-    getUserPaymentPlan: {
+    addOneUserBusiness: {
       data: fetch[0],
       status: fetch[1],
-      fetch: (_, options = {}) => {
+      fetch: ({ name, category, routeName }, options = {}) => {
         fetch[2](
           {
-            method: 'get',
+            method: 'post',
             url: getEndpoint({
-              path: '/user/:userId/payment/plan',
+              path: '/user/:userId/business',
               urlParams: { userId },
             }),
+            data: { name, category, routeName },
           },
           options,
         );

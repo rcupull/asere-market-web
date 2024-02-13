@@ -5,8 +5,8 @@ import { FieldInput } from 'components/field-input';
 import { FieldSelect } from 'components/field-select';
 import { Modal } from 'components/modal';
 
+import { useAddOneUserBusiness } from 'features/api/useAddOneUserBusiness';
 import { useGetAllBusiness } from 'features/api/useGetAllBusiness';
-import { useUserBusinessApi } from 'features/api/useUserBusinessApi';
 import { useModal } from 'features/modal';
 
 import { useDebouncer } from 'hooks/useDebouncer';
@@ -27,7 +27,7 @@ export const BusinessNew = ({ onAfterSuccess }: BusinessNewProps) => {
 
   const {getAllBusiness} = useGetAllBusiness();
 
-  const { addOneUserBusiness } = useUserBusinessApi();
+  const { addOneUserBusiness } = useAddOneUserBusiness();
 
   const debouncer = useDebouncer();
 
