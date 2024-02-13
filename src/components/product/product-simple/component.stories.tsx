@@ -6,11 +6,16 @@ export default {
 
 export const Default = (): JSX.Element => (
   <ProductSimple
-    image={{
-      src: 'https://tailwindui.com/img/ecommerce-images/category-page-04-image-card-01.jpg',
-    }}
+  post={{
+    _id: '_id',
+    createdAt: new Date().toISOString(),
+    currency: 'USD',
+    description: 'Description',
+    name: 'Earthen Bottle',
+    price: 78,
+    routeName: 'routeName',
+    images: [{ src: 'https://tailwindui.com/img/ecommerce-images/category-page-04-image-card-01.jpg' }],
+  }}
     href="#"
-    name="Earthen Bottle"
-    price="$78"
   />
 );

@@ -44,7 +44,6 @@ export const useHiddenPostControl = ({
 
     pushModal('Confirmation', {
       useProps: () => {
-        const { removeOneUserPost } = useUserPostsApi();
         const { onClose } = useModal();
 
         return {
@@ -54,7 +53,6 @@ export const useHiddenPostControl = ({
           badge: <Badge variant="error" />,
           primaryBtn: (
             <ButtonRemove
-              isBusy={removeOneUserPost.status.isBusy}
               label="Actualizar"
               onClick={() => {
                 onRefresh();

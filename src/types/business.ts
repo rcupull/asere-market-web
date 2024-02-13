@@ -7,4 +7,5 @@ export interface Business extends BaseIdentity {
   category: BusinessCategory;
   routeName: string;
   createdBy: string; // userId
+  hidden?: boolean;
 }

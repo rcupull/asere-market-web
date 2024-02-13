@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 
-import { useBusinessApi } from 'features/api/useBusinessApi';
+import { useUserBusinessApi } from 'features/api/useUserBusinessApi';
 
 import { useParams } from 'hooks/useReactRouter';
 
@@ -12,24 +12,30 @@ import { LayoutSectionSub } from 'pages/@common/layout-section-sub';
 export const DashboardBusinessRouteName = () => {
   const { routeName } = useParams();
 
-  const businessApi = useBusinessApi();
+  const { getOneUserBusiness } = useUserBusinessApi();
+
+  const onGetBussiness = () => routeName && getOneUserBusiness.fetch({ routeName });
 
   useEffect(() => {
     onGetBussiness();
   }, []);
 
-  const onGetBussiness = () => routeName && businessApi.getOne.fetch({ routeName });
-
-  const business = businessApi.getOne.data;
+  const business = getOneUserBusiness.data;
 
   if (!business) {
     return <></>;
   }
 
-  const businessName = business.name;
+  const { name, hidden } = business;
 
+
+  const hiddenBusinessElement = <div className="text-red-500 ring-1 ring-red-400 rounded-3xl px-2 py-1/2 text-sm sm:text-lg">Este negocio no está visible</div>
   return (
-    <LayoutSection title={businessName} backButton>
+    <LayoutSection
+      title={name}
+      backButton
+      topRightHeader={hidden && hiddenBusinessElement}
+    >
       <LayoutSectionSub>{routeName && <TablePosts routeName={routeName} />}</LayoutSectionSub>
     </LayoutSection>
   );

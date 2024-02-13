@@ -13,6 +13,7 @@ import { useFilters } from 'hooks/useFilters';
 import { LayoutPage } from 'pages/@common/layout-page';
 import { LayoutPageSection } from 'pages/@common/layout-page-section';
 import { SearchFilter } from 'pages/@common/search-filter';
+import { getImageEndpoint } from 'utils/api';
 import { getPostRoute } from 'utils/business';
 
 export const BusinessRouteName = () => {
@@ -47,14 +48,15 @@ export const BusinessRouteName = () => {
           />
         </div>
         <CardGroup className="mt-2">
-          {getAllPosts.data?.map(({ name, price, currency, _id }, index) => {
+          {getAllPosts.data?.map((post, index) => {
+            const { _id } = post
+
             return (
               <ProductSimple
-                key={index}
-                href={getPostRoute({ routeName, postId: _id })}
-                name={name}
-                price={`${price} ${currency}`}
-                //   imageSrc={images?.[0]}
+              key={index}
+              post={post}
+              href={getPostRoute({ routeName, postId: _id })}
+              getImageUrl={getImageEndpoint}
               />
             );
           })}

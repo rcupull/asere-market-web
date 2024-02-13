@@ -8,6 +8,8 @@ import { useUserBusinessApi } from 'features/api/useUserBusinessApi';
 import { useModal } from 'features/modal';
 import { useRouter } from 'features/router';
 
+import { useHiddenBusinessControl } from 'hooks/useHiddenBusinessControl';
+
 import { RowActions } from './RowActions';
 
 import { LayoutSection } from 'pages/@common/layout-section';
@@ -27,10 +29,17 @@ export const DashboardBusiness = () => {
     onRefresh();
   }, []);
 
+  const hiddenBusinessControl = useHiddenBusinessControl({
+    onRefresh,
+    fetchStatus: getAllUserBussiness.status,
+  });
+
   return (
     <LayoutSection title="Negocios">
       <LayoutSectionSub>
         <TableTopActions>
+          {hiddenBusinessControl.submitBtn}
+
           <ButtonNew
             label="Nuevo negocio"
             onClick={() =>
@@ -41,7 +50,7 @@ export const DashboardBusiness = () => {
             className="ml-auto"
           />
 
-          <ButtonRefresh onClick={onRefresh} />
+          <ButtonRefresh onClick={hiddenBusinessControl.onRefresh} isBusy={getAllUserBussiness.status.isBusy} />
         </TableTopActions>
 
         <Table
@@ -50,9 +59,15 @@ export const DashboardBusiness = () => {
             const { name, category, createdAt, routeName } = rowData;
 
             return {
+              className: hiddenBusinessControl.onGetHiddenTableRowStyles(rowData),
               onClick: () => pushRoute(`${pathname}/${routeName}`),
               nodes: [
-                <RowActions key="RowActions" rowData={rowData} onRefresh={onRefresh} />,
+                <RowActions
+                  key="RowActions"
+                  rowData={rowData}
+                  onRefresh={onRefresh}
+                  hiddenBusinessControl={hiddenBusinessControl}
+                />,
                 name,
                 category,
                 getDateString({ date: createdAt, showTime: true }),

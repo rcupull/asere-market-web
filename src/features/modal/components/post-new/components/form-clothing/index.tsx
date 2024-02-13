@@ -15,7 +15,7 @@ import { SubmitPortal } from 'hooks/useSubmitPortal';
 
 import { Formik } from 'formik';
 import { OnAfterSuccess } from 'types/api';
-import { Post, PostCurrency } from 'types/post';
+import { Post, PostCurrency, PostImage } from 'types/post';
 
 export interface FormClothingProps {
   submitPortal: SubmitPortal;
@@ -63,10 +63,6 @@ export const FormClothing = ({ routeName, submitPortal, onAfterSuccess }: FormCl
           },
           {
             field: 'price',
-            type: 'required',
-          },
-          {
-            field: 'clothingSizes',
             type: 'required',
           },
         ]);
@@ -132,27 +128,32 @@ export const FormClothing = ({ routeName, submitPortal, onAfterSuccess }: FormCl
                 onClick={() => {
                   const { images } = values;
 
+                  const handleSubmit = (images?: Array<PostImage>) => {
+                    addOneUserPost.fetch(
+                      {
+                        ...values,
+                        routeName,
+                        images,
+                      },
+                      {
+                        onAfterSuccess: (response) => {
+                          onAfterSuccess?.(response);
+                          onClose();
+                        },
+                      },
+                    );
+                  };
+
+
                   if (images.length) {
                     addManyUserBusinessImages.fetch(
                       { images, routeName },
                       {
-                        onAfterSuccess: (response) => {
-                          addOneUserPost.fetch(
-                            {
-                              ...values,
-                              routeName,
-                              images: response.map(({ imageSrc }) => ({ src: imageSrc })),
-                            },
-                            {
-                              onAfterSuccess: (response) => {
-                                onAfterSuccess?.(response);
-                                onClose();
-                              },
-                            },
-                          );
-                        },
+                        onAfterSuccess: (response) => handleSubmit(response.map(({ imageSrc }) => ({ src: imageSrc }))),
                       },
                     );
+                  } else {
+                    handleSubmit();
                   }
                 }}
                 variant="primary"

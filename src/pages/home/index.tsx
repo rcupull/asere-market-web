@@ -32,14 +32,14 @@ export const Home = () => {
           />
         </div>
         <CardGroup title="Recientes">
-          {getAllPosts.data?.map(({ name, price, currency, routeName, _id, images }, index) => {
+          {getAllPosts.data?.map((post, index) => {
+            const { routeName, _id } = post;
+
             return (
               <ProductSimple
                 key={index}
+                post={post}
                 href={getPostRoute({ routeName, postId: _id })}
-                name={name}
-                price={`${price} ${currency}`}
-                image={images?.[0]}
                 getImageUrl={getImageEndpoint}
               />
             );

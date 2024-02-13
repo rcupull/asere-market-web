@@ -1,11 +1,14 @@
 import { Badge } from 'components/badge';
 import { ButtonRemove } from 'components/button-remove';
 import { IconButtonRemove } from 'components/icon-button-remove ';
+import { IconButtonShowHide } from 'components/icon-button-show-hide';
 import { IconButtonView } from 'components/icon-button-view';
 
 import { useUserBusinessApi } from 'features/api/useUserBusinessApi';
 import { useModal } from 'features/modal';
 import { useRouter } from 'features/router';
+
+import { HiddenBusinessControl } from 'hooks/useHiddenBusinessControl';
 
 import { RowActionsContainer } from 'pages/@common/row-actions-container';
 import { Business } from 'types/business';
@@ -13,8 +16,9 @@ import { Business } from 'types/business';
 export interface RowActionsProps {
   rowData: Business;
   onRefresh: () => void;
+  hiddenBusinessControl: HiddenBusinessControl;
 }
-export const RowActions = ({ rowData, onRefresh }: RowActionsProps) => {
+export const RowActions = ({ rowData, onRefresh, hiddenBusinessControl }: RowActionsProps) => {
   const { pushModal } = useModal();
   const { pushRoute } = useRouter();
 
@@ -56,6 +60,8 @@ export const RowActions = ({ rowData, onRefresh }: RowActionsProps) => {
         stopPropagation
         onClick={() => pushRoute(rowData.routeName)}
       />
+      <IconButtonShowHide stopPropagation {...hiddenBusinessControl.onGetHiddenButtonProp(rowData)} />
+
     </RowActionsContainer>
   );
 };

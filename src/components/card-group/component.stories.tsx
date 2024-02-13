@@ -3,6 +3,8 @@ import { ProductSimple } from 'components/product/product-simple';
 
 import { CardGroup } from '.';
 
+import { Post } from 'types/post';
+
 export default {
   component: CardGroup,
 };
@@ -25,15 +27,24 @@ const productItems = [
   },
 ];
 
+
+const post1:Post = {
+  _id: '_id',
+  createdAt: new Date().toISOString(),
+  currency: 'USD',
+  description: 'Description',
+  name: 'Earthen Bottle',
+  price: 78,
+  routeName: 'routeName',
+  images: [{ src: 'https://tailwindui.com/img/ecommerce-images/category-page-04-image-card-01.jpg' }],
+}
 export const WithProductSimple = (): JSX.Element => (
   <CardGroup title="Products">
     {productItems.map((item) => (
       <ProductSimple
         key={item.title}
         href="#"
-        name={item.title}
-        price={item.price}
-        imageSrc={item.imageSrc}
+        post={post1}
       />
     ))}
   </CardGroup>

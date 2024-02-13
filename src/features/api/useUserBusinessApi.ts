@@ -14,6 +14,10 @@ export const useUserBusinessApi = (): {
     Business
   >;
   getOneUserBusiness: FetchResource<{ routeName: string }, Business>;
+  updateManyUserBussiness: FetchResource<
+    Array<{ routeName: string } & Partial<Pick<Business, 'hidden'>>>,
+    void
+  >;
   addOneUserBusiness: FetchResource<
     { name: string; routeName: string; category: string },
     Business
@@ -25,6 +29,7 @@ export const useUserBusinessApi = (): {
   const getOneUserBusinessFetch = useFetch<Business>();
   const addOneUserBusinessFetch = useFetch<Business>();
   const removeOneUserBusinessFetch = useFetch();
+  const updateManyUserBussinessFetch = useFetch();
 
   const { authData } = useAuth();
 
@@ -63,6 +68,25 @@ export const useUserBusinessApi = (): {
               },
             }),
           },
+          options,
+        );
+      },
+    },
+    updateManyUserBussiness: {
+      data: updateManyUserBussinessFetch[0],
+      status: updateManyUserBussinessFetch[1],
+      fetch: (args, options = {}) => {
+        updateManyUserBussinessFetch[2](
+          args.map(({ routeName, ...data }) => {
+            return {
+              method: 'put',
+              url: getEndpoint({
+                path: '/user/:userId/business/:routeName',
+                urlParams: { routeName, userId },
+              }),
+              data,
+            };
+          }),
           options,
         );
       },
