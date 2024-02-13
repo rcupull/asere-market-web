@@ -1,5 +1,6 @@
 import { forwardRef } from 'react';
 import { Ellipsis } from 'react-css-spinners';
+import { Link } from 'react-router-dom';
 
 import { StyleProps } from 'types/general';
 import { cn } from 'utils/general';
@@ -16,6 +17,7 @@ export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElemen
   isBusy?: boolean;
   svg?: React.FunctionComponent<StyleProps>;
   stopPropagation?: boolean;
+  needPremium?: boolean
 }
 
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>((props, ref) => {
@@ -28,6 +30,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>((props, ref) =>
     svg: Svg,
     stopPropagation,
     onClick,
+    needPremium,
     ...omittedProps
   } = props;
 
@@ -43,7 +46,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>((props, ref) =>
         },
         className,
       )}
-      disabled={disabled || isBusy}
+      disabled={disabled || isBusy || needPremium}
       onClick={(e) => {
         if (stopPropagation) {
           e.stopPropagation();
@@ -68,6 +71,8 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>((props, ref) =>
           }}
         />
       )}
+
+      {needPremium && <Link to='/price' className="absolute -top-2.5 -right-2.5 rounded-full px-0.5 py-1 ring-1 ring-green-800 text-xs text-gray-50 bg-green-600">Pro</Link>}
     </button>
   );
 });

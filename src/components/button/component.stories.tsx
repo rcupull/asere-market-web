@@ -37,3 +37,15 @@ export const Disabled = (): JSX.Element => (
     <Button label="Error" variant="error" disabled />
   </>
 );
+
+export const NeedPremium = (): JSX.Element => (
+  <>
+    <Button label="Primary" variant="primary" needPremium />
+    <br />
+    <br />
+    <Button label="Outlined" variant="outlined" needPremium />
+    <br />
+    <br />
+    <Button label="Error" variant="error" needPremium />
+  </>
+);
