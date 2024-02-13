@@ -5,13 +5,13 @@ import { useFetch } from 'hooks/useFetch';
 import { FetchResource } from 'types/api';
 import { getEndpoint } from 'utils/api';
 
-export const useUserBusinessImagesApi = (): {
+export const useAddManyUserBusinessImages = (): {
   addManyUserBusinessImages: FetchResource<
     { images: Array<File>; routeName: string },
     [{ imageSrc: string }]
   >;
 } => {
-  const addManyUserBusinessImagesFetch = useFetch();
+  const fetch = useFetch();
 
   const { authData } = useAuth();
 
@@ -19,10 +19,10 @@ export const useUserBusinessImagesApi = (): {
 
   return {
     addManyUserBusinessImages: {
-      data: addManyUserBusinessImagesFetch[0],
-      status: addManyUserBusinessImagesFetch[1],
+      data: fetch[0],
+      status: fetch[1],
       fetch: ({ images, routeName }, options = {}) => {
-        addManyUserBusinessImagesFetch[2](
+        fetch[2](
           images.map((image) => {
             const form = new FormData();
             form.append('image', image);

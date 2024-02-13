@@ -6,7 +6,7 @@ import { FieldInputImages } from 'components/field-input-images';
 import { FieldSelect } from 'components/field-select';
 import { FieldTextArea } from 'components/field-text-area';
 
-import { useUserBusinessImagesApi } from 'features/api/useUserBusinessImagesApi';
+import { useAddManyUserBusinessImages } from 'features/api/useAddManyUserBusinessImages';
 import { useUserPostsApi } from 'features/api/useUserPostsApi';
 import { useModal } from 'features/modal';
 
@@ -27,7 +27,7 @@ export const FormClothing = ({ routeName, submitPortal, onAfterSuccess }: FormCl
   const { onClose } = useModal();
 
   const { addOneUserPost } = useUserPostsApi();
-  const { addManyUserBusinessImages } = useUserBusinessImagesApi();
+  const { addManyUserBusinessImages } = useAddManyUserBusinessImages();
   const getFormErrors = useGetFormErrors();
 
   return (
