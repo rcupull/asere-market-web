@@ -4,8 +4,8 @@ import { ButtonNew } from 'components/button-new';
 import { ButtonRefresh } from 'components/button-refresh';
 import { Table } from 'components/table';
 
+import { useGetAllUserPosts } from 'features/api/useGetAllUserPosts';
 import { useGetUserPaymentPlan } from 'features/api/useGetUserPaymentPlan';
-import { useUserPostsApi } from 'features/api/useUserPostsApi';
 import { useModal } from 'features/modal';
 
 import { useHiddenPostControl } from 'hooks/useHiddenPostsControl';
@@ -21,7 +21,7 @@ export interface TablePostsProps {
 }
 
 export const TablePosts = ({ routeName }: TablePostsProps) => {
-  const { getAllUserPosts } = useUserPostsApi();
+  const { getAllUserPosts } = useGetAllUserPosts();
   const { pushModal } = useModal();
 
   useEffect(() => {

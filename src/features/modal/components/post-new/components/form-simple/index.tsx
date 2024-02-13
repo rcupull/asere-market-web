@@ -3,7 +3,7 @@ import { FieldInput } from 'components/field-input';
 import { FieldSelect } from 'components/field-select';
 import { FieldTextArea } from 'components/field-text-area';
 
-import { useUserPostsApi } from 'features/api/useUserPostsApi';
+import { useAddOneUserPost } from 'features/api/useAddOneUserPost';
 import { useModal } from 'features/modal';
 
 import { useGetFormErrors } from 'hooks/useGetFormErrors';
@@ -26,7 +26,7 @@ export const FormSimple = ({
 }: FormSimpleProps): React.ReactNode => {
   const { onClose } = useModal();
 
-  const { addOneUserPost } = useUserPostsApi();
+  const { addOneUserPost } = useAddOneUserPost();
   const getFormErrors = useGetFormErrors();
 
   return (

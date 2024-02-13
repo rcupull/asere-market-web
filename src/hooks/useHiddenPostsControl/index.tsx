@@ -5,7 +5,7 @@ import { Button } from 'components/button';
 import { ButtonRemove } from 'components/button-remove';
 import { IconButtonShowHideProps } from 'components/icon-button-show-hide';
 
-import { useUserPostsApi } from 'features/api/useUserPostsApi';
+import { useUpdateManyUserPosts } from 'features/api/useUpdateManyUserPosts';
 import { useModal } from 'features/modal';
 
 import { FetchStatus, OnRefresh } from 'types/api';
@@ -31,7 +31,7 @@ export const useHiddenPostControl = ({
   const { pushModal } = useModal();
   const hasChange = !isEmpty(state);
 
-  const { updateManyUserPosts } = useUserPostsApi();
+  const { updateManyUserPosts } = useUpdateManyUserPosts();
 
   useEffect(() => {
     setState({});
