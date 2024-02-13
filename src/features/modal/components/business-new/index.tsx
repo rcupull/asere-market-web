@@ -5,7 +5,7 @@ import { FieldInput } from 'components/field-input';
 import { FieldSelect } from 'components/field-select';
 import { Modal } from 'components/modal';
 
-import { useBusinessApi } from 'features/api/useBusinessApi';
+import { useGetBusinessAll } from 'features/api/useGetBusinessAll';
 import { useUserBusinessApi } from 'features/api/useUserBusinessApi';
 import { useModal } from 'features/modal';
 
@@ -25,7 +25,7 @@ export interface BusinessNewProps {
 export const BusinessNew = ({ onAfterSuccess }: BusinessNewProps) => {
   const { onClose } = useModal();
 
-  const businessApi = useBusinessApi();
+  const {getBusinessAll} = useGetBusinessAll();
 
   const { addOneUserBusiness } = useUserBusinessApi();
 
@@ -61,7 +61,7 @@ export const BusinessNew = ({ onAfterSuccess }: BusinessNewProps) => {
               const routeName = getRouteName(name);
               return new Promise((resolve) => {
                 debouncer(() => {
-                  businessApi.getAll.fetch(
+                  getBusinessAll.fetch(
                     { routeName },
                     {
                       onAfterSuccess: (response) => {

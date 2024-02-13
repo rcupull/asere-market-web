@@ -2,7 +2,7 @@ import { BusinessCardSimple } from 'components/business-card-simple';
 import { CardGroup } from 'components/card-group';
 import { Pagination } from 'components/pagination';
 
-import { useBusinessApi } from 'features/api/useBusinessApi';
+import { useGetBusinessAll } from 'features/api/useGetBusinessAll';
 
 import { useFilters } from 'hooks/useFilters';
 
@@ -13,9 +13,9 @@ import { AnyRecord } from 'types/general';
 import { getBusinessRoute } from 'utils/business';
 
 export const Business = () => {
-  const businessApi = useBusinessApi().getAll;
+  const {getBusinessAll} = useGetBusinessAll();
 
-  const onRefresh = (filters: AnyRecord) => businessApi.fetch({ filters });
+  const onRefresh = (filters: AnyRecord) => getBusinessAll.fetch({ filters });
 
   const filters = useFilters<{ search?: string; page?: number }>({
     onChange: (filters) => onRefresh(filters),
@@ -26,14 +26,14 @@ export const Business = () => {
       <LayoutPageSection>
         <div className="flex justify-end">
           <SearchFilter
-            isBusy={businessApi.status.isBusy}
+            isBusy={getBusinessAll.status.isBusy}
             onChange={(search) => filters.onMergeFilters({ search })}
             value={filters.value.search}
           />
         </div>
 
         <CardGroup className="mt-6">
-          {businessApi.data?.map(({ name, category, routeName }, index) => {
+          {getBusinessAll.data?.map(({ name, category, routeName }, index) => {
             return (
               <BusinessCardSimple
                 key={index}
@@ -47,7 +47,7 @@ export const Business = () => {
 
         <Pagination
           className="w-full mt-6"
-          paginator={businessApi?.paginator}
+          paginator={getBusinessAll?.paginator}
           onChange={({ page }) => filters.onMergeFilters({ page })}
         />
       </LayoutPageSection>

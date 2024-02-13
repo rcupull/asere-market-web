@@ -5,7 +5,7 @@ import { CardGroup } from 'components/card-group';
 import { Pagination } from 'components/pagination';
 import { ProductSimple } from 'components/product/product-simple';
 
-import { useBusinessApi } from 'features/api/useBusinessApi';
+import { useGetBusinessOne } from 'features/api/useGetBusinessOne';
 import { usePostsApi } from 'features/api/usePostsApi';
 
 import { useFilters } from 'hooks/useFilters';
@@ -19,9 +19,9 @@ import { getPostRoute } from 'utils/business';
 export const BusinessRouteName = () => {
   const { routeName } = useParams();
 
-  const businessApis = useBusinessApi().getOne;
+  const {getBusinessOne} = useGetBusinessOne();
 
-  const business = businessApis.data;
+  const business = getBusinessOne.data;
 
   const { getAllPosts } = usePostsApi();
 
@@ -31,7 +31,7 @@ export const BusinessRouteName = () => {
 
   useEffect(() => {
     if (routeName) {
-      businessApis.fetch({ routeName });
+      getBusinessOne.fetch({ routeName });
     }
   }, []);
 
