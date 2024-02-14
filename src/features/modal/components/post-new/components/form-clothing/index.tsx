@@ -19,13 +19,14 @@ import { PostNewFormProps } from '../../types';
 
 import { Formik } from 'formik';
 import { Post, PostCurrency, PostImage } from 'types/post';
+import { getImageEndpoint } from 'utils/api';
 
 export interface FormClothingProps extends PostNewFormProps {}
 
 type State = Pick<
   Post,
   'name' | 'currency' | 'clothingSizes' | 'colors' | 'description' | 'price' | 'details'
-> & { images: Array<File> };
+> & { images: Array<File | PostImage> };
 
 export const FormClothing = ({
   routeName,
@@ -48,8 +49,7 @@ export const FormClothing = ({
 
   useEffect(() => {
     if (post) {
-      const { images: omitted, ...omittedProps } = post;
-      setInitialValues({ ...initialValues, ...omittedProps });
+      setInitialValues({ ...initialValues, ...post });
     }
   }, [post]);
 
@@ -101,7 +101,15 @@ export const FormClothing = ({
               rows={3}
             />
 
-            <FieldInputImages label="Imagen" id="images" name="images" className="mt-6" />
+            <FieldInputImages
+              label="Imagen"
+              id="images"
+              name="images"
+              className="mt-6"
+              getImageSrc={getImageEndpoint}
+              multi
+              max={5}
+            />
 
             <div className="flex flex-col sm:flex-row items-center gap-6">
               <FieldInput
@@ -199,13 +207,27 @@ export const FormClothing = ({
                   };
 
                   if (images.length) {
-                    addManyUserBusinessImages.fetch(
-                      { images, routeName },
-                      {
-                        onAfterSuccess: (response) =>
-                          handleSubmit(response.map(({ imageSrc }) => ({ src: imageSrc }))),
-                      },
-                    );
+                    const promises = images.map((image) => {
+                      return new Promise<PostImage>((resolve) => {
+                        if (image instanceof File) {
+                          addManyUserBusinessImages.fetch(
+                            { images: [image], routeName },
+                            {
+                              onAfterSuccess: (response) => {
+                                const [imageResponse] = response;
+                                resolve({
+                                  src: imageResponse.imageSrc,
+                                });
+                              },
+                            },
+                          );
+                        } else {
+                          resolve(image);
+                        }
+                      });
+                    });
+
+                    Promise.all(promises).then((images) =>  handleSubmit(images));
                   } else {
                     handleSubmit();
                   }

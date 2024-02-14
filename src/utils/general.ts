@@ -36,6 +36,9 @@ export const getFlattenJson = <T extends AnyRecord = AnyRecord>(value: T): T => 
     {} as T,
   );
 };
+export const getFlattenArray = <T extends Array<any> = Array<any>>(value: T): T => {
+  return value.filter(Boolean) as T;
+};
 
 export const getRange = (count = 0): Array<number> => {
   return [...Array(count).keys()];
@@ -89,3 +92,8 @@ export const relocateRow = <T = any>(
 
   return newData;
 };
+
+export const range = (count = 0): Array<number> => [...Array(count).keys()];
+
+export const line = <T = undefined>(count = 0, fill?: T): Array<T> =>
+  range(count).map(() => fill as T);
