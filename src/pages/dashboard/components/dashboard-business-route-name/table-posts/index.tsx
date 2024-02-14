@@ -5,7 +5,7 @@ import { ButtonRefresh } from 'components/button-refresh';
 import { Table } from 'components/table';
 
 import { useGetAllUserPosts } from 'features/api/useGetAllUserPosts';
-import { useGetUserPaymentPlan } from 'features/api/useGetUserPaymentPlan';
+import { useGlobal } from 'features/globalData';
 import { useModal } from 'features/modal';
 
 import { useHiddenPostControl } from 'hooks/useHiddenPostsControl';
@@ -14,7 +14,6 @@ import { RowActions } from './RowActions';
 
 import { TableTopActions } from 'pages/dashboard/components/table-top-actions';
 import { getDateString } from 'utils/date';
-import { isNumber } from 'utils/general';
 
 export interface TablePostsProps {
   routeName: string;
@@ -35,12 +34,7 @@ export const TablePosts = ({ routeName }: TablePostsProps) => {
     fetchStatus: getAllUserPosts.status,
   });
 
-  const { getUserPaymentPlan } = useGetUserPaymentPlan();
-
-  const canNotAddNewPost =
-    isNumber(getAllUserPosts.data?.length) &&
-    isNumber(getUserPaymentPlan.data?.maxBusinessCount) &&
-    getAllUserPosts.data?.length >= getUserPaymentPlan.data?.maxBusinessPostsCount;
+  const { isNotValidPostsCountByBussines } = useGlobal();
 
   return (
     <>
@@ -48,7 +42,7 @@ export const TablePosts = ({ routeName }: TablePostsProps) => {
         {hiddenPostControl.submitBtn}
         <ButtonNew
           label="Nueva publicación"
-          needPremium={canNotAddNewPost}
+          needPremium={isNotValidPostsCountByBussines(getAllUserPosts.data?.length)}
           onClick={() =>
             pushModal('PostNew', {
               routeName,

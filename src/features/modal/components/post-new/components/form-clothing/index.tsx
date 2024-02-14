@@ -1,5 +1,3 @@
-import { useEffect, useState } from 'react';
-
 import { Button } from 'components/button';
 import { FieldClothingSizeSelect } from 'components/field-clothing-size-select';
 import { FieldColorSelect } from 'components/field-colors-select';
@@ -11,6 +9,7 @@ import { FieldTextArea } from 'components/field-text-area';
 import { useAddManyUserBusinessImages } from 'features/api/useAddManyUserBusinessImages';
 import { useAddOneUserPost } from 'features/api/useAddOneUserPost';
 import { useUpdateOneUserPost } from 'features/api/useUpdateOneUserPost';
+import { useGlobal } from 'features/globalData';
 import { useModal } from 'features/modal';
 
 import { useGetFormErrors } from 'hooks/useGetFormErrors';
@@ -36,25 +35,10 @@ export const FormClothing = ({
 }: FormClothingProps) => {
   const { onClose } = useModal();
 
-  const [initialValues, setInitialValues] = useState<State>({
-    name: '',
-    price: 0,
-    currency: 'CUP',
-    details: '',
-    description: '',
-    colors: [],
-    clothingSizes: [],
-    images: [],
-  });
-
-  useEffect(() => {
-    if (post) {
-      setInitialValues({ ...initialValues, ...post });
-    }
-  }, [post]);
-
   const { addOneUserPost } = useAddOneUserPost();
   const { updateOneUserPost } = useUpdateOneUserPost();
+
+  const { userPlan } = useGlobal();
 
   const { addManyUserBusinessImages } = useAddManyUserBusinessImages();
 
@@ -62,8 +46,17 @@ export const FormClothing = ({
 
   return (
     <Formik<State>
-      initialValues={initialValues}
-      enableReinitialize
+      initialValues={{
+        name: '',
+        price: 0,
+        currency: 'CUP',
+        details: '',
+        description: '',
+        colors: [],
+        clothingSizes: [],
+        images: [],
+        ...(post || {}),
+      }}
       validate={(values) => {
         return getFormErrors(values, [
           {
@@ -108,7 +101,7 @@ export const FormClothing = ({
               className="mt-6"
               getImageSrc={getImageEndpoint}
               multi
-              max={5}
+              max={userPlan?.maxImagesByPosts}
             />
 
             <div className="flex flex-col sm:flex-row items-center gap-6">
@@ -227,7 +220,7 @@ export const FormClothing = ({
                       });
                     });
 
-                    Promise.all(promises).then((images) =>  handleSubmit(images));
+                    Promise.all(promises).then((images) => handleSubmit(images));
                   } else {
                     handleSubmit();
                   }

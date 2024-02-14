@@ -25,19 +25,19 @@ export const Error = (): JSX.Element => (
 );
 
 export const Multi = (): JSX.Element => (
-  <FormikWrapper >
+  <FormikWrapper>
     <FieldInputImages name="field" id="field" label="Nombre" multi />
   </FormikWrapper>
 );
 
 export const MultiWithMax0 = (): JSX.Element => (
-  <FormikWrapper >
-    <FieldInputImages name="field" id="field" label="Nombre" multi  max={0}/>
+  <FormikWrapper>
+    <FieldInputImages name="field" id="field" label="Nombre" multi max={0} />
   </FormikWrapper>
 );
 
 export const MultiWithMax3 = (): JSX.Element => (
-  <FormikWrapper >
-    <FieldInputImages name="field" id="field" label="Nombre" multi  max={3}/>
+  <FormikWrapper>
+    <FieldInputImages name="field" id="field" label="Nombre" multi max={3} />
   </FormikWrapper>
 );

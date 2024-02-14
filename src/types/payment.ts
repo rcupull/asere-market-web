@@ -5,6 +5,7 @@ export interface PaymentPlan {
   price: number; //CUP
   trialTime: number | null; // days for free plan
   //
-  maxBusinessCount: number;
-  maxBusinessPostsCount: number;
+  maxBussinessByUser: number;
+  maxPostsByBussiness: number;
+  maxImagesByPosts: number;
 }

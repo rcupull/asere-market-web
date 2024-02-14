@@ -1,4 +1,3 @@
-
 import { PlanCompany } from './PlanCompany';
 import { PlanFree } from './PlanFree';
 import { PlanPrincipiante } from './PlanPrincipiante';
@@ -10,10 +9,10 @@ export const PaymentPlans = () => {
   return (
     <LayoutPage title="Precios">
       <div className="flex items-center gap-6 justify-center flex-wrap">
-        <PlanFree/>
-        <PlanPrincipiante/>
-        <PlanProfesional/>
-        <PlanCompany/>
+        <PlanFree />
+        <PlanPrincipiante />
+        <PlanProfesional />
+        <PlanCompany />
       </div>
     </LayoutPage>
   );

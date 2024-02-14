@@ -13,7 +13,7 @@ import { PostNewFormProps } from '../../types';
 import { Formik } from 'formik';
 import { Post, PostCurrency } from 'types/post';
 
-export interface FormSimpleProps extends PostNewFormProps{}
+export interface FormSimpleProps extends PostNewFormProps {}
 
 export const FormSimple = ({
   routeName,

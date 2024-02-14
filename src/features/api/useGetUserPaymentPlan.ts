@@ -1,22 +1,15 @@
 import { useAuth } from 'features/auth';
 
 import { useFetch } from 'hooks/useFetch';
-import { usePersistentFetch } from 'hooks/usePersistentFetch';
 
 import { FetchResource } from 'types/api';
 import { PaymentPlan } from 'types/payment';
 import { getEndpoint } from 'utils/api';
 
-const record = {
-  data: null,
-};
-
 export const useGetUserPaymentPlan = (): {
   getUserPaymentPlan: FetchResource<undefined, PaymentPlan>;
 } => {
-  let fetch = useFetch<PaymentPlan>();
-
-  fetch = usePersistentFetch(fetch, record);
+  const fetch = useFetch<PaymentPlan>();
 
   const { authData } = useAuth();
 

@@ -1,4 +1,3 @@
-
 import { Badge } from 'components/badge';
 import { ButtonClose } from 'components/button-close';
 import { Modal } from 'components/modal';
@@ -14,12 +13,11 @@ import { Post } from 'types/post';
 export interface PostNewProps {
   onAfterSuccess?: OnAfterSuccess;
   routeName: string;
-  post?: Post
+  post?: Post;
 }
 
 export const PostNew = ({ onAfterSuccess, routeName, post }: PostNewProps) => {
   const submitPortal = useSubmitPortal();
-
 
   // const newPostForm = (
   //   <FormSimple routeName={routeName} submitPortal={submitPortal} onAfterSuccess={onAfterSuccess} />

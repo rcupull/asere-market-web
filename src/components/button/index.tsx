@@ -9,8 +9,7 @@ import { cn } from 'utils/general';
 const primaryStyles =
   'bg-indigo-600 text-white  hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600';
 const errorStyles = 'bg-red-600 text-white  hover:bg-red-500';
-const outlinedStyles =
-  'bg-white text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50';
+const outlinedStyles = 'bg-white text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50';
 
 export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: 'primary' | 'outlined' | 'error';
@@ -83,11 +82,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>((props, ref) =>
         />
       )}
 
-      {needPremium && (
-        <ProLink
-          className="absolute -top-2.5 -right-2.5"
-        />
-      )}
+      {needPremium && <ProLink className="absolute -top-2.5 -right-2.5" />}
     </button>
   );
 });

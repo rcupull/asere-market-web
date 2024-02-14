@@ -5,7 +5,7 @@ import { ButtonRefresh } from 'components/button-refresh';
 import { Table } from 'components/table';
 
 import { useGetAllUserBusiness } from 'features/api/useGetAllUserBusiness';
-import { useGetUserPaymentPlan } from 'features/api/useGetUserPaymentPlan';
+import { useGlobal } from 'features/globalData';
 import { useModal } from 'features/modal';
 import { useRouter } from 'features/router';
 
@@ -17,7 +17,6 @@ import { LayoutSection } from 'pages/@common/layout-section';
 import { LayoutSectionSub } from 'pages/@common/layout-section-sub';
 import { TableTopActions } from 'pages/dashboard/components/table-top-actions';
 import { getDateString } from 'utils/date';
-import { isNumber } from 'utils/general';
 
 export const DashboardBusiness = () => {
   const { getAllUserBussiness } = useGetAllUserBusiness();
@@ -27,7 +26,7 @@ export const DashboardBusiness = () => {
 
   const onRefresh = () => getAllUserBussiness.fetch({});
 
-  const { getUserPaymentPlan } = useGetUserPaymentPlan();
+  const { isNotValidBussinessCountByUser } = useGlobal();
 
   useEffect(() => {
     onRefresh();
@@ -38,11 +37,6 @@ export const DashboardBusiness = () => {
     fetchStatus: getAllUserBussiness.status,
   });
 
-  const canNotAddNewBusiness =
-    isNumber(getAllUserBussiness.data?.length) &&
-    isNumber(getUserPaymentPlan.data?.maxBusinessCount) &&
-    getAllUserBussiness.data?.length >= getUserPaymentPlan.data?.maxBusinessCount;
-
   return (
     <LayoutSection title="Negocios">
       <LayoutSectionSub>
@@ -51,7 +45,7 @@ export const DashboardBusiness = () => {
 
           <ButtonNew
             label="Nuevo negocio"
-            needPremium={canNotAddNewBusiness}
+            needPremium={isNotValidBussinessCountByUser(getAllUserBussiness.data?.length)}
             onClick={() =>
               pushModal('BusinessNew', {
                 onAfterSuccess: onRefresh,

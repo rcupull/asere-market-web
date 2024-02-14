@@ -157,7 +157,6 @@ export const FieldInputImages = forwardRef<HTMLInputElement, FieldInputImagesPro
 
             if (isDisabledByPremium(state)) return;
 
-            
             handleChange(
               event.dataTransfer.files?.[0],
               previewIndex === stateToPreview.length - 1 ? 'add' : 'change',
