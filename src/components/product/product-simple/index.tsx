@@ -6,15 +6,14 @@ import { cn } from 'utils/general';
 export interface Props {
   className?: string;
   post: Post;
-  href: string
+  href: string;
   getImageUrl?: (src: string) => string;
 }
 
 export const ProductSimple = ({ className, post, getImageUrl, href }: Props) => {
+  const { price, name, images, currency } = post;
 
-  const { price, name, images,currency } = post
-
-  const image = images?.[0]
+  const image = images?.[0];
 
   return (
     <Link data-id="ProductSimple" className={cn('group', className)} to={href}>

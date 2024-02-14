@@ -28,14 +28,13 @@ export const DashboardBusinessRouteName = () => {
 
   const { name, hidden } = business;
 
-
-  const hiddenBusinessElement = <div className="text-red-500 ring-1 ring-red-400 rounded-3xl px-2 py-1/2 text-sm sm:text-lg">Este negocio no está visible</div>
+  const hiddenBusinessElement = (
+    <div className="text-red-500 ring-1 ring-red-400 rounded-3xl px-2 py-1/2 text-sm sm:text-lg">
+      Este negocio no está visible
+    </div>
+  );
   return (
-    <LayoutSection
-      title={name}
-      backButton
-      topRightHeader={hidden && hiddenBusinessElement}
-    >
+    <LayoutSection title={name} backButton topRightHeader={hidden && hiddenBusinessElement}>
       <LayoutSectionSub>{routeName && <TablePosts routeName={routeName} />}</LayoutSectionSub>
     </LayoutSection>
   );

@@ -60,8 +60,10 @@ export const RowActions = ({ rowData, onRefresh, hiddenBusinessControl }: RowAct
         stopPropagation
         onClick={() => pushRoute(rowData.routeName)}
       />
-      <IconButtonShowHide stopPropagation {...hiddenBusinessControl.onGetHiddenButtonProp(rowData)} />
-
+      <IconButtonShowHide
+        stopPropagation
+        {...hiddenBusinessControl.onGetHiddenButtonProp(rowData)}
+      />
     </RowActionsContainer>
   );
 };

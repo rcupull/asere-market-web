@@ -1,11 +1,6 @@
-
 import { Table } from 'components/table';
 
-
-
 export const DashboardPosts = () => {
-
-
   return (
     <div>
       <Table

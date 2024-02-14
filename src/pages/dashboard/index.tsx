@@ -10,19 +10,12 @@ export interface DashboardProps {
   children: React.ReactNode;
 }
 
-
-
 export const Dashboard = ({ children }: DashboardProps): JSX.Element => {
+  const { getUserPaymentPlan } = useGetUserPaymentPlan();
 
-  const {getUserPaymentPlan} = useGetUserPaymentPlan();
+  useEffect(() => {
+    getUserPaymentPlan.fetch(undefined);
+  }, []);
 
-  useEffect(()=>{
-    getUserPaymentPlan.fetch(undefined, {persistent: true });
-  },[])
-
-
-
-  return (
-    <LayoutDashboard sideBar={<DashboardSideBar />}>{children}</LayoutDashboard>
-  );
-}
+  return <LayoutDashboard sideBar={<DashboardSideBar />}>{children}</LayoutDashboard>;
+};

@@ -27,8 +27,7 @@ const productItems = [
   },
 ];
 
-
-const post1:Post = {
+const post1: Post = {
   _id: '_id',
   createdAt: new Date().toISOString(),
   currency: 'USD',
@@ -36,16 +35,14 @@ const post1:Post = {
   name: 'Earthen Bottle',
   price: 78,
   routeName: 'routeName',
-  images: [{ src: 'https://tailwindui.com/img/ecommerce-images/category-page-04-image-card-01.jpg' }],
-}
+  images: [
+    { src: 'https://tailwindui.com/img/ecommerce-images/category-page-04-image-card-01.jpg' },
+  ],
+};
 export const WithProductSimple = (): JSX.Element => (
   <CardGroup title="Products">
     {productItems.map((item) => (
-      <ProductSimple
-        key={item.title}
-        href="#"
-        post={post1}
-      />
+      <ProductSimple key={item.title} href="#" post={post1} />
     ))}
   </CardGroup>
 );

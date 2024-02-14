@@ -19,9 +19,7 @@ import { getImageEndpoint } from 'utils/api';
 export const BusinessRouteNamePostId = () => {
   const { postId } = useParams();
 
-
   const { getOnePost } = useGetOnePost();
-
 
   useEffect(() => {
     if (postId) {

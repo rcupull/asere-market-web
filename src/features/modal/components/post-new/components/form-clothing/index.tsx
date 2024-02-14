@@ -144,12 +144,12 @@ export const FormClothing = ({ routeName, submitPortal, onAfterSuccess }: FormCl
                     );
                   };
 
-
                   if (images.length) {
                     addManyUserBusinessImages.fetch(
                       { images, routeName },
                       {
-                        onAfterSuccess: (response) => handleSubmit(response.map(({ imageSrc }) => ({ src: imageSrc }))),
+                        onAfterSuccess: (response) =>
+                          handleSubmit(response.map(({ imageSrc }) => ({ src: imageSrc }))),
                       },
                     );
                   } else {

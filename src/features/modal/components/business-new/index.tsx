@@ -25,7 +25,7 @@ export interface BusinessNewProps {
 export const BusinessNew = ({ onAfterSuccess }: BusinessNewProps) => {
   const { onClose } = useModal();
 
-  const {getAllBusiness} = useGetAllBusiness();
+  const { getAllBusiness } = useGetAllBusiness();
 
   const { addOneUserBusiness } = useAddOneUserBusiness();
 

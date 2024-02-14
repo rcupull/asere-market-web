@@ -19,7 +19,7 @@ import { getPostRoute } from 'utils/business';
 export const BusinessRouteName = () => {
   const { routeName } = useParams();
 
-  const {getOneBusiness} = useGetOneBusiness();
+  const { getOneBusiness } = useGetOneBusiness();
 
   const business = getOneBusiness.data;
 
@@ -49,14 +49,14 @@ export const BusinessRouteName = () => {
         </div>
         <CardGroup className="mt-2">
           {getAllPosts.data?.map((post, index) => {
-            const { _id } = post
+            const { _id } = post;
 
             return (
               <ProductSimple
-              key={index}
-              post={post}
-              href={getPostRoute({ routeName, postId: _id })}
-              getImageUrl={getImageEndpoint}
+                key={index}
+                post={post}
+                href={getPostRoute({ routeName, postId: _id })}
+                getImageUrl={getImageEndpoint}
               />
             );
           })}

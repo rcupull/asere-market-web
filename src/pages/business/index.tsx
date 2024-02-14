@@ -13,7 +13,7 @@ import { AnyRecord } from 'types/general';
 import { getBusinessRoute } from 'utils/business';
 
 export const Business = () => {
-  const {getAllBusiness} = useGetAllBusiness();
+  const { getAllBusiness } = useGetAllBusiness();
 
   const onRefresh = (filters: AnyRecord) => getAllBusiness.fetch({ filters });
 
