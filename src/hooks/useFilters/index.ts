@@ -15,6 +15,7 @@ export const useFilters = <S extends AnyRecord = AnyRecord>(
   args: UseFiltersArgs<S>,
 ): {
   onMergeFilters: (partialFilter: S) => void;
+  onRefresh: () => void;
   value: S;
 } => {
   const { onChange, initialFilters = {}, notPersisteInRoute, notCallChangeWhenMount } = args || {};
@@ -42,6 +43,7 @@ export const useFilters = <S extends AnyRecord = AnyRecord>(
 
   return {
     onMergeFilters,
+    onRefresh: () => onChange?.(filterValue),
     value: filterValue,
   };
 };

@@ -34,6 +34,7 @@ export const useGetOneUserBusiness = (): {
           options,
         );
       },
+      reset: fetch[3],
     },
   };
 };

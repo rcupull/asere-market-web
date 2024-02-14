@@ -12,13 +12,19 @@ import { Post } from 'types/post';
 
 export interface PostNewProps {
   onAfterSuccess?: OnAfterSuccess;
-  routeName: string;
+  routeName?: string;
   post?: Post;
 }
 
-export const PostNew = ({ onAfterSuccess, routeName, post }: PostNewProps) => {
+export const PostNew = ({ onAfterSuccess, routeName: routeNameProp, post }: PostNewProps) => {
   const submitPortal = useSubmitPortal();
 
+  const routeName = routeNameProp || post?.routeName;
+
+  if (!routeName) {
+    console.error('routeName or post are required');
+    return <></>;
+  }
   // const newPostForm = (
   //   <FormSimple routeName={routeName} submitPortal={submitPortal} onAfterSuccess={onAfterSuccess} />
   // );

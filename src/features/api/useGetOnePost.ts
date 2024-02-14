@@ -27,6 +27,7 @@ export const useGetOnePost = (): {
           options,
         );
       },
+      reset: fetch[3],
     },
   };
 };

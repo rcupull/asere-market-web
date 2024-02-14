@@ -50,6 +50,7 @@ export const useUpdateOneUserPost = (): {
           options,
         );
       },
+      reset: fetch[3],
     },
   };
 };

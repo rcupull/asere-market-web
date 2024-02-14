@@ -8,7 +8,7 @@ import { getEndpoint } from 'utils/api';
 export const useRemoveOneUserBusiness = (): {
   removeOneUserBusiness: FetchResource<{ routeName: string }, void>;
 } => {
-  const removeOneUserBusinessFetch = useFetch();
+  const fetch = useFetch();
 
   const { authData } = useAuth();
 
@@ -16,10 +16,10 @@ export const useRemoveOneUserBusiness = (): {
 
   return {
     removeOneUserBusiness: {
-      data: removeOneUserBusinessFetch[0],
-      status: removeOneUserBusinessFetch[1],
+      data: fetch[0],
+      status: fetch[1],
       fetch: ({ routeName }, options = {}) => {
-        removeOneUserBusinessFetch[2](
+        fetch[2](
           {
             method: 'delete',
             url: getEndpoint({
@@ -30,6 +30,7 @@ export const useRemoveOneUserBusiness = (): {
           options,
         );
       },
+      reset: fetch[3],
     },
   };
 };

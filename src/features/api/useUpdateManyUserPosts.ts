@@ -52,6 +52,7 @@ export const useUpdateManyUserPosts = (): {
           options,
         );
       },
+      reset: fetch[3],
     },
   };
 };

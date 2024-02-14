@@ -35,6 +35,7 @@ export const useAddOneUserBusiness = (): {
           options,
         );
       },
+      reset: fetch[3],
     },
   };
 };

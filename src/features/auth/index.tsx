@@ -38,10 +38,10 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     (cookiesUtils.getCookie('authData') as AuthData) || null,
   );
 
-  const [singInData, singInStatus, fetchSignIn] = useFetch<AuthData>();
-  const [singUpData, singUpStatus, fetchSignUp] = useFetch();
-  const [singOutData, singOutStatus, fetchSignOut] = useFetch();
-  const [validateData, validateStatus, fetchValidate] = useFetch();
+  const [singInData, singInStatus, fetchSignIn, singInReset] = useFetch<AuthData>();
+  const [singUpData, singUpStatus, fetchSignUp, singUpReset ] = useFetch();
+  const [singOutData, singOutStatus, fetchSignOut, singOutReset ] = useFetch();
+  const [validateData, validateStatus, fetchValidate, validateReset] = useFetch();
 
   const value: AuthState = {
     isAuthenticated: !!authData,
@@ -61,6 +61,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
           options,
         );
       },
+      reset: validateReset,
     },
     onSignUp: {
       data: singUpData,
@@ -75,6 +76,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
           options,
         );
       },
+      reset: singUpReset,
     },
     onSignIn: {
       data: singInData,
@@ -97,6 +99,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
           },
         );
       },
+      reset: singInReset,
     },
     onSignOut: {
       data: singOutData,
@@ -126,6 +129,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
           },
         );
       },
+      reset: singOutReset,
     },
   };
 

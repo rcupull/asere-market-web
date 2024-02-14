@@ -27,6 +27,7 @@ export const useGetOneBusiness = (): {
           options,
         );
       },
+      reset: fetch[3],
     },
   };
 };

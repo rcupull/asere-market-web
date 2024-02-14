@@ -13,6 +13,7 @@ export interface FetchResource<Args = undefined, Data = any> {
   data: FetchData<Data>;
   fetch: (args: Args, options?: FetchOptions<Data>) => void;
   status: FetchStatus;
+  reset: () => void;
 }
 
 export interface Paginator {
@@ -38,6 +39,7 @@ export interface FetchResourceWithPagination<Args = undefined, D extends AnyReco
   paginator?: PaginatedData<D>['paginator'] | null;
   fetch: (args: Args, options?: FetchOptions<PaginatedData<D>>) => void;
   status: FetchStatus;
+  reset: () => void;
 }
 
 export type ApiStatus = 'NOT_STARTED' | 'BUSY' | 'SUCCESS' | 'FAILED';

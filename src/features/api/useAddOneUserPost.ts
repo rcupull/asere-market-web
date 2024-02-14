@@ -48,6 +48,7 @@ export const useAddOneUserPost = (): {
           options,
         );
       },
+      reset: fetch[3],
     },
   };
 };

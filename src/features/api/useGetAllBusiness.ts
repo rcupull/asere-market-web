@@ -27,6 +27,7 @@ export const useGetAllBusiness = (): {
           options,
         );
       },
+      reset: fetch[3],
     },
   };
 };

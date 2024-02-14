@@ -31,6 +31,7 @@ export const useGetUserPaymentPlan = (): {
           options,
         );
       },
+      reset: fetch[3],
     },
   };
 };

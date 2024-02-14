@@ -37,6 +37,7 @@ export const useUpdateManyUserBusiness = (): {
           options,
         );
       },
+      reset: fetch[3],
     },
   };
 };

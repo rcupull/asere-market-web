@@ -42,6 +42,7 @@ export const useAddManyUserBusinessImages = (): {
           options,
         );
       },
+      reset: fetch[3],
     },
   };
 };

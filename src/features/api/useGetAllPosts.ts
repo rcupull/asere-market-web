@@ -30,6 +30,7 @@ export const useGetAllPosts = (): {
           options,
         );
       },
+      reset: fetch[3],
     },
   };
 };

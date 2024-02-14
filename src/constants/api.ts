@@ -13,4 +13,5 @@ export const dummyFetchResource: FetchResource<any> = {
   data: null,
   fetch: () => {},
   status: dummyStatus,
+  reset: () => {},
 };

@@ -37,6 +37,7 @@ export const useGetAllUserPosts = (): {
           options,
         );
       },
+      reset: fetch[3],
     },
   };
 };

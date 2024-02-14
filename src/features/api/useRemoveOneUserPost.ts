@@ -30,6 +30,7 @@ export const useRemoveOneUserPost = (): {
           options,
         );
       },
+      reset: fetch[3],
     },
   };
 };
