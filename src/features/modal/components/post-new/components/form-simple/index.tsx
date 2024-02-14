@@ -7,17 +7,13 @@ import { useAddOneUserPost } from 'features/api/useAddOneUserPost';
 import { useModal } from 'features/modal';
 
 import { useGetFormErrors } from 'hooks/useGetFormErrors';
-import { SubmitPortal } from 'hooks/useSubmitPortal';
+
+import { PostNewFormProps } from '../../types';
 
 import { Formik } from 'formik';
-import { OnAfterSuccess } from 'types/api';
 import { Post, PostCurrency } from 'types/post';
 
-export interface FormSimpleProps {
-  submitPortal: SubmitPortal;
-  routeName: string;
-  onAfterSuccess?: OnAfterSuccess;
-}
+export interface FormSimpleProps extends PostNewFormProps{}
 
 export const FormSimple = ({
   routeName,

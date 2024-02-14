@@ -2,6 +2,7 @@ import { Badge } from 'components/badge';
 import { ButtonRemove } from 'components/button-remove';
 import { IconButtonRemove } from 'components/icon-button-remove ';
 import { IconButtonShowHide } from 'components/icon-button-show-hide';
+import { IconButtonUpdate } from 'components/icon-button-update';
 import { IconButtonView } from 'components/icon-button-view';
 
 import { useRemoveOneUserPost } from 'features/api/useRemoveOneUserPost';
@@ -59,6 +60,14 @@ export const RowActions = ({
     });
   };
 
+  const handleUpdate = () => {
+    pushModal('PostNew', {
+      routeName,
+      post: rowData,
+      onAfterSuccess: onRefresh,
+    });
+  };
+
   return (
     <RowActionsContainer>
       <IconButtonRemove onClick={handleDelete} />
@@ -67,6 +76,7 @@ export const RowActions = ({
         onClick={() => pushRoute(getPostRoute({ routeName, postId: rowData._id }))}
       />
       <IconButtonShowHide {...hiddenPostControl.onGetHiddenButtonProp(rowData)} />
+      <IconButtonUpdate onClick={handleUpdate} />
     </RowActionsContainer>
   );
 };

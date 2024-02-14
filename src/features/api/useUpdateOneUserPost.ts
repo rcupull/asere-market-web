@@ -7,7 +7,25 @@ import { Post } from 'types/post';
 import { getEndpoint } from 'utils/api';
 
 export const useUpdateOneUserPost = (): {
-  updateOneUserPost: FetchResource<{ id: string } & Partial<Post>, void>;
+  updateOneUserPost: FetchResource<
+    { postId: string } & Partial<
+      Pick<
+        Post,
+        | 'clothingSizes'
+        | 'colors'
+        | 'currency'
+        | 'description'
+        | 'details'
+        | 'hidden'
+        | 'highlights'
+        | 'images'
+        | 'price'
+        | 'name'
+        | 'reviews'
+      >
+    >,
+    void
+  >;
 } => {
   const fetch = useFetch();
 
@@ -19,13 +37,13 @@ export const useUpdateOneUserPost = (): {
     updateOneUserPost: {
       data: fetch[0],
       status: fetch[1],
-      fetch: ({ id, ...data }, options = {}) => {
+      fetch: ({ postId, ...data }, options = {}) => {
         fetch[2](
           {
             method: 'put',
             url: getEndpoint({
-              path: '/user/:userId/posts/:id',
-              urlParams: { id, userId },
+              path: '/user/:userId/posts/:postId',
+              urlParams: { postId, userId },
             }),
             data,
           },

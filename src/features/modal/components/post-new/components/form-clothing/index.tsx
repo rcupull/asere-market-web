@@ -1,3 +1,5 @@
+import { useEffect, useState } from 'react';
+
 import { Button } from 'components/button';
 import { FieldClothingSizeSelect } from 'components/field-clothing-size-select';
 import { FieldColorSelect } from 'components/field-colors-select';
@@ -8,45 +10,60 @@ import { FieldTextArea } from 'components/field-text-area';
 
 import { useAddManyUserBusinessImages } from 'features/api/useAddManyUserBusinessImages';
 import { useAddOneUserPost } from 'features/api/useAddOneUserPost';
+import { useUpdateOneUserPost } from 'features/api/useUpdateOneUserPost';
 import { useModal } from 'features/modal';
 
 import { useGetFormErrors } from 'hooks/useGetFormErrors';
-import { SubmitPortal } from 'hooks/useSubmitPortal';
+
+import { PostNewFormProps } from '../../types';
 
 import { Formik } from 'formik';
-import { OnAfterSuccess } from 'types/api';
 import { Post, PostCurrency, PostImage } from 'types/post';
 
-export interface FormClothingProps {
-  submitPortal: SubmitPortal;
-  routeName: string;
-  onAfterSuccess?: OnAfterSuccess;
-}
+export interface FormClothingProps extends PostNewFormProps {}
 
-export const FormClothing = ({ routeName, submitPortal, onAfterSuccess }: FormClothingProps) => {
+type State = Pick<
+  Post,
+  'name' | 'currency' | 'clothingSizes' | 'colors' | 'description' | 'price' | 'details'
+> & { images: Array<File> };
+
+export const FormClothing = ({
+  routeName,
+  submitPortal,
+  onAfterSuccess,
+  post,
+}: FormClothingProps) => {
   const { onClose } = useModal();
 
+  const [initialValues, setInitialValues] = useState<State>({
+    name: '',
+    price: 0,
+    currency: 'CUP',
+    details: '',
+    description: '',
+    colors: [],
+    clothingSizes: [],
+    images: [],
+  });
+
+  useEffect(() => {
+    if (post) {
+      const { images: omitted, ...omittedProps } = post;
+      setInitialValues({ ...initialValues, ...omittedProps });
+    }
+  }, [post]);
+
   const { addOneUserPost } = useAddOneUserPost();
+  const { updateOneUserPost } = useUpdateOneUserPost();
+
   const { addManyUserBusinessImages } = useAddManyUserBusinessImages();
+
   const getFormErrors = useGetFormErrors();
 
   return (
-    <Formik<
-      Pick<
-        Post,
-        'name' | 'currency' | 'clothingSizes' | 'colors' | 'description' | 'price' | 'details'
-      > & { images: Array<File> }
-    >
-      initialValues={{
-        name: '',
-        price: 0,
-        currency: 'CUP',
-        details: '',
-        description: '',
-        colors: [],
-        clothingSizes: [],
-        images: [],
-      }}
+    <Formik<State>
+      initialValues={initialValues}
+      enableReinitialize
       validate={(values) => {
         return getFormErrors(values, [
           {
@@ -126,12 +143,49 @@ export const FormClothing = ({ routeName, submitPortal, onAfterSuccess }: FormCl
                 isBusy={addOneUserPost.status.isBusy}
                 disabled={!isValid}
                 onClick={() => {
-                  const { images } = values;
+                  const {
+                    images,
+                    currency,
+                    description,
+                    name,
+                    price,
+                    clothingSizes,
+                    colors,
+                    details,
+                  } = values;
 
                   const handleSubmit = (images?: Array<PostImage>) => {
+                    if (post) {
+                      return updateOneUserPost.fetch(
+                        {
+                          postId: post._id,
+                          images,
+                          currency,
+                          description,
+                          name,
+                          price,
+                          clothingSizes,
+                          colors,
+                          details,
+                        },
+                        {
+                          onAfterSuccess: (response) => {
+                            onAfterSuccess?.(response);
+                            onClose();
+                          },
+                        },
+                      );
+                    }
+
                     addOneUserPost.fetch(
                       {
-                        ...values,
+                        currency,
+                        description,
+                        name,
+                        price,
+                        clothingSizes,
+                        colors,
+                        details,
                         routeName,
                         images,
                       },

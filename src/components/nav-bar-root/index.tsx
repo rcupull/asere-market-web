@@ -11,7 +11,7 @@ export const RootNavBar = () => {
       items={[
         { name: 'Home', href: '/' },
         { name: 'Todas las tiendas', href: '/business' },
-        { name: 'Precios', href: '/price' },
+        { name: 'Precios', href: '/payment-plans' },
         isUser && { name: 'Panel', href: '/dashboard' },
         { name: 'Sobre Nosotros', href: '/about-us' },
         isAdmin && { name: 'Admin', href: '/admin' },

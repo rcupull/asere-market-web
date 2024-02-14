@@ -15,7 +15,7 @@ import { Business } from 'pages/business';
 import { BusinessRouteName } from 'pages/business-route-name';
 import { BusinessRouteNamePostId } from 'pages/business-route-name-postId';
 import { DashboardSettings } from 'pages/dashboard/components/dashboard-settings';
-import { Price } from 'pages/price';
+import { PaymentPlans } from 'pages/payment-plans';
 import { ValidateAccount } from 'pages/validate-account';
 
 export const App = (): JSX.Element => {
@@ -27,7 +27,7 @@ export const App = (): JSX.Element => {
         <Route path="/sign-up" element={<SignUp />} />
         <Route path="/not-found" element={<NotFound />} />
         <Route path="/validate-account" element={<ValidateAccount />} />
-        <Route path="/price" element={<Price />} />
+        <Route path="/payment-plans" element={<PaymentPlans />} />
         <Route path="/about-us" element={<AboutUs />} />
         <Route
           path="/dashboard"

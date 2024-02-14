@@ -7,7 +7,7 @@ export interface ProLinkProps extends StyleProps {}
 
 export const ProLink = ({ className }: ProLinkProps) => (
   <Link
-    to="/price"
+    to="/payment-plans"
     className={cn(
       'rounded-full px-0.5 py-1 ring-1 text-xs text-gray-500 bg-yellow-400 ring-yellow-400',
       className,
