@@ -1,4 +1,5 @@
 import { useAuth } from 'features/auth';
+import { useApiSlice } from 'features/slices/useApiSlice';
 
 import { useFetch } from 'hooks/useFetch';
 
@@ -9,7 +10,8 @@ import { getEndpoint } from 'utils/api';
 export const useGetUserPaymentPlan = (): {
   getUserPaymentPlan: FetchResource<undefined, PaymentPlan>;
 } => {
-  const fetch = useFetch<PaymentPlan>();
+  let fetch = useFetch<PaymentPlan>();
+  fetch = useApiSlice<PaymentPlan>(fetch, 'getUserPaymentPlan');
 
   const { authData } = useAuth();
 
