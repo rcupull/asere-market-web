@@ -1,7 +1,7 @@
 import { Button } from 'components/button';
 import { FieldInput } from 'components/field-input';
 
-import { useAuth } from 'features/auth';
+import { useAuthValidate } from 'features/api/useAuthValidate';
 import { useRouter } from 'features/router';
 
 import { useGetFormErrors } from 'hooks/useGetFormErrors';
@@ -9,7 +9,7 @@ import { useGetFormErrors } from 'hooks/useGetFormErrors';
 import { Formik } from 'formik';
 
 export const ValidateAccount = () => {
-  const { onValidate } = useAuth();
+  const { authValidate } = useAuthValidate();
   const { pushRoute } = useRouter();
   const getFormErrors = useGetFormErrors();
 
@@ -48,7 +48,7 @@ export const ValidateAccount = () => {
           onSubmit={(values, { setSubmitting }) => {
             const { email, code } = values;
 
-            onValidate.fetch(
+            authValidate.fetch(
               { email, code },
               {
                 onAfterSuccess: () => {
@@ -80,7 +80,7 @@ export const ValidateAccount = () => {
                   label="Validate"
                   type="submit"
                   disabled={isSubmitting}
-                  isBusy={onValidate.status.isBusy}
+                  isBusy={authValidate.status.isBusy}
                   className="mt-6 w-full"
                 />
               </form>

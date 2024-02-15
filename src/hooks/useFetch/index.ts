@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-import { useAuth } from 'features/auth';
+import { cookiesUtils } from 'features/cookies';
 
 import { useDebouncedValue } from 'hooks/useDebouncedValue';
 
@@ -15,6 +15,7 @@ import {
   OnAfterFailed,
   OnAfterSuccess,
 } from 'types/api';
+import { AuthData } from 'types/auth';
 
 export type FetchOptions<Data = any> = {
   onAfterSuccess?: OnAfterSuccess<Data>;
@@ -47,8 +48,6 @@ export const useFetch = <Data = any>(): UseFetchReturn<Data> => {
   const [status, setStatus] = useState<ApiStatus>('NOT_STARTED');
   const [wasCalled, setWasCalled] = useState<boolean>(false);
 
-  const { authData } = useAuth();
-
   const debouncedStatus = useDebouncedValue<ApiStatus>(status, 100);
 
   useEffect(() => {
@@ -73,6 +72,8 @@ export const useFetch = <Data = any>(): UseFetchReturn<Data> => {
       setStatus('BUSY');
 
       const resourcesArray = args instanceof Array ? args : [args];
+
+      const authData = cookiesUtils.getCookie('authData') as unknown as AuthData | null;
 
       const promises = resourcesArray.map(({ method, url, data, headers = {} }) => {
         return axios({

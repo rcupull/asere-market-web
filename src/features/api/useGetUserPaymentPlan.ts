@@ -1,25 +1,41 @@
-import { useAuth } from 'features/auth';
 import { useApiSlice } from 'features/slices/useApiSlice';
 
 import { useFetch } from 'hooks/useFetch';
 
+import { useAuthSignIn } from './useAuthSignIn';
+
 import { FetchResource } from 'types/api';
 import { PaymentPlan } from 'types/payment';
 import { getEndpoint } from 'utils/api';
+import { isNumber } from 'utils/general';
 
 export const useGetUserPaymentPlan = (): {
   getUserPaymentPlan: FetchResource<undefined, PaymentPlan>;
+  userPlan: PaymentPlan | null;
+  isNotValidBussinessCountByUser: (businessCount: number | undefined) => boolean;
+  isNotValidPostsCountByBussines: (businessCount: number | undefined) => boolean;
 } => {
-  let fetch = useFetch<PaymentPlan>();
-  fetch = useApiSlice<PaymentPlan>(fetch, 'getUserPaymentPlan');
+  const fetchBase = useFetch<PaymentPlan>();
+  const fetch = useApiSlice<PaymentPlan>(fetchBase, 'getUserPaymentPlan');
 
-  const { authData } = useAuth();
+  const { authData } = useAuthSignIn();
 
   const userId = authData?.user._id || '<unknow user>';
 
+  const [userPlan] = fetch;
+
   return {
+    userPlan,
+    isNotValidBussinessCountByUser: (value) => {
+      const { maxBussinessByUser } = userPlan || {};
+      return isNumber(value) && isNumber(maxBussinessByUser) && value >= maxBussinessByUser;
+    },
+    isNotValidPostsCountByBussines: (value) => {
+      const { maxPostsByBussiness } = userPlan || {};
+      return isNumber(value) && isNumber(maxPostsByBussiness) && value >= maxPostsByBussiness;
+    },
     getUserPaymentPlan: {
-      data: fetch[0],
+      data: userPlan,
       status: fetch[1],
       fetch: (_, options = {}) => {
         fetch[2](

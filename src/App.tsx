@@ -1,7 +1,4 @@
-import { useEffect } from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
-
-import { useAuthSignIn } from 'features/api/useAuthSignIn';
 
 import { withAuthenticatedRoute } from './components/autenticated-route';
 import { Layout } from './layout';
@@ -21,18 +18,7 @@ import { DashboardSettings } from 'pages/dashboard/components/dashboard-settings
 import { PaymentPlans } from 'pages/payment-plans';
 import { ValidateAccount } from 'pages/validate-account';
 
-
-
-
-
 export const App = (): JSX.Element => {
-
-  const authSignIn = useAuthSignIn();
-  useEffect(()=>{
-    authSignIn.init()
-  },[])
-
-  
   return (
     <Layout>
       <Routes>

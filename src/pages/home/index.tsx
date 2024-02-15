@@ -5,9 +5,9 @@ import { HeroSectionCentered } from 'components/hero-section-centered';
 import { Pagination } from 'components/pagination';
 import { ProductSimple } from 'components/product/product-simple';
 
+import { useAuthSignIn } from 'features/api/useAuthSignIn';
 import { useGetAllPosts } from 'features/api/useGetAllPosts';
 import { useGetAllUserBusinessRouteNames } from 'features/api/useGetAllUserBusinessRouteNames';
-import { useAuth } from 'features/auth';
 
 import { useFilters } from 'hooks/useFilters';
 
@@ -19,17 +19,16 @@ import { getPostRoute } from 'utils/business';
 
 export const Home = () => {
   const { getAllPosts } = useGetAllPosts();
-  const { isAuthenticated } = useAuth();
+  const { isAuthenticated } = useAuthSignIn();
   const { getAllUserBusinessRouteNames } = useGetAllUserBusinessRouteNames();
 
   useEffect(() => {
-    if(isAuthenticated){
+    if (isAuthenticated) {
       getAllUserBusinessRouteNames.fetch(undefined);
-    }else{
-      getAllUserBusinessRouteNames.reset()  
+    } else {
+      getAllUserBusinessRouteNames.reset();
     }
   }, [isAuthenticated]);
-
 
   const filters = useFilters<{ search?: string; page?: number }>({
     onChange: (filters) => getAllPosts.fetch({ filters }),

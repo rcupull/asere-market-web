@@ -8,8 +8,8 @@ import { FieldTextArea } from 'components/field-text-area';
 
 import { useAddManyUserBusinessImages } from 'features/api/useAddManyUserBusinessImages';
 import { useAddOneUserPost } from 'features/api/useAddOneUserPost';
+import { useGetUserPaymentPlan } from 'features/api/useGetUserPaymentPlan';
 import { useUpdateOneUserPost } from 'features/api/useUpdateOneUserPost';
-import { useGlobal } from 'features/globalData';
 import { useModal } from 'features/modal';
 
 import { useGetFormErrors } from 'hooks/useGetFormErrors';
@@ -38,7 +38,7 @@ export const FormClothing = ({
   const { addOneUserPost } = useAddOneUserPost();
   const { updateOneUserPost } = useUpdateOneUserPost();
 
-  const { userPlan } = useGlobal();
+  const { userPlan } = useGetUserPaymentPlan();
 
   const { addManyUserBusinessImages } = useAddManyUserBusinessImages();
 

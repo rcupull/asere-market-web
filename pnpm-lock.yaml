@@ -50,9 +50,6 @@ dependencies:
   redux:
     specifier: ^5.0.1
     version: 5.0.1
-  reselect:
-    specifier: ^5.1.0
-    version: 5.1.0
 
 devDependencies:
   '@storybook/addon-essentials':

@@ -1,6 +1,6 @@
 import { Navigate } from 'react-router-dom';
 
-import { useAuth } from 'features/auth';
+import { useAuthSignIn } from 'features/api/useAuthSignIn';
 
 import { UserRole } from 'types/auth';
 
@@ -9,7 +9,7 @@ export interface PrivateRouteProps {
   roles?: Array<UserRole>;
 }
 export const AuthenticatedRoute = ({ children, roles }: PrivateRouteProps) => {
-  const { authData } = useAuth();
+  const { authData } = useAuthSignIn();
 
   const role = authData?.user?.role;
 

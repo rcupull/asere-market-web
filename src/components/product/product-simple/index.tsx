@@ -13,10 +13,17 @@ export interface Props {
   href: string;
   enabledUpdate?: boolean;
   getImageUrl?: (src: string) => string;
-  onRefresh?: ()=>void 
+  onRefresh?: () => void;
 }
 
-export const ProductSimple = ({ className, post, getImageUrl, href, enabledUpdate, onRefresh }: Props) => {
+export const ProductSimple = ({
+  className,
+  post,
+  getImageUrl,
+  href,
+  enabledUpdate,
+  onRefresh,
+}: Props) => {
   const { price, name, images, currency } = post;
 
   const image = images?.[0];

@@ -2,7 +2,7 @@ import { Menu, Transition } from '@headlessui/react';
 import { Fragment } from 'react';
 import { Link } from 'react-router-dom';
 
-import { useAuth } from 'features/auth';
+import { useAuthSignIn } from 'features/api/useAuthSignIn';
 
 import { cn } from 'utils/general';
 
@@ -19,7 +19,7 @@ export interface Props {
 }
 
 export const UserMenu = ({ className, imageSrc, items }: Props) => {
-  const { authData } = useAuth();
+  const { authData } = useAuthSignIn();
 
   if (!authData) {
     return (

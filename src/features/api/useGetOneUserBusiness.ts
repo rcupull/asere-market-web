@@ -1,6 +1,6 @@
-import { useAuth } from 'features/auth';
-
 import { useFetch } from 'hooks/useFetch';
+
+import { useAuthSignIn } from './useAuthSignIn';
 
 import { FetchResource } from 'types/api';
 import { Business } from 'types/business';
@@ -11,7 +11,7 @@ export const useGetOneUserBusiness = (): {
 } => {
   const fetch = useFetch<Business>();
 
-  const { authData } = useAuth();
+  const { authData } = useAuthSignIn();
 
   const userId = authData?.user._id || '<unknow user>';
 

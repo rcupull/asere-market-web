@@ -1,6 +1,6 @@
-import { useAuth } from 'features/auth';
-
 import { useFetch } from 'hooks/useFetch';
+
+import { useAuthSignIn } from './useAuthSignIn';
 
 import { FetchResourceWithPagination, PaginatedData } from 'types/api';
 import { AnyRecord } from 'types/general';
@@ -16,7 +16,7 @@ export const useGetAllUserPosts = (): {
 } => {
   const fetch = useFetch<PaginatedData<Post>>();
 
-  const { authData } = useAuth();
+  const { authData } = useAuthSignIn();
 
   const userId = authData?.user._id || '<unknow user>';
 

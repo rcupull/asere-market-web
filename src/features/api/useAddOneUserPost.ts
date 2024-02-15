@@ -1,6 +1,6 @@
-import { useAuth } from 'features/auth';
-
 import { useFetch } from 'hooks/useFetch';
+
+import { useAuthSignIn } from './useAuthSignIn';
 
 import { FetchResource } from 'types/api';
 import { Post } from 'types/post';
@@ -27,7 +27,7 @@ export const useAddOneUserPost = (): {
 } => {
   const fetch = useFetch<Post>();
 
-  const { authData } = useAuth();
+  const { authData } = useAuthSignIn();
 
   const userId = authData?.user._id || '<unknow user>';
 

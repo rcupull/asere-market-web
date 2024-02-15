@@ -1,10 +1,12 @@
 import { NavBar } from 'components/nav-bar';
 import { UserMenu } from 'components/user-menu';
 
-import { useAuth } from 'features/auth';
+import { useAuthSignIn } from 'features/api/useAuthSignIn';
+import { useAuthSignOut } from 'features/api/useAuthSignOut';
 
 export const RootNavBar = () => {
-  const { onSignOut, isAdmin, isUser } = useAuth();
+  const { isAdmin, isUser } = useAuthSignIn();
+  const { authSignOut } = useAuthSignOut();
 
   return (
     <NavBar
@@ -22,7 +24,7 @@ export const RootNavBar = () => {
           items={[
             { label: 'Your Profile', href: '/profile' },
             { label: 'Settings', href: '/settings' },
-            { label: 'Sign out', onClick: () => onSignOut.fetch(undefined) },
+            { label: 'Sign out', onClick: () => authSignOut.fetch(undefined) },
           ]}
         />
       }

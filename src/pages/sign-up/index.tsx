@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { Button } from 'components/button';
 import { FieldInput } from 'components/field-input';
 
-import { useAuth } from 'features/auth';
+import { useAuthSignUp } from 'features/api/useAuthSignUp';
 import { useRouter } from 'features/router';
 
 import { useGetFormErrors } from 'hooks/useGetFormErrors';
@@ -11,7 +11,7 @@ import { useGetFormErrors } from 'hooks/useGetFormErrors';
 import { Formik } from 'formik';
 
 export const SignUp = () => {
-  const { onSignUp } = useAuth();
+  const { authSignUp } = useAuthSignUp();
   const { pushRoute } = useRouter();
   const getFormErrors = useGetFormErrors();
 
@@ -64,7 +64,7 @@ export const SignUp = () => {
           onSubmit={(values, { setSubmitting }) => {
             const { email, password, name } = values;
 
-            onSignUp.fetch(
+            authSignUp.fetch(
               { email, password, name },
               {
                 onAfterSuccess: () => {
@@ -121,7 +121,7 @@ export const SignUp = () => {
                   label="Registrar"
                   type="submit"
                   disabled={isSubmitting}
-                  isBusy={onSignUp.status.isBusy}
+                  isBusy={authSignUp.status.isBusy}
                   className="mt-6 w-full"
                 />
 

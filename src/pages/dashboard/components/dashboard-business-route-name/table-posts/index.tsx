@@ -5,7 +5,7 @@ import { ButtonRefresh } from 'components/button-refresh';
 import { Table } from 'components/table';
 
 import { useGetAllUserPosts } from 'features/api/useGetAllUserPosts';
-import { useGlobal } from 'features/globalData';
+import { useGetUserPaymentPlan } from 'features/api/useGetUserPaymentPlan';
 import { useModal } from 'features/modal';
 
 import { useHiddenPostControl } from 'hooks/useHiddenPostsControl';
@@ -34,7 +34,7 @@ export const TablePosts = ({ routeName }: TablePostsProps) => {
     fetchStatus: getAllUserPosts.status,
   });
 
-  const { isNotValidPostsCountByBussines } = useGlobal();
+  const { isNotValidPostsCountByBussines } = useGetUserPaymentPlan();
 
   return (
     <>

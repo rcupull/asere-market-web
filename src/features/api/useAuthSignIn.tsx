@@ -9,29 +9,22 @@ import { getEndpoint } from 'utils/api';
 
 export const useAuthSignIn = (): {
   authData: AuthData | null;
-  onSignIn: FetchResource<{ email: string; password: string }, AuthData>;
+  authSignIn: FetchResource<{ email: string; password: string }, AuthData>;
   isAdmin: boolean;
   isUser: boolean;
   isAuthenticated: boolean;
-  init: () => void;
 } => {
   const fetchBase = useFetch<AuthData>();
   const fetch = useApiSlice(fetchBase, 'authSignIn');
 
-  const [authData, , , , {  setDataRedux }] = fetch;
+  const [authData] = fetch;
 
   return {
-    init: () => {
-      const cookiesData = cookiesUtils.getCookie('authData');
-      if (cookiesData) {
-        setDataRedux(cookiesData as AuthData)
-      }
-    },
     isAuthenticated: !!authData,
     isAdmin: authData?.user?.role === 'admin',
     isUser: authData?.user?.role === 'user',
     authData,
-    onSignIn: {
+    authSignIn: {
       data: authData,
       status: fetch[1],
       fetch: ({ email, password }, options = {}) => {
@@ -50,7 +43,10 @@ export const useAuthSignIn = (): {
           },
         );
       },
-      reset: fetch[3],
+      reset: () => {
+        cookiesUtils.removeCookie('authData');
+        fetch[3]();
+      },
     },
   };
 };

@@ -5,7 +5,7 @@ import { ButtonRefresh } from 'components/button-refresh';
 import { Table } from 'components/table';
 
 import { useGetAllUserBusiness } from 'features/api/useGetAllUserBusiness';
-import { useGlobal } from 'features/globalData';
+import { useGetUserPaymentPlan } from 'features/api/useGetUserPaymentPlan';
 import { useModal } from 'features/modal';
 import { useRouter } from 'features/router';
 
@@ -26,7 +26,7 @@ export const DashboardBusiness = () => {
 
   const onRefresh = () => getAllUserBussiness.fetch({});
 
-  const { isNotValidBussinessCountByUser } = useGlobal();
+  const { isNotValidBussinessCountByUser } = useGetUserPaymentPlan();
 
   useEffect(() => {
     onRefresh();
