@@ -1,3 +1,5 @@
+import { useState } from 'react';
+
 import { Button } from 'components/button';
 import { FieldInputImages } from 'components/field-input-images';
 
@@ -6,6 +8,8 @@ import { useGetUserPaymentPlan } from 'features/api/useGetUserPaymentPlan';
 import { useUpdateOneUserBusiness } from 'features/api/useUpdateOneUserBusiness';
 
 import { useSubmitPortal } from 'hooks/useSubmitPortal';
+
+import { TopActions } from '../../top-actions';
 
 import { Formik } from 'formik';
 import { Business } from 'types/business';
@@ -24,14 +28,18 @@ export const BannerImages = ({ business }: BannerImagesProps) => {
   const { userPlan } = useGetUserPaymentPlan();
   const { addManyUserBusinessImages } = useAddManyUserBusinessImages();
 
+  const [initialValues, setInitialValues] = useState<{
+    bannerImages: Array<File | Image>;
+  }>({
+    bannerImages: bannerImages || [],
+  });
+
   return (
     <div>
       <Formik<{
         bannerImages: Array<File | Image>;
       }>
-        initialValues={{
-          bannerImages: bannerImages || [],
-        }}
+        initialValues={initialValues}
         onSubmit={() => {}}
         enableReinitialize
       >
@@ -50,8 +58,10 @@ export const BannerImages = ({ business }: BannerImagesProps) => {
               {getPortal(
                 <Button
                   label="Guardar"
-                  isBusy={updateOneUserBusiness.status.isBusy}
-                  disabled={!isValid}
+                  isBusy={
+                    updateOneUserBusiness.status.isBusy || addManyUserBusinessImages.status.isBusy
+                  }
+                  disabled={!isValid || initialValues.bannerImages === values.bannerImages}
                   onClick={() => {
                     const { bannerImages } = values;
 
@@ -60,10 +70,19 @@ export const BannerImages = ({ business }: BannerImagesProps) => {
                         { images: bannerImages, routeName },
                         {
                           onAfterSuccess: (bannerImages) => {
-                            updateOneUserBusiness.fetch({
-                              bannerImages,
-                              routeName,
-                            });
+                            updateOneUserBusiness.fetch(
+                              {
+                                bannerImages,
+                                routeName,
+                              },
+                              {
+                                onAfterSuccess: () => {
+                                  setInitialValues({
+                                    bannerImages,
+                                  });
+                                },
+                              },
+                            );
                           },
                         },
                       );
@@ -77,8 +96,9 @@ export const BannerImages = ({ business }: BannerImagesProps) => {
           );
         }}
       </Formik>
-
-      <div ref={ref} />
+      <TopActions>
+        <div className="ml-auto" ref={ref} />
+      </TopActions>
     </div>
   );
 };

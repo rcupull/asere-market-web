@@ -165,7 +165,7 @@ export const FieldInputImages = forwardRef<HTMLInputElement, FieldInputImagesPro
         >
           {previewImage ? (
             <>
-              <img src={previewImage} className="h-full w-full" />
+              <img  src={previewImage} className="object-contain w-full h-full border-2 p-2 border-dashed border-gray-300" />
               <div
                 className="!absolute top-1 right-1 flex items-center justify-center cursor-pointer bg-gray-200 p-2 hover:bg-gray-300 rounded-md text-red-600"
                 onClick={() => {

@@ -14,7 +14,7 @@ import { useHiddenPostControl } from 'hooks/useHiddenPostsControl';
 import { RowActions } from './RowActions';
 
 import { updateIds } from 'constants/updateids';
-import { TableTopActions } from 'pages/dashboard/components/table-top-actions';
+import { TopActions } from 'pages/dashboard/components/top-actions';
 import { Business } from 'types/business';
 import { getDateString } from 'utils/date';
 
@@ -26,7 +26,7 @@ export const TablePosts = ({ business }: TablePostsProps) => {
   const { getAllUserPosts } = useGetAllUserPosts();
   const { pushModal } = useModal();
   const { routeName } = business;
-  
+
   useEffect(() => {
     onRefresh();
   }, []);
@@ -44,7 +44,7 @@ export const TablePosts = ({ business }: TablePostsProps) => {
 
   return (
     <>
-      <TableTopActions>
+      <TopActions>
         {hiddenPostControl.submitBtn}
         <ButtonNew
           label="Nueva publicación"
@@ -62,7 +62,7 @@ export const TablePosts = ({ business }: TablePostsProps) => {
           onClick={hiddenPostControl.onRefresh}
           isBusy={getAllUserPosts.status.isBusy}
         />
-      </TableTopActions>
+      </TopActions>
       <Table
         heads={[null, 'Nombre', 'Descripción', 'Precio', 'Moneda', 'Fecha de Creación']}
         getRowProps={(rowData) => {

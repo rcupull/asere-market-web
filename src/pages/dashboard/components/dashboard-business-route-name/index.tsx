@@ -34,10 +34,9 @@ export const DashboardBusinessRouteName = () => {
       Este negocio no está visible
     </div>
   );
-  
+
   return (
     <LayoutSection title={name} backButton topRightHeader={hidden && hiddenBusinessElement}>
-
       <LayoutSectionSub title="Publicaciones">
         <TablePosts business={business} />
       </LayoutSectionSub>
@@ -45,7 +44,6 @@ export const DashboardBusinessRouteName = () => {
       <LayoutSectionSub title="Imágenes del banner">
         <BannerImages business={business} />
       </LayoutSectionSub>
-
     </LayoutSection>
   );
 };

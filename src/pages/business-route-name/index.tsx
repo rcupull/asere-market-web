@@ -25,8 +25,6 @@ export const BusinessRouteName = () => {
   const { getOneBusiness } = useGetOneBusiness();
   const { isUserOwnerOfRoute } = useGetAllUserBusinessRouteNames();
 
-  const business = getOneBusiness.data;
-
   const { getAllPosts } = useGetAllPosts();
 
   const filters = useFilters<{ search?: string; page?: number }>({

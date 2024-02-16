@@ -17,7 +17,7 @@ import { RowActions } from './RowActions';
 import { updateIds } from 'constants/updateids';
 import { LayoutSection } from 'pages/@common/layout-section';
 import { LayoutSectionSub } from 'pages/@common/layout-section-sub';
-import { TableTopActions } from 'pages/dashboard/components/table-top-actions';
+import { TopActions } from 'pages/dashboard/components/top-actions';
 import { getDateString } from 'utils/date';
 
 export const DashboardBusiness = () => {
@@ -44,7 +44,7 @@ export const DashboardBusiness = () => {
   return (
     <LayoutSection title="Negocios">
       <LayoutSectionSub>
-        <TableTopActions>
+        <TopActions>
           {hiddenBusinessControl.submitBtn}
 
           <ButtonNew
@@ -62,7 +62,7 @@ export const DashboardBusiness = () => {
             onClick={hiddenBusinessControl.onRefresh}
             isBusy={getAllUserBussiness.status.isBusy}
           />
-        </TableTopActions>
+        </TopActions>
 
         <Table
           heads={[null, 'Nombre', 'Categoría', 'Fecha de creación']}
