@@ -1,6 +1,6 @@
-import { useDispatch, useSelector } from 'react-redux';
-
 import type { UseFetchReturn } from 'hooks/useFetch';
+
+import { useSimpleSlice } from './useSimpleSlice';
 
 import type { FetchData } from 'types/api';
 
@@ -16,38 +16,27 @@ export const useApiSlice = <D = any, N extends string = string>(
 ] => {
   const [, status, handleCall, handleReset] = fetch;
 
-  const dispatch = useDispatch();
-  const dataFromRedux = useSelector<{ [k in N]: FetchData<D> }, FetchData<D>>(
-    (state) => state[name],
-  );
-
-  const setDataRedux = (data: D) => {
-    dispatch({ type: `${name}/setState`, payload: data });
-  };
-
-  const resetDataRedux = () => {
-    dispatch({ type: `${name}/reset` });
-  };
+  const { data, reset, setData } = useSimpleSlice<FetchData<D>, N>(name);
 
   return [
-    dataFromRedux,
+    data,
     status,
     (args, options = {}) => {
       handleCall(args, {
         ...options,
         onAfterSuccess: (res) => {
-          setDataRedux(res);
+          setData(res);
           options?.onAfterSuccess?.(res);
         },
       });
     },
     () => {
-      resetDataRedux();
+      reset();
       handleReset();
     },
     {
-      setDataRedux,
-      resetDataRedux,
+      setDataRedux: setData,
+      resetDataRedux: reset,
     },
   ];
 };

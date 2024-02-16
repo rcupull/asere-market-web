@@ -1,5 +1,7 @@
-import { apiSlices } from './api-slices';
+import { createSimpleSlice } from './utils';
 
 export const slices = {
-  ...apiSlices,
+  useGetUserPaymentPlan: createSimpleSlice('useGetUserPaymentPlan', null),
+  useAuthSignIn: createSimpleSlice('useAuthSignIn', null),
+  useCallFromAfar: createSimpleSlice<Array<string>>('useCallFromAfar', []),
 };

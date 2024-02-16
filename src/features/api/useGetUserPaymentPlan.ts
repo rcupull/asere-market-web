@@ -16,7 +16,7 @@ export const useGetUserPaymentPlan = (): {
   isNotValidPostsCountByBussines: (businessCount: number | undefined) => boolean;
 } => {
   const fetchBase = useFetch<PaymentPlan>();
-  const fetch = useApiSlice<PaymentPlan>(fetchBase, 'getUserPaymentPlan');
+  const fetch = useApiSlice<PaymentPlan>(fetchBase, 'useGetUserPaymentPlan');
 
   const { authData } = useAuthSignIn();
 

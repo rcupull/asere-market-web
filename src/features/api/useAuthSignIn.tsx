@@ -15,7 +15,7 @@ export const useAuthSignIn = (): {
   isAuthenticated: boolean;
 } => {
   const fetchBase = useFetch<AuthData>();
-  const fetch = useApiSlice(fetchBase, 'authSignIn');
+  const fetch = useApiSlice(fetchBase, 'useAuthSignIn');
 
   const [authData] = fetch;
 

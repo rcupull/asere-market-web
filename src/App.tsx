@@ -1,5 +1,7 @@
 import { Navigate, Route, Routes } from 'react-router-dom';
 
+import { useAuthenticatedInit } from 'hooks/useAuthenticatedInit';
+
 import { withAuthenticatedRoute } from './components/autenticated-route';
 import { Layout } from './layout';
 import { Dashboard } from './pages/dashboard';
@@ -19,6 +21,8 @@ import { PaymentPlans } from 'pages/payment-plans';
 import { ValidateAccount } from 'pages/validate-account';
 
 export const App = (): JSX.Element => {
+  useAuthenticatedInit();
+
   return (
     <Layout>
       <Routes>
