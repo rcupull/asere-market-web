@@ -10,7 +10,7 @@ import { Formik } from 'formik';
 
 export const ValidateAccount = () => {
   const { authValidate } = useAuthValidate();
-  const { pushRoute } = useRouter();
+  const { pushRoute, search } = useRouter();
   const getFormErrors = useGetFormErrors();
 
   return (
@@ -53,7 +53,8 @@ export const ValidateAccount = () => {
               {
                 onAfterSuccess: () => {
                   setSubmitting(false);
-                  pushRoute('/sign-in');
+
+                  pushRoute(`/sign-in${search}`);
                 },
                 onAfterFailed: () => {
                   setSubmitting(false);

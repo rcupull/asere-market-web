@@ -1,8 +1,15 @@
 import { PricePlanCard } from 'components/price-plan-card';
 
-export const PlanProfesional = () => {
+import { PaymentPlanType } from 'types/payment';
+
+interface PlanProfesionalProps {
+  onClick?: (type: PaymentPlanType) => void;
+}
+
+export const PlanProfesional = (props: PlanProfesionalProps) => {
   return (
     <PricePlanCard
+      onClick={() => props?.onClick?.('professional')}
       name="Profesional"
       description="Perfecto para los que estan comenzando en el mundo del negocio"
       price={500}

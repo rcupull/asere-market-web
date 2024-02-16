@@ -12,7 +12,7 @@ import { Formik } from 'formik';
 
 export const SignUp = () => {
   const { authSignUp } = useAuthSignUp();
-  const { pushRoute } = useRouter();
+  const { pushRoute, search } = useRouter();
   const getFormErrors = useGetFormErrors();
 
   return (
@@ -70,7 +70,7 @@ export const SignUp = () => {
                 onAfterSuccess: () => {
                   setSubmitting(false);
 
-                  pushRoute('/validate-account');
+                  pushRoute(`/validate-account${search}`);
                 },
                 onAfterFailed: () => {
                   setSubmitting(false);
@@ -127,10 +127,10 @@ export const SignUp = () => {
 
                 <div className="w-100 text-sm flex pt-4">
                   <Link
-                    to="/sign-in"
+                    to={`/sign-in${search}`}
                     className="font-semibold text-indigo-600 hover:text-indigo-500 ml-auto"
                   >
-                    Sign in
+                    Iniciar sesión
                   </Link>
                 </div>
               </form>

@@ -13,7 +13,7 @@ import { Formik } from 'formik';
 export const SignIn = () => {
   const { authSignIn } = useAuthSignIn();
 
-  const { pushRoute } = useRouter();
+  const { pushRoute, search, query } = useRouter();
   const getFormErrors = useGetFormErrors();
 
   return (
@@ -56,7 +56,10 @@ export const SignIn = () => {
               {
                 onAfterSuccess: () => {
                   setSubmitting(false);
-                  pushRoute('/dashboard');
+
+                  const { redirect } = query;
+
+                  pushRoute(redirect ? `${redirect}` : '/dashboard');
                 },
                 onAfterFailed: () => {
                   setSubmitting(false);
@@ -86,7 +89,7 @@ export const SignIn = () => {
                 />
 
                 <Button
-                  label="Sign in"
+                  label="Iniciar sesión"
                   type="submit"
                   disabled={isSubmitting}
                   isBusy={authSignIn.status.isBusy}
@@ -95,7 +98,7 @@ export const SignIn = () => {
 
                 <div className="w-100 text-sm flex pt-4">
                   <Link
-                    to="/sign-up"
+                    to={`/sign-up${search}`}
                     className="font-semibold text-indigo-600 hover:text-indigo-500 ml-auto"
                   >
                     Register

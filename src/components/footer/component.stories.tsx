@@ -4,4 +4,4 @@ export default {
   component: Footer,
 };
 
-export const Default = (): JSX.Element => <Footer/>
+export const Default = (): JSX.Element => <Footer />;

@@ -1,8 +1,15 @@
 import { PricePlanCard } from 'components/price-plan-card';
 
-export const PlanFree = () => {
+import { PaymentPlanType } from 'types/payment';
+
+interface PlanFreeProps {
+  onClick?: (type: PaymentPlanType) => void;
+}
+
+export const PlanFree = ({ onClick }: PlanFreeProps) => {
   return (
     <PricePlanCard
+      onClick={() => onClick?.('free')}
       name="Gratis"
       free
       description="Perfecto para los que estan comenzando en el mundo del negocio"

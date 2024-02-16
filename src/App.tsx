@@ -5,6 +5,7 @@ import { useAuthenticatedInit } from 'hooks/useAuthenticatedInit';
 import { withAuthenticatedRoute } from './components/autenticated-route';
 import { Layout } from './layout';
 
+import { PaymentPlansPurchase } from 'pages/payment-plans-purchase';
 import { dynamic } from 'utils/makeLazy';
 
 const Business = dynamic(() => import('pages/business').then((m) => ({ default: m.Business })));
@@ -53,8 +54,18 @@ export const App = (): JSX.Element => {
         <Route path="/sign-up" element={<SignUp />} />
         <Route path="/not-found" element={<NotFound />} />
         <Route path="/validate-account" element={<ValidateAccount />} />
-        <Route path="/payment-plans" element={<PaymentPlans />} />
         <Route path="/about-us" element={<AboutUs />} />
+
+        {/* ////////////////////////////////////////////// */}
+
+        <Route path="/payment-plans" element={<PaymentPlans />} />
+
+        <Route
+          path="/payment-plans/purchase"
+          element={withAuthenticatedRoute(<PaymentPlansPurchase />, ['user'])}
+        />
+
+        {/* ////////////////////////////////////////////// */}
         <Route
           path="/dashboard"
           element={withAuthenticatedRoute(<Navigate to="/dashboard/business" />, ['user'])}

@@ -3,13 +3,16 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { queryToSearch, searchToQuery } from './utils';
 
 import { Query } from 'types/api';
+import { AnyRecord } from 'types/general';
 import { getFlattenJson } from 'utils/general';
 
 interface UseRouterReturn {
-  pushRoute: (route: string) => void;
+  pushRoute: (route: string, query?: AnyRecord) => void;
   onBack: () => void;
+  queryToSearch: (query: Query) => void;
   pathname: string;
   query: Query;
+  search: string;
   onChangeQuery: (
     partialQuery: Query,
     options?: {
@@ -42,15 +45,14 @@ export const useRouter = (): UseRouterReturn => {
   };
 
   return {
+    search,
+    queryToSearch,
     onBack: () => navigate(-1),
     query,
     onChangeQuery,
     pathname,
-    pushRoute: (pathname) => {
-      navigate({
-        pathname,
-        search,
-      });
+    pushRoute: (pathname, query) => {
+      navigate(`${pathname}${query ? `?${queryToSearch(query)}` : ''}`);
     },
   };
 };
