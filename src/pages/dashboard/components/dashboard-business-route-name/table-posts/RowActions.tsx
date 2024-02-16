@@ -19,12 +19,12 @@ import { getPostRoute } from 'utils/business';
 export interface RowActionsProps {
   rowData: Post;
   routeName: string;
-  updateIds?: Array<string>;
+  updateId?: string;
   hiddenPostControl: HiddenPostControl;
 }
 export const RowActions = ({
   rowData,
-  updateIds,
+  updateId,
   routeName,
   hiddenPostControl,
 }: RowActionsProps) => {
@@ -38,7 +38,7 @@ export const RowActions = ({
         useProps: () => {
           const { removeOneUserPost } = useRemoveOneUserPost();
           const { onClose } = useModal();
-          const { pushIds } = useCallFromAfar();
+          const { pushId } = useCallFromAfar();
           return {
             content: 'Seguro que desea eliminar este post?',
             badge: <Badge variant="error" />,
@@ -52,7 +52,7 @@ export const RowActions = ({
                       onAfterSuccess: () => {
                         onClose();
 
-                        pushIds(updateIds);
+                        pushId(updateId);
                       },
                     },
                   )
@@ -70,7 +70,7 @@ export const RowActions = ({
     pushModal('PostNew', {
       routeName,
       postId: rowData._id,
-      updateIds,
+      updateId,
     });
   };
 

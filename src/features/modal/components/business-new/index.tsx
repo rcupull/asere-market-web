@@ -16,18 +16,18 @@ import { useSubmitPortal } from 'hooks/useSubmitPortal';
 
 import { Formik } from 'formik';
 import { FormRouteName } from 'pages/@common/form-route-name';
-import { BusinessCategory } from 'types/business';
+import { Business, BusinessCategory } from 'types/business';
 import { getBusinessCategoryLabel, getRouteName } from 'utils/business';
 
 export interface BusinessNewProps {
-  updateIds?: Array<string>;
+  updateId?: string;
 }
 
-export const BusinessNew = ({ updateIds }: BusinessNewProps) => {
+export const BusinessNew = ({ updateId }: BusinessNewProps) => {
   const { onClose } = useModal();
 
-  const { pushIds } = useCallFromAfar();
-  const onRefresh = () => pushIds(updateIds);
+  const { pushId } = useCallFromAfar();
+  const onRefresh = (newBussiness: Business) => pushId(updateId, newBussiness);
 
   const { getAllBusiness } = useGetAllBusiness();
 
@@ -141,9 +141,9 @@ export const BusinessNew = ({ updateIds }: BusinessNewProps) => {
                       routeName: getRouteName(name),
                     },
                     {
-                      onAfterSuccess: () => {
+                      onAfterSuccess: (response) => {
                         onClose();
-                        onRefresh();
+                        onRefresh(response);
                       },
                     },
                   );

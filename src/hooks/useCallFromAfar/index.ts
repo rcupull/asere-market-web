@@ -2,27 +2,26 @@ import { useEffect } from 'react';
 
 import { useSimpleSlice } from 'features/slices/useSimpleSlice';
 
-export type PushIds = (ids?: Array<string>) => void;
-
 export const useCallFromAfar = (
-  id?: string,
-  callback?: () => void,
+  currentId?: string,
+  callback?: (response?: any) => void,
 ): {
-  pushIds: PushIds;
+  pushId: (id?: string, response?: any) => void;
 } => {
-  const { data, setData } = useSimpleSlice<Array<string>>('useCallFromAfar');
+  const { data, setData } =
+    useSimpleSlice<Array<{ id: string; response?: any }>>('useCallFromAfar');
 
-  const pushIds: PushIds = (newIds) => newIds && setData([...data, ...newIds]);
-  const removeId = (currentId: string) => setData(data.filter((id) => id !== currentId));
+  const removeCurrentId = () => setData(data.filter(({ id }) => id !== currentId));
 
-  const hasToBeUpdated = id && data.includes(id);
+  const currentData = currentId ? data.find(({ id }) => id === currentId) : undefined;
 
   useEffect(() => {
-    if (hasToBeUpdated) {
-      callback?.();
-      removeId(id);
+    if (currentData) {
+      const { response } = currentData;
+      callback?.(response);
+      removeCurrentId();
     }
-  }, [hasToBeUpdated, callback]);
+  }, [currentData, callback]);
 
-  return { pushIds };
+  return { pushId: (id, response) => id && setData([...data, { id, response }]) };
 };

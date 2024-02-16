@@ -48,7 +48,7 @@ export const Home = () => {
                 href={getPostRoute({ routeName, postId: _id })}
                 getImageUrl={getImageEndpoint}
                 enabledUpdate={isUserOwnerOfRoute(routeName)}
-                updateIds={[updateIds.home]}
+                updateId={updateIds.home}
               />
             );
           })}

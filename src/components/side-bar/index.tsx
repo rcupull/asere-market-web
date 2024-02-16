@@ -11,7 +11,7 @@ interface SideBarItem extends StyleProps {
   href: string;
   svg: React.FC<{ className?: string }>;
   divider?: boolean;
-  endElement?: React.ReactNode
+  endElement?: React.ReactNode;
 }
 
 export interface SideBarProps extends StyleProps {
@@ -39,7 +39,7 @@ export const SideBar = ({ className, items, collapse }: SideBarProps) => {
 
             <Link
               className={cn(
-                'flex items-center w-full h-12 px-3 mt-2 rounded hover:bg-gray-700 hover:text-gray-300',
+                'flex items-center w-full h-12 px-3 mt-2 rounded hover:bg-gray-700 hover:text-gray-300 overflow-hidden',
                 { ['bg-gray-600 text-gray-200']: isActive },
                 className,
               )}

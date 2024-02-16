@@ -52,7 +52,7 @@ export const TablePosts = ({ business }: TablePostsProps) => {
           onClick={() =>
             pushModal('PostNew', {
               routeName,
-              updateIds: [updateIds.dashboard_business_route_name_table_posts],
+              updateId: updateIds.dashboard_business_route_name_table_posts,
             })
           }
           className="ml-auto"
@@ -76,7 +76,7 @@ export const TablePosts = ({ business }: TablePostsProps) => {
                 rowData={rowData}
                 routeName={routeName}
                 hiddenPostControl={hiddenPostControl}
-                updateIds={[updateIds.dashboard_business_route_name_table_posts]}
+                updateId={updateIds.dashboard_business_route_name_table_posts}
               />,
               name,
               description,

@@ -14,14 +14,14 @@ import { FormClothing } from './components/form-clothing';
 export interface PostNewProps {
   routeName?: string;
   postId?: string; //only user to update a post
-  updateIds?: Array<string>;
+  updateId?: string;
 }
 
-export const PostNew = ({ routeName: routeNameProp, postId, updateIds }: PostNewProps) => {
+export const PostNew = ({ routeName: routeNameProp, postId, updateId }: PostNewProps) => {
   const submitPortal = useSubmitPortal();
 
-  const { pushIds } = useCallFromAfar();
-  const onRefresh = () => pushIds(updateIds);
+  const { pushId } = useCallFromAfar();
+  const onRefresh = () => pushId(updateId);
 
   /**
    *

@@ -13,7 +13,7 @@ export interface Props {
   href: string;
   enabledUpdate?: boolean;
   getImageUrl?: (src: string) => string;
-  updateIds?: Array<string>;
+  updateId?: string;
 }
 
 export const ProductSimple = ({
@@ -22,7 +22,7 @@ export const ProductSimple = ({
   getImageUrl,
   href,
   enabledUpdate,
-  updateIds,
+  updateId,
 }: Props) => {
   const { price, name, images, currency } = post;
 
@@ -55,7 +55,7 @@ export const ProductSimple = ({
           <IconButtonUpdate
             onClick={(e) => {
               e.preventDefault();
-              pushModal('PostNew', { postId: post._id, updateIds });
+              pushModal('PostNew', { postId: post._id, updateId });
             }}
           />
         )}

@@ -73,7 +73,7 @@ export const BusinessRouteName = () => {
                 href={getPostRoute({ routeName, postId: _id })}
                 getImageUrl={getImageEndpoint}
                 enabledUpdate={isUserOwnerOfRoute(routeName)}
-                updateIds={[updateIds.business_route_name]}
+                updateId={updateIds.business_route_name}
               />
             );
           })}

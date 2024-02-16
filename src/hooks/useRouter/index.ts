@@ -7,7 +7,13 @@ import { AnyRecord } from 'types/general';
 import { getFlattenJson } from 'utils/general';
 
 interface UseRouterReturn {
-  pushRoute: (route: string, query?: AnyRecord) => void;
+  pushRoute: (
+    route: string,
+    query?: AnyRecord,
+    options?: {
+      timeout?: number;
+    },
+  ) => void;
   onBack: () => void;
   queryToSearch: (query: Query) => void;
   pathname: string;
@@ -54,8 +60,16 @@ export const useRouter = (): UseRouterReturn => {
     query,
     onChangeQuery,
     pathname,
-    pushRoute: (pathname, query) => {
-      navigate(`${pathname}${query ? `?${queryToSearch(query)}` : ''}`);
+    pushRoute: (pathname, query, options) => {
+      const { timeout } = options || {};
+
+      const handle = () => navigate(`${pathname}${query ? `?${queryToSearch(query)}` : ''}`);
+
+      if (timeout) {
+        setTimeout(handle, timeout);
+        return;
+      }
+      handle();
     },
   };
 };

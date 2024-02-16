@@ -46,7 +46,7 @@ export const DashboardBusiness = () => {
             needPremium={isNotValidBussinessCountByUser(getAllUserBussiness.data?.length)}
             onClick={() =>
               pushModal('BusinessNew', {
-                updateIds: [updateIds.dashboard_business_table_business],
+                updateId: updateIds.dashboard_business_table_business,
               })
             }
             className="ml-auto"
