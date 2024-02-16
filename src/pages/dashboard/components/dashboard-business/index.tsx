@@ -8,11 +8,13 @@ import { useGetAllUserBusiness } from 'features/api/useGetAllUserBusiness';
 import { useGetUserPaymentPlan } from 'features/api/useGetUserPaymentPlan';
 import { useModal } from 'features/modal/useModal';
 
+import { useCallFromAfar } from 'hooks/useCallFromAfar';
 import { useHiddenBusinessControl } from 'hooks/useHiddenBusinessControl';
 import { useRouter } from 'hooks/useRouter';
 
 import { RowActions } from './RowActions';
 
+import { updateIds } from 'constants/updateids';
 import { LayoutSection } from 'pages/@common/layout-section';
 import { LayoutSectionSub } from 'pages/@common/layout-section-sub';
 import { TableTopActions } from 'pages/dashboard/components/table-top-actions';
@@ -37,6 +39,8 @@ export const DashboardBusiness = () => {
     fetchStatus: getAllUserBussiness.status,
   });
 
+  useCallFromAfar(updateIds.dashboard_business_table_business, onRefresh);
+
   return (
     <LayoutSection title="Negocios">
       <LayoutSectionSub>
@@ -48,7 +52,7 @@ export const DashboardBusiness = () => {
             needPremium={isNotValidBussinessCountByUser(getAllUserBussiness.data?.length)}
             onClick={() =>
               pushModal('BusinessNew', {
-                onAfterSuccess: onRefresh,
+                updateIds: [updateIds.dashboard_business_table_business],
               })
             }
             className="ml-auto"

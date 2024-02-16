@@ -9,6 +9,7 @@ import { useAddOneUserBusiness } from 'features/api/useAddOneUserBusiness';
 import { useGetAllBusiness } from 'features/api/useGetAllBusiness';
 import { useModal } from 'features/modal/useModal';
 
+import { useCallFromAfar } from 'hooks/useCallFromAfar';
 import { useDebouncer } from 'hooks/useDebouncer';
 import { useGetFormErrors } from 'hooks/useGetFormErrors';
 import { useSubmitPortal } from 'hooks/useSubmitPortal';
@@ -19,11 +20,14 @@ import { BusinessCategory } from 'types/business';
 import { getBusinessCategoryLabel, getRouteName } from 'utils/business';
 
 export interface BusinessNewProps {
-  onAfterSuccess?: (response: any) => void;
+  updateIds?: Array<string>
 }
 
-export const BusinessNew = ({ onAfterSuccess }: BusinessNewProps) => {
+export const BusinessNew = ({ updateIds }: BusinessNewProps) => {
   const { onClose } = useModal();
+
+  const { pushIds } = useCallFromAfar();
+  const onRefresh = () => pushIds(updateIds);
 
   const { getAllBusiness } = useGetAllBusiness();
 
@@ -137,9 +141,9 @@ export const BusinessNew = ({ onAfterSuccess }: BusinessNewProps) => {
                       routeName: getRouteName(name),
                     },
                     {
-                      onAfterSuccess: (response) => {
+                      onAfterSuccess: () => {
                         onClose();
-                        onAfterSuccess?.(response);
+                        onRefresh();
                       },
                     },
                   );

@@ -62,7 +62,7 @@ export const RowActions = ({ rowData, onRefresh, hiddenBusinessControl }: RowAct
       <IconButtonView
         title="Ver página"
         stopPropagation
-        onClick={() => pushRoute(rowData.routeName)}
+        onClick={() => pushRoute(`/${rowData.routeName}`)}
       />
       <IconButtonShowHide
         stopPropagation

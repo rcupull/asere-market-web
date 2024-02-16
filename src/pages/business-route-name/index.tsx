@@ -46,7 +46,7 @@ export const BusinessRouteName = () => {
   if (!routeName) return <></>;
 
   return (
-    <LayoutPage title={business?.name} backButton>
+    <LayoutPage>
       <LayoutPageSection title="Publicaciones">
         <div className="flex justify-end">
           <SearchFilter
