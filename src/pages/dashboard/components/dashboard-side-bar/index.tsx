@@ -1,13 +1,16 @@
 import {
   BookmarkIcon,
   Cog8ToothIcon,
-  EyeIcon, EyeSlashIcon,
+  EyeIcon,
+  EyeSlashIcon,
   PlusCircleIcon,
 } from '@heroicons/react/24/outline';
 
+import { ProLink } from 'components/pro-link';
 import { SideBar as SideBarBase } from 'components/side-bar';
 
 import { useGetAllUserBusiness } from 'features/api/useGetAllUserBusiness';
+import { useGetUserPaymentPlan } from 'features/api/useGetUserPaymentPlan';
 import { useModal } from 'features/modal/useModal';
 
 import { useCallFromAfar } from 'hooks/useCallFromAfar';
@@ -32,6 +35,10 @@ export const DashboardSideBar = ({ className }: DashboardSideBarProps) => {
     pushRoute(`/dashboard/business/${routeName}`, { tab: 0 }, { timeout: 100 });
   });
 
+  const { isNotValidBussinessCountByUser } = useGetUserPaymentPlan();
+
+  const needPremium = isNotValidBussinessCountByUser(getAllUserBussiness.data?.length);
+
   const addNewBusinessButton = (
     <PlusCircleIcon
       title="Agragar nuevo negocio"
@@ -55,17 +62,17 @@ export const DashboardSideBar = ({ className }: DashboardSideBarProps) => {
           label: 'Negocios',
           href: '/dashboard/business',
           svg: BookmarkIcon,
-          endElement: addNewBusinessButton,
+          endElement: needPremium ? <ProLink className="ml-auto h-6" /> : addNewBusinessButton,
         },
         ...business.map(({ name, routeName, hidden }, index) => {
-          const Svg = hidden ? EyeSlashIcon : EyeIcon
+          const Svg = hidden ? EyeSlashIcon : EyeIcon;
 
           return {
             label: name,
             href: `/dashboard/business/${routeName}`,
-            svg: ()=><Svg className='h-6'/>,
+            svg: () => <Svg className="h-6" />,
             className: 'ml-8',
-            divider: index === 0
+            divider: index === 0,
           };
         }),
         {
