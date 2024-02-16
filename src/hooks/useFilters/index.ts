@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 
-import { useRouter } from 'features/router';
+import { useRouter } from 'hooks/useRouter';
 
 import { AnyRecord } from 'types/general';
 
@@ -39,7 +39,7 @@ export const useFilters = <S extends AnyRecord = AnyRecord>(
     }
     refMounted.current = true;
     onChange?.(filterValue);
-  }, [filterValue]);
+  }, [JSON.stringify(filterValue)]);
 
   return {
     onMergeFilters,

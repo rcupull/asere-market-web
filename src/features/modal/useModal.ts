@@ -1,5 +1,6 @@
-import { useRouter } from 'features/router';
 import { useSimpleSlice } from 'features/slices/useSimpleSlice';
+
+import { useRouter } from 'hooks/useRouter';
 
 import { ModalId, ModalWindowOptions, ModalWindowProps } from './types';
 
@@ -24,7 +25,7 @@ export const useModal = (): {
   onIsOpen: OnIsOpen;
   allModalData: Array<ModalData>;
 } => {
-  const { onChangeQuery, query } = useRouter();
+  const { onChangeQuery, query, onBack } = useRouter();
 
   const { modalId, modalProps } = query as { modalId?: ModalId; modalProps?: string };
 
@@ -37,7 +38,7 @@ export const useModal = (): {
   ///////////////////////////////////////////////////////////////////////////////////////////
   const handleCloseAllEmergent = () => reset();
   const handleCloseLastEmergent = () => setData(emergentState.slice(0, -1));
-  const handleCloseRouterModal = () => onChangeQuery({ modalProps: undefined, modalId: undefined });
+  const handleCloseRouterModal = () => onBack();
 
   const hasSomeEmergent = !!emergentState.length;
 

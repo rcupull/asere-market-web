@@ -4,9 +4,9 @@ import { Button } from 'components/button';
 import { FieldInput } from 'components/field-input';
 
 import { useAuthSignUp } from 'features/api/useAuthSignUp';
-import { useRouter } from 'features/router';
 
 import { useGetFormErrors } from 'hooks/useGetFormErrors';
+import { useRouter } from 'hooks/useRouter';
 
 import { Formik } from 'formik';
 

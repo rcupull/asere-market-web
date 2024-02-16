@@ -6,8 +6,12 @@ import { dynamic, LoadableReturn } from 'utils/makeLazy';
 
 const componentRecord: Record<ModalId, LoadableReturn> = {
   PostNew: dynamic(() => import('./components/post-new').then((m) => ({ default: m.PostNew }))),
-  BusinessNew: dynamic(() => import('./components/business-new').then((m) => ({ default: m.BusinessNew }))),
-  Confirmation: dynamic(() => import('./components/confirmation').then((m) => ({ default: m.Confirmation }))),
+  BusinessNew: dynamic(() =>
+    import('./components/business-new').then((m) => ({ default: m.BusinessNew })),
+  ),
+  Confirmation: dynamic(() =>
+    import('./components/confirmation').then((m) => ({ default: m.Confirmation })),
+  ),
 };
 
 export const ModalContainer = (): JSX.Element | null => {

@@ -7,9 +7,9 @@ import { Table } from 'components/table';
 import { useGetAllUserBusiness } from 'features/api/useGetAllUserBusiness';
 import { useGetUserPaymentPlan } from 'features/api/useGetUserPaymentPlan';
 import { useModal } from 'features/modal/useModal';
-import { useRouter } from 'features/router';
 
 import { useHiddenBusinessControl } from 'hooks/useHiddenBusinessControl';
+import { useRouter } from 'hooks/useRouter';
 
 import { RowActions } from './RowActions';
 

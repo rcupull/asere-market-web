@@ -1,7 +1,7 @@
 import { Fragment } from 'react';
 import { Link } from 'react-router-dom';
 
-import { useRouter } from 'features/router';
+import { useRouter } from 'hooks/useRouter';
 
 import { StyleProps } from 'types/general';
 import { cn } from 'utils/general';

@@ -1,11 +1,8 @@
-import { useEffect } from 'react';
-
 import { CardGroup } from 'components/card-group';
 import { HeroSectionCentered } from 'components/hero-section-centered';
 import { Pagination } from 'components/pagination';
 import { ProductSimple } from 'components/product/product-simple';
 
-import { useAuthSignIn } from 'features/api/useAuthSignIn';
 import { useGetAllPosts } from 'features/api/useGetAllPosts';
 import { useGetAllUserBusinessRouteNames } from 'features/api/useGetAllUserBusinessRouteNames';
 
@@ -21,16 +18,7 @@ import { getPostRoute } from 'utils/business';
 
 export const Home = () => {
   const { getAllPosts } = useGetAllPosts();
-  const { isAuthenticated } = useAuthSignIn();
-  const { getAllUserBusinessRouteNames } = useGetAllUserBusinessRouteNames();
-
-  useEffect(() => {
-    if (isAuthenticated) {
-      getAllUserBusinessRouteNames.fetch(undefined);
-    } else {
-      getAllUserBusinessRouteNames.reset();
-    }
-  }, [isAuthenticated]);
+  const { isUserOwnerOfRoute } = useGetAllUserBusinessRouteNames();
 
   const filters = useFilters<{ search?: string; page?: number }>({
     onChange: (filters) => getAllPosts.fetch({ filters }),
@@ -59,7 +47,7 @@ export const Home = () => {
                 post={post}
                 href={getPostRoute({ routeName, postId: _id })}
                 getImageUrl={getImageEndpoint}
-                enabledUpdate={getAllUserBusinessRouteNames.data?.includes(routeName)}
+                enabledUpdate={isUserOwnerOfRoute(routeName)}
                 updateIds={[updateIds.home]}
               />
             );

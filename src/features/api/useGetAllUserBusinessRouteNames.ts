@@ -1,3 +1,5 @@
+import { useApiSlice } from 'features/slices/useApiSlice';
+
 import { useFetch } from 'hooks/useFetch';
 
 import { useAuthSignIn } from './useAuthSignIn';
@@ -7,14 +9,19 @@ import { getEndpoint } from 'utils/api';
 
 export const useGetAllUserBusinessRouteNames = (): {
   getAllUserBusinessRouteNames: FetchResource<undefined, Array<string>>;
+  isUserOwnerOfRoute: (routeName: string) => boolean;
 } => {
-  const fetch = useFetch<Array<string>>();
+  const fetcBase = useFetch<Array<string>>();
+  const fetch = useApiSlice(fetcBase, 'useGetAllUserBusinessRouteNames');
 
   const { authData } = useAuthSignIn();
 
   const userId = authData?.user._id || '<unknow user>';
 
   return {
+    isUserOwnerOfRoute: (routeName: string) => {
+      return fetch[0]?.includes(routeName) || false;
+    },
     getAllUserBusinessRouteNames: {
       data: fetch[0],
       status: fetch[1],

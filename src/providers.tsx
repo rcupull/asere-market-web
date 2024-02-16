@@ -1,17 +1,18 @@
+import { BrowserRouter } from 'react-router-dom';
+
 import { ReduxProvider } from 'features/redux';
 
 import { CookiesService } from './features/cookies';
 import { ModalContainer } from './features/modal';
-import { RouterProvider } from './features/router';
 
 export const Providers = ({ children }: { children: React.ReactNode }) => {
   return (
     <CookiesService>
       <ReduxProvider>
-        <RouterProvider>
+        <BrowserRouter>
           <ModalContainer />
           {children}
-        </RouterProvider>
+        </BrowserRouter>
       </ReduxProvider>
     </CookiesService>
   );

@@ -1,13 +1,13 @@
-import { createContext, useContext } from 'react';
-import { BrowserRouter, useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 import { queryToSearch, searchToQuery } from './utils';
 
 import { Query } from 'types/api';
 import { getFlattenJson } from 'utils/general';
 
-interface RouterState {
+interface UseRouterReturn {
   pushRoute: (route: string) => void;
+  onBack: () => void;
   pathname: string;
   query: Query;
   onChangeQuery: (
@@ -18,21 +18,12 @@ interface RouterState {
   ) => void;
 }
 
-const RouterContext = createContext<RouterState>({
-  pushRoute: () => {},
-  pathname: '/',
-  query: {},
-  onChangeQuery: () => {},
-});
-
-export const useRouter = () => useContext(RouterContext);
-
-const RouterProviderBase = ({ children }: { children: React.ReactNode }) => {
+export const useRouter = (): UseRouterReturn => {
   const navigate = useNavigate();
   const { pathname, search } = useLocation();
   const query = searchToQuery(search.slice(1)) as Query;
 
-  const onChangeQuery: RouterState['onChangeQuery'] = (newQuery, options) => {
+  const onChangeQuery: UseRouterReturn['onChangeQuery'] = (newQuery, options) => {
     const { timeout } = options || {};
     const handle = () => {
       const updatedQuery = getFlattenJson({ ...query, ...newQuery });
@@ -42,6 +33,7 @@ const RouterProviderBase = ({ children }: { children: React.ReactNode }) => {
         search: queryToSearch(updatedQuery),
       });
     };
+
     if (timeout) {
       setTimeout(handle, timeout);
       return;
@@ -49,7 +41,8 @@ const RouterProviderBase = ({ children }: { children: React.ReactNode }) => {
     handle();
   };
 
-  const value: RouterState = {
+  return {
+    onBack: () => navigate(-1),
     query,
     onChangeQuery,
     pathname,
@@ -60,14 +53,4 @@ const RouterProviderBase = ({ children }: { children: React.ReactNode }) => {
       });
     },
   };
-
-  return <RouterContext.Provider value={value}>{children}</RouterContext.Provider>;
-};
-
-export const RouterProvider = ({ children }: { children: React.ReactNode }) => {
-  return (
-    <BrowserRouter>
-      <RouterProviderBase>{children}</RouterProviderBase>
-    </BrowserRouter>
-  );
 };

@@ -7,10 +7,10 @@ import { IconButtonView } from 'components/icon-button-view';
 
 import { useRemoveOneUserPost } from 'features/api/useRemoveOneUserPost';
 import { useModal } from 'features/modal/useModal';
-import { useRouter } from 'features/router';
 
 import { useCallFromAfar } from 'hooks/useCallFromAfar';
 import { HiddenPostControl } from 'hooks/useHiddenPostsControl';
+import { useRouter } from 'hooks/useRouter';
 
 import { RowActionsContainer } from 'pages/@common/row-actions-container';
 import { Post } from 'types/post';

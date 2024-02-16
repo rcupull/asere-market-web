@@ -6,9 +6,9 @@ import { IconButtonView } from 'components/icon-button-view';
 
 import { useRemoveOneUserBusiness } from 'features/api/useRemoveOneUserBusiness';
 import { useModal } from 'features/modal/useModal';
-import { useRouter } from 'features/router';
 
 import { HiddenBusinessControl } from 'hooks/useHiddenBusinessControl';
+import { useRouter } from 'hooks/useRouter';
 
 import { RowActionsContainer } from 'pages/@common/row-actions-container';
 import { Business } from 'types/business';
