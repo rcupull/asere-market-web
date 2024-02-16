@@ -5,11 +5,5 @@ export default {
 };
 
 export const Default = () => {
-  return (
-    <QrCode
-        value='TRANSFERMOVIL_ETECSA,TRANSFERENCIA,9227959870847147,54811429,'
-    />
-  );
+  return <QrCode value="TRANSFERMOVIL_ETECSA,TRANSFERENCIA,9227959870847147,54811429," />;
 };
-
-

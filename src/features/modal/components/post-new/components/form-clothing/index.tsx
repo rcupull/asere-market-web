@@ -17,7 +17,8 @@ import { useGetFormErrors } from 'hooks/useGetFormErrors';
 import { PostNewFormProps } from '../../types';
 
 import { Formik } from 'formik';
-import { Post, PostCurrency, PostImage } from 'types/post';
+import { Image } from 'types/general';
+import { Post, PostCurrency } from 'types/post';
 import { getImageEndpoint } from 'utils/api';
 
 export interface FormClothingProps extends PostNewFormProps {}
@@ -25,7 +26,7 @@ export interface FormClothingProps extends PostNewFormProps {}
 type State = Pick<
   Post,
   'name' | 'currency' | 'clothingSizes' | 'colors' | 'description' | 'price' | 'details'
-> & { images: Array<File | PostImage> };
+> & { images: Array<File | Image> };
 
 export const FormClothing = ({
   routeName,
@@ -155,7 +156,7 @@ export const FormClothing = ({
                     details,
                   } = values;
 
-                  const handleSubmit = (images?: Array<PostImage>) => {
+                  const handleSubmit = (images?: Array<Image>) => {
                     if (post) {
                       return updateOneUserPost.fetch(
                         {
@@ -201,7 +202,7 @@ export const FormClothing = ({
 
                   if (images.length) {
                     const promises = images.map((image) => {
-                      return new Promise<PostImage>((resolve) => {
+                      return new Promise<Image>((resolve) => {
                         if (image instanceof File) {
                           addManyUserBusinessImages.fetch(
                             { images: [image], routeName },

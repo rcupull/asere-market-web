@@ -1,16 +1,11 @@
-import { BaseIdentity } from './general';
+import { BaseIdentity, Image } from './general';
 
 export type PostCurrency = 'CUP' | 'USD' | 'MLC';
-
-export interface PostImage {
-  src: string;
-  alt?: string;
-}
 
 export type PostReviews = [number, number, number, number, number];
 
 export interface Post extends BaseIdentity {
-  images?: Array<PostImage>;
+  images?: Array<Image>;
   routeName: string;
   description: string;
   name: string;

@@ -1,7 +1,6 @@
-import { StyleProps } from 'types/general';
-import { PostImage } from 'types/post';
+import { Image, StyleProps } from 'types/general';
 
 export interface ProductImagesProps extends StyleProps {
-  value?: Array<PostImage>;
+  value?: Array<Image>;
   getImageUrl?: (src: string) => string;
 }

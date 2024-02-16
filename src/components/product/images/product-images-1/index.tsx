@@ -2,12 +2,12 @@ import { UnknownImage } from 'components/unknown-image';
 
 import { ProductImagesProps } from '../types';
 
-import { PostImage } from 'types/post';
+import { Image } from 'types/general';
 import { cn } from 'utils/general';
 
 export type ProductImages1Props = ProductImagesProps;
 export const ProductImages1 = ({ value, className, getImageUrl }: ProductImages1Props) => {
-  const renderImage = (image: PostImage | undefined): React.ReactNode => {
+  const renderImage = (image: Image | undefined): React.ReactNode => {
     if (!image) {
       return <UnknownImage className="h-full w-full border-2 rounded-lg" />;
     }

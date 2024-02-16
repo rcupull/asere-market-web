@@ -6,7 +6,7 @@ import { ProLink } from 'components/pro-link';
 
 import { useFormikField } from 'hooks/useFormikField';
 
-import { PostImage } from 'types/post';
+import { Image } from 'types/general';
 import { cn, getFlattenArray, isNumber } from 'utils/general';
 
 export interface FieldInputImagesProps
@@ -17,7 +17,7 @@ export interface FieldInputImagesProps
   max?: number;
 }
 
-type State = Array<PostImage | File | undefined | null>;
+type State = Array<Image | File | undefined | null>;
 
 export const FieldInputImages = forwardRef<HTMLInputElement, FieldInputImagesProps>(
   (props, ref) => {
@@ -40,7 +40,7 @@ export const FieldInputImages = forwardRef<HTMLInputElement, FieldInputImagesPro
       return isDisabledByPremium(s) ? s : [...s, undefined];
     };
 
-    const getImageSrc = (image: PostImage | File) => {
+    const getImageSrc = (image: Image | File) => {
       if (image instanceof File) {
         return URL.createObjectURL(image);
       }

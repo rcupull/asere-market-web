@@ -17,3 +17,8 @@ export interface StyleProps {
 export interface ChildrenProp {
   children?: React.ReactNode;
 }
+
+export interface Image {
+  src: string;
+  alt?: string;
+}

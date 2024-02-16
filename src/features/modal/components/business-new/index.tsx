@@ -20,7 +20,7 @@ import { BusinessCategory } from 'types/business';
 import { getBusinessCategoryLabel, getRouteName } from 'utils/business';
 
 export interface BusinessNewProps {
-  updateIds?: Array<string>
+  updateIds?: Array<string>;
 }
 
 export const BusinessNew = ({ updateIds }: BusinessNewProps) => {
