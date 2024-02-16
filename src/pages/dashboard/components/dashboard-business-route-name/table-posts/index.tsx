@@ -15,16 +15,18 @@ import { RowActions } from './RowActions';
 
 import { updateIds } from 'constants/updateids';
 import { TableTopActions } from 'pages/dashboard/components/table-top-actions';
+import { Business } from 'types/business';
 import { getDateString } from 'utils/date';
 
 export interface TablePostsProps {
-  routeName: string;
+  business: Business;
 }
 
-export const TablePosts = ({ routeName }: TablePostsProps) => {
+export const TablePosts = ({ business }: TablePostsProps) => {
   const { getAllUserPosts } = useGetAllUserPosts();
   const { pushModal } = useModal();
-
+  const { routeName } = business;
+  
   useEffect(() => {
     onRefresh();
   }, []);

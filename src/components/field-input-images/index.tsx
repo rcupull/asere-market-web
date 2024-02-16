@@ -59,14 +59,14 @@ export const FieldInputImages = forwardRef<HTMLInputElement, FieldInputImagesPro
     }, [previewIndex, stateToPreview]);
 
     useEffect(() => {
-      if (value !== state) {
+      if (value !== state || isNumber(max)) {
         const newState = (value || []) as unknown as State;
         setState(newState);
         const newPreviewState = addOneEmptyPreview(newState);
         setStateToPreview(newPreviewState);
         setPreviewIndex(0);
       }
-    }, [value]);
+    }, [value, max]);
 
     const handleChange = (file: File | null | undefined, action: 'add' | 'remove' | 'change') => {
       let newStateToPreview = [...stateToPreview];

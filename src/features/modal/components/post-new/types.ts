@@ -7,5 +7,5 @@ export interface PostNewFormProps {
   submitPortal: SubmitPortal;
   routeName: string;
   onAfterSuccess?: OnAfterSuccess;
-  post?: Post;
+  post?: Post | null;
 }

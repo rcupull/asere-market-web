@@ -4,6 +4,7 @@ import { useGetOneUserBusiness } from 'features/api/useGetOneUserBusiness';
 
 import { useParams } from 'hooks/useReactRouter';
 
+import { BannerImages } from './banner-images';
 import { TablePosts } from './table-posts';
 
 import { LayoutSection } from 'pages/@common/layout-section';
@@ -33,9 +34,18 @@ export const DashboardBusinessRouteName = () => {
       Este negocio no está visible
     </div>
   );
+  
   return (
     <LayoutSection title={name} backButton topRightHeader={hidden && hiddenBusinessElement}>
-      <LayoutSectionSub>{routeName && <TablePosts routeName={routeName} />}</LayoutSectionSub>
+
+      <LayoutSectionSub title="Publicaciones">
+        <TablePosts business={business} />
+      </LayoutSectionSub>
+
+      <LayoutSectionSub title="Imágenes del banner">
+        <BannerImages business={business} />
+      </LayoutSectionSub>
+
     </LayoutSection>
   );
 };

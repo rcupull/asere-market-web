@@ -58,6 +58,7 @@ export const FormClothing = ({
         images: [],
         ...(post || {}),
       }}
+      enableReinitialize
       validate={(values) => {
         return getFormErrors(values, [
           {
@@ -201,27 +202,12 @@ export const FormClothing = ({
                   };
 
                   if (images.length) {
-                    const promises = images.map((image) => {
-                      return new Promise<Image>((resolve) => {
-                        if (image instanceof File) {
-                          addManyUserBusinessImages.fetch(
-                            { images: [image], routeName },
-                            {
-                              onAfterSuccess: (response) => {
-                                const [imageResponse] = response;
-                                resolve({
-                                  src: imageResponse.imageSrc,
-                                });
-                              },
-                            },
-                          );
-                        } else {
-                          resolve(image);
-                        }
-                      });
-                    });
-
-                    Promise.all(promises).then((images) => handleSubmit(images));
+                    addManyUserBusinessImages.fetch(
+                      { images, routeName },
+                      {
+                        onAfterSuccess: handleSubmit,
+                      },
+                    );
                   } else {
                     handleSubmit();
                   }

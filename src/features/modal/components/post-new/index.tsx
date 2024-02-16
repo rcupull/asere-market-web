@@ -40,7 +40,7 @@ export const PostNew = ({ routeName: routeNameProp, postId, updateIds }: PostNew
    */
   const routeName = routeNameProp || post?.routeName;
 
-  if (!routeName || !post) {
+  if (!routeName) {
     return <></>;
   }
 
