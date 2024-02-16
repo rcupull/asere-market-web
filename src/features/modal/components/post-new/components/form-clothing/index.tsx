@@ -10,7 +10,7 @@ import { useAddManyUserBusinessImages } from 'features/api/useAddManyUserBusines
 import { useAddOneUserPost } from 'features/api/useAddOneUserPost';
 import { useGetUserPaymentPlan } from 'features/api/useGetUserPaymentPlan';
 import { useUpdateOneUserPost } from 'features/api/useUpdateOneUserPost';
-import { useModal } from 'features/modal';
+import { useModal } from 'features/modal/useModal';
 
 import { useGetFormErrors } from 'hooks/useGetFormErrors';
 

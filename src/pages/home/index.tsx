@@ -9,8 +9,10 @@ import { useAuthSignIn } from 'features/api/useAuthSignIn';
 import { useGetAllPosts } from 'features/api/useGetAllPosts';
 import { useGetAllUserBusinessRouteNames } from 'features/api/useGetAllUserBusinessRouteNames';
 
+import { useCallFromAfar } from 'hooks/useCallFromAfar';
 import { useFilters } from 'hooks/useFilters';
 
+import { updateIds } from 'constants/updateids';
 import { LayoutPage } from 'pages/@common/layout-page';
 import { LayoutPageSection } from 'pages/@common/layout-page-section';
 import { SearchFilter } from 'pages/@common/search-filter';
@@ -34,6 +36,8 @@ export const Home = () => {
     onChange: (filters) => getAllPosts.fetch({ filters }),
   });
 
+  useCallFromAfar(updateIds.home, filters.onRefresh);
+
   return (
     <LayoutPage>
       <HeroSectionCentered />
@@ -56,7 +60,7 @@ export const Home = () => {
                 href={getPostRoute({ routeName, postId: _id })}
                 getImageUrl={getImageEndpoint}
                 enabledUpdate={getAllUserBusinessRouteNames.data?.includes(routeName)}
-                onRefresh={filters.onRefresh}
+                updateIds={[updateIds.home]}
               />
             );
           })}

@@ -6,7 +6,7 @@ import { ButtonRemove } from 'components/button-remove';
 import { IconButtonShowHideProps } from 'components/icon-button-show-hide';
 
 import { useUpdateManyUserPosts } from 'features/api/useUpdateManyUserPosts';
-import { useModal } from 'features/modal';
+import { useModal } from 'features/modal/useModal';
 
 import { FetchStatus, OnRefresh } from 'types/api';
 import { Post } from 'types/post';
@@ -42,27 +42,31 @@ export const useHiddenPostControl = ({
       return onRefresh();
     }
 
-    pushModal('Confirmation', {
-      useProps: () => {
-        const { onClose } = useModal();
+    pushModal(
+      'Confirmation',
+      {
+        useProps: () => {
+          const { onClose } = useModal();
 
-        return {
-          className: 'max-w-lg',
-          content:
-            'Seguro que desea actualizar la tabla?. Serán perdidos todos los cambios hechos hasta el momento',
-          badge: <Badge variant="error" />,
-          primaryBtn: (
-            <ButtonRemove
-              label="Actualizar"
-              onClick={() => {
-                onRefresh();
-                onClose();
-              }}
-            />
-          ),
-        };
+          return {
+            className: 'max-w-lg',
+            content:
+              'Seguro que desea actualizar la tabla?. Serán perdidos todos los cambios hechos hasta el momento',
+            badge: <Badge variant="error" />,
+            primaryBtn: (
+              <ButtonRemove
+                label="Actualizar"
+                onClick={() => {
+                  onRefresh();
+                  onClose();
+                }}
+              />
+            ),
+          };
+        },
       },
-    });
+      { emergent: true },
+    );
   };
 
   const handleSubmit = () => {

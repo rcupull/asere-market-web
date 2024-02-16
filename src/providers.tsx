@@ -1,7 +1,7 @@
 import { ReduxProvider } from 'features/redux';
 
 import { CookiesService } from './features/cookies';
-import { ModalProvider } from './features/modal';
+import { ModalContainer } from './features/modal';
 import { RouterProvider } from './features/router';
 
 export const Providers = ({ children }: { children: React.ReactNode }) => {
@@ -9,7 +9,8 @@ export const Providers = ({ children }: { children: React.ReactNode }) => {
     <CookiesService>
       <ReduxProvider>
         <RouterProvider>
-          <ModalProvider>{children}</ModalProvider>
+          <ModalContainer />
+          {children}
         </RouterProvider>
       </ReduxProvider>
     </CookiesService>

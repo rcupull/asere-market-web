@@ -4,7 +4,7 @@ import { FieldSelect } from 'components/field-select';
 import { FieldTextArea } from 'components/field-text-area';
 
 import { useAddOneUserPost } from 'features/api/useAddOneUserPost';
-import { useModal } from 'features/modal';
+import { useModal } from 'features/modal/useModal';
 
 import { useGetFormErrors } from 'hooks/useGetFormErrors';
 

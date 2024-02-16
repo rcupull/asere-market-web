@@ -1,30 +1,49 @@
+import { useEffect } from 'react';
+
 import { Badge } from 'components/badge';
 import { ButtonClose } from 'components/button-close';
 import { Modal } from 'components/modal';
 
+import { useGetOneUserPost } from 'features/api/useGetOneUserPost';
+
+import { useCallFromAfar } from 'hooks/useCallFromAfar';
 import { useSubmitPortal } from 'hooks/useSubmitPortal';
 
 import { FormClothing } from './components/form-clothing';
 
-// import { FormSimple } from './components/form-simple';
-import { OnAfterSuccess } from 'types/api';
-import { Post } from 'types/post';
-
 export interface PostNewProps {
-  onAfterSuccess?: OnAfterSuccess;
   routeName?: string;
-  post?: Post;
+  postId?: string; //only user to update a post
+  updateIds?: Array<string>;
 }
 
-export const PostNew = ({ onAfterSuccess, routeName: routeNameProp, post }: PostNewProps) => {
+export const PostNew = ({ routeName: routeNameProp, postId, updateIds }: PostNewProps) => {
   const submitPortal = useSubmitPortal();
 
+  const { pushIds } = useCallFromAfar();
+  const onRefresh = () => pushIds(updateIds);
+
+  /**
+   *
+   */
+  const { getOneUserPost } = useGetOneUserPost();
+
+  const post = getOneUserPost.data;
+  useEffect(() => {
+    if (postId) {
+      getOneUserPost.fetch({ id: postId });
+    }
+  }, [postId]);
+
+  /**
+   *
+   */
   const routeName = routeNameProp || post?.routeName;
 
-  if (!routeName) {
-    console.error('routeName or post are required');
+  if (!routeName || !post) {
     return <></>;
   }
+
   // const newPostForm = (
   //   <FormSimple routeName={routeName} submitPortal={submitPortal} onAfterSuccess={onAfterSuccess} />
   // );
@@ -33,7 +52,7 @@ export const PostNew = ({ onAfterSuccess, routeName: routeNameProp, post }: Post
     <FormClothing
       routeName={routeName}
       submitPortal={submitPortal}
-      onAfterSuccess={onAfterSuccess}
+      onAfterSuccess={onRefresh}
       post={post}
     />
   );

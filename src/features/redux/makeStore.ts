@@ -15,12 +15,18 @@ export const makerStore = (preloadedState: Partial<AnyRecord> = {}) => {
     reducer: enhancedReducers,
     preloadedState,
     devTools: true,
+    middleware: (getDefaultMiddleware) => {
+      //https://stackoverflow.com/questions/61704805/getting-an-error-a-non-serializable-value-was-detected-in-the-state-when-using
+      return getDefaultMiddleware({
+        serializableCheck: false,
+      });
+    },
   });
 
   // setting authentication data
   const cookiesData = cookiesUtils.getCookie('authData');
   if (cookiesData) {
-    store.dispatch(slices.authSignIn.actions.setState(cookiesData as AuthData));
+    store.dispatch(slices.useAuthSignIn.actions.setState(cookiesData as AuthData));
   }
 
   return { store };

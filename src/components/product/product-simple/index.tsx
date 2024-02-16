@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 import { IconButtonUpdate } from 'components/icon-button-update';
 
-import { useModal } from 'features/modal';
+import { useModal } from 'features/modal/useModal';
 
 import { Post } from 'types/post';
 import { cn } from 'utils/general';
@@ -13,7 +13,7 @@ export interface Props {
   href: string;
   enabledUpdate?: boolean;
   getImageUrl?: (src: string) => string;
-  onRefresh?: () => void;
+  updateIds?: Array<string>;
 }
 
 export const ProductSimple = ({
@@ -22,7 +22,7 @@ export const ProductSimple = ({
   getImageUrl,
   href,
   enabledUpdate,
-  onRefresh,
+  updateIds,
 }: Props) => {
   const { price, name, images, currency } = post;
 
@@ -55,7 +55,7 @@ export const ProductSimple = ({
           <IconButtonUpdate
             onClick={(e) => {
               e.preventDefault();
-              pushModal('PostNew', { post, onAfterSuccess: onRefresh });
+              pushModal('PostNew', { postId: post._id, updateIds });
             }}
           />
         )}

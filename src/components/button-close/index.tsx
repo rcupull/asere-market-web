@@ -1,6 +1,6 @@
 import { Button, ButtonProps } from 'components/button';
 
-import { useModal } from 'features/modal';
+import { useModal } from 'features/modal/useModal';
 
 export interface ButtonCloseProps extends ButtonProps {}
 

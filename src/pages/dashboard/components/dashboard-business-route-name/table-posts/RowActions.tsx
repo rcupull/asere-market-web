@@ -6,9 +6,10 @@ import { IconButtonUpdate } from 'components/icon-button-update';
 import { IconButtonView } from 'components/icon-button-view';
 
 import { useRemoveOneUserPost } from 'features/api/useRemoveOneUserPost';
-import { useModal } from 'features/modal';
+import { useModal } from 'features/modal/useModal';
 import { useRouter } from 'features/router';
 
+import { useCallFromAfar } from 'hooks/useCallFromAfar';
 import { HiddenPostControl } from 'hooks/useHiddenPostsControl';
 
 import { RowActionsContainer } from 'pages/@common/row-actions-container';
@@ -18,12 +19,12 @@ import { getPostRoute } from 'utils/business';
 export interface RowActionsProps {
   rowData: Post;
   routeName: string;
-  onRefresh: () => void;
+  updateIds?: Array<string>;
   hiddenPostControl: HiddenPostControl;
 }
 export const RowActions = ({
   rowData,
-  onRefresh,
+  updateIds,
   routeName,
   hiddenPostControl,
 }: RowActionsProps) => {
@@ -31,40 +32,45 @@ export const RowActions = ({
   const { pushRoute } = useRouter();
 
   const handleDelete = () => {
-    pushModal('Confirmation', {
-      useProps: () => {
-        const { removeOneUserPost } = useRemoveOneUserPost();
-        const { onClose } = useModal();
+    pushModal(
+      'Confirmation',
+      {
+        useProps: () => {
+          const { removeOneUserPost } = useRemoveOneUserPost();
+          const { onClose } = useModal();
+          const { pushIds } = useCallFromAfar();
+          return {
+            content: 'Seguro que desea eliminar este post?',
+            badge: <Badge variant="error" />,
+            primaryBtn: (
+              <ButtonRemove
+                isBusy={removeOneUserPost.status.isBusy}
+                onClick={() =>
+                  removeOneUserPost.fetch(
+                    { id: rowData._id },
+                    {
+                      onAfterSuccess: () => {
+                        onClose();
 
-        return {
-          content: 'Seguro que desea eliminar este post?',
-          badge: <Badge variant="error" />,
-          primaryBtn: (
-            <ButtonRemove
-              isBusy={removeOneUserPost.status.isBusy}
-              onClick={() =>
-                removeOneUserPost.fetch(
-                  { id: rowData._id },
-                  {
-                    onAfterSuccess: () => {
-                      onClose();
-                      onRefresh();
+                        pushIds(updateIds);
+                      },
                     },
-                  },
-                )
-              }
-            />
-          ),
-        };
+                  )
+                }
+              />
+            ),
+          };
+        },
       },
-    });
+      { emergent: true },
+    );
   };
 
   const handleUpdate = () => {
     pushModal('PostNew', {
       routeName,
-      post: rowData,
-      onAfterSuccess: onRefresh,
+      postId: rowData._id,
+      updateIds,
     });
   };
 

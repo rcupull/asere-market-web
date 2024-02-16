@@ -6,12 +6,14 @@ import { Table } from 'components/table';
 
 import { useGetAllUserPosts } from 'features/api/useGetAllUserPosts';
 import { useGetUserPaymentPlan } from 'features/api/useGetUserPaymentPlan';
-import { useModal } from 'features/modal';
+import { useModal } from 'features/modal/useModal';
 
+import { useCallFromAfar } from 'hooks/useCallFromAfar';
 import { useHiddenPostControl } from 'hooks/useHiddenPostsControl';
 
 import { RowActions } from './RowActions';
 
+import { updateIds } from 'constants/updateids';
 import { TableTopActions } from 'pages/dashboard/components/table-top-actions';
 import { getDateString } from 'utils/date';
 
@@ -36,6 +38,8 @@ export const TablePosts = ({ routeName }: TablePostsProps) => {
 
   const { isNotValidPostsCountByBussines } = useGetUserPaymentPlan();
 
+  useCallFromAfar(updateIds.dashboard_business_route_name_table_posts, onRefresh);
+
   return (
     <>
       <TableTopActions>
@@ -46,7 +50,7 @@ export const TablePosts = ({ routeName }: TablePostsProps) => {
           onClick={() =>
             pushModal('PostNew', {
               routeName,
-              onAfterSuccess: () => onRefresh(),
+              updateIds: [updateIds.dashboard_business_route_name_table_posts],
             })
           }
           className="ml-auto"
@@ -68,9 +72,9 @@ export const TablePosts = ({ routeName }: TablePostsProps) => {
               <RowActions
                 key="RowActions"
                 rowData={rowData}
-                onRefresh={onRefresh}
                 routeName={routeName}
                 hiddenPostControl={hiddenPostControl}
+                updateIds={[updateIds.dashboard_business_route_name_table_posts]}
               />,
               name,
               description,

@@ -5,7 +5,7 @@ import { IconButtonShowHide } from 'components/icon-button-show-hide';
 import { IconButtonView } from 'components/icon-button-view';
 
 import { useRemoveOneUserBusiness } from 'features/api/useRemoveOneUserBusiness';
-import { useModal } from 'features/modal';
+import { useModal } from 'features/modal/useModal';
 import { useRouter } from 'features/router';
 
 import { HiddenBusinessControl } from 'hooks/useHiddenBusinessControl';
@@ -23,33 +23,37 @@ export const RowActions = ({ rowData, onRefresh, hiddenBusinessControl }: RowAct
   const { pushRoute } = useRouter();
 
   const handleDelete = () => {
-    pushModal('Confirmation', {
-      useProps: () => {
-        const { removeOneUserBusiness } = useRemoveOneUserBusiness();
-        const { onClose } = useModal();
+    pushModal(
+      'Confirmation',
+      {
+        useProps: () => {
+          const { removeOneUserBusiness } = useRemoveOneUserBusiness();
+          const { onClose } = useModal();
 
-        return {
-          content: 'Seguro que desea eliminar este negocio?',
-          badge: <Badge variant="error" />,
-          primaryBtn: (
-            <ButtonRemove
-              isBusy={removeOneUserBusiness.status.isBusy}
-              onClick={() =>
-                removeOneUserBusiness.fetch(
-                  { routeName: rowData.routeName },
-                  {
-                    onAfterSuccess: () => {
-                      onClose();
-                      onRefresh();
+          return {
+            content: 'Seguro que desea eliminar este negocio?',
+            badge: <Badge variant="error" />,
+            primaryBtn: (
+              <ButtonRemove
+                isBusy={removeOneUserBusiness.status.isBusy}
+                onClick={() =>
+                  removeOneUserBusiness.fetch(
+                    { routeName: rowData.routeName },
+                    {
+                      onAfterSuccess: () => {
+                        onClose();
+                        onRefresh();
+                      },
                     },
-                  },
-                )
-              }
-            />
-          ),
-        };
+                  )
+                }
+              />
+            ),
+          };
+        },
       },
-    });
+      { emergent: true },
+    );
   };
 
   return (

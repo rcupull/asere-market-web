@@ -4,6 +4,7 @@ import { BrowserRouter, useLocation, useNavigate } from 'react-router-dom';
 import { queryToSearch, searchToQuery } from './utils';
 
 import { Query } from 'types/api';
+import { getFlattenJson } from 'utils/general';
 
 interface RouterState {
   pushRoute: (route: string) => void;
@@ -34,9 +35,11 @@ const RouterProviderBase = ({ children }: { children: React.ReactNode }) => {
   const onChangeQuery: RouterState['onChangeQuery'] = (newQuery, options) => {
     const { timeout } = options || {};
     const handle = () => {
+      const updatedQuery = getFlattenJson({ ...query, ...newQuery });
+
       navigate({
         pathname: pathname,
-        search: queryToSearch({ ...query, ...newQuery }),
+        search: queryToSearch(updatedQuery),
       });
     };
     if (timeout) {

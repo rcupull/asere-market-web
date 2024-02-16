@@ -4,21 +4,43 @@ import { useAuthenticatedInit } from 'hooks/useAuthenticatedInit';
 
 import { withAuthenticatedRoute } from './components/autenticated-route';
 import { Layout } from './layout';
-import { Dashboard } from './pages/dashboard';
-import { DashboardBusiness } from './pages/dashboard/components/dashboard-business';
-import { DashboardBusinessRouteName } from './pages/dashboard/components/dashboard-business-route-name';
-import { Home } from './pages/home';
-import { NotFound } from './pages/not-found';
-import { SignIn } from './pages/sign-in';
-import { SignUp } from './pages/sign-up';
 
-import { AboutUs } from 'pages/about-us';
-import { Business } from 'pages/business';
-import { BusinessRouteName } from 'pages/business-route-name';
-import { BusinessRouteNamePostId } from 'pages/business-route-name-postId';
-import { DashboardSettings } from 'pages/dashboard/components/dashboard-settings';
-import { PaymentPlans } from 'pages/payment-plans';
-import { ValidateAccount } from 'pages/validate-account';
+import { dynamic } from 'utils/makeLazy';
+
+const Business = dynamic(() => import('pages/business').then((m) => ({ default: m.Business })));
+const AboutUs = dynamic(() => import('pages/about-us').then((m) => ({ default: m.AboutUs })));
+const BusinessRouteName = dynamic(() =>
+  import('pages/business-route-name').then((m) => ({ default: m.BusinessRouteName })),
+);
+const BusinessRouteNamePostId = dynamic(() =>
+  import('pages/business-route-name-postId').then((m) => ({ default: m.BusinessRouteNamePostId })),
+);
+const DashboardSettings = dynamic(() =>
+  import('pages/dashboard/components/dashboard-settings').then((m) => ({
+    default: m.DashboardSettings,
+  })),
+);
+const PaymentPlans = dynamic(() =>
+  import('pages/payment-plans').then((m) => ({ default: m.PaymentPlans })),
+);
+const ValidateAccount = dynamic(() =>
+  import('pages/validate-account').then((m) => ({ default: m.ValidateAccount })),
+);
+const NotFound = dynamic(() => import('pages/not-found').then((m) => ({ default: m.NotFound })));
+const SignIn = dynamic(() => import('pages/sign-in').then((m) => ({ default: m.SignIn })));
+const SignUp = dynamic(() => import('pages/sign-up').then((m) => ({ default: m.SignUp })));
+const Home = dynamic(() => import('pages/home').then((m) => ({ default: m.Home })));
+const DashboardBusiness = dynamic(() =>
+  import('pages/dashboard/components/dashboard-business').then((m) => ({
+    default: m.DashboardBusiness,
+  })),
+);
+const DashboardBusinessRouteName = dynamic(() =>
+  import('pages/dashboard/components/dashboard-business-route-name').then((m) => ({
+    default: m.DashboardBusinessRouteName,
+  })),
+);
+const Dashboard = dynamic(() => import('pages/dashboard').then((m) => ({ default: m.Dashboard })));
 
 export const App = (): JSX.Element => {
   useAuthenticatedInit();

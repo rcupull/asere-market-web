@@ -11,3 +11,8 @@ export type ModalWindowProps<Id extends ModalId> = Id extends 'PostNew'
     : Id extends 'Confirmation'
       ? ConfirmationProps
       : undefined;
+
+export interface ModalWindowOptions {
+  timeout?: number;
+  emergent?: boolean;
+}

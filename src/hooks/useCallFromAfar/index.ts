@@ -1,9 +1,8 @@
 import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 
 import { useSimpleSlice } from 'features/slices/useSimpleSlice';
 
-export type PushIds = (ids: Array<string>) => void;
+export type PushIds = (ids?: Array<string>) => void;
 
 export const useCallFromAfar = (
   id?: string,
@@ -11,20 +10,19 @@ export const useCallFromAfar = (
 ): {
   pushIds: PushIds;
 } => {
-  const {} = useSimpleSlice('useCallFromAfar');
-  const dispatch = useDispatch();
-  const hasToBeUpdated = useSelector(updateContent.selectors.getHasToBeUpdated)(id || '');
+  const { data, setData } = useSimpleSlice<Array<string>>('useCallFromAfar');
 
-  const pushIds: PushIds = (newIds) => dispatch(updateContent.actions.pushIds(newIds));
+  const pushIds: PushIds = (newIds) => newIds && setData([...data, ...newIds]);
+  const removeId = (currentId: string) => setData(data.filter((id) => id !== currentId));
 
-  const removeId = () => id && dispatch(updateContent.actions.removeId(id));
+  const hasToBeUpdated = id && data.includes(id);
 
   useEffect(() => {
     if (hasToBeUpdated) {
       callback?.();
-      removeId();
+      removeId(id);
     }
-  }, [hasToBeUpdated]);
+  }, [hasToBeUpdated, callback]);
 
   return { pushIds };
 };

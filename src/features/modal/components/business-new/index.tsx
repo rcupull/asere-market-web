@@ -7,7 +7,7 @@ import { Modal } from 'components/modal';
 
 import { useAddOneUserBusiness } from 'features/api/useAddOneUserBusiness';
 import { useGetAllBusiness } from 'features/api/useGetAllBusiness';
-import { useModal } from 'features/modal';
+import { useModal } from 'features/modal/useModal';
 
 import { useDebouncer } from 'hooks/useDebouncer';
 import { useGetFormErrors } from 'hooks/useGetFormErrors';
