@@ -1,4 +1,4 @@
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 
 import { queryToSearch, searchToQuery } from './utils';
 
@@ -13,6 +13,7 @@ interface UseRouterReturn {
   pathname: string;
   query: Query;
   search: string;
+  params: Record<string, string | undefined>;
   onChangeQuery: (
     partialQuery: Query,
     options?: {
@@ -24,6 +25,7 @@ interface UseRouterReturn {
 export const useRouter = (): UseRouterReturn => {
   const navigate = useNavigate();
   const { pathname, search } = useLocation();
+  const params = useParams();
   const query = searchToQuery(search.slice(1)) as Query;
 
   const onChangeQuery: UseRouterReturn['onChangeQuery'] = (newQuery, options) => {
@@ -45,6 +47,7 @@ export const useRouter = (): UseRouterReturn => {
   };
 
   return {
+    params,
     search,
     queryToSearch,
     onBack: () => navigate(-1),

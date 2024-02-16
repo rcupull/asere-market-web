@@ -1,24 +1,35 @@
 import { useEffect } from 'react';
 
+import { Tabs } from 'components/tabs';
+
 import { useGetOneUserBusiness } from 'features/api/useGetOneUserBusiness';
 
-import { useParams } from 'hooks/useReactRouter';
+import { useRouter } from 'hooks/useRouter';
 
 import { BannerImages } from './banner-images';
 import { TablePosts } from './table-posts';
 
 import { LayoutSection } from 'pages/@common/layout-section';
-import { LayoutSectionSub } from 'pages/@common/layout-section-sub';
 
 export const DashboardBusinessRouteName = () => {
-  const { routeName } = useParams();
+  const { params, query, onChangeQuery } = useRouter();
+  const { routeName } = params;
+  const { tab } = query;
 
   const { getOneUserBusiness } = useGetOneUserBusiness();
 
-  const onGetBussiness = () => routeName && getOneUserBusiness.fetch({ routeName });
+  const onGetBussiness = (routeName: string) => getOneUserBusiness.fetch({ routeName });
 
   useEffect(() => {
-    onGetBussiness();
+    if (routeName) {
+      onGetBussiness(routeName);
+    }
+  }, [routeName]);
+
+  useEffect(() => {
+    if (tab === undefined) {
+      onChangeQuery({ tab: 0 });
+    }
   }, []);
 
   const business = getOneUserBusiness.data;
@@ -37,13 +48,28 @@ export const DashboardBusinessRouteName = () => {
 
   return (
     <LayoutSection title={name} backButton topRightHeader={hidden && hiddenBusinessElement}>
-      <LayoutSectionSub title="Publicaciones">
+      <Tabs
+        onSelect={(selectedTab) => onChangeQuery({ tab: selectedTab })}
+        selected={tab as number | undefined}
+        items={[
+          {
+            label: 'Post',
+            content: <TablePosts business={business} />,
+          },
+          {
+            label: 'Banner',
+            content: <BannerImages business={business} />,
+          },
+        ]}
+      />
+
+      {/* <LayoutSectionSub title="Publicaciones">
         <TablePosts business={business} />
       </LayoutSectionSub>
 
       <LayoutSectionSub title="Imágenes del banner">
         <BannerImages business={business} />
-      </LayoutSectionSub>
+      </LayoutSectionSub> */}
     </LayoutSection>
   );
 };

@@ -6,7 +6,7 @@ import { useRouter } from 'hooks/useRouter';
 import { StyleProps } from 'types/general';
 import { cn } from 'utils/general';
 
-interface SideBarItem {
+interface SideBarItem extends StyleProps {
   label: string;
   href: string;
   svg: React.FC<{ className?: string }>;
@@ -29,23 +29,23 @@ export const SideBar = ({ className, items, collapse }: SideBarProps) => {
         className,
       )}
     >
-      {items?.map((item, index) => {
-        const Svg = item.svg;
+      {items?.map(({ svg: Svg, href, label, divider, className }, index) => {
+        const isActive = pathname === href;
 
-        const isActive = pathname.includes(item.href);
         return (
           <Fragment key={index}>
-            {item.divider && <hr className="w-full border-gray-700" />}
+            {divider && <hr className="w-full border-gray-700" />}
 
             <Link
               className={cn(
                 'flex items-center w-full h-12 px-3 mt-2 rounded hover:bg-gray-700 hover:text-gray-300',
                 { ['bg-gray-600 text-gray-200']: isActive },
+                className,
               )}
-              to={item.href}
+              to={href}
             >
               <Svg className="w-6 h-6 stroke-current" />
-              {!collapse && <span className="ml-2 text-sm font-medium">{item.label}</span>}
+              {!collapse && <span className="ml-2 text-sm font-medium">{label}</span>}
             </Link>
           </Fragment>
         );

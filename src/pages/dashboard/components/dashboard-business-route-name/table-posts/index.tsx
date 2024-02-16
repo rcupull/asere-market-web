@@ -29,7 +29,7 @@ export const TablePosts = ({ business }: TablePostsProps) => {
 
   useEffect(() => {
     onRefresh();
-  }, []);
+  }, [routeName]);
 
   const onRefresh = () => getAllUserPosts.fetch({ routeNames: [routeName] });
 

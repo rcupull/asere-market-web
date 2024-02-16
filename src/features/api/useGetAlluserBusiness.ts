@@ -1,3 +1,5 @@
+import { useApiSlice } from 'features/slices/useApiSlice';
+
 import { useFetch } from 'hooks/useFetch';
 
 import { useAuthSignIn } from './useAuthSignIn';
@@ -14,7 +16,9 @@ export const useGetAllUserBusiness = (): {
     Business
   >;
 } => {
-  const fetch = useFetch<PaginatedData<Business>>();
+  const fetchBase = useFetch<PaginatedData<Business>>();
+
+  const fetch = useApiSlice(fetchBase, 'useGetAllUserBusiness');
 
   const { authData } = useAuthSignIn();
 
@@ -31,7 +35,8 @@ export const useGetAllUserBusiness = (): {
             url: getEndpoint({
               path: '/user/:userId/business',
               urlParams: { userId },
-              query: { routeName, ...filters },
+              //(pagination: false) fetch all business by default
+              query: { pagination: false, routeName, ...filters },
             }),
           },
           options,

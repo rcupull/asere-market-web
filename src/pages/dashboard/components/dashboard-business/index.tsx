@@ -1,5 +1,3 @@
-import { useEffect } from 'react';
-
 import { ButtonNew } from 'components/button-new';
 import { ButtonRefresh } from 'components/button-refresh';
 import { Table } from 'components/table';
@@ -29,10 +27,6 @@ export const DashboardBusiness = () => {
   const onRefresh = () => getAllUserBussiness.fetch({});
 
   const { isNotValidBussinessCountByUser } = useGetUserPaymentPlan();
-
-  useEffect(() => {
-    onRefresh();
-  }, []);
 
   const hiddenBusinessControl = useHiddenBusinessControl({
     onRefresh,
