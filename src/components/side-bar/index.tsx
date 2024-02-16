@@ -11,6 +11,7 @@ interface SideBarItem extends StyleProps {
   href: string;
   svg: React.FC<{ className?: string }>;
   divider?: boolean;
+  endElement?: React.ReactNode
 }
 
 export interface SideBarProps extends StyleProps {
@@ -29,7 +30,7 @@ export const SideBar = ({ className, items, collapse }: SideBarProps) => {
         className,
       )}
     >
-      {items?.map(({ svg: Svg, href, label, divider, className }, index) => {
+      {items?.map(({ svg: Svg, href, label, divider, className, endElement }, index) => {
         const isActive = pathname === href;
 
         return (
@@ -46,6 +47,8 @@ export const SideBar = ({ className, items, collapse }: SideBarProps) => {
             >
               <Svg className="w-6 h-6 stroke-current" />
               {!collapse && <span className="ml-2 text-sm font-medium">{label}</span>}
+
+              {endElement}
             </Link>
           </Fragment>
         );
