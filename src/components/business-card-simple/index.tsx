@@ -1,38 +1,36 @@
-import { CameraIcon } from '@heroicons/react/24/outline';
 import { Link } from 'react-router-dom';
 
-import { BusinessCategory } from 'types/business';
+import { EmptyImage } from 'components/empty-image';
+
+import { Business } from 'types/business';
+import { StyleProps } from 'types/general';
 import { getBusinessCategoryLabel } from 'utils/business';
 import { cn } from 'utils/general';
-export interface BusinessCardSimpleProps {
-  className?: string;
+export interface BusinessCardSimpleProps extends StyleProps {
+  business: Business;
   href: string;
-  imageSrc?: string;
-  imageAlt?: string;
-  category: BusinessCategory;
-  name: string;
+  getImageSrc?: (src: string) => string;
 }
 
 export const BusinessCardSimple = ({
+  business,
+  getImageSrc,
   className,
-  imageSrc,
-  imageAlt,
   href,
-  name,
-  category,
 }: BusinessCardSimpleProps) => {
+  const { category, name, bannerImages } = business;
+
+  const image = bannerImages?.[0];
+  const imageSrc = (image && getImageSrc?.(image.src)) || image?.src;
+
   return (
     <Link data-id="ProductSimple" className={cn('group', className)} to={href}>
-      <div className="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-lg bg-gray-200 xl:aspect-h-8 xl:aspect-w-7 flex items-center justify-center">
+      <div className="h-80 overflow-hidden rounded-lg bg-gray-100 flex items-center justify-center">
         {imageSrc ? (
-          <img
-            src={imageSrc}
-            alt={imageAlt}
-            className="h-full w-full object-cover object-center group-hover:opacity-75"
-          />
+          <img src={imageSrc} className="object-contain object-center group-hover:opacity-75" />
         ) : (
           <div className="flex items-center justify-center h-64 w-64">
-            <CameraIcon className="h-32 w-32 text-gray-400" />
+            <EmptyImage className="h-32 w-32" />
           </div>
         )}
       </div>

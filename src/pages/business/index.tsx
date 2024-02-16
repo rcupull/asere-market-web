@@ -10,6 +10,7 @@ import { LayoutPage } from 'pages/@common/layout-page';
 import { LayoutPageSection } from 'pages/@common/layout-page-section';
 import { SearchFilter } from 'pages/@common/search-filter';
 import { AnyRecord } from 'types/general';
+import { getImageEndpoint } from 'utils/api';
 import { getBusinessRoute } from 'utils/business';
 
 export const Business = () => {
@@ -33,13 +34,13 @@ export const Business = () => {
         </div>
 
         <CardGroup className="mt-6">
-          {getAllBusiness.data?.map(({ name, category, routeName }, index) => {
+          {getAllBusiness.data?.map((business, index) => {
             return (
               <BusinessCardSimple
                 key={index}
-                href={getBusinessRoute({ routeName })}
-                name={name}
-                category={category}
+                business={business}
+                href={getBusinessRoute({ routeName: business.routeName })}
+                getImageSrc={getImageEndpoint}
               />
             );
           })}

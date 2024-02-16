@@ -1,6 +1,7 @@
-import { PhotoIcon, PlusIcon, TrashIcon } from '@heroicons/react/24/outline';
+import { PlusIcon, TrashIcon } from '@heroicons/react/24/outline';
 import { forwardRef, useEffect, useMemo, useState } from 'react';
 
+import { EmptyImage } from 'components/empty-image';
 import { FormFieldWrapper, FormFieldWrapperProps } from 'components/form-field-wrapper';
 import { ProLink } from 'components/pro-link';
 
@@ -126,11 +127,7 @@ export const FieldInputImages = forwardRef<HTMLInputElement, FieldInputImagesPro
                     <img src={getImageSrc(image)} className="h-full w-full" />
                   ) : (
                     <div className="relative h-full w-full text-gray-500">
-                      <PhotoIcon
-                        key={index}
-                        className="h-full w-full text-gray-300"
-                        aria-hidden="true"
-                      />
+                      <EmptyImage key={index} className="h-full w-full" />
                       <PlusIcon className="h-4 w-4 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-gray-600 font-bold" />
                     </div>
                   )}
@@ -165,7 +162,10 @@ export const FieldInputImages = forwardRef<HTMLInputElement, FieldInputImagesPro
         >
           {previewImage ? (
             <>
-              <img  src={previewImage} className="object-contain w-full h-full border-2 p-2 border-dashed border-gray-300" />
+              <img
+                src={previewImage}
+                className="object-contain w-full h-full border-2 p-2 border-dashed border-gray-300"
+              />
               <div
                 className="!absolute top-1 right-1 flex items-center justify-center cursor-pointer bg-gray-200 p-2 hover:bg-gray-300 rounded-md text-red-600"
                 onClick={() => {
@@ -178,7 +178,7 @@ export const FieldInputImages = forwardRef<HTMLInputElement, FieldInputImagesPro
           ) : (
             <div className="flex justify-center rounded-lg border border-dashed border-gray-900/25 px-6 py-10">
               <div className="text-center">
-                <PhotoIcon className="mx-auto h-12 w-12 text-gray-300" aria-hidden="true" />
+                <EmptyImage className="mx-auto h-12 w-12 text-gray-300" />
                 <div className="mt-4 flex text-sm leading-6 text-gray-600">
                   <label
                     htmlFor={field.name}

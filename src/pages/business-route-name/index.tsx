@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
 import { CardGroup } from 'components/card-group';
+import { Divider } from 'components/divider';
 import { Pagination } from 'components/pagination';
 import { ProductSimple } from 'components/product/product-simple';
 
@@ -11,6 +12,8 @@ import { useGetOneBusiness } from 'features/api/useGetOneBusiness';
 
 import { useCallFromAfar } from 'hooks/useCallFromAfar';
 import { useFilters } from 'hooks/useFilters';
+
+import { Banner } from './components/banner';
 
 import { updateIds } from 'constants/updateids';
 import { LayoutPage } from 'pages/@common/layout-page';
@@ -41,10 +44,16 @@ export const BusinessRouteName = () => {
     }
   }, []);
 
-  if (!routeName) return <></>;
+  const businnes = getOneBusiness.data;
+
+  if (!routeName || !businnes) return <></>;
 
   return (
     <LayoutPage>
+      <Banner business={businnes} getImageSrc={getImageEndpoint} />
+
+      <Divider />
+
       <LayoutPageSection title="Publicaciones">
         <div className="flex justify-end">
           <SearchFilter
