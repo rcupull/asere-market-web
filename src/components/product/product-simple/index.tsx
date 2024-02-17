@@ -5,7 +5,7 @@ import { IconButtonUpdate } from 'components/icon-button-update';
 
 import { useModal } from 'features/modal/useModal';
 
-import { UpdateId } from 'hooks/useCallFromAfar';
+import { CallAfarResources } from 'hooks/useCallFromAfar';
 
 import { Post } from 'types/post';
 import { cn } from 'utils/general';
@@ -15,7 +15,7 @@ export interface Props {
   href: string;
   enabledUpdate?: boolean;
   getImageUrl?: (src: string) => string;
-  updateId?: UpdateId;
+  callAfarResources?: CallAfarResources;
 }
 
 export const ProductSimple = ({
@@ -24,7 +24,7 @@ export const ProductSimple = ({
   getImageUrl,
   href,
   enabledUpdate,
-  updateId,
+  callAfarResources,
 }: Props) => {
   const { price, name, images, currency } = post;
 
@@ -57,7 +57,7 @@ export const ProductSimple = ({
           <IconButtonUpdate
             onClick={(e) => {
               e.preventDefault();
-              pushModal('PostNew', { postId: post._id, updateId });
+              pushModal('PostNew', { postId: post._id, callAfarResources });
             }}
           />
         )}

@@ -27,10 +27,8 @@ export const SideBar = ({ className }: SideBarProps) => {
   const { pushRoute } = useRouter();
   const business = getAllUserBussiness.data || [];
 
-  useCallFromAfar('dashboard_side_bar', (newBussiness: Business) => {
+  useCallFromAfar('side_bar_redirect_to_last_created_business', (newBussiness: Business) => {
     const { routeName } = newBussiness;
-    getAllUserBussiness.fetch({});
-
     pushRoute(`/dashboard/business/${routeName}`, { tab: 0 }, { timeout: 100 });
   });
 
@@ -47,7 +45,7 @@ export const SideBar = ({ className }: SideBarProps) => {
         e.preventDefault();
 
         pushModal('BusinessNew', {
-          updateId: 'dashboard_side_bar',
+          callAfarResources: ['side_bar_redirect_to_last_created_business', 'getAllUserBussiness'],
         });
       }}
     />

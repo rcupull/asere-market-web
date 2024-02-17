@@ -23,7 +23,7 @@ export const Home = () => {
     onChange: (filters) => getAllPosts.fetch({ filters }),
   });
 
-  useCallFromAfar('home', filters.onRefresh);
+  useCallFromAfar('home_refresh_posts', filters.onRefresh);
 
   return (
     <LayoutPage>
@@ -47,7 +47,7 @@ export const Home = () => {
                 href={getPostRoute({ routeName, postId: _id })}
                 getImageUrl={getImageEndpoint}
                 enabledUpdate={isUserOwnerOfRoute(routeName)}
-                updateId="home"
+                callAfarResources="home_refresh_posts"
               />
             );
           })}

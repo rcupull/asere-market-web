@@ -33,9 +33,8 @@ export const BusinessRouteName = () => {
     onChange: (filters) => routeName && getAllPosts.fetch({ routeNames: [routeName], filters }),
   });
 
-  const onRefresh = () => filters.onRefresh();
 
-  useCallFromAfar('business_route_name', onRefresh);
+  useCallFromAfar('business_route_name_refresh_posts', () => filters.onRefresh());
 
   useEffect(() => {
     if (routeName) {
@@ -72,7 +71,7 @@ export const BusinessRouteName = () => {
                 href={getPostRoute({ routeName, postId: _id })}
                 getImageUrl={getImageEndpoint}
                 enabledUpdate={isUserOwnerOfRoute(routeName)}
-                updateId="business_route_name"
+                callAfarResources="business_route_name_refresh_posts"
               />
             );
           })}

@@ -1,6 +1,6 @@
 import { Navigate, Route, Routes } from 'react-router-dom';
 
-import { useAuthenticatedInit } from 'hooks/useAuthenticatedInit';
+import { useInit } from 'hooks/useInit';
 
 import { withAuthenticatedRoute } from './components/autenticated-route';
 
@@ -43,7 +43,7 @@ const DashboardBusinessRouteName = dynamic(() =>
 );
 
 export const App = (): JSX.Element => {
-  useAuthenticatedInit();
+  useInit();
 
   return (
     <LayoutMain>

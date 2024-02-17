@@ -2,22 +2,25 @@ import { useEffect } from 'react';
 
 import { useSimpleSlice } from 'features/slices/useSimpleSlice';
 
-export type UpdateId =
-  | 'home'
+type CallAfarId =
+  | 'home_refresh_posts'
   | 'dashboard_business_route_name_table_posts'
   | 'dashboard_business_table_business'
-  | 'business_route_name'
-  | 'dashboard_side_bar'
-  | 'dashboard_business';
+  | 'business_route_name_refresh_posts'
+  | 'side_bar_redirect_to_last_created_business'
+  | 'getUserPaymentPlan'
+  | 'getAllUserBusinessRouteNames'
+  | 'getAllUserBussiness';
+export type CallAfarResources = CallAfarId | Array<CallAfarId>;
 
 export const useCallFromAfar = (
-  currentId?: UpdateId,
+  currentId?: CallAfarResources,
   callback?: (response?: any) => void,
 ): {
-  onCallAfar: (id?: UpdateId, response?: any) => void;
+  onCallAfar: (callAfarResources?: CallAfarResources, response?: any) => void;
 } => {
   const { data, setData } =
-    useSimpleSlice<Array<{ id: UpdateId; response?: any }>>('useCallFromAfar');
+    useSimpleSlice<Array<{ id: CallAfarResources; response?: any }>>('useCallFromAfar');
 
   const removeCurrentId = () => setData(data.filter(({ id }) => id !== currentId));
 
@@ -31,5 +34,15 @@ export const useCallFromAfar = (
     }
   }, [currentData, callback]);
 
-  return { onCallAfar: (id, response) => id && setData([...data, { id, response }]) };
+  return {
+    onCallAfar: (callAfarResources, response) => {
+      if (!callAfarResources) return;
+
+      if (callAfarResources instanceof Array) {
+        return setData([...data, ...callAfarResources.map((id) => ({ id, response }))]);
+      }
+
+      return setData([...data, { id: callAfarResources, response }]);
+    },
+  };
 };

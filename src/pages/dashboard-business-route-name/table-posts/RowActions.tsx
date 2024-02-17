@@ -8,7 +8,7 @@ import { IconButtonView } from 'components/icon-button-view';
 import { useRemoveOneUserPost } from 'features/api/useRemoveOneUserPost';
 import { useModal } from 'features/modal/useModal';
 
-import { UpdateId, useCallFromAfar } from 'hooks/useCallFromAfar';
+import { CallAfarResources, useCallFromAfar } from 'hooks/useCallFromAfar';
 import { HiddenPostControl } from 'hooks/useHiddenPostsControl';
 import { useRouter } from 'hooks/useRouter';
 
@@ -19,12 +19,12 @@ import { getPostRoute } from 'utils/business';
 export interface RowActionsProps {
   rowData: Post;
   routeName: string;
-  updateId?: UpdateId;
+  callAfarResources?: CallAfarResources;
   hiddenPostControl: HiddenPostControl;
 }
 export const RowActions = ({
   rowData,
-  updateId,
+  callAfarResources,
   routeName,
   hiddenPostControl,
 }: RowActionsProps) => {
@@ -52,7 +52,7 @@ export const RowActions = ({
                       onAfterSuccess: () => {
                         onClose();
 
-                        onCallAfar(updateId);
+                        onCallAfar(callAfarResources);
                       },
                     },
                   )
@@ -70,7 +70,7 @@ export const RowActions = ({
     pushModal('PostNew', {
       routeName,
       postId: rowData._id,
-      updateId,
+      callAfarResources,
     });
   };
 

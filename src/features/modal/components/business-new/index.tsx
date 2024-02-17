@@ -9,25 +9,24 @@ import { useAddOneUserBusiness } from 'features/api/useAddOneUserBusiness';
 import { useGetAllBusiness } from 'features/api/useGetAllBusiness';
 import { useModal } from 'features/modal/useModal';
 
-import { UpdateId, useCallFromAfar } from 'hooks/useCallFromAfar';
+import { CallAfarResources, useCallFromAfar } from 'hooks/useCallFromAfar';
 import { useDebouncer } from 'hooks/useDebouncer';
 import { useGetFormErrors } from 'hooks/useGetFormErrors';
 import { useSubmitPortal } from 'hooks/useSubmitPortal';
 
 import { Formik } from 'formik';
 import { FormRouteName } from 'pages/@common/form-route-name';
-import { Business, BusinessCategory } from 'types/business';
+import { BusinessCategory } from 'types/business';
 import { getBusinessCategoryLabel, getRouteName } from 'utils/business';
 
 export interface BusinessNewProps {
-  updateId?: UpdateId;
+  callAfarResources?: CallAfarResources;
 }
 
-export const BusinessNew = ({ updateId }: BusinessNewProps) => {
+export const BusinessNew = ({ callAfarResources }: BusinessNewProps) => {
   const { onClose } = useModal();
 
   const { onCallAfar } = useCallFromAfar();
-  const onRefresh = (newBussiness: Business) => onCallAfar(updateId, newBussiness);
 
   const { getAllBusiness } = useGetAllBusiness();
 
@@ -143,7 +142,7 @@ export const BusinessNew = ({ updateId }: BusinessNewProps) => {
                     {
                       onAfterSuccess: (response) => {
                         onClose();
-                        onRefresh(response);
+                        onCallAfar(callAfarResources, response);
                       },
                     },
                   );
