@@ -1,3 +1,5 @@
+import { MagnifyingGlassIcon , XCircleIcon} from '@heroicons/react/24/solid';
+
 import { Button } from 'components/button';
 import { FieldInput } from 'components/field-input';
 
@@ -17,7 +19,7 @@ export const SearchFilter = ({ isBusy, onChange, className, value }: SearchFilte
   const clearBtnPortal = useSubmitPortal();
 
   return (
-    <div className={cn('flex items-center', className)}>
+    <div className={cn('flex items-center w-full sm:w-fit ', className)}>
       <Formik
         enableReinitialize
         initialValues={{
@@ -27,32 +29,37 @@ export const SearchFilter = ({ isBusy, onChange, className, value }: SearchFilte
       >
         {({ handleChange, values, handleReset }) => {
           return (
-            <form>
-              <FieldInput name="search" onChange={handleChange} className="w-64" />
+            <form className='flex w-full'>
+              <FieldInput name="search" onChange={handleChange} className="w-full sm:w-64 mr-auto" />
 
               {submitBtnPortal.getPortal(
-                <Button
-                  label="Buscar"
-                  isBusy={isBusy}
-                  value={value}
+                <div
+                  className="ml-2"
                   onClick={() => {
                     onChange?.(values.search);
                   }}
-                  variant="primary"
-                  className="ml-2"
-                />,
+                >
+                  <Button
+                    label="Buscar"
+                    isBusy={isBusy}
+                    value={value}
+                    variant="primary"
+                    className="hidden sm:block"
+                  />
+                  <MagnifyingGlassIcon className="sm:hidden h-8 w-8 rounded-full p-1 text-indigo-500 cursor-pointer hover:bg-gray-100" />
+                </div>,
               )}
 
               {clearBtnPortal.getPortal(
-                <Button
-                  label="Limpiar"
+                <div className='ml-2'
                   onClick={() => {
                     handleReset();
                     onChange?.(undefined);
                   }}
-                  variant="outlined"
-                  className="ml-2"
-                />,
+                >
+                  <Button label="Limpiar" variant="outlined" className="hidden sm:block" />
+                  <XCircleIcon className="sm:hidden h-8 w-8 rounded-full p-1 text-red-500 cursor-pointer hover:bg-gray-100" />
+                </div>,
               )}
             </form>
           );

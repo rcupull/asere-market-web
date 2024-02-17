@@ -81,7 +81,7 @@ export const App = (): JSX.Element => {
         />
 
         <Route
-          path="/dashboard/settings"
+          path="/settings"
           element={withAuthenticatedRoute(<DashboardSettings />, ['user'])}
         />
 

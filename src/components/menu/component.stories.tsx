@@ -10,7 +10,7 @@ export const Default = (): JSX.Element => (
       className="ml-auto"
       buttonElement="Click me"
       items={[
-        { label: ' Your Profile', href: '/profile' },
+        { label: 'Your Profile', href: '/profile' },
         { label: 'Settings', href: '/settings' },
         { label: 'Sign out', href: '/signout' },
       ]}

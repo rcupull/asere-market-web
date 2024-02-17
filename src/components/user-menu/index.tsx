@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 
 import { Menu } from 'components/menu';
+import { UserAvatar } from 'components/user-avatar';
 
 import { useAuthSignIn } from 'features/api/useAuthSignIn';
 
@@ -12,11 +13,10 @@ interface MenuItem {
 
 export interface Props {
   className?: string;
-  imageSrc?: string;
   items?: Array<MenuItem>;
 }
 
-export const UserMenu = ({ className, imageSrc, items }: Props) => {
+export const UserMenu = ({ className, items }: Props) => {
   const { authData } = useAuthSignIn();
 
   if (!authData) {
@@ -33,13 +33,7 @@ export const UserMenu = ({ className, imageSrc, items }: Props) => {
 
   return (
     <Menu
-      buttonElement={
-        <>
-          <span className="absolute -inset-1.5" />
-          <span className="sr-only">Open user menu</span>
-          <img className="h-8 w-8 rounded-full" src={imageSrc} alt="" />
-        </>
-      }
+      buttonElement={<UserAvatar />}
       headerElement={
         <div className="px-2 py-3 flex flex-col items-center border">
           <span className="text-sm border px-2 py-1 rounded-2xl">{name}</span>

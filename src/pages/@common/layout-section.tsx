@@ -20,7 +20,7 @@ export const LayoutSection = ({
       <div className="flex items-center justify-between">
         {backButton && <BackButton />}
 
-        <div className="flex flex-1 items-end sm:items-center justify-between flex-col sm:flex-row">
+        <div className="flex w-full items-end sm:items-center justify-between">
           {title && (
             <h1
               className={cn('text-xl sm:text-2xl font-semibold my-1', {
@@ -31,7 +31,7 @@ export const LayoutSection = ({
             </h1>
           )}
 
-          {topRightHeader}
+          <div className="ml-auto">{topRightHeader}</div>
         </div>
       </div>
 

@@ -1,14 +1,21 @@
 import {
   BookmarkIcon,
+  BuildingLibraryIcon,
+  CodeBracketIcon,
   Cog8ToothIcon,
+  CurrencyDollarIcon,
   EyeIcon,
   EyeSlashIcon,
+  HomeIcon,
   PlusCircleIcon,
+  UserCircleIcon,
 } from '@heroicons/react/24/outline';
 
 import { ProLink } from 'components/pro-link';
 import { SideBar as SideBarBase } from 'components/side-bar';
 
+import { useAuthSignIn } from 'features/api/useAuthSignIn';
+import { useAuthSignOut } from 'features/api/useAuthSignOut';
 import { useGetAllUserBusiness } from 'features/api/useGetAllUserBusiness';
 import { useGetUserPaymentPlan } from 'features/api/useGetUserPaymentPlan';
 import { useModal } from 'features/modal/useModal';
@@ -25,6 +32,8 @@ export const SideBar = ({ className }: SideBarProps) => {
   const { getAllUserBussiness } = useGetAllUserBusiness();
   const { pushModal } = useModal();
   const { pushRoute } = useRouter();
+  const { isAdmin } = useAuthSignIn();
+  const { authSignOut } = useAuthSignOut();
   const business = getAllUserBussiness.data || [];
 
   useCallFromAfar('side_bar_redirect_to_last_created_business', (newBussiness: Business) => {
@@ -55,8 +64,23 @@ export const SideBar = ({ className }: SideBarProps) => {
     <SideBarBase
       className={className}
       items={[
+        { label: 'Home', href: '/', svg: HomeIcon, className: 'sm:hidden' },
         {
-          label: 'Negocios',
+          label: 'Todas las tiendas',
+          href: '/business',
+          svg: BuildingLibraryIcon,
+          className: 'sm:hidden',
+        },
+        {
+          label: 'Precios',
+          href: '/payment-plans',
+          svg: CurrencyDollarIcon,
+          className: 'sm:hidden',
+        },
+        { label: 'Quienes somos', href: '/about-us', svg: UserCircleIcon, className: 'sm:hidden' },
+        isAdmin && { label: 'Admin', href: '/admin', svg: CodeBracketIcon, className: 'sm:hidden' },
+        {
+          label: 'Mis negocios',
           href: '/dashboard/business',
           svg: BookmarkIcon,
           endElement: needPremium ? <ProLink className="ml-auto h-6" /> : addNewBusinessButton,
@@ -74,8 +98,15 @@ export const SideBar = ({ className }: SideBarProps) => {
         }),
         {
           label: 'Settings',
-          href: '/dashboard/settings',
+          href: '/settings',
           svg: Cog8ToothIcon,
+          className: 'sm:hidden',
+        },
+        {
+          label: 'Cerrar sesión',
+          svg: Cog8ToothIcon,
+          onClick: () => authSignOut.fetch(undefined),
+          className: 'sm:hidden',
         },
       ]}
     />
