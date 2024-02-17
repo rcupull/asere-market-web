@@ -4,4 +4,5 @@ export const updateIds = {
   dashboard_business_table_business: 'dashboard_business_table_business',
   business_route_name: 'business_route_name',
   dashboard_side_bar: 'dashboard_side_bar',
+  dashboard_business: 'dashboard_business',
 };

@@ -7,6 +7,9 @@ import { useGetOneUserBusiness } from 'features/api/useGetOneUserBusiness';
 import { useRouter } from 'hooks/useRouter';
 
 import { BannerImages } from './banner-images';
+import { Loading } from './loading';
+import { NotFound } from './no-found';
+import { OptionsMenu } from './options-menu';
 import { TablePosts } from './table-posts';
 
 import { LayoutSection } from 'pages/@common/layout-section';
@@ -33,6 +36,15 @@ export const DashboardBusinessRouteName = () => {
   }, []);
 
   const business = getOneUserBusiness.data;
+  const { isBusy, isFailed, wasCalled } = getOneUserBusiness.status;
+
+  if (isBusy) {
+    return <Loading />;
+  }
+
+  if (isFailed && wasCalled) {
+    return <NotFound />;
+  }
 
   if (!business) {
     return <></>;
@@ -40,20 +52,31 @@ export const DashboardBusinessRouteName = () => {
 
   const { name, hidden } = business;
 
-  const hiddenBusinessElement = (
-    <div className="text-red-500 ring-1 ring-red-400 rounded-3xl px-2 py-1/2 text-sm sm:text-lg">
-      Este negocio no está visible
-    </div>
-  );
-
   return (
-    <LayoutSection title={name} backButton topRightHeader={hidden && hiddenBusinessElement}>
+    <LayoutSection
+      title={name}
+      topRightHeader={
+        <div className="flex items-center gap-6">
+          {hidden && (
+            <div className="text-red-500 ring-1 ring-red-400 rounded-3xl px-2 py-1/2 text-sm sm:text-lg">
+              Oculto
+            </div>
+          )}
+
+          <OptionsMenu
+            business={business}
+            onRefresh={() => routeName && onGetBussiness(routeName)}
+          />
+        </div>  
+      }
+    >
       <Tabs
+        className="mt-4"
         onSelect={(selectedTab) => onChangeQuery({ tab: selectedTab })}
         selected={tab as number | undefined}
         items={[
           {
-            label: 'Post',
+            label: 'Publicaciones',
             content: <TablePosts business={business} />,
           },
           {
@@ -62,14 +85,6 @@ export const DashboardBusinessRouteName = () => {
           },
         ]}
       />
-
-      {/* <LayoutSectionSub title="Publicaciones">
-        <TablePosts business={business} />
-      </LayoutSectionSub>
-
-      <LayoutSectionSub title="Imágenes del banner">
-        <BannerImages business={business} />
-      </LayoutSectionSub> */}
     </LayoutSection>
   );
 };
