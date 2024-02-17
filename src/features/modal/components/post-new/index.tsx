@@ -6,7 +6,7 @@ import { Modal } from 'components/modal';
 
 import { useGetOneUserPost } from 'features/api/useGetOneUserPost';
 
-import { useCallFromAfar } from 'hooks/useCallFromAfar';
+import { UpdateId, useCallFromAfar } from 'hooks/useCallFromAfar';
 import { useSubmitPortal } from 'hooks/useSubmitPortal';
 
 import { FormClothing } from './components/form-clothing';
@@ -14,14 +14,14 @@ import { FormClothing } from './components/form-clothing';
 export interface PostNewProps {
   routeName?: string;
   postId?: string; //only user to update a post
-  updateId?: string;
+  updateId?: UpdateId;
 }
 
 export const PostNew = ({ routeName: routeNameProp, postId, updateId }: PostNewProps) => {
   const submitPortal = useSubmitPortal();
 
-  const { pushId } = useCallFromAfar();
-  const onRefresh = () => pushId(updateId);
+  const { onCallAfar } = useCallFromAfar();
+  const onRefresh = () => onCallAfar(updateId);
 
   /**
    *

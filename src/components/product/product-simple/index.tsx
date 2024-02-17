@@ -5,6 +5,8 @@ import { IconButtonUpdate } from 'components/icon-button-update';
 
 import { useModal } from 'features/modal/useModal';
 
+import { UpdateId } from 'hooks/useCallFromAfar';
+
 import { Post } from 'types/post';
 import { cn } from 'utils/general';
 export interface Props {
@@ -13,7 +15,7 @@ export interface Props {
   href: string;
   enabledUpdate?: boolean;
   getImageUrl?: (src: string) => string;
-  updateId?: string;
+  updateId?: UpdateId;
 }
 
 export const ProductSimple = ({

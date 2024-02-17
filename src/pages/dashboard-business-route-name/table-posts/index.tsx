@@ -13,7 +13,6 @@ import { useHiddenPostControl } from 'hooks/useHiddenPostsControl';
 
 import { RowActions } from './RowActions';
 
-import { updateIds } from 'constants/updateids';
 import { TopActions } from 'pages/@common/top-actions';
 import { Business } from 'types/business';
 import { getDateString } from 'utils/date';
@@ -40,7 +39,7 @@ export const TablePosts = ({ business }: TablePostsProps) => {
 
   const { isNotValidPostsCountByBussines } = useGetUserPaymentPlan();
 
-  useCallFromAfar(updateIds.dashboard_business_route_name_table_posts, onRefresh);
+  useCallFromAfar('dashboard_business_route_name_table_posts', onRefresh);
 
   return (
     <>
@@ -52,7 +51,7 @@ export const TablePosts = ({ business }: TablePostsProps) => {
           onClick={() =>
             pushModal('PostNew', {
               routeName,
-              updateId: updateIds.dashboard_business_route_name_table_posts,
+              updateId: 'dashboard_business_route_name_table_posts',
             })
           }
           className="ml-auto"
@@ -76,7 +75,7 @@ export const TablePosts = ({ business }: TablePostsProps) => {
                 rowData={rowData}
                 routeName={routeName}
                 hiddenPostControl={hiddenPostControl}
-                updateId={updateIds.dashboard_business_route_name_table_posts}
+                updateId="dashboard_business_route_name_table_posts"
               />,
               name,
               description,

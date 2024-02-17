@@ -8,7 +8,7 @@ import { IconButtonView } from 'components/icon-button-view';
 import { useRemoveOneUserPost } from 'features/api/useRemoveOneUserPost';
 import { useModal } from 'features/modal/useModal';
 
-import { useCallFromAfar } from 'hooks/useCallFromAfar';
+import { UpdateId, useCallFromAfar } from 'hooks/useCallFromAfar';
 import { HiddenPostControl } from 'hooks/useHiddenPostsControl';
 import { useRouter } from 'hooks/useRouter';
 
@@ -19,7 +19,7 @@ import { getPostRoute } from 'utils/business';
 export interface RowActionsProps {
   rowData: Post;
   routeName: string;
-  updateId?: string;
+  updateId?: UpdateId;
   hiddenPostControl: HiddenPostControl;
 }
 export const RowActions = ({
@@ -38,7 +38,7 @@ export const RowActions = ({
         useProps: () => {
           const { removeOneUserPost } = useRemoveOneUserPost();
           const { onClose } = useModal();
-          const { pushId } = useCallFromAfar();
+          const { onCallAfar } = useCallFromAfar();
           return {
             content: 'Seguro que desea eliminar este post?',
             badge: <Badge variant="error" />,
@@ -52,7 +52,7 @@ export const RowActions = ({
                       onAfterSuccess: () => {
                         onClose();
 
-                        pushId(updateId);
+                        onCallAfar(updateId);
                       },
                     },
                   )

@@ -9,7 +9,6 @@ import { useGetAllUserBusinessRouteNames } from 'features/api/useGetAllUserBusin
 import { useCallFromAfar } from 'hooks/useCallFromAfar';
 import { useFilters } from 'hooks/useFilters';
 
-import { updateIds } from 'constants/updateids';
 import { LayoutPage } from 'pages/@common/layout-page';
 import { LayoutPageSection } from 'pages/@common/layout-page-section';
 import { SearchFilter } from 'pages/@common/search-filter';
@@ -24,7 +23,7 @@ export const Home = () => {
     onChange: (filters) => getAllPosts.fetch({ filters }),
   });
 
-  useCallFromAfar(updateIds.home, filters.onRefresh);
+  useCallFromAfar('home', filters.onRefresh);
 
   return (
     <LayoutPage>
@@ -48,7 +47,7 @@ export const Home = () => {
                 href={getPostRoute({ routeName, postId: _id })}
                 getImageUrl={getImageEndpoint}
                 enabledUpdate={isUserOwnerOfRoute(routeName)}
-                updateId={updateIds.home}
+                updateId="home"
               />
             );
           })}

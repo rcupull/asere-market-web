@@ -15,7 +15,6 @@ import { useFilters } from 'hooks/useFilters';
 
 import { Banner } from './components/banner';
 
-import { updateIds } from 'constants/updateids';
 import { LayoutPage } from 'pages/@common/layout-page';
 import { LayoutPageSection } from 'pages/@common/layout-page-section';
 import { SearchFilter } from 'pages/@common/search-filter';
@@ -36,7 +35,7 @@ export const BusinessRouteName = () => {
 
   const onRefresh = () => filters.onRefresh();
 
-  useCallFromAfar(updateIds.business_route_name, onRefresh);
+  useCallFromAfar('business_route_name', onRefresh);
 
   useEffect(() => {
     if (routeName) {
@@ -73,7 +72,7 @@ export const BusinessRouteName = () => {
                 href={getPostRoute({ routeName, postId: _id })}
                 getImageUrl={getImageEndpoint}
                 enabledUpdate={isUserOwnerOfRoute(routeName)}
-                updateId={updateIds.business_route_name}
+                updateId="business_route_name"
               />
             );
           })}

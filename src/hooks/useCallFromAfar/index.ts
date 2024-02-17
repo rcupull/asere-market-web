@@ -2,14 +2,22 @@ import { useEffect } from 'react';
 
 import { useSimpleSlice } from 'features/slices/useSimpleSlice';
 
+export type UpdateId =
+  | 'home'
+  | 'dashboard_business_route_name_table_posts'
+  | 'dashboard_business_table_business'
+  | 'business_route_name'
+  | 'dashboard_side_bar'
+  | 'dashboard_business';
+
 export const useCallFromAfar = (
-  currentId?: string,
+  currentId?: UpdateId,
   callback?: (response?: any) => void,
 ): {
-  pushId: (id?: string, response?: any) => void;
+  onCallAfar: (id?: UpdateId, response?: any) => void;
 } => {
   const { data, setData } =
-    useSimpleSlice<Array<{ id: string; response?: any }>>('useCallFromAfar');
+    useSimpleSlice<Array<{ id: UpdateId; response?: any }>>('useCallFromAfar');
 
   const removeCurrentId = () => setData(data.filter(({ id }) => id !== currentId));
 
@@ -23,5 +31,5 @@ export const useCallFromAfar = (
     }
   }, [currentData, callback]);
 
-  return { pushId: (id, response) => id && setData([...data, { id, response }]) };
+  return { onCallAfar: (id, response) => id && setData([...data, { id, response }]) };
 };

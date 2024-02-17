@@ -9,7 +9,7 @@ import { useAddOneUserBusiness } from 'features/api/useAddOneUserBusiness';
 import { useGetAllBusiness } from 'features/api/useGetAllBusiness';
 import { useModal } from 'features/modal/useModal';
 
-import { useCallFromAfar } from 'hooks/useCallFromAfar';
+import { UpdateId, useCallFromAfar } from 'hooks/useCallFromAfar';
 import { useDebouncer } from 'hooks/useDebouncer';
 import { useGetFormErrors } from 'hooks/useGetFormErrors';
 import { useSubmitPortal } from 'hooks/useSubmitPortal';
@@ -20,14 +20,14 @@ import { Business, BusinessCategory } from 'types/business';
 import { getBusinessCategoryLabel, getRouteName } from 'utils/business';
 
 export interface BusinessNewProps {
-  updateId?: string;
+  updateId?: UpdateId;
 }
 
 export const BusinessNew = ({ updateId }: BusinessNewProps) => {
   const { onClose } = useModal();
 
-  const { pushId } = useCallFromAfar();
-  const onRefresh = (newBussiness: Business) => pushId(updateId, newBussiness);
+  const { onCallAfar } = useCallFromAfar();
+  const onRefresh = (newBussiness: Business) => onCallAfar(updateId, newBussiness);
 
   const { getAllBusiness } = useGetAllBusiness();
 

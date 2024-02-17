@@ -8,8 +8,6 @@ import { useModal } from 'features/modal/useModal';
 import { useCallFromAfar } from 'hooks/useCallFromAfar';
 import { useRouter } from 'hooks/useRouter';
 
-import { updateIds } from 'constants/updateids';
-
 export const DashboardBusiness = () => {
   const { getAllUserBussiness } = useGetAllUserBusiness();
 
@@ -17,7 +15,7 @@ export const DashboardBusiness = () => {
   const { pathname } = useRouter();
   const firstBusiness = getAllUserBussiness.data?.[0];
 
-  useCallFromAfar(updateIds.dashboard_business, () => {
+  useCallFromAfar('dashboard_business', () => {
     getAllUserBussiness.fetch({});
   });
 
@@ -31,7 +29,7 @@ export const DashboardBusiness = () => {
       <ButtonNew
         className="mt-6"
         label="Crear mi primer negocio"
-        onClick={() => pushModal('BusinessNew', { updateId: updateIds.dashboard_business })}
+        onClick={() => pushModal('BusinessNew', { updateId: 'dashboard_business' })}
       />
     </div>
   );

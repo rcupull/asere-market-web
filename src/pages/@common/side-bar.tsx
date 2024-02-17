@@ -16,7 +16,6 @@ import { useModal } from 'features/modal/useModal';
 import { useCallFromAfar } from 'hooks/useCallFromAfar';
 import { useRouter } from 'hooks/useRouter';
 
-import { updateIds } from 'constants/updateids';
 import { Business } from 'types/business';
 import { StyleProps } from 'types/general';
 
@@ -28,7 +27,7 @@ export const SideBar = ({ className }: SideBarProps) => {
   const { pushRoute } = useRouter();
   const business = getAllUserBussiness.data || [];
 
-  useCallFromAfar(updateIds.dashboard_side_bar, (newBussiness: Business) => {
+  useCallFromAfar('dashboard_side_bar', (newBussiness: Business) => {
     const { routeName } = newBussiness;
     getAllUserBussiness.fetch({});
 
@@ -48,7 +47,7 @@ export const SideBar = ({ className }: SideBarProps) => {
         e.preventDefault();
 
         pushModal('BusinessNew', {
-          updateId: updateIds.dashboard_side_bar,
+          updateId: 'dashboard_side_bar',
         });
       }}
     />
