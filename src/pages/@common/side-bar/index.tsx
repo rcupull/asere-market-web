@@ -20,9 +20,9 @@ import { updateIds } from 'constants/updateids';
 import { Business } from 'types/business';
 import { StyleProps } from 'types/general';
 
-export interface DashboardSideBarProps extends StyleProps {}
+export interface SideBarProps extends StyleProps {}
 
-export const DashboardSideBar = ({ className }: DashboardSideBarProps) => {
+export const SideBar = ({ className }: SideBarProps) => {
   const { getAllUserBussiness } = useGetAllUserBusiness();
   const { pushModal } = useModal();
   const { pushRoute } = useRouter();

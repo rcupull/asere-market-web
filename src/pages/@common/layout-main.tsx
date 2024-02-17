@@ -2,17 +2,32 @@ import { Popover } from '@headlessui/react';
 
 import { Button } from 'components/button';
 
-import { ChildrenProp } from 'types/general';
+import { useRouter } from 'hooks/useRouter';
 
-export interface DashboardLayoutProps extends ChildrenProp {
+import { ChildrenProp } from 'types/general';
+import { cn } from 'utils/general';
+
+export interface LayoutMainProps extends ChildrenProp {
   sideBar: React.ReactNode;
 }
 
-export const LayoutDashboard = ({ sideBar, children }: DashboardLayoutProps): JSX.Element => {
-  const smSideBar = <div className="w-64 hidden sm:block h-screen">{sideBar}</div>;
+export const LayoutMain = ({ sideBar, children }: LayoutMainProps): JSX.Element => {
+  const { pathname } = useRouter();
+
+  const isDashboard = pathname.includes('dashboard');
+
+  const smSideBar = (
+    <div
+      className={cn('min-w-64 hidden h-screen', {
+        'sm:block': isDashboard,
+      })}
+    >
+      {sideBar}
+    </div>
+  );
 
   const xsSideBar = (
-    <Popover className="relative sm:hidden">
+    <Popover className={cn("relative sm:hidden")}>
       {({ open, close }) => {
         return (
           <>
