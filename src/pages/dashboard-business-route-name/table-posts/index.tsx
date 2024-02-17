@@ -14,7 +14,7 @@ import { useHiddenPostControl } from 'hooks/useHiddenPostsControl';
 import { RowActions } from './RowActions';
 
 import { updateIds } from 'constants/updateids';
-import { TopActions } from 'pages/dashboard/components/top-actions';
+import { TopActions } from 'pages/@common/top-actions';
 import { Business } from 'types/business';
 import { getDateString } from 'utils/date';
 

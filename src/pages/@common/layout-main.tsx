@@ -1,17 +1,18 @@
 import { Popover } from '@headlessui/react';
 
 import { Button } from 'components/button';
+import { RootNavBar } from 'components/nav-bar-root';
 
 import { useRouter } from 'hooks/useRouter';
+
+import { SideBar } from './side-bar';
 
 import { ChildrenProp } from 'types/general';
 import { cn } from 'utils/general';
 
-export interface LayoutMainProps extends ChildrenProp {
-  sideBar: React.ReactNode;
-}
+export interface LayoutMainProps extends ChildrenProp {}
 
-export const LayoutMain = ({ sideBar, children }: LayoutMainProps): JSX.Element => {
+export const LayoutMain = ({ children }: LayoutMainProps): JSX.Element => {
   const { pathname } = useRouter();
 
   const isDashboard = pathname.includes('dashboard');
@@ -22,12 +23,12 @@ export const LayoutMain = ({ sideBar, children }: LayoutMainProps): JSX.Element 
         'sm:block': isDashboard,
       })}
     >
-      {sideBar}
+      <SideBar />
     </div>
   );
 
   const xsSideBar = (
-    <Popover className={cn("relative sm:hidden")}>
+    <Popover className={cn('relative sm:hidden')}>
       {({ open, close }) => {
         return (
           <>
@@ -39,7 +40,7 @@ export const LayoutMain = ({ sideBar, children }: LayoutMainProps): JSX.Element 
 
             <Popover.Panel className="absolute z-10">
               <div className="w-64 h-screen" onClick={() => close()}>
-                {sideBar}
+                <SideBar />
               </div>
             </Popover.Panel>
           </>
@@ -49,10 +50,13 @@ export const LayoutMain = ({ sideBar, children }: LayoutMainProps): JSX.Element 
   );
 
   return (
-    <div className="flex">
-      {xsSideBar}
-      {smSideBar}
-      <div className="w-full p-3">{children}</div>
-    </div>
+    <>
+      <RootNavBar />
+      <div className="flex">
+        {xsSideBar}
+        {smSideBar}
+        <div className="w-full p-3">{children}</div>
+      </div>
+    </>
   );
 };

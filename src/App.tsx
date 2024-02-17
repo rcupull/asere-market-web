@@ -3,8 +3,8 @@ import { Navigate, Route, Routes } from 'react-router-dom';
 import { useAuthenticatedInit } from 'hooks/useAuthenticatedInit';
 
 import { withAuthenticatedRoute } from './components/autenticated-route';
-import { Layout } from './layout';
 
+import { LayoutMain } from 'pages/@common/layout-main';
 import { PaymentPlansPurchase } from 'pages/payment-plans-purchase';
 import { dynamic } from 'utils/makeLazy';
 
@@ -17,7 +17,7 @@ const BusinessRouteNamePostId = dynamic(() =>
   import('pages/business-route-name-postId').then((m) => ({ default: m.BusinessRouteNamePostId })),
 );
 const DashboardSettings = dynamic(() =>
-  import('pages/dashboard/components/dashboard-settings').then((m) => ({
+  import('pages/dashboard-settings').then((m) => ({
     default: m.DashboardSettings,
   })),
 );
@@ -32,22 +32,21 @@ const SignIn = dynamic(() => import('pages/sign-in').then((m) => ({ default: m.S
 const SignUp = dynamic(() => import('pages/sign-up').then((m) => ({ default: m.SignUp })));
 const Home = dynamic(() => import('pages/home').then((m) => ({ default: m.Home })));
 const DashboardBusiness = dynamic(() =>
-  import('pages/dashboard/components/dashboard-business').then((m) => ({
+  import('pages/dashboard-business').then((m) => ({
     default: m.DashboardBusiness,
   })),
 );
 const DashboardBusinessRouteName = dynamic(() =>
-  import('pages/dashboard/components/dashboard-business-route-name').then((m) => ({
+  import('pages/dashboard-business-route-name').then((m) => ({
     default: m.DashboardBusinessRouteName,
   })),
 );
-const Dashboard = dynamic(() => import('pages/dashboard').then((m) => ({ default: m.Dashboard })));
 
 export const App = (): JSX.Element => {
   useAuthenticatedInit();
 
   return (
-    <Layout>
+    <LayoutMain>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/sign-in" element={<SignIn />} />
@@ -73,32 +72,17 @@ export const App = (): JSX.Element => {
 
         <Route
           path="/dashboard/business"
-          element={withAuthenticatedRoute(
-            <Dashboard>
-              <DashboardBusiness />
-            </Dashboard>,
-            ['user'],
-          )}
+          element={withAuthenticatedRoute(<DashboardBusiness />, ['user'])}
         />
 
         <Route
           path="/dashboard/business/:routeName"
-          element={withAuthenticatedRoute(
-            <Dashboard>
-              <DashboardBusinessRouteName />
-            </Dashboard>,
-            ['user'],
-          )}
+          element={withAuthenticatedRoute(<DashboardBusinessRouteName />, ['user'])}
         />
 
         <Route
           path="/dashboard/settings"
-          element={withAuthenticatedRoute(
-            <Dashboard>
-              <DashboardSettings />
-            </Dashboard>,
-            ['user'],
-          )}
+          element={withAuthenticatedRoute(<DashboardSettings />, ['user'])}
         />
 
         <Route path="/business" element={<Business />} />
@@ -107,6 +91,6 @@ export const App = (): JSX.Element => {
 
         <Route path="/:routeName/:postId" element={<BusinessRouteNamePostId />} />
       </Routes>
-    </Layout>
+    </LayoutMain>
   );
 };

@@ -9,7 +9,7 @@ import { useUpdateOneUserBusiness } from 'features/api/useUpdateOneUserBusiness'
 
 import { useSubmitPortal } from 'hooks/useSubmitPortal';
 
-import { TopActions } from '../../top-actions';
+import { TopActions } from '../../@common/top-actions';
 
 import { Formik } from 'formik';
 import { Business } from 'types/business';

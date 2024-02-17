@@ -121,7 +121,7 @@ export const OptionsMenu = ({ business, onRefresh }: OptionsMenuProps) => {
         },
         {
           label: 'Ver la pagina',
-          onClick: ()=>pushRoute(`/${routeName}`),
+          onClick: () => pushRoute(`/${routeName}`),
           svg: ArrowTopRightOnSquareIcon,
         },
         {

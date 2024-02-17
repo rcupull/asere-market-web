@@ -67,7 +67,7 @@ export const DashboardBusinessRouteName = () => {
             business={business}
             onRefresh={() => routeName && onGetBussiness(routeName)}
           />
-        </div>  
+        </div>
       }
     >
       <Tabs
