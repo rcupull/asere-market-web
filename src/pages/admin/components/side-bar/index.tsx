@@ -10,7 +10,6 @@ export const SideBar = () => {
           label: 'Home',
           href: '/',
           svg: BellIcon,
-          divider: true,
         },
         {
           label: 'Sign In',
@@ -26,7 +25,6 @@ export const SideBar = () => {
           label: 'Home',
           href: '/',
           svg: BellIcon,
-          divider: true,
         },
         {
           label: 'Sign In',

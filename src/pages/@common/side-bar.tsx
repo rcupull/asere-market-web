@@ -1,4 +1,6 @@
 import {
+  ArrowRightEndOnRectangleIcon,
+  ArrowRightStartOnRectangleIcon,
   BookmarkIcon,
   BuildingLibraryIcon,
   CodeBracketIcon,
@@ -9,10 +11,12 @@ import {
   HomeIcon,
   PlusCircleIcon,
   UserCircleIcon,
+  UserPlusIcon,
 } from '@heroicons/react/24/outline';
 
 import { ProLink } from 'components/pro-link';
 import { SideBar as SideBarBase } from 'components/side-bar';
+import { UserAvatar } from 'components/user-avatar';
 
 import { useAuthSignIn } from 'features/api/useAuthSignIn';
 import { useAuthSignOut } from 'features/api/useAuthSignOut';
@@ -32,7 +36,9 @@ export const SideBar = ({ className }: SideBarProps) => {
   const { getAllUserBussiness } = useGetAllUserBusiness();
   const { pushModal } = useModal();
   const { pushRoute } = useRouter();
-  const { isAdmin } = useAuthSignIn();
+  const { isAdmin, isAuthenticated, authData } = useAuthSignIn();
+
+  const { name } = authData?.user || {};
   const { authSignOut } = useAuthSignOut();
   const business = getAllUserBussiness.data || [];
 
@@ -64,6 +70,17 @@ export const SideBar = ({ className }: SideBarProps) => {
     <SideBarBase
       className={className}
       items={[
+        isAuthenticated && {
+          content: (
+            <div className="flex flex-col items-center mb-2">
+              <UserAvatar className="mt-4 !h-14 !w-14" />
+              <span className="mt-4 text-sm border px-2 py-1 rounded-2xl">{name}</span>
+            </div>
+          ),
+        },
+        isAuthenticated && {
+          divider: true,
+        },
         { label: 'Home', href: '/', svg: HomeIcon, className: 'sm:hidden' },
         {
           label: 'Todas las tiendas',
@@ -80,32 +97,53 @@ export const SideBar = ({ className }: SideBarProps) => {
         { label: 'Quienes somos', href: '/about-us', svg: UserCircleIcon, className: 'sm:hidden' },
         isAdmin && { label: 'Admin', href: '/admin', svg: CodeBracketIcon, className: 'sm:hidden' },
         {
+          divider: true,
+          className: 'sm:hidden',
+        },
+        isAuthenticated && {
           label: 'Mis negocios',
           href: '/dashboard/business',
           svg: BookmarkIcon,
           endElement: needPremium ? <ProLink className="ml-auto h-6" /> : addNewBusinessButton,
         },
-        ...business.map(({ name, routeName, hidden }, index) => {
+        ...business.map(({ name, routeName, hidden }) => {
           const Svg = hidden ? EyeSlashIcon : EyeIcon;
 
-          return {
-            label: name,
-            href: `/dashboard/business/${routeName}`,
-            svg: () => <Svg className="h-6" />,
-            className: 'ml-8',
-            divider: index === 0,
-          };
+          return (
+            isAuthenticated && {
+              label: name,
+              href: `/dashboard/business/${routeName}`,
+              endElement: <Svg className="h-4 ml-auto" />,
+              className: 'pl-10',
+            }
+          );
         }),
-        {
+        isAuthenticated && {
+          divider: true,
+          className: 'sm:hidden',
+        },
+        isAuthenticated && {
           label: 'Settings',
           href: '/settings',
           svg: Cog8ToothIcon,
           className: 'sm:hidden',
         },
-        {
+        isAuthenticated && {
           label: 'Cerrar sesión',
-          svg: Cog8ToothIcon,
+          svg: ArrowRightStartOnRectangleIcon,
           onClick: () => authSignOut.fetch(undefined),
+          className: 'sm:hidden',
+        },
+        !isAuthenticated && {
+          label: 'Registrarse',
+          svg: UserPlusIcon,
+          href: '/sign-up',
+          className: 'sm:hidden',
+        },
+        !isAuthenticated && {
+          label: 'Iniciar sesión',
+          svg: ArrowRightEndOnRectangleIcon,
+          href: '/sign-in',
           className: 'sm:hidden',
         },
       ]}

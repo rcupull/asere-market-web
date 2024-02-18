@@ -46,7 +46,7 @@ export const NavBar = ({ items: itemsProp, userMenu }: Props) => {
   );
   return (
     <div className="w-full px-8 bg-gray-800 flex items-center justify-center h-16">
-      <MainIcon className='hidden sm:block'/>
+      <MainIcon className="hidden sm:block" />
 
       {itemsNode}
 

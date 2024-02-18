@@ -38,26 +38,32 @@ export const Menu = ({ className, buttonElement, items, headerElement }: MenuPro
         <MenuBase.Items className="absolute right-0 z-10 mt-2 w-52 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
           {headerElement}
 
-          {items?.map(({ label, href, onClick, svg: Svg }) => (
+          {items?.map(({ label, href, onClick, svg: Svg }, index) => (
             <MenuBase.Item key={label}>
               {({ active }) => {
                 const svgNode = Svg && <Svg className={cn('h-5 w-5', { ['mr-2']: label })} />;
                 if (href) {
-                  <Link
-                    to={href}
-                    className={cn(
-                      active ? 'bg-gray-100' : '',
-                      'block px-4 py-2 text-sm text-gray-700',
-                    )}
-                  >
-                    {svgNode}
+                  return (
+                    <Link
+                      key={index}
+                      to={href}
+                      className={cn(
+                        {
+                          'bg-gray-100': active,
+                        },
+                        'px-4 py-2 text-sm text-gray-700 flex items-center',
+                      )}
+                    >
+                      {svgNode}
 
-                    {label}
-                  </Link>;
+                      {label}
+                    </Link>
+                  );
                 }
 
                 return (
                   <div
+                    key={index}
                     onClick={onClick}
                     className={cn(
                       'cursor-pointer px-4 py-2 text-sm text-gray-700 flex items-center',

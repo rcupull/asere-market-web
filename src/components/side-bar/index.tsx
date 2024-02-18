@@ -1,16 +1,19 @@
 import { Fragment } from 'react';
 import { Link } from 'react-router-dom';
 
+import { Divider } from 'components/divider';
+
 import { useRouter } from 'hooks/useRouter';
 
 import { Nullable, StyleProps } from 'types/general';
 import { cn } from 'utils/general';
 
 interface SideBarItem extends StyleProps {
-  label: string;
-  href?: string;
-  svg: React.FC<{ className?: string }>;
   divider?: boolean;
+  content?: React.ReactNode;
+  label?: string;
+  href?: string;
+  svg?: React.FC<{ className?: string }>;
   onClick?: (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
   endElement?: React.ReactNode;
 }
@@ -34,13 +37,19 @@ export const SideBar = ({ className, items, collapse }: SideBarProps) => {
       {items?.map((item, index) => {
         if (!item) return null;
 
-        const { svg: Svg, href, label, divider, className, endElement, onClick } = item;
+        const { svg: Svg, href, label, className, endElement, onClick, divider, content } = item;
         const isActive = pathname === href;
+
+        if (divider) {
+          return <Divider key={index} className={cn('border-gray-500 !mt-3 !mb-1', className)} />;
+        }
+
+        if (content) {
+          return <Fragment key={index}>{content}</Fragment>;
+        }
 
         return (
           <Fragment key={index}>
-            {divider && <hr className="w-full border-gray-700" />}
-
             {href ? (
               <Link
                 className={cn(
@@ -50,7 +59,7 @@ export const SideBar = ({ className, items, collapse }: SideBarProps) => {
                 )}
                 to={href}
               >
-                <Svg className="w-6 h-6 stroke-current" />
+                {Svg && <Svg className="w-6 h-6 stroke-current" />}
                 {!collapse && <span className="ml-2 text-sm font-medium">{label}</span>}
 
                 {endElement}
@@ -64,7 +73,8 @@ export const SideBar = ({ className, items, collapse }: SideBarProps) => {
                 )}
                 onClick={onClick}
               >
-                <Svg className="w-6 h-6 stroke-current" />
+                {Svg && <Svg className="w-6 h-6 stroke-current" />}
+
                 {!collapse && <span className="ml-2 text-sm font-medium">{label}</span>}
 
                 {endElement}

@@ -5,7 +5,7 @@ import { NavBar } from '.';
 export default {
   component: NavBar,
 };
-   
+
 const useMenu = (
   <UserMenu
     items={[

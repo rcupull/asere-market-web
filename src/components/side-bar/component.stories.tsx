@@ -20,7 +20,6 @@ export const Default = (): JSX.Element => {
             label: 'Home',
             href: '/',
             svg: BellIcon,
-            divider: true,
           },
           {
             label: 'Sign In',
@@ -36,7 +35,6 @@ export const Default = (): JSX.Element => {
             label: 'Home',
             href: '/',
             svg: BellIcon,
-            divider: true,
           },
           {
             label: 'Sign In',

@@ -33,7 +33,6 @@ export const BusinessRouteName = () => {
     onChange: (filters) => routeName && getAllPosts.fetch({ routeNames: [routeName], filters }),
   });
 
-
   useCallFromAfar('business_route_name_refresh_posts', () => filters.onRefresh());
 
   useEffect(() => {

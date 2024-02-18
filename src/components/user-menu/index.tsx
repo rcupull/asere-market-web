@@ -1,19 +1,13 @@
 import { Link } from 'react-router-dom';
 
-import { Menu } from 'components/menu';
+import { Menu, MenuProps } from 'components/menu';
 import { UserAvatar } from 'components/user-avatar';
 
 import { useAuthSignIn } from 'features/api/useAuthSignIn';
 
-interface MenuItem {
-  label: string;
-  href?: string;
-  onClick?: () => void;
-}
-
 export interface Props {
   className?: string;
-  items?: Array<MenuItem>;
+  items?: MenuProps['items'];
 }
 
 export const UserMenu = ({ className, items }: Props) => {

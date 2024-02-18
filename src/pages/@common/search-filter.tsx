@@ -1,4 +1,4 @@
-import { MagnifyingGlassIcon , XCircleIcon} from '@heroicons/react/24/solid';
+import { MagnifyingGlassIcon, XCircleIcon } from '@heroicons/react/24/solid';
 
 import { Button } from 'components/button';
 import { FieldInput } from 'components/field-input';
@@ -29,8 +29,12 @@ export const SearchFilter = ({ isBusy, onChange, className, value }: SearchFilte
       >
         {({ handleChange, values, handleReset }) => {
           return (
-            <form className='flex w-full'>
-              <FieldInput name="search" onChange={handleChange} className="w-full sm:w-64 mr-auto" />
+            <form className="flex w-full">
+              <FieldInput
+                name="search"
+                onChange={handleChange}
+                className="w-full sm:w-64 mr-auto"
+              />
 
               {submitBtnPortal.getPortal(
                 <div
@@ -51,7 +55,8 @@ export const SearchFilter = ({ isBusy, onChange, className, value }: SearchFilte
               )}
 
               {clearBtnPortal.getPortal(
-                <div className='ml-2'
+                <div
+                  className="ml-2"
                   onClick={() => {
                     handleReset();
                     onChange?.(undefined);

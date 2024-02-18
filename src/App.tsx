@@ -80,10 +80,7 @@ export const App = (): JSX.Element => {
           element={withAuthenticatedRoute(<DashboardBusinessRouteName />, ['user'])}
         />
 
-        <Route
-          path="/settings"
-          element={withAuthenticatedRoute(<DashboardSettings />, ['user'])}
-        />
+        <Route path="/settings" element={withAuthenticatedRoute(<DashboardSettings />, ['user'])} />
 
         <Route path="/business" element={<Business />} />
 

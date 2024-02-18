@@ -1,3 +1,5 @@
+import { ArrowRightStartOnRectangleIcon, Cog8ToothIcon } from '@heroicons/react/24/outline';
+
 import { NavBar } from 'components/nav-bar';
 import { UserMenu } from 'components/user-menu';
 
@@ -21,8 +23,12 @@ export const RootNavBar = () => {
       userMenu={
         <UserMenu
           items={[
-            { label: 'Configuración', href: '/settings' },
-            { label: 'Cerrar sesiónn', onClick: () => authSignOut.fetch(undefined) },
+            { label: 'Configuración', href: '/settings', svg: Cog8ToothIcon },
+            {
+              label: 'Cerrar sesiónn',
+              onClick: () => authSignOut.fetch(undefined),
+              svg: ArrowRightStartOnRectangleIcon,
+            },
           ]}
         />
       }
