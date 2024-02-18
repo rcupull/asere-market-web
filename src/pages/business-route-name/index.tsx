@@ -41,13 +41,13 @@ export const BusinessRouteName = () => {
     }
   }, []);
 
-  const businnes = getOneBusiness.data;
+  const business = getOneBusiness.data;
 
-  if (!routeName || !businnes) return <></>;
+  if (!routeName || !business) return <></>;
 
   return (
     <LayoutPage>
-      <Banner business={businnes} getImageSrc={getImageEndpoint} />
+      <Banner business={business} getImageSrc={getImageEndpoint} />
 
       <Divider />
 

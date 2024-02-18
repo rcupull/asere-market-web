@@ -8,9 +8,15 @@ import { getEndpoint } from 'utils/api';
 
 export const useUpdateOneUserBusiness = (): {
   updateOneUserBusiness: FetchResource<
-    { routeName: string } & Partial<
-      Pick<Business, 'hidden' | 'socialLinks' | 'bannerImages' | 'bannerImageStyle'>
-    >,
+    {
+      routeName: string;
+      update: Partial<
+        Pick<
+          Business,
+          'hidden' | 'socialLinks' | 'bannerImages' | 'bannerImageStyle' | 'name' | 'routeName'
+        >
+      >;
+    },
     void
   >;
 } => {
@@ -24,7 +30,7 @@ export const useUpdateOneUserBusiness = (): {
     updateOneUserBusiness: {
       data: fetch[0],
       status: fetch[1],
-      fetch: ({ routeName, ...data }, options = {}) => {
+      fetch: ({ routeName, update }, options = {}) => {
         fetch[2](
           {
             method: 'put',
@@ -32,7 +38,7 @@ export const useUpdateOneUserBusiness = (): {
               path: '/user/:userId/business/:routeName',
               urlParams: { routeName, userId },
             }),
-            data,
+            data: update,
           },
           options,
         );

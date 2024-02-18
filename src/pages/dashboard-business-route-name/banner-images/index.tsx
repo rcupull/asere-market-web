@@ -72,7 +72,9 @@ export const BannerImages = ({ business }: BannerImagesProps) => {
                           onAfterSuccess: (bannerImages) => {
                             updateOneUserBusiness.fetch(
                               {
-                                bannerImages,
+                                update: {
+                                  bannerImages,
+                                },
                                 routeName,
                               },
                               {

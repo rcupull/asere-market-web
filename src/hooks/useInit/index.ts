@@ -7,9 +7,11 @@ import { useGetUserPaymentPlan } from 'features/api/useGetUserPaymentPlan';
 
 import { useCallFromAfar } from 'hooks/useCallFromAfar';
 import { useDebouncer } from 'hooks/useDebouncer';
+import { useRouter } from 'hooks/useRouter';
 
 export const useInit = () => {
   const { isAuthenticated } = useAuthSignIn();
+  const { pushRoute } = useRouter();
   //
   const { getUserPaymentPlan } = useGetUserPaymentPlan();
   const { getAllUserBusinessRouteNames } = useGetAllUserBusinessRouteNames();
@@ -24,6 +26,14 @@ export const useInit = () => {
   useCallFromAfar('getUserPaymentPlan', getUserPaymentPlanRefresh);
   useCallFromAfar('getAllUserBusinessRouteNames', getAllUserBusinessRouteNamesRefresh);
   useCallFromAfar('getAllUserBussiness', getAllUserBussinessRefresh);
+
+  useCallFromAfar('redirect_to_dashboard_business_routename', ({ routeName }) => {
+    pushRoute(`/dashboard/business/${routeName}`, undefined, { timeout: 100 });
+  });
+
+  useCallFromAfar('redirect_to_routename', ({ routeName }) => {
+    pushRoute(`/${routeName}`, undefined, { timeout: 100 });
+  });
 
   const init = () => {
     getUserPaymentPlanRefresh();

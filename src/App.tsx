@@ -16,9 +16,9 @@ const BusinessRouteName = dynamic(() =>
 const BusinessRouteNamePostId = dynamic(() =>
   import('pages/business-route-name-postId').then((m) => ({ default: m.BusinessRouteNamePostId })),
 );
-const DashboardSettings = dynamic(() =>
-  import('pages/dashboard-settings').then((m) => ({
-    default: m.DashboardSettings,
+const Settings = dynamic(() =>
+  import('pages/settings').then((m) => ({
+    default: m.Settings,
   })),
 );
 const PaymentPlans = dynamic(() =>
@@ -80,7 +80,7 @@ export const App = (): JSX.Element => {
           element={withAuthenticatedRoute(<DashboardBusinessRouteName />, ['user'])}
         />
 
-        <Route path="/settings" element={withAuthenticatedRoute(<DashboardSettings />, ['user'])} />
+        <Route path="/settings" element={withAuthenticatedRoute(<Settings />, ['user'])} />
 
         <Route path="/business" element={<Business />} />
 

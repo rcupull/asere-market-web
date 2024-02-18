@@ -3,6 +3,7 @@ import {
   Bars3Icon,
   EyeIcon,
   EyeSlashIcon,
+  PencilSquareIcon,
   TrashIcon,
 } from '@heroicons/react/24/outline';
 
@@ -12,11 +13,11 @@ import { ButtonRemove } from 'components/button-remove';
 import { IconButton } from 'components/icon-button';
 import { Menu } from 'components/menu';
 
-import { useGetAllUserBusiness } from 'features/api/useGetAllUserBusiness';
 import { useRemoveOneUserBusiness } from 'features/api/useRemoveOneUserBusiness';
 import { useUpdateOneUserBusiness } from 'features/api/useUpdateOneUserBusiness';
 import { useModal } from 'features/modal/useModal';
 
+import { useCallFromAfar } from 'hooks/useCallFromAfar';
 import { useRouter } from 'hooks/useRouter';
 
 import { Business } from 'types/business';
@@ -31,7 +32,7 @@ export const OptionsMenu = ({ business, onRefresh }: OptionsMenuProps) => {
 
   const { pushModal } = useModal();
   const { pushRoute } = useRouter();
-  const { getAllUserBussiness } = useGetAllUserBusiness();
+  const { onCallAfar } = useCallFromAfar();
 
   const handleShowHide = () => {
     pushModal(
@@ -55,12 +56,14 @@ export const OptionsMenu = ({ business, onRefresh }: OptionsMenuProps) => {
                   updateOneUserBusiness.fetch(
                     {
                       routeName,
-                      hidden: !hidden,
+                      update: {
+                        hidden: !hidden,
+                      },
                     },
                     {
                       onAfterSuccess: () => {
                         onRefresh();
-                        getAllUserBussiness.fetch({}); // update all the bussiness
+                        onCallAfar('getAllUserBussiness'); // update all the bussiness
                         onClose();
                       },
                     },
@@ -95,7 +98,9 @@ export const OptionsMenu = ({ business, onRefresh }: OptionsMenuProps) => {
                     {
                       onAfterSuccess: () => {
                         onRefresh();
-                        getAllUserBussiness.fetch({}); // update all the bussiness
+
+                        onCallAfar('getAllUserBussiness'); // update all the bussiness
+                        pushRoute('/dashboard/business');
                         onClose();
                       },
                     },
@@ -120,7 +125,20 @@ export const OptionsMenu = ({ business, onRefresh }: OptionsMenuProps) => {
           svg: hidden ? EyeIcon : EyeSlashIcon,
         },
         {
-          label: 'Ver la pagina',
+          label: 'Editar',
+          onClick: () => {
+            pushModal('BusinessNew', {
+              routeName,
+              callAfarResources: [
+                'getAllUserBussiness',
+                'redirect_to_dashboard_business_routename',
+              ],
+            });
+          },
+          svg: PencilSquareIcon,
+        },
+        {
+          label: 'Ver la página',
           onClick: () => pushRoute(`/${routeName}`),
           svg: ArrowTopRightOnSquareIcon,
         },

@@ -1,3 +1,5 @@
+import { useEffect } from 'react';
+
 import { Badge } from 'components/badge';
 import { Button } from 'components/button';
 import { ButtonClose } from 'components/button-close';
@@ -7,6 +9,8 @@ import { Modal } from 'components/modal';
 
 import { useAddOneUserBusiness } from 'features/api/useAddOneUserBusiness';
 import { useGetAllBusiness } from 'features/api/useGetAllBusiness';
+import { useGetOneUserBusiness } from 'features/api/useGetOneUserBusiness';
+import { useUpdateOneUserBusiness } from 'features/api/useUpdateOneUserBusiness';
 import { useModal } from 'features/modal/useModal';
 
 import { CallAfarResources, useCallFromAfar } from 'hooks/useCallFromAfar';
@@ -21,9 +25,10 @@ import { getBusinessCategoryLabel, getRouteName } from 'utils/business';
 
 export interface BusinessNewProps {
   callAfarResources?: CallAfarResources;
+  routeName?: string;
 }
 
-export const BusinessNew = ({ callAfarResources }: BusinessNewProps) => {
+export const BusinessNew = ({ callAfarResources, routeName }: BusinessNewProps) => {
   const { onClose } = useModal();
 
   const { onCallAfar } = useCallFromAfar();
@@ -31,6 +36,17 @@ export const BusinessNew = ({ callAfarResources }: BusinessNewProps) => {
   const { getAllBusiness } = useGetAllBusiness();
 
   const { addOneUserBusiness } = useAddOneUserBusiness();
+  const { updateOneUserBusiness } = useUpdateOneUserBusiness();
+
+  const { getOneUserBusiness } = useGetOneUserBusiness();
+
+  const business = getOneUserBusiness.data;
+
+  useEffect(() => {
+    if (routeName) {
+      getOneUserBusiness.fetch({ routeName });
+    }
+  }, [routeName]);
 
   const debouncer = useDebouncer();
 
@@ -45,7 +61,9 @@ export const BusinessNew = ({ callAfarResources }: BusinessNewProps) => {
       initialValues={{
         category: '',
         name: '',
+        ...(business || {}),
       }}
+      enableReinitialize
       validate={(values) => {
         return getFormErrors(values, [
           {
@@ -98,32 +116,34 @@ export const BusinessNew = ({ callAfarResources }: BusinessNewProps) => {
               className="mt-3"
             />
 
-            <FieldSelect<{ category: BusinessCategory; label: string }>
-              items={[
-                {
-                  category: 'food',
-                  label: getBusinessCategoryLabel('food'),
-                },
-                {
-                  category: 'clothing',
-                  label: getBusinessCategoryLabel('clothing'),
-                },
-                {
-                  category: 'service',
-                  label: getBusinessCategoryLabel('service'),
-                },
-                {
-                  category: 'tool',
-                  label: getBusinessCategoryLabel('tool'),
-                },
-              ]}
-              renderOption={({ label }) => label}
-              renderValue={({ label }) => label}
-              optionToValue={({ category }) => category}
-              name="category"
-              label="Categoría"
-              className="mt-6"
-            />
+            {!business && (
+              <FieldSelect<{ category: BusinessCategory; label: string }>
+                items={[
+                  {
+                    category: 'food',
+                    label: getBusinessCategoryLabel('food'),
+                  },
+                  {
+                    category: 'clothing',
+                    label: getBusinessCategoryLabel('clothing'),
+                  },
+                  {
+                    category: 'service',
+                    label: getBusinessCategoryLabel('service'),
+                  },
+                  {
+                    category: 'tool',
+                    label: getBusinessCategoryLabel('tool'),
+                  },
+                ]}
+                renderOption={({ label }) => label}
+                renderValue={({ label }) => label}
+                optionToValue={({ category }) => category}
+                name="category"
+                label="Categoría"
+                className="mt-6"
+              />
+            )}
 
             {submitPortal.getPortal(
               <Button
@@ -131,21 +151,46 @@ export const BusinessNew = ({ callAfarResources }: BusinessNewProps) => {
                 isBusy={addOneUserBusiness.status.isBusy}
                 disabled={!isValid}
                 onClick={() => {
-                  const { category, name } = values;
+                  if (business) {
+                    const { name } = values;
 
-                  addOneUserBusiness.fetch(
-                    {
-                      category,
-                      name,
-                      routeName: getRouteName(name),
-                    },
-                    {
-                      onAfterSuccess: (response) => {
-                        onClose();
-                        onCallAfar(callAfarResources, response);
+                    updateOneUserBusiness.fetch(
+                      {
+                        routeName: business.routeName,
+                        update: {
+                          name,
+                          routeName: getRouteName(name),
+                        },
                       },
-                    },
-                  );
+                      {
+                        onAfterSuccess: () => {
+                          onClose();
+                          onCallAfar(callAfarResources, {
+                            // TODO the service not return the updated value
+                            ...business,
+                            name,
+                            routeName: getRouteName(name),
+                          });
+                        },
+                      },
+                    );
+                  } else {
+                    const { category, name } = values;
+
+                    addOneUserBusiness.fetch(
+                      {
+                        category,
+                        name,
+                        routeName: getRouteName(name),
+                      },
+                      {
+                        onAfterSuccess: (response) => {
+                          onClose();
+                          onCallAfar(callAfarResources, response);
+                        },
+                      },
+                    );
+                  }
                 }}
                 variant="primary"
                 className="w-full"
@@ -159,7 +204,7 @@ export const BusinessNew = ({ callAfarResources }: BusinessNewProps) => {
 
   return (
     <Modal
-      title="Crear Negocio"
+      title={business ? 'Editar negocio' : 'Crear negocio'}
       content={newPostForm}
       badge={<Badge variant="info" />}
       primaryBtn={<div ref={submitPortal.ref} />}

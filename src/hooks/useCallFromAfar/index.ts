@@ -10,7 +10,12 @@ type CallAfarId =
   | 'side_bar_redirect_to_last_created_business'
   | 'getUserPaymentPlan'
   | 'getAllUserBusinessRouteNames'
-  | 'getAllUserBussiness';
+  | 'getAllUserBussiness'
+  | 'getAllUserBussiness'
+  | 'getAllUserBussiness'
+  | 'redirect_to_dashboard_business_routename'
+  | 'redirect_to_routename';
+
 export type CallAfarResources = CallAfarId | Array<CallAfarId>;
 
 export const useCallFromAfar = (
