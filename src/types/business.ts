@@ -10,6 +10,7 @@ export interface Business extends BaseIdentity {
   hidden?: boolean;
   bannerImages?: Array<Image>;
   bannerImageStyle?: 'static';
+  logo?: Image;
   socialLinks: {
     face?: string;
     instagram?: string;

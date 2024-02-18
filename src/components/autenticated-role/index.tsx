@@ -3,12 +3,12 @@ import { Navigate } from 'react-router-dom';
 import { useAuthSignIn } from 'features/api/useAuthSignIn';
 
 import { UserRole } from 'types/auth';
+import { ChildrenProp } from 'types/general';
 
-export interface PrivateRouteProps {
-  children: React.ReactNode;
-  roles?: Array<UserRole>;
-}
-export const AuthenticatedRoute = ({ children, roles }: PrivateRouteProps) => {
+export const AutenticatedRole = ({
+  children,
+  roles,
+}: ChildrenProp & { roles: Array<UserRole> }) => {
   const { authData } = useAuthSignIn();
 
   const role = authData?.user?.role;
@@ -23,7 +23,3 @@ export const AuthenticatedRoute = ({ children, roles }: PrivateRouteProps) => {
 
   return <>{children}</>;
 };
-
-export const withAuthenticatedRoute = (element: React.ReactNode, roles?: Array<UserRole>) => (
-  <AuthenticatedRoute roles={roles}>{element}</AuthenticatedRoute>
-);

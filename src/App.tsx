@@ -2,9 +2,10 @@ import { Navigate, Route, Routes } from 'react-router-dom';
 
 import { useInit } from 'hooks/useInit';
 
-import { withAuthenticatedRoute } from './components/autenticated-route';
+import { AuthenticatedUser } from './components/autenticated-user';
 
 import { LayoutMain } from 'pages/@common/layout-main';
+import { withPageProviders } from 'pages/@common/with-page-providers';
 import { PaymentPlansPurchase } from 'pages/payment-plans-purchase';
 import { dynamic } from 'utils/makeLazy';
 
@@ -46,48 +47,59 @@ export const App = (): JSX.Element => {
   useInit();
 
   return (
-    <LayoutMain>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/sign-in" element={<SignIn />} />
-        <Route path="/sign-up" element={<SignUp />} />
-        <Route path="/not-found" element={<NotFound />} />
-        <Route path="/validate-account" element={<ValidateAccount />} />
-        <Route path="/about-us" element={<AboutUs />} />
+    <Routes>
+      <Route path="/" element={withPageProviders(<Home />, LayoutMain)} />
+      <Route path="/sign-in" element={withPageProviders(<SignIn />, LayoutMain)} />
+      <Route path="/sign-up" element={withPageProviders(<SignUp />, LayoutMain)} />
+      <Route path="/not-found" element={withPageProviders(<NotFound />, LayoutMain)} />
+      <Route
+        path="/validate-account"
+        element={withPageProviders(<ValidateAccount />, LayoutMain)}
+      />
+      <Route path="/about-us" element={withPageProviders(<AboutUs />, LayoutMain)} />
 
-        {/* ////////////////////////////////////////////// */}
+      {/* ////////////////////////////////////////////// */}
 
-        <Route path="/payment-plans" element={<PaymentPlans />} />
+      <Route path="/payment-plans" element={withPageProviders(<PaymentPlans />, LayoutMain)} />
 
-        <Route
-          path="/payment-plans/purchase"
-          element={withAuthenticatedRoute(<PaymentPlansPurchase />, ['user'])}
-        />
+      <Route
+        path="/payment-plans/purchase"
+        element={withPageProviders(<PaymentPlansPurchase />, AuthenticatedUser, LayoutMain)}
+      />
 
-        {/* ////////////////////////////////////////////// */}
-        <Route
-          path="/dashboard"
-          element={withAuthenticatedRoute(<Navigate to="/dashboard/business" />, ['user'])}
-        />
+      {/* ////////////////////////////////////////////// */}
+      <Route
+        path="/dashboard"
+        element={withPageProviders(
+          <Navigate to="/dashboard/business" />,
+          AuthenticatedUser,
+          LayoutMain,
+        )}
+      />
 
-        <Route
-          path="/dashboard/business"
-          element={withAuthenticatedRoute(<DashboardBusiness />, ['user'])}
-        />
+      <Route
+        path="/dashboard/business"
+        element={withPageProviders(<DashboardBusiness />, AuthenticatedUser, LayoutMain)}
+      />
 
-        <Route
-          path="/dashboard/business/:routeName"
-          element={withAuthenticatedRoute(<DashboardBusinessRouteName />, ['user'])}
-        />
+      <Route
+        path="/dashboard/business/:routeName"
+        element={withPageProviders(<DashboardBusinessRouteName />, AuthenticatedUser, LayoutMain)}
+      />
 
-        <Route path="/settings" element={withAuthenticatedRoute(<Settings />, ['user'])} />
+      <Route
+        path="/settings"
+        element={withPageProviders(<Settings />, AuthenticatedUser, LayoutMain)}
+      />
 
-        <Route path="/business" element={<Business />} />
+      <Route path="/business" element={withPageProviders(<Business />, LayoutMain)} />
 
-        <Route path="/:routeName" element={<BusinessRouteName />} />
+      <Route path="/:routeName" element={withPageProviders(<BusinessRouteName />, LayoutMain)} />
 
-        <Route path="/:routeName/:postId" element={<BusinessRouteNamePostId />} />
-      </Routes>
-    </LayoutMain>
+      <Route
+        path="/:routeName/:postId"
+        element={withPageProviders(<BusinessRouteNamePostId />, LayoutMain)}
+      />
+    </Routes>
   );
 };

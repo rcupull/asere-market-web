@@ -4,7 +4,6 @@ import { Button } from 'components/button';
 import { FieldInputImages } from 'components/field-input-images';
 
 import { useAddManyUserBusinessImages } from 'features/api/useAddManyUserBusinessImages';
-import { useGetUserPaymentPlan } from 'features/api/useGetUserPaymentPlan';
 import { useUpdateOneUserBusiness } from 'features/api/useUpdateOneUserBusiness';
 
 import { useSubmitPortal } from 'hooks/useSubmitPortal';
@@ -12,32 +11,32 @@ import { useSubmitPortal } from 'hooks/useSubmitPortal';
 import { TopActions } from '../../@common/top-actions';
 
 import { Formik } from 'formik';
+import { LayoutPageSection } from 'pages/@common/layout-page-section';
 import { Business } from 'types/business';
 import { Image } from 'types/general';
 import { getImageEndpoint } from 'utils/api';
 
-export interface BannerImagesProps {
+export interface LogoProps {
   business: Business;
 }
 
-export const BannerImages = ({ business }: BannerImagesProps) => {
-  const { routeName, bannerImages } = business;
+export const Logo = ({ business }: LogoProps) => {
+  const { routeName, logo } = business;
 
   const { getPortal, ref } = useSubmitPortal();
   const { updateOneUserBusiness } = useUpdateOneUserBusiness();
-  const { userPlan } = useGetUserPaymentPlan();
   const { addManyUserBusinessImages } = useAddManyUserBusinessImages();
 
   const [initialValues, setInitialValues] = useState<{
-    bannerImages: Array<File | Image>;
+    logoField: Array<File | Image | undefined>;
   }>({
-    bannerImages: bannerImages || [],
+    logoField: [logo],
   });
 
   return (
-    <div>
+    <LayoutPageSection title="Logo">
       <Formik<{
-        bannerImages: Array<File | Image>;
+        logoField: Array<File | Image | undefined>;
       }>
         initialValues={initialValues}
         onSubmit={() => {}}
@@ -47,12 +46,10 @@ export const BannerImages = ({ business }: BannerImagesProps) => {
           return (
             <form>
               <FieldInputImages
-                id="bannerImages"
-                name="bannerImages"
+                id="logoField"
+                name="logoField"
                 className="mt-6"
                 getImageSrc={getImageEndpoint}
-                multi
-                max={userPlan?.maxImagesByBusinessBanner}
               />
 
               {getPortal(
@@ -61,26 +58,28 @@ export const BannerImages = ({ business }: BannerImagesProps) => {
                   isBusy={
                     updateOneUserBusiness.status.isBusy || addManyUserBusinessImages.status.isBusy
                   }
-                  disabled={!isValid || initialValues.bannerImages === values.bannerImages}
+                  disabled={!isValid || initialValues.logoField === values.logoField}
                   onClick={() => {
-                    const { bannerImages } = values;
+                    const { logoField } = values;
 
-                    if (bannerImages.length) {
+                    const [logo] = logoField;
+
+                    if (logo) {
                       addManyUserBusinessImages.fetch(
-                        { images: bannerImages, routeName },
+                        { images: [logo], routeName },
                         {
-                          onAfterSuccess: (bannerImages) => {
+                          onAfterSuccess: ([logo]) => {
                             updateOneUserBusiness.fetch(
                               {
                                 update: {
-                                  bannerImages,
+                                  logo,
                                 },
                                 routeName,
                               },
                               {
                                 onAfterSuccess: () => {
                                   setInitialValues({
-                                    bannerImages,
+                                    logoField: [logo],
                                   });
                                 },
                               },
@@ -101,6 +100,6 @@ export const BannerImages = ({ business }: BannerImagesProps) => {
       <TopActions>
         <div className="ml-auto" ref={ref} />
       </TopActions>
-    </div>
+    </LayoutPageSection>
   );
 };

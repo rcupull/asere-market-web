@@ -1,3 +1,5 @@
+import { useApiSlice } from 'features/slices/useApiSlice';
+
 import { useFetch } from 'hooks/useFetch';
 
 import { FetchResource } from 'types/api';
@@ -7,7 +9,9 @@ import { getEndpoint } from 'utils/api';
 export const useGetOneBusiness = (): {
   getOneBusiness: FetchResource<{ routeName: string }, Business>;
 } => {
-  const fetch = useFetch<Business>();
+  const fetchBase = useFetch<Business>();
+
+  const fetch = useApiSlice(fetchBase, 'useGetOneBusiness');
 
   return {
     getOneBusiness: {

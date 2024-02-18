@@ -38,6 +38,9 @@ export const BusinessRouteName = () => {
   useEffect(() => {
     if (routeName) {
       getOneBusiness.fetch({ routeName });
+      return () => {
+        getOneBusiness.reset();
+      };
     }
   }, []);
 

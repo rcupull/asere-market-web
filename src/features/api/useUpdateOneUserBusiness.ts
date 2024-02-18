@@ -13,7 +13,13 @@ export const useUpdateOneUserBusiness = (): {
       update: Partial<
         Pick<
           Business,
-          'hidden' | 'socialLinks' | 'bannerImages' | 'bannerImageStyle' | 'name' | 'routeName'
+          | 'hidden'
+          | 'socialLinks'
+          | 'bannerImages'
+          | 'bannerImageStyle'
+          | 'name'
+          | 'routeName'
+          | 'logo'
         >
       >;
     },

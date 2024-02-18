@@ -6,10 +6,10 @@ import { useGetOneUserBusiness } from 'features/api/useGetOneUserBusiness';
 
 import { useRouter } from 'hooks/useRouter';
 
-import { BannerImages } from './banner-images';
 import { Loading } from './loading';
 import { NotFound } from './no-found';
 import { OptionsMenu } from './options-menu';
+import { Resources } from './resources';
 import { TablePosts } from './table-posts';
 
 import { LayoutSection } from 'pages/@common/layout-section';
@@ -80,8 +80,8 @@ export const DashboardBusinessRouteName = () => {
             content: <TablePosts business={business} />,
           },
           {
-            label: 'Banner',
-            content: <BannerImages business={business} />,
+            label: 'Recursos',
+            content: <Resources business={business} />,
           },
         ]}
       />
