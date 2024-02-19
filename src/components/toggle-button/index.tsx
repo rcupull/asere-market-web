@@ -7,9 +7,15 @@ import { cn } from 'utils/general';
 export interface ToggleButtonProps extends StyleProps {
   value?: boolean;
   onChange?: (value: boolean) => void;
+  interaction?: 'onlyActivate' | 'onlyDeactivate' | 'both';
 }
 
-export const ToggleButton = ({ className, value, onChange }: ToggleButtonProps) => {
+export const ToggleButton = ({
+  className,
+  value,
+  onChange,
+  interaction = 'both',
+}: ToggleButtonProps) => {
   const [state, setState] = useState<boolean>(false);
 
   useEffect(() => {
@@ -17,6 +23,9 @@ export const ToggleButton = ({ className, value, onChange }: ToggleButtonProps) 
   }, [value]);
 
   const handleChange = (newValue: boolean) => {
+    if (interaction === 'onlyActivate' && !newValue) return;
+    if (interaction === 'onlyDeactivate' && newValue) return;
+    
     setState(newValue);
     onChange?.(newValue);
   };

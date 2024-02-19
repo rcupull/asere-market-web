@@ -7,7 +7,7 @@ export default {
 const commonProps: SkeletonProps = {
   banner: 'static',
   posts: 'grid',
-  footer: 'simple',
+  footer: 'basic',
   search: 'wide'
 };
 
@@ -21,8 +21,8 @@ export const BannerStatic = () => (
     <Skeleton {...commonProps} banner="static" active="banner" />
 );
 
-export const BannerSlider = () => (
-  <Skeleton {...commonProps} banner="slider" active="banner" />
+export const BannerSwipableClassic = () => (
+  <Skeleton {...commonProps} banner="swipableClassic" active="banner" />
 );
 
 export const SearchWide = () => (
@@ -39,8 +39,8 @@ export const PostsGrid = () => (
   <Skeleton {...commonProps} posts="grid" active="posts" />
 );
 
-export const PostsSimple = () => (
-  <Skeleton {...commonProps} posts="simple" active="posts" />
+export const PostsSliceHorizontal = () => (
+  <Skeleton {...commonProps} posts="slicesHorizontal" active="posts" />
 );
 
 export const PostsAlternateSumary = () => (
