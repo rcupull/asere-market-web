@@ -17,11 +17,11 @@ import { TopActions } from 'pages/@common/top-actions';
 import { Business } from 'types/business';
 import { getDateString } from 'utils/date';
 
-export interface TablePostsProps {
+export interface PostsProps {
   business: Business;
 }
 
-export const TablePosts = ({ business }: TablePostsProps) => {
+export const Posts = ({ business }: PostsProps) => {
   const { getAllUserPosts } = useGetAllUserPosts();
   const { pushModal } = useModal();
   const { routeName } = business;

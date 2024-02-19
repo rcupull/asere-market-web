@@ -6,11 +6,12 @@ import { useGetOneUserBusiness } from 'features/api/useGetOneUserBusiness';
 
 import { useRouter } from 'hooks/useRouter';
 
+import { Layouts } from './layouts';
 import { Loading } from './loading';
 import { NotFound } from './no-found';
 import { OptionsMenu } from './options-menu';
+import { Posts } from './posts';
 import { Resources } from './resources';
-import { TablePosts } from './table-posts';
 
 import { LayoutSection } from 'pages/@common/layout-section';
 
@@ -77,11 +78,15 @@ export const DashboardBusinessRouteName = () => {
         items={[
           {
             label: 'Publicaciones',
-            content: <TablePosts business={business} />,
+            content: <Posts business={business} />,
           },
           {
             label: 'Recursos',
             content: <Resources business={business} />,
+          },
+          {
+            label: 'Diseños',
+            content: <Layouts business={business} />,
           },
         ]}
       />
