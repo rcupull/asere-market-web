@@ -25,7 +25,7 @@ export const ToggleButton = ({
   const handleChange = (newValue: boolean) => {
     if (interaction === 'onlyActivate' && !newValue) return;
     if (interaction === 'onlyDeactivate' && newValue) return;
-    
+
     setState(newValue);
     onChange?.(newValue);
   };

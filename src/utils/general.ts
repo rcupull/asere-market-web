@@ -54,7 +54,7 @@ export const replaceAll = (value: string, match: string, replace: string): strin
   return value.split(match).join(replace);
 };
 
-export const deepJsonCopy = <T extends AnyRecord = AnyRecord>(json: T) => {
+export const deepJsonCopy = <T extends AnyRecord = AnyRecord>(json: T): T => {
   return JSON.parse(JSON.stringify(json));
 };
 
@@ -95,5 +95,48 @@ export const relocateRow = <T = any>(
 
 export const range = (count = 0): Array<number> => [...Array(count).keys()];
 
-export const line = <T = undefined>(count = 0, fill?: T): Array<T> =>
-  range(count).map(() => fill as T);
+export const line = <T = undefined>(count = 0, fill?: T): Array<T> => {
+  return range(count).map(() => fill as T);
+};
+
+export const isObject = (item: any) => {
+  return item && typeof item === 'object' && !Array.isArray(item);
+};
+
+export const mergeDeep = <T extends AnyRecord = AnyRecord>(target: T, source: Partial<T>): T => {
+  const output = Object.assign({}, target);
+
+  if (isObject(target) && isObject(source)) {
+    Object.keys(source).forEach((key) => {
+      if (isObject(source[key])) {
+        if (!(key in target)) Object.assign(output, { [key]: source[key] });
+        //@ts-expect-error ignored
+        else output[key] = mergeDeep(target[key], source[key]);
+      } else {
+        Object.assign(output, { [key]: source[key] });
+      }
+    });
+  }
+  return output;
+};
+
+export const isEqualObj = (a: AnyRecord | undefined, b: AnyRecord | undefined): boolean => {
+  if (!a || !b) return false;
+
+  for (const prop in a) {
+    //eslint-disable-next-line
+    if (a.hasOwnProperty(prop)) {
+      //eslint-disable-next-line
+      if (b.hasOwnProperty(prop)) {
+        if (typeof a[prop] === 'object') {
+          if (!isEqualObj(a[prop], b[prop])) return false;
+        } else {
+          if (a[prop] !== b[prop]) return false;
+        }
+      } else {
+        return false;
+      }
+    }
+  }
+  return true;
+};

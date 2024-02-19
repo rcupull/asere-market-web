@@ -7,6 +7,29 @@ export type BannerLayoutType = 'none' | 'static' | 'swipableClassic';
 export type SearchLayoutType = 'none' | 'wide' | 'withButtons';
 export type FooterLayoutType = 'none' | 'basic';
 
+export interface PostsLayout {
+  type: PostsLayoutType;
+}
+
+export interface BannerLayout {
+  type: BannerLayoutType;
+}
+
+export interface SearchLayout {
+  type: SearchLayoutType;
+}
+
+export interface FooterLayout {
+  type: FooterLayoutType;
+}
+
+export interface BusinessLayout {
+  posts?: PostsLayout;
+  footer?: FooterLayout;
+  search?: SearchLayout;
+  banner?: BannerLayout;
+}
+
 export interface Business extends BaseIdentity {
   name: string;
   category: BusinessCategory;
@@ -16,23 +39,13 @@ export interface Business extends BaseIdentity {
   bannerImages?: Array<Image>;
   bannerImageStyle?: 'static';
   logo?: Image;
-  socialLinks: {
+  socialLinks?: {
     face?: string;
     instagram?: string;
     twitter?: string;
     linkedin?: string;
     youtube?: string;
   };
-  layouts: {
-    posts?: PostsLayoutType;
-    footer?: FooterLayoutType;
-    search?: SearchLayoutType;
-    banner?: BannerLayoutType;
-  };
-  layoutsMobile: {
-    posts?: PostsLayoutType;
-    footer?: FooterLayoutType;
-    search?: SearchLayoutType;
-    banner?: BannerLayoutType;
-  };
+  layouts?: BusinessLayout;
+  layoutsMobile?: BusinessLayout;
 }

@@ -18,23 +18,16 @@ import { LayoutSection } from 'pages/@common/layout-section';
 export const DashboardBusinessRouteName = () => {
   const { params, query, onChangeQuery } = useRouter();
   const { routeName } = params;
-  const { tab } = query;
 
   const { getOneUserBusiness } = useGetOneUserBusiness();
 
-  const onGetBussiness = (routeName: string) => getOneUserBusiness.fetch({ routeName });
+  const onRefresh = () => routeName && getOneUserBusiness.fetch({ routeName });
 
   useEffect(() => {
     if (routeName) {
-      onGetBussiness(routeName);
+      onRefresh();
     }
   }, [routeName]);
-
-  useEffect(() => {
-    if (tab === undefined) {
-      onChangeQuery({ tab: 0 });
-    }
-  }, []);
 
   const business = getOneUserBusiness.data;
   const { isBusy, isFailed, wasCalled } = getOneUserBusiness.status;
@@ -47,7 +40,7 @@ export const DashboardBusinessRouteName = () => {
     return <NotFound />;
   }
 
-  if (!business) {
+  if (!business || !routeName) {
     return <></>;
   }
 
@@ -64,17 +57,14 @@ export const DashboardBusinessRouteName = () => {
             </div>
           )}
 
-          <OptionsMenu
-            business={business}
-            onRefresh={() => routeName && onGetBussiness(routeName)}
-          />
+          <OptionsMenu business={business} onRefresh={onRefresh} />
         </div>
       }
     >
       <Tabs
         className="mt-4"
-        onSelect={(selectedTab) => onChangeQuery({ tab: selectedTab })}
-        selected={tab as number | undefined}
+        onSelect={(businessTab) => onChangeQuery({ businessTab })}
+        selected={query.businessTab as number | undefined}
         items={[
           {
             label: 'Publicaciones',
@@ -86,7 +76,7 @@ export const DashboardBusinessRouteName = () => {
           },
           {
             label: 'Diseños',
-            content: <Layouts business={business} />,
+            content: <Layouts business={business} onRefresh={onRefresh} />,
           },
         ]}
       />

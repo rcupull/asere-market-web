@@ -44,7 +44,7 @@ export const SideBar = ({ className }: SideBarProps) => {
 
   useCallFromAfar('side_bar_redirect_to_last_created_business', (newBussiness: Business) => {
     const { routeName } = newBussiness;
-    pushRoute(`/dashboard/business/${routeName}`, { tab: 0 }, { timeout: 100 });
+    pushRoute(`/dashboard/business/${routeName}`, {}, { timeout: 100 });
   });
 
   const { isNotValidBussinessCountByUser } = useGetUserPaymentPlan();

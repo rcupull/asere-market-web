@@ -1,29 +1,23 @@
 import { MutedBox } from 'components/muted-box';
 
-import {
-  BannerLayoutType,
-  FooterLayoutType,
-  PostsLayoutType,
-  SearchLayoutType,
-} from 'types/business';
+import { Business } from 'types/business';
 import { StyleProps } from 'types/general';
 import { cn, range } from 'utils/general';
 
 export interface SkeletonProps extends StyleProps {
-  banner?: BannerLayoutType;
-  posts?: PostsLayoutType;
-  footer?: FooterLayoutType;
-  search?: SearchLayoutType;
+  layouts?: Business['layouts'];
   active?: 'banner' | 'footer' | 'posts' | 'search';
 }
 
-export const Skeleton = ({ banner, active, footer, posts, search, className }: SkeletonProps) => {
+export const Skeleton = ({ active, className, layouts }: SkeletonProps) => {
+  const { banner, footer, posts, search } = layouts || {};
+
   const renderBanner = () => {
-    if (banner === 'static') {
+    if (banner?.type === 'static') {
       return <MutedBox className="!h-30" active={active === 'banner'} />;
     }
 
-    if (banner === 'swipableClassic') {
+    if (banner?.type === 'swipableClassic') {
       return (
         <div className="flex flex-col items-center w-full">
           <MutedBox className="!h-30" active={active === 'banner'} />
@@ -45,7 +39,7 @@ export const Skeleton = ({ banner, active, footer, posts, search, className }: S
   };
 
   const renderPosts = () => {
-    if (posts === 'grid') {
+    if (posts?.type === 'grid') {
       return (
         <div className="flex flex-wrap gap-2 justify-between mt-5">
           {range(9).map((index) => (
@@ -55,7 +49,7 @@ export const Skeleton = ({ banner, active, footer, posts, search, className }: S
       );
     }
 
-    if (posts === 'slicesHorizontal') {
+    if (posts?.type === 'slicesHorizontal') {
       return (
         <div className="flex flex-col gap-2 justify-between mt-5">
           {range(3).map((index) => (
@@ -65,7 +59,7 @@ export const Skeleton = ({ banner, active, footer, posts, search, className }: S
       );
     }
 
-    if (posts === 'alternateSummary') {
+    if (posts?.type === 'alternateSummary') {
       return (
         <div className="flex flex-col gap-2 justify-between mt-5">
           {range(3).map((index) => (
@@ -75,8 +69,8 @@ export const Skeleton = ({ banner, active, footer, posts, search, className }: S
                 'flex-row-reverse': index % 2 === 0,
               })}
             >
-              <MutedBox key={index} className="!h-16 !w-16" active={active === 'posts'} />
-              <MutedBox key={index} className="!h-16" active={active === 'posts'} />
+              <MutedBox className="!h-16 !w-16" active={active === 'posts'} />
+              <MutedBox className="!h-16" active={active === 'posts'} />
             </div>
           ))}
         </div>
@@ -87,11 +81,11 @@ export const Skeleton = ({ banner, active, footer, posts, search, className }: S
   };
 
   const renderSearch = () => {
-    if (search === 'wide') {
+    if (search?.type === 'wide') {
       return <MutedBox className="!h-6" active={active === 'search'} />;
     }
 
-    if (search === 'withButtons') {
+    if (search?.type === 'withButtons') {
       return (
         <div className="w-full flex gap-2">
           <MutedBox className="!h-6" active={active === 'search'} />
@@ -105,7 +99,7 @@ export const Skeleton = ({ banner, active, footer, posts, search, className }: S
   };
 
   const renderFooter = () => {
-    if (footer === 'basic') {
+    if (footer?.type === 'basic') {
       return <MutedBox className="h-10" active={active === 'footer'} />;
     }
 
@@ -113,7 +107,7 @@ export const Skeleton = ({ banner, active, footer, posts, search, className }: S
   };
 
   return (
-    <div className={cn("flex justify-center", className)}>
+    <div className={cn('flex justify-center', className)}>
       <div className="w-11/12 lg:w-8/12 xl:w-4/12 p-4 flex flex-col items-center gap-4">
         {renderBanner()}
 
