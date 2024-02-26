@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import { Navigate } from 'react-router-dom';
 
 import { Tabs } from 'components/tabs';
 
@@ -8,7 +9,6 @@ import { useRouter } from 'hooks/useRouter';
 
 import { Layouts } from './layouts';
 import { Loading } from './loading';
-import { NotFound } from './no-found';
 import { OptionsMenu } from './options-menu';
 import { Posts } from './posts';
 import { Resources } from './resources';
@@ -37,7 +37,7 @@ export const DashboardBusinessRouteName = () => {
   }
 
   if (isFailed && wasCalled) {
-    return <NotFound />;
+    return <Navigate to="/dashboard/business" />;
   }
 
   if (!business || !routeName) {

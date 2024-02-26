@@ -27,12 +27,12 @@ export const useAuthSignIn = (): {
     authSignIn: {
       data: authData,
       status: fetch[1],
-      fetch: ({ email, password }, options = {}) => {
+      fetch: ({ email: username, password }, options = {}) => {
         fetch[2](
           {
             method: 'post',
             url: getEndpoint({ path: '/auth/sign-in' }),
-            data: { email, password },
+            data: { username, password },
           },
           {
             ...options,

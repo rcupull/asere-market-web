@@ -6,9 +6,9 @@ import { FetchResource } from 'types/api';
 import { Image } from 'types/general';
 import { getEndpoint } from 'utils/api';
 
-export const useAddManyUserBusinessImages = (): {
-  addManyUserBusinessImages: FetchResource<
-    { images: Array<File | Image>; routeName: string },
+export const useAddManyUserPostImages = (): {
+  addManyUserPostImages: FetchResource<
+    { images: Array<File | Image>; routeName: string; postId: string },
     Array<Image>
   >;
 } => {
@@ -19,10 +19,10 @@ export const useAddManyUserBusinessImages = (): {
   const userId = authData?.user._id || '<unknow user>';
 
   return {
-    addManyUserBusinessImages: {
+    addManyUserPostImages: {
       data: fetch[0],
       status: fetch[1],
-      fetch: ({ images, routeName }, options = {}) => {
+      fetch: ({ images, routeName, postId }, options = {}) => {
         const promises = images.map((image) => {
           return new Promise<Image>((resolve) => {
             if (image instanceof File) {
@@ -35,7 +35,7 @@ export const useAddManyUserBusinessImages = (): {
                   url: getEndpoint({
                     path: '/user/:userId/image',
                     urlParams: { userId },
-                    query: { routeName },
+                    query: { routeName, postId },
                   }),
                   data: form,
                   headers: {

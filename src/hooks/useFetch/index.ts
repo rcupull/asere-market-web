@@ -82,7 +82,7 @@ export const useFetch = <Data = any>(): UseFetchReturn<Data> => {
           data,
           headers: {
             ...headers,
-            token: authData?.token,
+            Authorization: authData?.token && `Bearer ${authData?.token}`,
           },
         });
       });

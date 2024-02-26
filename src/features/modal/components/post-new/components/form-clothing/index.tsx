@@ -6,7 +6,7 @@ import { FieldInputImages } from 'components/field-input-images';
 import { FieldSelect } from 'components/field-select';
 import { FieldTextArea } from 'components/field-text-area';
 
-import { useAddManyUserBusinessImages } from 'features/api/useAddManyUserBusinessImages';
+import { useAddManyUserPostImages } from 'features/api/useAddManyUserPostImages';
 import { useAddOneUserPost } from 'features/api/useAddOneUserPost';
 import { useGetUserPaymentPlan } from 'features/api/useGetUserPaymentPlan';
 import { useUpdateOneUserPost } from 'features/api/useUpdateOneUserPost';
@@ -41,7 +41,7 @@ export const FormClothing = ({
 
   const { userPlan } = useGetUserPaymentPlan();
 
-  const { addManyUserBusinessImages } = useAddManyUserBusinessImages();
+  const { addManyUserPostImages } = useAddManyUserPostImages();
 
   const getFormErrors = useGetFormErrors();
 
@@ -157,29 +157,37 @@ export const FormClothing = ({
                     details,
                   } = values;
 
-                  const handleSubmit = (images?: Array<Image>) => {
-                    if (post) {
-                      return updateOneUserPost.fetch(
-                        {
-                          postId: post._id,
-                          images,
-                          currency,
-                          description,
-                          name,
-                          price,
-                          clothingSizes,
-                          colors,
-                          details,
-                        },
-                        {
-                          onAfterSuccess: (response) => {
-                            onAfterSuccess?.(response);
-                            onClose();
-                          },
-                        },
-                      );
-                    }
+                  const handelUpdatePost = (post: Post) => {
+                    const { _id: postId } = post;
 
+                    addManyUserPostImages.fetch(
+                      { images, routeName, postId },
+                      {
+                        onAfterSuccess: (images) => {
+                          updateOneUserPost.fetch(
+                            {
+                              postId,
+                              images,
+                              currency,
+                              description,
+                              name,
+                              price,
+                              clothingSizes,
+                              colors,
+                              details,
+                            },
+                            {
+                              onAfterSuccess: (response) => {
+                                onAfterSuccess?.(response);
+                                onClose();
+                              },
+                            },
+                          );
+                        },
+                      },
+                    );
+                  };
+                  const handelAddPost = () => {
                     addOneUserPost.fetch(
                       {
                         currency,
@@ -190,27 +198,17 @@ export const FormClothing = ({
                         colors,
                         details,
                         routeName,
-                        images,
+                        images: [],
                       },
                       {
                         onAfterSuccess: (response) => {
-                          onAfterSuccess?.(response);
-                          onClose();
+                          handelUpdatePost(response);
                         },
                       },
                     );
                   };
 
-                  if (images.length) {
-                    addManyUserBusinessImages.fetch(
-                      { images, routeName },
-                      {
-                        onAfterSuccess: handleSubmit,
-                      },
-                    );
-                  } else {
-                    handleSubmit();
-                  }
+                  post ? handelUpdatePost(post) : handelAddPost();
                 }}
                 variant="primary"
                 className="w-full"

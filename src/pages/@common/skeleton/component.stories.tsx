@@ -1,42 +1,81 @@
 import { Skeleton, SkeletonProps } from '.';
 
+import { mergeDeep } from 'utils/general';
+
 export default {
   component: Skeleton,
 };
 
 const commonProps: SkeletonProps = {
-  banner: 'static',
-  posts: 'grid',
-  footer: 'basic',
-  search: 'wide',
+  layouts: {
+    banner: {
+      type: 'static',
+    },
+    footer: {
+      type: 'basic',
+    },
+    posts: {
+      type: 'grid',
+    },
+    search: {
+      type: 'wide',
+    },
+  },
 };
 
 export const Default = () => <Skeleton {...commonProps} />;
 
 ///
 
-export const BannerStatic = () => <Skeleton {...commonProps} banner="static" active="banner" />;
-
-export const BannerSwipableClassic = () => (
-  <Skeleton {...commonProps} banner="swipableClassic" active="banner" />
+export const BannerStatic = () => (
+  <Skeleton
+    {...mergeDeep<SkeletonProps>(commonProps, { layouts: { banner: { type: 'static' } } })}
+    active="banner"
+  />
 );
 
-export const SearchWide = () => <Skeleton {...commonProps} search="wide" active="search" />;
+export const BannerSwipableClassic = () => (
+  <Skeleton
+    {...mergeDeep<SkeletonProps>(commonProps, { layouts: { banner: { type: 'swipableClassic' } } })}
+    active="banner"
+  />
+);
+
+export const SearchWide = () => (
+  <Skeleton
+    {...mergeDeep<SkeletonProps>(commonProps, { layouts: { search: { type: 'wide' } } })}
+    active="search"
+  />
+);
 
 export const SearchWithButtons = () => (
-  <Skeleton {...commonProps} search="withButtons" active="search" />
+  <Skeleton
+    {...mergeDeep<SkeletonProps>(commonProps, { layouts: { search: { type: 'withButtons' } } })}
+    active="search"
+  />
 );
 
 ///
 
-export const PostsGrid = () => <Skeleton {...commonProps} posts="grid" active="posts" />;
+export const PostsGrid = () => (
+  <Skeleton
+    {...mergeDeep<SkeletonProps>(commonProps, { layouts: { posts: { type: 'grid' } } })}
+    active="posts"
+  />
+);
 
 export const PostsSliceHorizontal = () => (
-  <Skeleton {...commonProps} posts="slicesHorizontal" active="posts" />
+  <Skeleton
+    {...mergeDeep<SkeletonProps>(commonProps, { layouts: { posts: { type: 'slicesHorizontal' } } })}
+    active="posts"
+  />
 );
 
 export const PostsAlternateSumary = () => (
-  <Skeleton {...commonProps} posts="alternateSummary" active="posts" />
+  <Skeleton
+    {...mergeDeep<SkeletonProps>(commonProps, { layouts: { posts: { type: 'alternateSummary' } } })}
+    active="posts"
+  />
 );
 
 ///

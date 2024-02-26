@@ -87,7 +87,15 @@ export const OptionsMenu = ({ business, onRefresh }: OptionsMenuProps) => {
           const { onClose } = useModal();
 
           return {
-            content: 'Seguro que desea eliminar este negocio?',
+            content: (
+              <div>
+                <span>
+                  Al eliminar este negocio seran borradas todas las imágenes y datos asociados al
+                  mismo de manera <span className="font-bold">permanente</span>. Seguro que desea
+                  eliminar este negocio?
+                </span>
+              </div>
+            ),
             badge: <Badge variant="error" />,
             primaryBtn: (
               <ButtonRemove
