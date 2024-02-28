@@ -15,7 +15,7 @@ export const useAuthSignIn = (): {
   isAdmin: boolean;
   isUser: boolean;
   isAuthenticated: boolean;
-  onRefreshAuthUser: ()=>void
+  onRefreshAuthUser: () => void;
 } => {
   const fetchBase = useFetch<AuthData>();
   const fetch = useApiSlice(fetchBase, 'useAuthSignIn');
@@ -36,10 +36,13 @@ export const useAuthSignIn = (): {
         },
         {
           onAfterSuccess: (response) => {
-            setDataRedux({
+            const newAuthData: AuthData = {
               ...authData,
               user: response,
-            });
+            };
+
+            cookiesUtils.setCookie('authData', newAuthData);
+            setDataRedux(newAuthData);
           },
         },
       );
