@@ -9,7 +9,7 @@ export type OnAfterSuccess<Data = any> = (reponse: Data) => void;
 export type OnAfterFailed = (error: ApiError) => void;
 export type OnRefresh = () => void;
 
-export interface FetchResource<Args = undefined, Data = any> {
+export interface FetchResource<Args = void, Data = any> {
   data: FetchData<Data>;
   fetch: (args: Args, options?: FetchOptions<Data>) => void;
   status: FetchStatus;

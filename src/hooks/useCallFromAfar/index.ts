@@ -14,7 +14,8 @@ type CallAfarId =
   | 'getAllUserBussiness'
   | 'getAllUserBussiness'
   | 'redirect_to_dashboard_business_routename'
-  | 'redirect_to_routename';
+  | 'redirect_to_routename'
+  | 'refresh_auth_user';
 
 export type CallAfarResources = CallAfarId | Array<CallAfarId>;
 

@@ -3,7 +3,6 @@ import { useFetch } from 'hooks/useFetch';
 import { useAuthSignIn } from './useAuthSignIn';
 
 import { FetchResource } from 'types/api';
-import { getEndpoint } from 'utils/api';
 
 export const useAuthSignOut = (): {
   authSignOut: FetchResource;
@@ -24,20 +23,23 @@ export const useAuthSignOut = (): {
           return;
         }
 
-        fetch[2](
-          {
-            method: 'post',
-            url: getEndpoint({ path: '/auth/sign-out' }),
-            data: { token },
-          },
-          {
-            ...options,
-            onAfterSuccess: (response) => {
-              authSignIn.reset();
-              options?.onAfterSuccess?.(response);
-            },
-          },
-        );
+        authSignIn.reset();
+        options?.onAfterSuccess?.(undefined);
+
+        // fetch[2](
+        //   {
+        //     method: 'post',
+        //     url: getEndpoint({ path: '/auth/sign-out' }),
+        //     data: { token },
+        //   },
+        //   {
+        //     ...options,
+        //     onAfterSuccess: (response) => {
+        //       authSignIn.reset();
+        //       options?.onAfterSuccess?.(response);
+        //     },
+        //   },
+        // );
       },
       reset: fetch[3],
     },

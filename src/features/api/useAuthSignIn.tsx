@@ -3,6 +3,8 @@ import { useApiSlice } from 'features/slices/useApiSlice';
 
 import { useFetch } from 'hooks/useFetch';
 
+import { useGetOneUser } from './useGetOneUser';
+
 import { FetchResource } from 'types/api';
 import { AuthData } from 'types/auth';
 import { getEndpoint } from 'utils/api';
@@ -13,13 +15,35 @@ export const useAuthSignIn = (): {
   isAdmin: boolean;
   isUser: boolean;
   isAuthenticated: boolean;
+  onRefreshAuthUser: ()=>void
 } => {
   const fetchBase = useFetch<AuthData>();
   const fetch = useApiSlice(fetchBase, 'useAuthSignIn');
 
-  const [authData] = fetch;
+  const { getOneUser } = useGetOneUser();
+
+  const [authData, , , , { setDataRedux }] = fetch;
 
   return {
+    onRefreshAuthUser: () => {
+      if (!authData) return;
+
+      const userId = authData.user._id;
+
+      getOneUser.fetch(
+        {
+          userId,
+        },
+        {
+          onAfterSuccess: (response) => {
+            setDataRedux({
+              ...authData,
+              user: response,
+            });
+          },
+        },
+      );
+    },
     isAuthenticated: !!authData,
     isAdmin: authData?.user?.role === 'admin',
     isUser: authData?.user?.role === 'user',

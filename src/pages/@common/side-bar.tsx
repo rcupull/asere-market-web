@@ -14,6 +14,7 @@ import {
   UserPlusIcon,
 } from '@heroicons/react/24/outline';
 
+import { IconButtonUpdate } from 'components/icon-button-update';
 import { ProLink } from 'components/pro-link';
 import { SideBar as SideBarBase } from 'components/side-bar';
 import { UserAvatar } from 'components/user-avatar';
@@ -38,7 +39,7 @@ export const SideBar = ({ className }: SideBarProps) => {
   const { pushRoute } = useRouter();
   const { isAdmin, isAuthenticated, authData } = useAuthSignIn();
 
-  const { name } = authData?.user || {};
+  const { name, _id: userId } = authData?.user || {};
   const { authSignOut } = useAuthSignOut();
   const business = getAllUserBussiness.data || [];
 
@@ -73,7 +74,17 @@ export const SideBar = ({ className }: SideBarProps) => {
         isAuthenticated && {
           content: (
             <div className="flex flex-col items-center mb-2">
-              <UserAvatar className="mt-4 !h-14 !w-14" />
+              <div className="relative">
+                <UserAvatar className="mt-4 !h-14 !w-14" />
+                <IconButtonUpdate
+                  className="!absolute -bottom-3 -right-3 !p-1 h-7 w-7"
+                  title="Editar perfil"
+                  onClick={() =>
+                    userId &&
+                    pushModal('ProfileUpdate', { userId, callAfarResources: 'refresh_auth_user' })
+                  }
+                />
+              </div>
               <span className="mt-4 text-sm border px-2 py-1 rounded-2xl">{name}</span>
             </div>
           ),

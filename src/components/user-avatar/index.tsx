@@ -1,4 +1,7 @@
+import { useAuthSignIn } from 'features/api/useAuthSignIn';
+
 import { StyleProps } from 'types/general';
+import { getImageEndpoint } from 'utils/api';
 import { cn } from 'utils/general';
 
 const imageSrc =
@@ -7,5 +10,11 @@ const imageSrc =
 export interface UserAvatarProps extends StyleProps {}
 
 export const UserAvatar = ({ className }: UserAvatarProps) => {
-  return <img className={cn('h-8 w-8 rounded-full', className)} src={imageSrc} alt="" />;
+
+  const { authData } = useAuthSignIn();
+
+  const userProfileSrc = authData?.user?.profileImage?.src && getImageEndpoint(authData?.user?.profileImage?.src)
+  const  src =  userProfileSrc || imageSrc;
+  
+  return <img data-id='UserAvatar' className={cn('h-8 w-8 rounded-full', className)} src={src} alt="" />;
 };

@@ -1,4 +1,4 @@
-import { BaseIdentity } from './general';
+import { BaseIdentity, Image } from './general';
 
 export type UserRole = 'user' | 'admin';
 
@@ -8,6 +8,7 @@ export interface User extends BaseIdentity {
   password: string;
   role: UserRole;
   validated: boolean;
+  profileImage?: Image;
 }
 
 export type UserData = User | null;

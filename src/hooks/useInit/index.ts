@@ -16,7 +16,8 @@ export const useInit = () => {
   const { getUserPaymentPlan } = useGetUserPaymentPlan();
   const { getAllUserBusinessRouteNames } = useGetAllUserBusinessRouteNames();
   const { getAllUserBussiness } = useGetAllUserBusiness();
-  //
+  const { onRefreshAuthUser } = useAuthSignIn();
+
   const debouncer = useDebouncer();
 
   const getUserPaymentPlanRefresh = () => getUserPaymentPlan.fetch(undefined);
@@ -34,6 +35,8 @@ export const useInit = () => {
   useCallFromAfar('redirect_to_routename', ({ routeName }) => {
     pushRoute(`/${routeName}`, undefined, { timeout: 100 });
   });
+
+  useCallFromAfar('refresh_auth_user', onRefreshAuthUser);
 
   const init = () => {
     getUserPaymentPlanRefresh();
