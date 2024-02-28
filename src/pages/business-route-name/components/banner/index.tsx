@@ -1,4 +1,5 @@
 import { EmptyImage } from 'components/empty-image';
+import { Swiper } from 'components/swiper';
 
 import { Business } from 'types/business';
 import { StyleProps } from 'types/general';
@@ -10,18 +11,52 @@ export interface BannerProps extends StyleProps {
 }
 
 export const Banner = ({ business, getImageSrc, className }: BannerProps) => {
-  const { bannerImages } = business;
-  const mainImage = bannerImages?.[0];
+  const { bannerImages, layouts } = business;
 
-  const previewImage = mainImage?.src && (getImageSrc?.(mainImage?.src) || mainImage?.src);
+  const bannerLayout = layouts?.banner;
+  const getSrc = (src: string): string => (getImageSrc ? getImageSrc(src) : src);
 
-  return (
-    <div className={cn('h-96', className)}>
-      {previewImage ? (
-        <img src={previewImage} className="object-contain w-full h-full" />
-      ) : (
-        <EmptyImage />
-      )}
-    </div>
-  );
+  if (bannerLayout?.type === 'none') {
+    return <></>;
+  }
+
+  const renderContent = (content: React.ReactNode) => {
+    return (
+      <div className={cn('h-96 flex items-center justify-center', className)}>
+        {content || <EmptyImage />}
+      </div>
+    );
+  };
+
+  if (bannerLayout?.type === 'static') {
+    const mainImage = bannerImages?.[0];
+    const previewSrc = mainImage?.src && getSrc(mainImage?.src);
+
+    return renderContent(
+      previewSrc && <img src={previewSrc} className="object-contain w-full h-full" />,
+    );
+  }
+
+  if (bannerLayout?.type === 'swipableClassic') {
+    return (
+      bannerImages?.length && (
+        <Swiper
+          autoplay={{
+            delay: 5000,
+          }}
+          items={bannerImages?.map(({ src }) => {
+            const imageSrc = src && getImageSrc?.(src);
+
+            return {
+              content: renderContent(
+                <img src={imageSrc} className="object-contain w-full h-full" />,
+              ),
+            };
+          })}
+        />
+      )
+    );
+  }
+
+  return <></>;
 };

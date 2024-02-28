@@ -2,7 +2,7 @@ import { Swiper as SwiperBase, SwiperProps as SwiperPropsBase, SwiperSlide } fro
 
 import 'swiper/css';
 import 'swiper/css/navigation';
-import { Navigation } from 'swiper/modules';
+import { Autoplay, Navigation } from 'swiper/modules';
 import { StyleProps } from 'types/general';
 import { cn } from 'utils/general';
 interface SwiperItem {
@@ -15,7 +15,7 @@ export interface SwiperProps extends SwiperPropsBase, StyleProps {
 export const Swiper = ({ items, className, ...omittedProps }: SwiperProps) => {
   return (
     <SwiperBase
-      modules={[Navigation]}
+      modules={[Navigation, Autoplay]}
       spaceBetween={50}
       slidesPerView={1}
       navigation

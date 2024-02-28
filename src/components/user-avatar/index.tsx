@@ -10,11 +10,13 @@ const imageSrc =
 export interface UserAvatarProps extends StyleProps {}
 
 export const UserAvatar = ({ className }: UserAvatarProps) => {
-
   const { authData } = useAuthSignIn();
 
-  const userProfileSrc = authData?.user?.profileImage?.src && getImageEndpoint(authData?.user?.profileImage?.src)
-  const  src =  userProfileSrc || imageSrc;
-  
-  return <img data-id='UserAvatar' className={cn('h-8 w-8 rounded-full', className)} src={src} alt="" />;
+  const userProfileSrc =
+    authData?.user?.profileImage?.src && getImageEndpoint(authData?.user?.profileImage?.src);
+  const src = userProfileSrc || imageSrc;
+
+  return (
+    <img data-id="UserAvatar" className={cn('h-8 w-8 rounded-full', className)} src={src} alt="" />
+  );
 };
