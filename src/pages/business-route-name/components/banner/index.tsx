@@ -3,18 +3,17 @@ import { Swiper } from 'components/swiper';
 
 import { Business } from 'types/business';
 import { StyleProps } from 'types/general';
+import { getImageEndpoint } from 'utils/api';
 import { cn } from 'utils/general';
 
 export interface BannerProps extends StyleProps {
   business: Business;
-  getImageSrc?: (src: string) => string;
 }
 
-export const Banner = ({ business, getImageSrc, className }: BannerProps) => {
+export const Banner = ({ business, className }: BannerProps) => {
   const { bannerImages, layouts } = business;
 
   const bannerLayout = layouts?.banner;
-  const getSrc = (src: string): string => (getImageSrc ? getImageSrc(src) : src);
 
   if (bannerLayout?.type === 'none') {
     return <></>;
@@ -30,7 +29,7 @@ export const Banner = ({ business, getImageSrc, className }: BannerProps) => {
 
   if (bannerLayout?.type === 'static') {
     const mainImage = bannerImages?.[0];
-    const previewSrc = mainImage?.src && getSrc(mainImage?.src);
+    const previewSrc = mainImage?.src && getImageEndpoint(mainImage?.src);
 
     return renderContent(
       previewSrc && <img src={previewSrc} className="object-contain w-full h-full" />,
@@ -45,7 +44,7 @@ export const Banner = ({ business, getImageSrc, className }: BannerProps) => {
             delay: 5000,
           }}
           items={bannerImages?.map(({ src }) => {
-            const imageSrc = src && getImageSrc?.(src);
+            const imageSrc = src && getImageEndpoint(src);
 
             return {
               content: renderContent(

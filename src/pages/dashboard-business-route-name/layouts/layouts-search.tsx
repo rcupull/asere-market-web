@@ -14,6 +14,20 @@ export const LayoutSearch = ({ onChange, value, ...omittedProps }: LayoutSearchP
         {
           content: (
             <SwiperSliceSelect
+              label="Sin barra de búsqueda"
+              selected={value?.search?.type === 'none'}
+              onSelect={() => onChange?.(getChangedLayout(value, { search: { type: 'none' } }))}
+            >
+              <Skeleton
+                active="search"
+                layouts={getChangedLayout(value, { search: { type: 'none' } })}
+              />
+            </SwiperSliceSelect>
+          ),
+        },
+        {
+          content: (
+            <SwiperSliceSelect
               label="Todo el ancho"
               selected={value?.search?.type === 'wide'}
               onSelect={() => onChange?.(getChangedLayout(value, { search: { type: 'wide' } }))}

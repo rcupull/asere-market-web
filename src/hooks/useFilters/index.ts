@@ -4,20 +4,22 @@ import { useRouter } from 'hooks/useRouter';
 
 import { AnyRecord } from 'types/general';
 
-interface UseFiltersArgs<S> {
+export interface UseFiltersArgs<S> {
   onChange?: (state: S) => void;
   notPersisteInRoute?: boolean;
   notCallChangeWhenMount?: boolean;
   initialFilters?: S;
 }
 
-export const useFilters = <S extends AnyRecord = AnyRecord>(
-  args: UseFiltersArgs<S>,
-): {
+export interface UseFiltersReturn<S extends AnyRecord = AnyRecord> {
   onMergeFilters: (partialFilter: S) => void;
   onRefresh: () => void;
   value: S;
-} => {
+}
+
+export const useFilters = <S extends AnyRecord = AnyRecord>(
+  args: UseFiltersArgs<S>,
+): UseFiltersReturn<S> => {
   const { onChange, initialFilters = {}, notPersisteInRoute, notCallChangeWhenMount } = args || {};
   const [localState, setLocalState] = useState<S>(initialFilters as S);
   const { query: queryState, onChangeQuery: onChangeQueryState } = useRouter();

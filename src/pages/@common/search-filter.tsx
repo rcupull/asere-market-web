@@ -8,15 +8,54 @@ import { useSubmitPortal } from 'hooks/useSubmitPortal';
 import { Formik } from 'formik';
 import { StyleProps } from 'types/general';
 import { cn } from 'utils/general';
+
 export interface SearchFilterProps extends StyleProps {
-  isBusy: boolean;
+  isBusy?: boolean;
   onChange?: (search: string | undefined) => void;
   value?: string;
+  hideButtons?: boolean;
 }
 
-export const SearchFilter = ({ isBusy, onChange, className, value }: SearchFilterProps) => {
+export const SearchFilter = ({
+  isBusy,
+  onChange,
+  className,
+  value,
+  hideButtons,
+}: SearchFilterProps) => {
   const submitBtnPortal = useSubmitPortal();
   const clearBtnPortal = useSubmitPortal();
+
+  if (hideButtons) {
+    return (
+      <div className={cn(className)}>
+        <Formik
+          enableReinitialize
+          initialValues={{
+            search: value || '',
+          }}
+          onSubmit={() => {}}
+        >
+          {({ values }) => {
+            return (
+              <form className="flex w-full">
+                <FieldInput
+                  name="search"
+                  className="w-full"
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter') {
+                      e.preventDefault();
+                      onChange?.(values.search);
+                    }
+                  }}
+                />
+              </form>
+            );
+          }}
+        </Formik>
+      </div>
+    );
+  }
 
   return (
     <div className={cn('flex items-center w-full sm:w-fit ', className)}>
@@ -27,13 +66,18 @@ export const SearchFilter = ({ isBusy, onChange, className, value }: SearchFilte
         }}
         onSubmit={() => {}}
       >
-        {({ handleChange, values, handleReset }) => {
+        {({ values, handleReset }) => {
           return (
             <form className="flex w-full">
               <FieldInput
                 name="search"
-                onChange={handleChange}
                 className="w-full sm:w-64 mr-auto"
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter') {
+                    e.preventDefault();
+                    onChange?.(values.search);
+                  }
+                }}
               />
 
               {submitBtnPortal.getPortal(
