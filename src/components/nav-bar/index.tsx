@@ -1,56 +1,51 @@
-// import { BellIcon } from '@heroicons/react/24/outline';
 import { Link } from 'react-router-dom';
-
-import { MainIcon } from 'components/main-icon';
 
 import { useRouter } from 'hooks/useRouter';
 
-import { Nullable } from 'types/general';
+import { Nullable, StyleProps } from 'types/general';
 import { cn, compact } from 'utils/general';
 
 interface Item {
   name: string;
   href: string;
 }
-export interface Props {
+
+
+export interface NavbarProps extends StyleProps {
+  preContent?: React.ReactNode;
   items: Array<Nullable<Item>>;
-  userMenu?: React.ReactNode;
+  postContent?: React.ReactNode;
 }
 
-export const NavBar = ({ items: itemsProp, userMenu }: Props) => {
-  const items = compact(itemsProp);
-
+export const NavBar = ({ items, preContent, postContent, className }: NavbarProps) => {
   const { pathname } = useRouter();
 
-  const itemsNode = (
-    <div className="space-x-4 hidden ml-6 sm:flex flex-1">
-      {items.map((item) => {
-        const current = pathname === item?.href;
-        return (
-          <Link
-            key={item.name}
-            to={item.href}
-            className={cn(
-              current
-                ? 'bg-gray-900 text-white'
-                : 'text-gray-300 hover:bg-gray-700 hover:text-white',
-              'rounded-md px-3 py-2 text-sm font-medium',
-            )}
-            aria-current={current ? 'page' : undefined}
-          >
-            {item.name}
-          </Link>
-        );
-      })}
-    </div>
-  );
   return (
-    <div className="w-full px-8 bg-gray-800 flex items-center justify-center h-16">
-      <MainIcon className="hidden sm:block" />
+    <div data-id="NavBar" className={cn("w-full px-8 bg-gray-800 flex items-center justify-center h-16 gap-6", className)} >
+      {preContent}
 
-      {itemsNode}
+      <div className="space-x-4 hidden sm:flex flex-1">
+        {compact(items).map((item) => {
+          const current = pathname === item?.href;
+          return (
+            <Link
+              key={item.name}
+              to={item.href}
+              className={cn(
+                current
+                  ? 'bg-gray-900 text-white'
+                  : 'text-gray-300 hover:bg-gray-700 hover:text-white',
+                'rounded-md px-3 py-2 text-sm font-medium',
+              )}
+              aria-current={current ? 'page' : undefined}
+            >
+              {item.name}
+            </Link>
+          );
+        })}
+      </div>
 
-      {userMenu && <div className="ml-3 hidden sm:block">{userMenu}</div>}
+      {postContent}
     </div>
   );
 };

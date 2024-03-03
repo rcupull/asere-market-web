@@ -1,12 +1,12 @@
 import { Popover } from '@headlessui/react';
 
-import { MainIcon } from 'components/main-icon';
-import { RootNavBar } from 'components/nav-bar-root';
-
 import { useRouter } from 'hooks/useRouter';
 
+import { Footer } from './footer';
 import { SideBar } from './side-bar';
 
+import { BusinessLogo } from 'pages/@common/business-logo';
+import { Navbar } from 'pages/@common/nav-bar';
 import { ChildrenProp } from 'types/general';
 import { cn } from 'utils/general';
 
@@ -34,7 +34,7 @@ export const LayoutMain = ({ children }: LayoutMainProps): JSX.Element => {
           <>
             <Popover.Button as="div" className="absolute -top-12">
               <div className="flex w-14 cursor-pointer">
-                <MainIcon className="ml-auto" />
+                <BusinessLogo className="ml-auto" />
               </div>
             </Popover.Button>
 
@@ -50,8 +50,9 @@ export const LayoutMain = ({ children }: LayoutMainProps): JSX.Element => {
   );
 
   return (
-    <>
-      <RootNavBar />
+    <div className='flex flex-col h-screen'>
+      <Navbar className='flex-shrink-0'/>
+
       <div className="flex">
         {xsSideBar}
         {smSideBar}
@@ -63,6 +64,8 @@ export const LayoutMain = ({ children }: LayoutMainProps): JSX.Element => {
           {children}
         </div>
       </div>
-    </>
+
+      <Footer className='mt-auto flex-shrink-0' />
+    </div>
   );
 };
