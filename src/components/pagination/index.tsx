@@ -5,7 +5,7 @@ import { Button, ButtonProps } from 'components/button';
 
 import { Paginator } from 'types/api';
 import { StyleProps } from 'types/general';
-import { cn, getRange, isNullOrUndefined } from 'utils/general';
+import { cn, getRange, isNullOrUndefined, isNumber } from 'utils/general';
 
 const NavButton = ({ className, ...omittedProps }: ButtonProps) => {
   return (
@@ -25,27 +25,39 @@ export interface PaginationProps extends StyleProps {
   paginator?: Paginator | null;
 }
 
-export const Pagination = ({ paginator, onChange, className }: PaginationProps) => {
-  const [startPage, setStartPage] = useState(1);
-  const pagesBySections = 5;
+const defaultPageBySection = 5;
 
+export const Pagination = ({ paginator, onChange, className }: PaginationProps) => {
   const { page, hasNextPage, hasPrevPage, pageCount } = paginator || {};
+
+
+
+  const [startPage, setStartPage] = useState(1);
+  const [pagesBySections, setPagesBySections] = useState<number>();
+
 
   useEffect(() => {
     if (isNullOrUndefined(page)) return;
     if (isNullOrUndefined(pageCount)) return;
 
-    if (page > startPage + pagesBySections - 1) {
-      const newStartPage = startPage + pagesBySections;
+    if(pagesBySections === undefined){
+      setPagesBySections(isNumber(pageCount) && pageCount > defaultPageBySection ? defaultPageBySection : pageCount);
+    }
 
-      if (newStartPage + pagesBySections > pageCount) {
-        return setStartPage(pageCount - pagesBySections + 1);
+    if (page > startPage + defaultPageBySection - 1) {
+      const newStartPage = startPage + defaultPageBySection;
+      setStartPage(newStartPage);
+
+      if (newStartPage + defaultPageBySection > pageCount) {
+        return setPagesBySections(pageCount - newStartPage + 1);
       } else {
-        return setStartPage(newStartPage);
+        return setPagesBySections(defaultPageBySection);
       }
     }
     if (page < startPage) {
-      const newStartPage = startPage - pagesBySections;
+      const newStartPage = startPage - defaultPageBySection;
+
+      setPagesBySections(defaultPageBySection);
 
       if (newStartPage < 1) {
         return setStartPage(1);
@@ -76,7 +88,7 @@ export const Pagination = ({ paginator, onChange, className }: PaginationProps) 
     }
   };
 
-  const range = getRange(5).map((r) => r + startPage);
+  const range = getRange(pagesBySections).map((r) => r + startPage);
 
   const getInfo = (): React.ReactNode => {
     if (!paginator) return null;

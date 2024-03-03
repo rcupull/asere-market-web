@@ -19,7 +19,7 @@ export const Default = () => {
     page: 3,
     pagingCounter: 0,
     prevPage: undefined,
-    pageCount: 18,
+    pageCount: 8,
   });
 
   const handleChange = (newPaginator: Paginator) => {
