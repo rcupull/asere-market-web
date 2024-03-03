@@ -42,6 +42,7 @@ export const useInit = () => {
     getUserPaymentPlanRefresh();
     getAllUserBusinessRouteNamesRefresh();
     getAllUserBussinessRefresh();
+    onRefreshAuthUser();
   };
 
   const reset = () => {

@@ -35,14 +35,15 @@ export const useAuthSignIn = (): {
           userId,
         },
         {
-          onAfterSuccess: (response) => {
-            const newAuthData: AuthData = {
-              ...authData,
-              user: response,
-            };
+          onAfterSuccess: (user) => {
+            const { token } = authData || {};
 
-            cookiesUtils.setCookie('authData', newAuthData);
-            setDataRedux(newAuthData);
+            cookiesUtils.setCookie('user', user);
+
+            setDataRedux({
+              token,
+              user,
+            });
           },
         },
       );
@@ -64,14 +65,17 @@ export const useAuthSignIn = (): {
           {
             ...options,
             onAfterSuccess: (response) => {
-              cookiesUtils.setCookie('authData', response);
+              const { token, user } = response
+              cookiesUtils.setCookie('token', token);
+              cookiesUtils.setCookie('user', user);
               options?.onAfterSuccess?.(response);
             },
           },
         );
       },
       reset: () => {
-        cookiesUtils.removeCookie('authData');
+        cookiesUtils.removeCookie('token');
+        cookiesUtils.removeCookie('user');
         fetch[3]();
       },
     },

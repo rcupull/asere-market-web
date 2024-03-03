@@ -1,4 +1,3 @@
-
 import { UseFiltersReturn } from 'hooks/useFilters';
 
 import { SearchFilter } from 'pages/@common/search-filter';
@@ -8,7 +7,7 @@ import { cn } from 'utils/general';
 
 export interface SearchProps extends StyleProps {
   filters: UseFiltersReturn;
-  isBusy?: boolean
+  isBusy?: boolean;
   business: Business;
 }
 
@@ -25,20 +24,31 @@ export const Search = ({ business, className, isBusy, filters }: SearchProps) =>
     return <div className={cn('mt-8 w-full', className)}>{content}</div>;
   };
 
-
-  if (currentLayouts?.type === 'wide') {
+  if (currentLayouts?.type === 'left') {
     return renderContent(
+      <div className="flex justify-start">
         <SearchFilter
           isBusy={isBusy}
           onChange={(search) => filters.onMergeFilters({ search })}
           value={filters.value.search}
-          hideButtons
-          className='w-full'
         />
+      </div>,
     );
   }
 
-  if (currentLayouts?.type === 'withButtons') {
+  if (currentLayouts?.type === 'center') {
+    return renderContent(
+      <div className="flex justify-center">
+        <SearchFilter
+          isBusy={isBusy}
+          onChange={(search) => filters.onMergeFilters({ search })}
+          value={filters.value.search}
+        />
+      </div>,
+    );
+  }
+
+  if (currentLayouts?.type === 'right') {
     return renderContent(
       <div className="flex justify-end">
         <SearchFilter

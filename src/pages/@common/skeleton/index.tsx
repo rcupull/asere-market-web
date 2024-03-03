@@ -81,18 +81,24 @@ export const Skeleton = ({ active, className, layouts }: SkeletonProps) => {
   };
 
   const renderSearch = () => {
-    if (search?.type === 'wide') {
-      return <MutedBox className="!h-6" active={active === 'search'} />;
+    const searchAndButtons = (
+      <div className="w-40 flex gap-2">
+        <MutedBox className="!h-6" active={active === 'search'} />
+        <MutedBox className="!w-8 !h-6" active={active === 'search'} />
+        <MutedBox className="!w-8 !h-6" active={active === 'search'} />
+      </div>
+    );
+
+    if (search?.type === 'left') {
+      return <div className="flex justify-start">{searchAndButtons}</div>;
     }
 
-    if (search?.type === 'withButtons') {
-      return (
-        <div className="w-full flex gap-2">
-          <MutedBox className="!h-6" active={active === 'search'} />
-          <MutedBox className="!w-8 !h-6" active={active === 'search'} />
-          <MutedBox className="!w-8 !h-6" active={active === 'search'} />
-        </div>
-      );
+    if (search?.type === 'center') {
+      return <div className="flex justify-center">{searchAndButtons}</div>;
+    }
+
+    if (search?.type === 'right') {
+      return <div className="flex justify-end">{searchAndButtons}</div>;
     }
 
     return null;

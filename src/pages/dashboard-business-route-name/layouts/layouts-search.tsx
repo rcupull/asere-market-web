@@ -28,13 +28,13 @@ export const LayoutSearch = ({ onChange, value, ...omittedProps }: LayoutSearchP
         {
           content: (
             <SwiperSliceSelect
-              label="Todo el ancho"
-              selected={value?.search?.type === 'wide'}
-              onSelect={() => onChange?.(getChangedLayout(value, { search: { type: 'wide' } }))}
+              label="Izquierda"
+              selected={value?.search?.type === 'left'}
+              onSelect={() => onChange?.(getChangedLayout(value, { search: { type: 'left' } }))}
             >
               <Skeleton
                 active="search"
-                layouts={getChangedLayout(value, { search: { type: 'wide' } })}
+                layouts={getChangedLayout(value, { search: { type: 'left' } })}
               />
             </SwiperSliceSelect>
           ),
@@ -42,15 +42,29 @@ export const LayoutSearch = ({ onChange, value, ...omittedProps }: LayoutSearchP
         {
           content: (
             <SwiperSliceSelect
-              label="Con botones"
-              selected={value?.search?.type === 'withButtons'}
+              label="Centrada"
+              selected={value?.search?.type === 'center'}
+              onSelect={() => onChange?.(getChangedLayout(value, { search: { type: 'center' } }))}
+            >
+              <Skeleton
+                active="search"
+                layouts={getChangedLayout(value, { search: { type: 'center' } })}
+              />
+            </SwiperSliceSelect>
+          ),
+        },
+        {
+          content: (
+            <SwiperSliceSelect
+              label="Derecha"
+              selected={value?.search?.type === 'right'}
               onSelect={() =>
-                onChange?.(getChangedLayout(value, { search: { type: 'withButtons' } }))
+                onChange?.(getChangedLayout(value, { search: { type: 'right' } }))
               }
             >
               <Skeleton
                 active="search"
-                layouts={getChangedLayout(value, { search: { type: 'withButtons' } })}
+                layouts={getChangedLayout(value, { search: { type: 'right' } })}
               />
             </SwiperSliceSelect>
           ),

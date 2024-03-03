@@ -18,7 +18,7 @@ const commonProps: SkeletonProps = {
       type: 'grid',
     },
     search: {
-      type: 'wide',
+      type: 'right',
     },
   },
 };
@@ -41,19 +41,27 @@ export const BannerSwipableClassic = () => (
   />
 );
 
-export const SearchWide = () => (
+export const SearchLeft = () => (
   <Skeleton
-    {...mergeDeep<SkeletonProps>(commonProps, { layouts: { search: { type: 'wide' } } })}
+    {...mergeDeep<SkeletonProps>(commonProps, { layouts: { search: { type: 'left' } } })}
     active="search"
   />
 );
 
-export const SearchWithButtons = () => (
+export const SearchCenter = () => (
   <Skeleton
-    {...mergeDeep<SkeletonProps>(commonProps, { layouts: { search: { type: 'withButtons' } } })}
+    {...mergeDeep<SkeletonProps>(commonProps, { layouts: { search: { type: 'center' } } })}
     active="search"
   />
 );
+
+export const SearchRight = () => (
+  <Skeleton
+    {...mergeDeep<SkeletonProps>(commonProps, { layouts: { search: { type: 'right' } } })}
+    active="search"
+  />
+);
+
 
 ///
 

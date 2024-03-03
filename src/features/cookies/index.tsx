@@ -39,9 +39,13 @@ export const CookiesService = ({ children }: CookiesServiceProps): JSX.Element =
   const useCookiesPersistent = useRef(args);
   useCookiesPersistent.current = args;
 
-  const setCookie: CookiesUtils['setCookie'] = (...args) => {
+  const setCookie: CookiesUtils['setCookie'] = (name, value, options = {}) => {
     const [, setCookie] = useCookiesPersistent.current;
-    setCookie(...args);
+
+    setCookie(name, value, {
+      path: '/',
+      ...options
+    });
   };
 
   const getCookie: CookiesUtils['getCookie'] = (key) => {

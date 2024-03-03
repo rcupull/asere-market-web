@@ -3,7 +3,7 @@ import { slices } from 'features/slices';
 
 import { configureStore } from '@reduxjs/toolkit';
 import { combineReducers } from 'redux';
-import { AuthData } from 'types/auth';
+import { AuthData, User } from 'types/auth';
 import { AnyRecord } from 'types/general';
 
 export const makerStore = (preloadedState: Partial<AnyRecord> = {}) => {
@@ -24,9 +24,14 @@ export const makerStore = (preloadedState: Partial<AnyRecord> = {}) => {
   });
 
   // setting authentication data
-  const cookiesData = cookiesUtils.getCookie('authData');
-  if (cookiesData) {
-    store.dispatch(slices.useAuthSignIn.actions.setState(cookiesData as AuthData));
+  const token = cookiesUtils.getCookie('token') as string | null;
+  const user = cookiesUtils.getCookie('user') as User | null;
+  if (token && user) {
+    const authData: AuthData = {
+      token,
+      user,
+    };
+    store.dispatch(slices.useAuthSignIn.actions.setState(authData));
   }
 
   return { store };

@@ -15,7 +15,6 @@ import {
   OnAfterFailed,
   OnAfterSuccess,
 } from 'types/api';
-import { AuthData } from 'types/auth';
 
 export type FetchOptions<Data = any> = {
   onAfterSuccess?: OnAfterSuccess<Data>;
@@ -73,7 +72,7 @@ export const useFetch = <Data = any>(): UseFetchReturn<Data> => {
 
       const resourcesArray = args instanceof Array ? args : [args];
 
-      const authData = cookiesUtils.getCookie('authData') as unknown as AuthData | null;
+      const token = cookiesUtils.getCookie('token') as string | null;
 
       const promises = resourcesArray.map(({ method, url, data, headers = {} }) => {
         return axios({
@@ -82,7 +81,7 @@ export const useFetch = <Data = any>(): UseFetchReturn<Data> => {
           data,
           headers: {
             ...headers,
-            Authorization: authData?.token && `Bearer ${authData?.token}`,
+            Authorization: token && `Bearer ${token}`,
           },
         });
       });
