@@ -128,12 +128,12 @@ export const OptionsMenu = ({ business, onRefresh }: OptionsMenuProps) => {
       buttonElement={<IconButton svg={Bars3Icon} />}
       items={[
         {
-          label: hidden ? 'Mostrar' : 'Ocultar',
+          label: `${ hidden ? 'Mostrar' : 'Ocultar'} este negocio`,
           onClick: handleShowHide,
           svg: hidden ? EyeIcon : EyeSlashIcon,
         },
         {
-          label: 'Editar',
+          label: 'Editar el negocio',
           onClick: () => {
             pushModal('BusinessNew', {
               routeName,
@@ -146,12 +146,12 @@ export const OptionsMenu = ({ business, onRefresh }: OptionsMenuProps) => {
           svg: PencilSquareIcon,
         },
         {
-          label: 'Ver la página',
+          label: 'Ver la página de este negocio',
           onClick: () => pushRoute(`/${routeName}`),
           svg: ArrowTopRightOnSquareIcon,
         },
         {
-          label: 'Eliminar',
+          label: 'Eliminar el negocio',
           onClick: handleDelete,
           svg: TrashIcon,
         },

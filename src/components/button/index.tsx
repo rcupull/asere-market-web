@@ -65,7 +65,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>((props, ref) =>
       {...omittedProps}
     >
       {Svg && <Svg className={cn('h-5 w-5', { ['mr-2']: label })} />}
-      <span className="whitespace-nowrap overflow-hidden overflow-ellipsis max-w-24 sm:max-w-none">
+      <span className="whitespace-nowrap">
         {label}
       </span>
       {isBusy && (
