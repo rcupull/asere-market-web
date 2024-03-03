@@ -16,6 +16,13 @@ export const BusinessName = ({ className }: BusinessNameProps) => {
   const { name } = getOneBusiness.data || {};
 
   return (
-    <div className={cn('text-gray-300 text-2xl text-nowrap overflow-hidden min-w-20 text-ellipsis', className)}>{isBusinessPage ? name : 'Hook'}</div>
+    <div
+      className={cn(
+        'text-gray-300 text-2xl text-nowrap overflow-hidden min-w-20 text-ellipsis',
+        className,
+      )}
+    >
+      {isBusinessPage ? name : 'Hook'}
+    </div>
   );
 };

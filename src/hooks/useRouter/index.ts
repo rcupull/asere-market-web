@@ -20,9 +20,7 @@ interface UseRouterReturn {
   query: Query;
   search: string;
   params: Record<string, string | undefined>;
-  whichPage: {
-    business: boolean;
-  };
+  isBusinessPage: boolean;
   onChangeQuery: (
     partialQuery: Query,
     options?: {
@@ -58,9 +56,7 @@ export const useRouter = (): UseRouterReturn => {
   const { routeName } = params;
 
   return {
-    whichPage: {
-      business: pathname === `/${routeName}`,
-    },
+    isBusinessPage: pathname === `/${routeName}`,
     params,
     search,
     queryToSearch,

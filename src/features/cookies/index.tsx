@@ -44,7 +44,7 @@ export const CookiesService = ({ children }: CookiesServiceProps): JSX.Element =
 
     setCookie(name, value, {
       path: '/',
-      ...options
+      ...options,
     });
   };
 

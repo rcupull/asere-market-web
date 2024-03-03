@@ -65,9 +65,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>((props, ref) =>
       {...omittedProps}
     >
       {Svg && <Svg className={cn('h-5 w-5', { ['mr-2']: label })} />}
-      <span className="whitespace-nowrap">
-        {label}
-      </span>
+      <span className="whitespace-nowrap">{label}</span>
       {isBusy && (
         <Ellipsis
           size={40}

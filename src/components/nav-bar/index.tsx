@@ -10,7 +10,6 @@ interface Item {
   href: string;
 }
 
-
 export interface NavbarProps extends StyleProps {
   preContent?: React.ReactNode;
   items: Array<Nullable<Item>>;
@@ -21,7 +20,13 @@ export const NavBar = ({ items, preContent, postContent, className }: NavbarProp
   const { pathname } = useRouter();
 
   return (
-    <div data-id="NavBar" className={cn("w-full px-8 bg-gray-800 flex items-center justify-center h-16 gap-6", className)} >
+    <div
+      data-id="NavBar"
+      className={cn(
+        'w-full px-8 bg-gray-800 flex items-center justify-center h-16 gap-6',
+        className,
+      )}
+    >
       {preContent}
 
       <div className="space-x-4 hidden sm:flex flex-1">
@@ -35,7 +40,7 @@ export const NavBar = ({ items, preContent, postContent, className }: NavbarProp
                 current
                   ? 'bg-gray-900 text-white'
                   : 'text-gray-300 hover:bg-gray-700 hover:text-white',
-                'rounded-md px-3 py-2 text-sm font-medium',
+                'rounded-md px-3 py-2 text-sm font-medium text-nowrap',
               )}
               aria-current={current ? 'page' : undefined}
             >

@@ -58,9 +58,7 @@ export const LayoutSearch = ({ onChange, value, ...omittedProps }: LayoutSearchP
             <SwiperSliceSelect
               label="Derecha"
               selected={value?.search?.type === 'right'}
-              onSelect={() =>
-                onChange?.(getChangedLayout(value, { search: { type: 'right' } }))
-              }
+              onSelect={() => onChange?.(getChangedLayout(value, { search: { type: 'right' } }))}
             >
               <Skeleton
                 active="search"

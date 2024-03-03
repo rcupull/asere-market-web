@@ -50,8 +50,8 @@ export const LayoutMain = ({ children }: LayoutMainProps): JSX.Element => {
   );
 
   return (
-    <div className='flex flex-col h-screen'>
-      <Navbar className='flex-shrink-0'/>
+    <div className="flex flex-col h-screen">
+      <Navbar className="flex-shrink-0" />
 
       <div className="flex">
         {xsSideBar}
@@ -65,7 +65,7 @@ export const LayoutMain = ({ children }: LayoutMainProps): JSX.Element => {
         </div>
       </div>
 
-      <Footer className='mt-auto flex-shrink-0' />
+      <Footer className="mt-auto flex-shrink-0" />
     </div>
   );
 };

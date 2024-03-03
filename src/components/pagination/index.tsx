@@ -30,18 +30,17 @@ const defaultPageBySection = 5;
 export const Pagination = ({ paginator, onChange, className }: PaginationProps) => {
   const { page, hasNextPage, hasPrevPage, pageCount } = paginator || {};
 
-
-
   const [startPage, setStartPage] = useState(1);
   const [pagesBySections, setPagesBySections] = useState<number>();
-
 
   useEffect(() => {
     if (isNullOrUndefined(page)) return;
     if (isNullOrUndefined(pageCount)) return;
 
-    if(pagesBySections === undefined){
-      setPagesBySections(isNumber(pageCount) && pageCount > defaultPageBySection ? defaultPageBySection : pageCount);
+    if (pagesBySections === undefined) {
+      setPagesBySections(
+        isNumber(pageCount) && pageCount > defaultPageBySection ? defaultPageBySection : pageCount,
+      );
     }
 
     if (page > startPage + defaultPageBySection - 1) {

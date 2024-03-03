@@ -6,7 +6,7 @@ import { cn } from 'utils/general';
 export interface BusinessHookLogoProps extends StyleProps {}
 
 export const BusinessHookLogo = ({ className }: BusinessHookLogoProps) => (
-  <div className={cn('px-2 py-1 rounded-full bg-white h-8', className)}>
-    <img className="h-full" src={hookSrc} alt="Hook Logo"  />
+  <div className={cn('px-2 py-0.5 rounded-full bg-white h-8', className)}>
+    <img className="h-full" src={hookSrc} alt="Hook Logo" />
   </div>
-)
+);

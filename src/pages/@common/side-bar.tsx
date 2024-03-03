@@ -36,7 +36,8 @@ export interface SideBarProps extends StyleProps {}
 export const SideBar = ({ className }: SideBarProps) => {
   const { getAllUserBussiness } = useGetAllUserBusiness();
   const { pushModal } = useModal();
-  const { pushRoute } = useRouter();
+  const { pushRoute, isBusinessPage, params } = useRouter();
+  const { routeName } = params;
   const { isAdmin, isAuthenticated, authData } = useAuthSignIn();
 
   const { name, _id: userId } = authData?.user || {};
@@ -92,20 +93,26 @@ export const SideBar = ({ className }: SideBarProps) => {
         isAuthenticated && {
           divider: true,
         },
-        { label: 'Home', href: '/', svg: HomeIcon, className: 'sm:hidden' },
-        {
+        isBusinessPage && { label: 'Publicaciones', href: `/${routeName}`, svg: HomeIcon },
+        !isBusinessPage && { label: 'Inicio', href: '/', svg: HomeIcon, className: 'sm:hidden' },
+        !isBusinessPage && {
           label: 'Todas las tiendas',
           href: '/business',
           svg: BuildingLibraryIcon,
           className: 'sm:hidden',
         },
-        {
+        !isBusinessPage && {
           label: 'Precios',
           href: '/payment-plans',
           svg: CurrencyDollarIcon,
           className: 'sm:hidden',
         },
-        { label: 'Quienes somos', href: '/about-us', svg: UserCircleIcon, className: 'sm:hidden' },
+        !isBusinessPage && {
+          label: '¿Que es Hook?',
+          href: '/about-us',
+          svg: UserCircleIcon,
+          className: 'sm:hidden',
+        },
         isAdmin && { label: 'Admin', href: '/admin', svg: CodeBracketIcon, className: 'sm:hidden' },
         {
           divider: true,
@@ -146,7 +153,7 @@ export const SideBar = ({ className }: SideBarProps) => {
           className: 'sm:hidden',
         },
         !isAuthenticated && {
-          label: 'Registrarse',
+          label: 'Créate una cuenta',
           svg: UserPlusIcon,
           href: '/sign-up',
           className: 'sm:hidden',

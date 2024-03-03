@@ -128,7 +128,7 @@ export const OptionsMenu = ({ business, onRefresh }: OptionsMenuProps) => {
       buttonElement={<IconButton svg={Bars3Icon} />}
       items={[
         {
-          label: `${ hidden ? 'Mostrar' : 'Ocultar'} este negocio`,
+          label: `${hidden ? 'Mostrar' : 'Ocultar'} este negocio`,
           onClick: handleShowHide,
           svg: hidden ? EyeIcon : EyeSlashIcon,
         },

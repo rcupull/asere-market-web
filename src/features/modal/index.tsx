@@ -13,8 +13,8 @@ const componentRecord: Record<ModalId, LoadableReturn> = {
     import('./components/confirmation').then((m) => ({ default: m.Confirmation })),
   ),
   ProfileUpdate: dynamic(() =>
-  import('./components/profile-update').then((m) => ({ default: m.ProfileUpdate })),
-),
+    import('./components/profile-update').then((m) => ({ default: m.ProfileUpdate })),
+  ),
 };
 
 export const ModalContainer = (): JSX.Element | null => {

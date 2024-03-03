@@ -10,12 +10,12 @@ import { getImageEndpoint } from 'utils/api';
 export interface BusinessLogoProps extends StyleProps {}
 
 export const BusinessLogo = ({ className }: BusinessLogoProps) => {
-  const { whichPage } = useRouter();
+  const { isBusinessPage } = useRouter();
 
   const { getOneBusiness } = useGetOneBusiness();
   const business = getOneBusiness.data;
 
-  if (whichPage.business) {
+  if (isBusinessPage) {
     const src = business?.logo?.src;
 
     if (src) {

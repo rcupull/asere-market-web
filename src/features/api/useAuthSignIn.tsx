@@ -65,7 +65,7 @@ export const useAuthSignIn = (): {
           {
             ...options,
             onAfterSuccess: (response) => {
-              const { token, user } = response
+              const { token, user } = response;
               cookiesUtils.setCookie('token', token);
               cookiesUtils.setCookie('user', user);
               options?.onAfterSuccess?.(response);

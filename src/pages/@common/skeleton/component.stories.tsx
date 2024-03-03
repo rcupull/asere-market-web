@@ -62,7 +62,6 @@ export const SearchRight = () => (
   />
 );
 
-
 ///
 
 export const PostsGrid = () => (

@@ -11,7 +11,10 @@ export const SocialNetworkFace = ({ to, className }: SocialNetworkFaceProps) => 
   return (
     <Link
       to={to}
-      className={cn("m-1 h-9 w-9 rounded-full border-2 border-white uppercase leading-normal text-white transition duration-150 ease-in-out hover:bg-black hover:bg-opacity-5 focus:outline-none focus:ring-0", className)}
+      className={cn(
+        'm-1 h-9 w-9 rounded-full border-2 border-white uppercase leading-normal text-white transition duration-150 ease-in-out hover:bg-black hover:bg-opacity-5 focus:outline-none focus:ring-0',
+        className,
+      )}
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"

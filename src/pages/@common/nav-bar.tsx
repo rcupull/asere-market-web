@@ -1,5 +1,11 @@
-import { ArrowRightStartOnRectangleIcon, Cog8ToothIcon } from '@heroicons/react/24/outline';
-import { Link } from 'react-router-dom';
+import {
+  ArrowRightEndOnRectangleIcon,
+  ArrowRightStartOnRectangleIcon,
+  Cog8ToothIcon,
+  HomeIcon,
+  UserGroupIcon,
+  UserPlusIcon,
+} from '@heroicons/react/24/outline';
 
 import { Menu } from 'components/menu';
 import { NavBar as NavBarBase } from 'components/nav-bar';
@@ -21,7 +27,8 @@ export const Navbar = ({ className }: NavbarProps) => {
   const { isAdmin, isUser, isAuthenticated, authData } = useAuthSignIn();
   const { authSignOut } = useAuthSignOut();
   const { user } = authData || {};
-  const { whichPage } = useRouter();
+  const { isBusinessPage, params } = useRouter();
+  const { routeName } = params;
 
   return (
     <NavBarBase
@@ -34,24 +41,35 @@ export const Navbar = ({ className }: NavbarProps) => {
         </>
       }
       items={[
-        { name: 'Home', href: '/' },
-        { name: 'Tiendas', href: '/business' },
-        { name: 'Precios', href: '/payment-plans' },
+        isBusinessPage && { name: 'Publicaciones', href: `/${routeName}` },
+        !isBusinessPage && { name: 'Home', href: '/' },
+        !isBusinessPage && { name: 'Tiendas', href: '/business' },
+        !isBusinessPage && { name: 'Precios', href: '/payment-plans' },
         isUser && { name: 'Panel', href: '/dashboard' },
-        { name: 'Quienes somos', href: '/about-us' },
+        !isBusinessPage && { name: '¿Que es Hook?', href: '/about-us' },
         isAdmin && { name: 'Admin', href: '/admin' },
       ]}
       postContent={
         <>
-          {whichPage.business && (
-            <Link className="text-slate-100 text-nowrap shrink-0" to="/">
-              <BusinessHookLogo />
-            </Link>
-          )}
-          {!isAuthenticated && (
-            <Link className="text-slate-100 text-nowrap" to="/sign-in">
-              Iniciar Sesión
-            </Link>
+          {!isAuthenticated && isBusinessPage && (
+            <Menu
+              buttonElement={<BusinessHookLogo />}
+              headerElement={
+                <div className="w-64 m-2 rounded-md px-4 py-3 border flex items-center justify-center">
+                  <span className="text-center">
+                    Haz crecer tu negocio online en Cuba y usa{' '}
+                    <span className="font-bold">Hook</span> para enganchar a tus clientes
+                  </span>
+                </div>
+              }
+              items={[
+                { label: 'Inicio', href: '/', svg: HomeIcon },
+                { label: 'Iniciar sesión', href: '/sign-in', svg: ArrowRightEndOnRectangleIcon },
+                { label: 'Créate una cuenta', href: '/sign-up', svg: UserPlusIcon },
+                { label: 'Saber más sobre nosotros', href: '/about-us', svg: UserGroupIcon },
+              ]}
+              className="flex-shrink-0"
+            />
           )}
 
           {user && (
