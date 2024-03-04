@@ -9,6 +9,13 @@ export const getRouteName = (name: string): string => {
   return out;
 };
 
+export const getPostCategoryTag = (label: string): string => {
+  let out = label.trim().toLowerCase();
+  out = replaceAll(out, ' ', '_');
+  out = out.normalize('NFD').replace(/[\u0300-\u036f]/g, ''); // remove accents
+  return out;
+};
+
 export const getBusinessCategoryLabel = (category: BusinessCategory): string => {
   const record: Record<BusinessCategory, string> = {
     food: 'Comida',

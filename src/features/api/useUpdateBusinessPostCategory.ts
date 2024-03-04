@@ -8,7 +8,7 @@ import { getEndpoint } from 'utils/api';
 
 export const useUpdateBusinessPostCategory = (): {
   updateBusinessPostCategory: FetchResource<
-    { routeName: string; postCategoryId: string; update: Partial<Pick<PostCategory, 'hidden'>> },
+    { routeName: string; tag: string; update: Partial<Pick<PostCategory, 'hidden'>> },
     void
   >;
 } => {
@@ -21,18 +21,15 @@ export const useUpdateBusinessPostCategory = (): {
     updateBusinessPostCategory: {
       data: fetch[0],
       status: fetch[1],
-      fetch: ({ routeName, update, postCategoryId }, options = {}) => {
+      fetch: ({ routeName, update, tag }, options = {}) => {
         fetch[2](
           {
             method: 'put',
             url: getEndpoint({
-              path: '/user/:userId/business/:routeName/postCategories',
-              urlParams: { userId, routeName },
+              path: '/user/:userId/business/:routeName/postCategories/:tag',
+              urlParams: { userId, routeName, tag },
             }),
-            data: {
-              postCategoryId,
-              ...update,
-            },
+            data: update,
           },
           options,
         );

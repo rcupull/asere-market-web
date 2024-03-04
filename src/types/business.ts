@@ -4,7 +4,7 @@ export type BusinessCategory = 'food' | 'tool' | 'clothing' | 'service';
 
 export type PostsLayoutType = 'none' | 'grid' | 'slicesHorizontal' | 'alternateSummary';
 export type BannerLayoutType = 'none' | 'static' | 'swipableClassic';
-export type SearchLayoutType = 'none' | 'left' | 'center' | 'right';
+export type SearchLayoutType = 'none' | 'left' | 'center' | 'right' | 'postCategories';
 export type FooterLayoutType = 'none' | 'basic';
 
 export interface PostsLayout {
@@ -33,6 +33,7 @@ export interface BusinessLayout {
 export interface PostCategory {
   _id: string;
   label: string;
+  tag: string;
   hidden?: boolean;
 }
 

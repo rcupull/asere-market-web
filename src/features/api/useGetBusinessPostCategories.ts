@@ -3,7 +3,7 @@ import { useFetch } from 'hooks/useFetch';
 import { useAuthSignIn } from './useAuthSignIn';
 
 import { FetchResource } from 'types/api';
-import { PostCategory } from 'types/post';
+import { PostCategory } from 'types/business';
 import { getEndpoint } from 'utils/api';
 
 export const useGetBusinessPostCategories = (): {

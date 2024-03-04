@@ -67,6 +67,20 @@ export const LayoutSearch = ({ onChange, value, ...omittedProps }: LayoutSearchP
             </SwiperSliceSelect>
           ),
         },
+        {
+          content: (
+            <SwiperSliceSelect
+              label="Categorías"
+              selected={value?.search?.type === 'postCategories'}
+              onSelect={() => onChange?.(getChangedLayout(value, { search: { type: 'postCategories' } }))}
+            >
+              <Skeleton
+                active="search"
+                layouts={getChangedLayout(value, { search: { type: 'postCategories' } })}
+              />
+            </SwiperSliceSelect>
+          ),
+        },
       ]}
       {...omittedProps}
     />

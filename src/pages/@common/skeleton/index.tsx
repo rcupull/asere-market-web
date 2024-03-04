@@ -101,6 +101,14 @@ export const Skeleton = ({ active, className, layouts }: SkeletonProps) => {
       return <div className="flex justify-end">{searchAndButtons}</div>;
     }
 
+    if (search?.type === 'postCategories') {
+      return (
+        <div className="flex gap-2 flex-wrap">
+          {range(8).map((index)=> <MutedBox key={index} className="!w-10 !h-6" active={active === 'search'} />)}
+        </div>
+      );
+    }
+
     return null;
   };
 
@@ -117,7 +125,7 @@ export const Skeleton = ({ active, className, layouts }: SkeletonProps) => {
       <div className="w-11/12 lg:w-8/12 xl:w-4/12 p-4 flex flex-col items-center gap-4">
         {renderBanner()}
 
-        <div className="w-full sm:w-8/12">
+        <div className="w-full sm:w-10/12">
           {renderSearch()}
 
           {renderPosts()}

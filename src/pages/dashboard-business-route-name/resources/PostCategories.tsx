@@ -16,6 +16,7 @@ import { useSubmitPortal } from 'hooks/useSubmitPortal';
 import { Formik } from 'formik';
 import { LayoutPageSection } from 'pages/@common/layout-page-section';
 import { Business } from 'types/business';
+import { getPostCategoryTag } from 'utils/business';
 import { cn } from 'utils/general';
 
 export interface PostCategoriesProps {
@@ -45,6 +46,12 @@ export const PostCategories = ({ business, onRefresh }: PostCategoriesProps) => 
                 field: 'label',
                 type: 'required',
               },
+              {
+                field: 'label',
+                type: 'custom',
+                message: 'Esa categoría ya existe.',
+                customCb:  (label) => !postCategories.map(({label})=>label).includes(label),
+              },
             ]);
           }}
           onSubmit={() => {}}
@@ -69,7 +76,7 @@ export const PostCategories = ({ business, onRefresh }: PostCategoriesProps) => 
                       if (!label) return;
 
                       addBusinessPostCategory.fetch(
-                        { routeName, label },
+                        { routeName, label, tag: getPostCategoryTag(label) },
                         {
                           onAfterSuccess: () => onRefresh(),
                         },
@@ -87,7 +94,7 @@ export const PostCategories = ({ business, onRefresh }: PostCategoriesProps) => 
       </div>
 
       <div className="flex flex-wrap mt-3 gap-3 border border-gray-300 rounded-md p-3 ">
-        {postCategories.map(({ label, _id, hidden }, index) => {
+        {postCategories.map(({ label, hidden, tag }, index) => {
           const EyeComponent = hidden ? EyeSlashIcon : EyeIcon;
 
           return (
@@ -124,7 +131,7 @@ export const PostCategories = ({ business, onRefresh }: PostCategoriesProps) => 
                                 delBusinessPostCategory.fetch(
                                   {
                                     routeName,
-                                    postCategoryId: _id,
+                                    tag,
                                   },
                                   {
                                     onAfterSuccess: () => {
@@ -181,7 +188,7 @@ export const PostCategories = ({ business, onRefresh }: PostCategoriesProps) => 
                                 updateBusinessPostCategory.fetch(
                                   {
                                     routeName,
-                                    postCategoryId: _id,
+                                    tag,
                                     update: {
                                       hidden: !hidden,
                                     },

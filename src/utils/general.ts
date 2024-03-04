@@ -140,3 +140,12 @@ export const isEqualObj = (a: AnyRecord | undefined, b: AnyRecord | undefined): 
   }
   return true;
 };
+
+export const addStringToUniqueArray = (array: Array<string>, value: string): Array<string> => {
+  return array.includes(value) ? array : addRow(array, value);
+};
+
+export const removeStringFromArray = (array: Array<string>, value: string): Array<string> => {
+  const index = array.indexOf(value);
+  return index < 0 ? array : removeRow(array, index);
+};

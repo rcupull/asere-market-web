@@ -24,7 +24,7 @@ interface Validation<V extends AnyRecord, F extends keyof V = keyof V> {
   field: F;
   type: 'required' | 'email' | 'equal' | 'custom';
   equalField?: F;
-  customCb?: (fieldValue: any) => Promise<boolean>;
+  customCb?: (fieldValue: any) => Promise<boolean> | boolean;
   message?: string;
 }
 

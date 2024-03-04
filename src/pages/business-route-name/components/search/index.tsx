@@ -1,5 +1,6 @@
 import { UseFiltersReturn } from 'hooks/useFilters';
 
+import { PostCategoriesFilter } from 'pages/@common/post-categories-filter';
 import { SearchFilter } from 'pages/@common/search-filter';
 import { Business } from 'types/business';
 import { StyleProps } from 'types/general';
@@ -12,8 +13,9 @@ export interface SearchProps extends StyleProps {
 }
 
 export const Search = ({ business, className, isBusy, filters }: SearchProps) => {
-  const { layouts } = business;
+  const { layouts , postCategories} = business;
 
+  const visiblesPostCategories = postCategories?.filter(({ hidden }) => !hidden);
   const currentLayouts = layouts?.search;
 
   if (currentLayouts?.type === 'none') {
@@ -55,6 +57,18 @@ export const Search = ({ business, className, isBusy, filters }: SearchProps) =>
           isBusy={isBusy}
           onChange={(search) => filters.onMergeFilters({ search })}
           value={filters.value.search}
+        />
+      </div>,
+    );
+  }
+
+  if (currentLayouts?.type === 'postCategories') {
+    return renderContent(
+      <div className="flex justify-end">
+        <PostCategoriesFilter
+          postCategories={visiblesPostCategories}
+          onChange={(postCategoriesTags) => filters.onMergeFilters({ postCategoriesTags })}
+          value={filters.value.postCategoriesTags}
         />
       </div>,
     );
