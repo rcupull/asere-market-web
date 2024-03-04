@@ -16,7 +16,6 @@ export const useUpdateOneUserBusiness = (): {
           | 'hidden'
           | 'socialLinks'
           | 'bannerImages'
-          | 'bannerImageStyle'
           | 'name'
           | 'routeName'
           | 'logo'

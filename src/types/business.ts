@@ -30,6 +30,12 @@ export interface BusinessLayout {
   banner?: BannerLayout;
 }
 
+export interface PostCategory {
+  _id: string;
+  label: string;
+  hidden?: boolean;
+}
+
 export interface Business extends BaseIdentity {
   name: string;
   category: BusinessCategory;
@@ -37,8 +43,8 @@ export interface Business extends BaseIdentity {
   createdBy: string; // userId
   hidden?: boolean;
   bannerImages?: Array<Image>;
-  bannerImageStyle?: 'static';
   logo?: Image;
+  postCategories?: Array<PostCategory>;
   socialLinks?: {
     face?: string;
     instagram?: string;

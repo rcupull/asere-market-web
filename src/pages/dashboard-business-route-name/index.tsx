@@ -63,6 +63,7 @@ export const DashboardBusinessRouteName = () => {
     >
       <Tabs
         className="mt-4"
+        contentClassName='w-full overflow-y-auto h-[calc(100vh-12rem)]'
         onSelect={(businessTab) => onChangeQuery({ businessTab })}
         selected={query.businessTab as number | undefined}
         items={[
@@ -72,7 +73,7 @@ export const DashboardBusinessRouteName = () => {
           },
           {
             label: 'Recursos',
-            content: <Resources business={business} />,
+            content: <Resources business={business} onRefresh={onRefresh}/>,
           },
           {
             label: 'Diseños',

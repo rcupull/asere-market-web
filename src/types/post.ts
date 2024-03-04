@@ -16,6 +16,7 @@ export interface Post extends BaseIdentity {
   highlights?: Array<string>;
   details?: string;
   hidden?: boolean;
+  postCategoriesIds?: Array<string>;
   // clothing
   clothingSizes?: Array<PostClothingSize>;
 }
