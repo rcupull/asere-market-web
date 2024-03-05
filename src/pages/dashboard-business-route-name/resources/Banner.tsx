@@ -36,7 +36,7 @@ export const Banner = ({ business }: BannerProps) => {
   });
 
   return (
-    <LayoutPageSection title="Imágenes del banner">
+    <LayoutPageSection title="Banner">
       <Formik<{
         bannerImages: Array<File | Image>;
       }>

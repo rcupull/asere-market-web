@@ -34,7 +34,7 @@ export const Logo = ({ business }: LogoProps) => {
   });
 
   return (
-    <LayoutPageSection title="Logo del negocio">
+    <LayoutPageSection title="Logo">
       <Formik<{
         logoField: Array<File | Image | undefined>;
       }>
