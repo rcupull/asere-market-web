@@ -6,6 +6,7 @@ import {
   UserGroupIcon,
   UserPlusIcon,
 } from '@heroicons/react/24/outline';
+import { Link } from 'react-router-dom';
 
 import { Menu } from 'components/menu';
 import { NavBar as NavBarBase } from 'components/nav-bar';
@@ -72,7 +73,7 @@ export const Navbar = ({ className }: NavbarProps) => {
             />
           )}
 
-          {user && (
+          {user ? (
             <Menu
               buttonElement={<UserAvatar />}
               headerElement={
@@ -91,9 +92,14 @@ export const Navbar = ({ className }: NavbarProps) => {
               ]}
               className="ml-3 hidden sm:block flex-shrink-0"
             />
+          ): (
+            <Link to= '/sign-in' className='text-gray-200 text-nowrap'>
+              Iniciar sesión
+            </Link>
           )}
         </>
       }
     />
   );
 };
+

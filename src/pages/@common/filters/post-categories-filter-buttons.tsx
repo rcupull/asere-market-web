@@ -1,7 +1,10 @@
 import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
 
+import { Badge } from 'components/badge';
 import { Button } from 'components/button';
+
+import { useAuthSignIn } from 'features/api/useAuthSignIn';
+import { useGetOneBusiness } from 'features/api/useGetOneBusiness';
 
 import { useDebouncer } from 'hooks/useDebouncer';
 
@@ -29,18 +32,34 @@ export const PostCategoriesFilterButtons = ({
 }: PostCategoriesFilterButtonsProps) => {
   const debouncer = useDebouncer();
   const [state, setState] = useState<Array<string>>();
+  const { authData } = useAuthSignIn();
+
+  const { getOneBusiness } = useGetOneBusiness();
+
+  const isMyBussiness = getOneBusiness?.data?.createdBy === authData?.user?._id;
 
   useEffect(() => {
     setState(value);
   }, [JSON.stringify(value)]);
 
   if (!postCategories?.length) {
-    return (
-      <Link to="/">
-        Tiene seleccionado el filtro por catagorías pero no tiene categorias visibles en este
-        negocio. Click en este link para agregar las primeras
-      </Link>
-    );
+    if (isMyBussiness) {
+      return (
+        <div className="flex items-center">
+          <Badge variant="warning" />
+          <span className="ml-2 font-semibold">
+            <span className="text-gray-500 pr-2">Admin:</span>
+            Tiene seleccionado el filtro por catagorías pero no tiene categorías visibles en este
+            negocio.
+          </span>
+        </div>
+      );
+    }
+
+    /**
+     * No mostrar nada cuando el usuario no es admin del negocio.
+     */
+    return <></>;
   }
 
   return (

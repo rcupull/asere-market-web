@@ -9,7 +9,7 @@ import { cn } from 'utils/general';
 
 export interface BadgeProps {
   className?: string;
-  variant: 'error' | 'info' | 'success';
+  variant: 'error' | 'info' | 'success' | 'warning';
 }
 
 export const Badge = ({ variant, className }: BadgeProps) => {
@@ -17,6 +17,7 @@ export const Badge = ({ variant, className }: BadgeProps) => {
     if (variant === 'error') return ExclamationTriangleIcon;
     if (variant === 'success') return CheckCircleIcon;
     if (variant === 'info') return InformationCircleIcon;
+    if (variant === 'warning') return ExclamationTriangleIcon;
 
     return () => null;
   }, [variant]);
@@ -29,6 +30,7 @@ export const Badge = ({ variant, className }: BadgeProps) => {
           ['bg-red-100']: variant == 'error',
           ['bg-green-100']: variant == 'success',
           ['bg-blue-100']: variant == 'info',
+          ['bg-yellow-200']: variant == 'warning',
         },
         className,
       )}
@@ -38,6 +40,7 @@ export const Badge = ({ variant, className }: BadgeProps) => {
           ['text-red-600']: variant == 'error',
           ['text-green-600']: variant == 'success',
           ['text-blue-600']: variant == 'info',
+          ['text-yellow-600']: variant == 'warning',
         })}
         aria-hidden="true"
       />

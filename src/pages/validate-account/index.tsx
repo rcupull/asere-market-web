@@ -73,7 +73,7 @@ export const ValidateAccount = () => {
                   name="email"
                   type="email"
                   autoComplete="email"
-                  label="Email address"
+                  label="Correo Electrónico"
                   className="mt-6"
                 />
 

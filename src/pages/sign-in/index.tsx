@@ -25,7 +25,7 @@ export const SignIn = () => {
           alt="Your Company"
         />
         <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
-          Sign in to your account
+          Inicia sesión en tu cuenta
         </h2>
       </div>
 
@@ -76,7 +76,7 @@ export const SignIn = () => {
                   name="email"
                   type="email"
                   autoComplete="email"
-                  label="Email address"
+                  label="Correo Electrónico"
                 />
 
                 <FieldInput
@@ -84,7 +84,7 @@ export const SignIn = () => {
                   name="password"
                   type="password"
                   autoComplete="current-password"
-                  label="Password"
+                  label="Contraseña"
                   className="mt-6"
                 />
 
@@ -96,13 +96,28 @@ export const SignIn = () => {
                   className="mt-6 w-full"
                 />
 
-                <div className="w-100 text-sm flex pt-4">
+                <div className="w-100 text-sm pt-4">
+                  No tienes una cuenta?{' '}
                   <Link
                     to={`/sign-up${search}`}
                     className="font-semibold text-indigo-600 hover:text-indigo-500 ml-auto"
                   >
-                    Register
-                  </Link>
+                    Regístrate gratis
+                  </Link>{' '}
+                  para obtener los beneficios de nuestro sistema. También puedes{' '}
+                  <Link
+                    to="/about-us"
+                    className="font-semibold text-indigo-600 hover:text-indigo-500 ml-auto"
+                  >
+                    saber más de nosotros
+                  </Link>{' '}
+                  o darle un vistazo a nuestros{' '}
+                  <Link
+                    to="/payment-plans"
+                    className="font-semibold text-indigo-600 hover:text-indigo-500 ml-auto"
+                  >
+                    planes premium y gratuitos
+                  </Link>.
                 </div>
               </form>
             );
