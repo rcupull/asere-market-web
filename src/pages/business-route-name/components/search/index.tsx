@@ -68,7 +68,8 @@ export const Search = ({ business, className, isBusy, filters }: SearchProps) =>
         postCategories={visiblesPostCategories}
         onChange={(postCategoriesTags) => filters.onMergeFilters({ postCategoriesTags })}
         value={filters.value.postCategoriesTags}
-        className="flex-wrap"
+        debounceDelay={1000}
+        type="wrapped"
       />,
     );
   }
@@ -79,7 +80,8 @@ export const Search = ({ business, className, isBusy, filters }: SearchProps) =>
         postCategories={visiblesPostCategories}
         onChange={(postCategoriesTags) => filters.onMergeFilters({ postCategoriesTags })}
         value={filters.value.postCategoriesTags}
-        className="overflow-x-auto max-w-full"
+        debounceDelay={1000}
+        type="scrollable"
       />,
     );
   }
@@ -90,8 +92,9 @@ export const Search = ({ business, className, isBusy, filters }: SearchProps) =>
         postCategories={visiblesPostCategories}
         onChange={(postCategoriesTags) => filters.onMergeFilters({ postCategoriesTags })}
         value={filters.value.postCategoriesTags}
+        debounceDelay={1000}
         excluding
-        className="flex-wrap"
+        type="wrapped"
       />,
     );
   }
@@ -102,8 +105,9 @@ export const Search = ({ business, className, isBusy, filters }: SearchProps) =>
         postCategories={visiblesPostCategories}
         onChange={(postCategoriesTags) => filters.onMergeFilters({ postCategoriesTags })}
         value={filters.value.postCategoriesTags}
+        debounceDelay={1000}
         excluding
-        className="overflow-x-auto max-w-full"
+        type="scrollable"
       />,
     );
   }

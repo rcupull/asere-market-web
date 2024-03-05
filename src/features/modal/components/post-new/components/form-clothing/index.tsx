@@ -17,6 +17,7 @@ import { useGetFormErrors } from 'hooks/useGetFormErrors';
 import { PostNewFormProps } from '../../types';
 
 import { Formik } from 'formik';
+import { FieldPostCategoriesButtons } from 'pages/@common/filters/field-post-categories-buttons';
 import { Image } from 'types/general';
 import { Post, PostCurrency } from 'types/post';
 import { getImageEndpoint } from 'utils/api';
@@ -25,7 +26,14 @@ export interface FormClothingProps extends PostNewFormProps {}
 
 type State = Pick<
   Post,
-  'name' | 'currency' | 'clothingSizes' | 'colors' | 'description' | 'price' | 'details'
+  | 'name'
+  | 'currency'
+  | 'clothingSizes'
+  | 'colors'
+  | 'description'
+  | 'price'
+  | 'details'
+  | 'postCategoriesTags'
 > & { images: Array<File | Image> };
 
 export const FormClothing = ({
@@ -56,6 +64,7 @@ export const FormClothing = ({
         colors: [],
         clothingSizes: [],
         images: [],
+        postCategoriesTags: [],
         ...(post || {}),
       }}
       enableReinitialize
@@ -104,6 +113,12 @@ export const FormClothing = ({
               getImageSrc={getImageEndpoint}
               multi
               max={userPlan?.maxImagesByPosts}
+            />
+
+            <FieldPostCategoriesButtons
+              label="Categorías"
+              name="postCategoriesTags"
+              className="mt-6"
             />
 
             <div className="flex flex-col sm:flex-row items-center gap-6">
@@ -155,6 +170,7 @@ export const FormClothing = ({
                     clothingSizes,
                     colors,
                     details,
+                    postCategoriesTags,
                   } = values;
 
                   const handelUpdatePost = (post: Post) => {
@@ -175,6 +191,7 @@ export const FormClothing = ({
                               clothingSizes,
                               colors,
                               details,
+                              postCategoriesTags,
                             },
                             {
                               onAfterSuccess: (response) => {

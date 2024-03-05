@@ -21,7 +21,7 @@ export interface TabsProps<L extends string = string> extends StyleProps {
   itemRender?: ItemRender<L>;
   selected?: number;
   onSelect?: (newSelected: number) => void;
-  contentClassName?: string
+  contentClassName?: string;
 }
 
 const clasicItemRender: ItemRender = ({ selected, label }) => {
@@ -45,7 +45,7 @@ export const Tabs = <L extends string = string>({
   onSelect,
   selected,
   itemRender = clasicItemRender,
-  contentClassName
+  contentClassName,
 }: TabsProps<L>) => {
   return (
     <Tab.Group selectedIndex={selected} onChange={onSelect}>

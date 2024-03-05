@@ -19,7 +19,7 @@ export const SkeletonSearch = ({ active, layouts }: SkeletonSearchProps) => {
   const [selectedIndex, setSelectedIndex] = useState<Array<number>>([]);
   const interval = useInterval();
 
-  const ref = useRef<HTMLDivElement>(null)
+  const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     switch (type) {
@@ -40,11 +40,11 @@ export const SkeletonSearch = ({ active, layouts }: SkeletonSearchProps) => {
         return interval(
           [
             () => setSelectedIndex([2]),
-            ()=>ref.current?.scrollTo({left: 300, behavior: 'smooth'}),
+            () => ref.current?.scrollTo({ left: 300, behavior: 'smooth' }),
             () => setSelectedIndex([2, 6]),
-            ()=>ref.current?.scrollTo({left: 300, behavior: 'smooth'}),
+            () => ref.current?.scrollTo({ left: 300, behavior: 'smooth' }),
             () => setSelectedIndex([2, 6, 9]),
-            ()=>ref.current?.scrollTo({left: 0, behavior: 'smooth'}),
+            () => ref.current?.scrollTo({ left: 0, behavior: 'smooth' }),
             () => setSelectedIndex([2, 9]),
             () => setSelectedIndex([9]),
             () => setSelectedIndex([]),
@@ -67,11 +67,11 @@ export const SkeletonSearch = ({ active, layouts }: SkeletonSearchProps) => {
         return interval(
           [
             () => setSelectedIndex([2]),
-            ()=>ref.current?.scrollTo({left: 200, behavior: 'smooth'}),
+            () => ref.current?.scrollTo({ left: 200, behavior: 'smooth' }),
             () => setSelectedIndex([6]),
-            ()=>ref.current?.scrollTo({left: 400, behavior: 'smooth'}),
+            () => ref.current?.scrollTo({ left: 400, behavior: 'smooth' }),
             () => setSelectedIndex([9]),
-            ()=>ref.current?.scrollTo({left: 0, behavior: 'smooth'}),
+            () => ref.current?.scrollTo({ left: 0, behavior: 'smooth' }),
             () => setSelectedIndex([]),
           ],
           1000,

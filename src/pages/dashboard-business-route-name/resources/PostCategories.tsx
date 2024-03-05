@@ -50,7 +50,7 @@ export const PostCategories = ({ business, onRefresh }: PostCategoriesProps) => 
                 field: 'label',
                 type: 'custom',
                 message: 'Esa categoría ya existe.',
-                customCb:  (label) => !postCategories.map(({label})=>label).includes(label),
+                customCb: (label) => !postCategories.map(({ label }) => label).includes(label),
               },
             ]);
           }}
@@ -118,6 +118,8 @@ export const PostCategories = ({ business, onRefresh }: PostCategoriesProps) => 
                         return {
                           content: (
                             <div>
+                              Al eliminar una categoría estará removiendo esta clasificación de
+                              todas las publicaciones de su negocio y es un cambio irreversible.
                               Seguro que desea eliminar la categoría{' '}
                               <span className="font-bold">{label}</span>?
                             </div>

@@ -1,4 +1,4 @@
-import { PencilSquareIcon } from '@heroicons/react/24/outline';
+import { PencilIcon } from '@heroicons/react/24/outline';
 
 import { IconButton, IconButtonProps } from 'components/icon-button';
 
@@ -8,9 +8,9 @@ export interface IconButtonUpdateProps extends IconButtonProps {}
 
 export const IconButtonUpdate = ({ className, ...props }: IconButtonUpdateProps) => (
   <IconButton
-    svg={PencilSquareIcon}
+    svg={PencilIcon}
     {...props}
     variant="outlined"
-    className={cn('text-indigo-500', className)}
+    className={cn('text-yellow-700', className)}
   />
 );

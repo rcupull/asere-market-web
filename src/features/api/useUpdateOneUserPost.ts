@@ -22,6 +22,7 @@ export const useUpdateOneUserPost = (): {
         | 'price'
         | 'name'
         | 'reviews'
+        | 'postCategoriesTags'
       >
     >,
     void

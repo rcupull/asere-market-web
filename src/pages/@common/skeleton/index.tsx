@@ -82,7 +82,6 @@ export const Skeleton = ({ active, className, layouts }: SkeletonProps) => {
     return null;
   };
 
-
   const renderFooter = () => {
     if (footer?.type === 'basic') {
       return <MutedBox className="h-10" active={active === 'footer'} />;

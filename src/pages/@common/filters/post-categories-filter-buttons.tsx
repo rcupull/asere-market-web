@@ -14,6 +14,8 @@ export interface PostCategoriesFilterButtonsProps extends StyleProps {
   value?: Array<string>;
   postCategories?: Array<PostCategory>;
   excluding?: boolean;
+  debounceDelay?: number;
+  type?: 'wrapped' | 'scrollable';
 }
 
 export const PostCategoriesFilterButtons = ({
@@ -22,6 +24,8 @@ export const PostCategoriesFilterButtons = ({
   value,
   postCategories,
   excluding,
+  type,
+  debounceDelay = 0,
 }: PostCategoriesFilterButtonsProps) => {
   const debouncer = useDebouncer();
   const [state, setState] = useState<Array<string>>();
@@ -40,7 +44,16 @@ export const PostCategoriesFilterButtons = ({
   }
 
   return (
-    <div className={cn('flex w-full gap-3', className)}>
+    <div
+      className={cn(
+        'flex w-full gap-3',
+        {
+          'flex-wrap': type === 'wrapped',
+          'overflow-x-auto max-h-full': type === 'scrollable',
+        },
+        className,
+      )}
+    >
       {postCategories.map(({ label, tag }, index) => {
         const selected = state && state.includes(tag);
 
@@ -48,7 +61,9 @@ export const PostCategoriesFilterButtons = ({
           <Button
             key={index}
             variant={selected ? 'primary' : 'outlined'}
-            onClick={() => {
+            onClick={(e) => {
+              e.preventDefault();
+
               const getNewState = () => {
                 if (excluding) {
                   return selected ? [] : [tag];
@@ -61,7 +76,7 @@ export const PostCategoriesFilterButtons = ({
 
               const newState = getNewState();
               setState(newState);
-              debouncer(() => onChange?.(newState), 1000);
+              debouncer(() => onChange?.(newState), debounceDelay);
             }}
             label={label}
           />
