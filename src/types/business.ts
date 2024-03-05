@@ -4,7 +4,16 @@ export type BusinessCategory = 'food' | 'tool' | 'clothing' | 'service';
 
 export type PostsLayoutType = 'none' | 'grid' | 'slicesHorizontal' | 'alternateSummary';
 export type BannerLayoutType = 'none' | 'static' | 'swipableClassic';
-export type SearchLayoutType = 'none' | 'left' | 'center' | 'right' | 'postCategories';
+export type SearchLayoutType =
+  | 'none'
+  | 'left'
+  | 'center'
+  | 'right'
+  | 'postCategories'
+  | 'postCategoriesScrollable'
+  | 'postCategoriesExcluded'
+  | 'postCategoriesExcludedScrollable';
+
 export type FooterLayoutType = 'none' | 'basic';
 
 export interface PostsLayout {

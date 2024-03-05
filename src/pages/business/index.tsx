@@ -6,9 +6,9 @@ import { useGetAllBusiness } from 'features/api/useGetAllBusiness';
 
 import { useFilters } from 'hooks/useFilters';
 
+import { SearchFilter } from 'pages/@common/filters/search-filter';
 import { LayoutPage } from 'pages/@common/layout-page';
 import { LayoutPageSection } from 'pages/@common/layout-page-section';
-import { SearchFilter } from 'pages/@common/search-filter';
 import { AnyRecord } from 'types/general';
 import { getImageEndpoint } from 'utils/api';
 import { getBusinessRoute } from 'utils/business';

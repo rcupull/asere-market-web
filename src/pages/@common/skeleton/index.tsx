@@ -1,5 +1,7 @@
 import { MutedBox } from 'components/muted-box';
 
+import { SkeletonSearch } from './Skeleton-Search';
+
 import { Business } from 'types/business';
 import { StyleProps } from 'types/general';
 import { cn, range } from 'utils/general';
@@ -10,7 +12,7 @@ export interface SkeletonProps extends StyleProps {
 }
 
 export const Skeleton = ({ active, className, layouts }: SkeletonProps) => {
-  const { banner, footer, posts, search } = layouts || {};
+  const { banner, footer, posts } = layouts || {};
 
   const renderBanner = () => {
     if (banner?.type === 'static') {
@@ -80,37 +82,6 @@ export const Skeleton = ({ active, className, layouts }: SkeletonProps) => {
     return null;
   };
 
-  const renderSearch = () => {
-    const searchAndButtons = (
-      <div className="w-40 flex gap-2">
-        <MutedBox className="!h-6" active={active === 'search'} />
-        <MutedBox className="!w-8 !h-6" active={active === 'search'} />
-        <MutedBox className="!w-8 !h-6" active={active === 'search'} />
-      </div>
-    );
-
-    if (search?.type === 'left') {
-      return <div className="flex justify-start">{searchAndButtons}</div>;
-    }
-
-    if (search?.type === 'center') {
-      return <div className="flex justify-center">{searchAndButtons}</div>;
-    }
-
-    if (search?.type === 'right') {
-      return <div className="flex justify-end">{searchAndButtons}</div>;
-    }
-
-    if (search?.type === 'postCategories') {
-      return (
-        <div className="flex gap-2 flex-wrap">
-          {range(8).map((index)=> <MutedBox key={index} className="!w-10 !h-6" active={active === 'search'} />)}
-        </div>
-      );
-    }
-
-    return null;
-  };
 
   const renderFooter = () => {
     if (footer?.type === 'basic') {
@@ -126,7 +97,7 @@ export const Skeleton = ({ active, className, layouts }: SkeletonProps) => {
         {renderBanner()}
 
         <div className="w-full sm:w-10/12">
-          {renderSearch()}
+          <SkeletonSearch layouts={layouts} active={active === 'search'} />
 
           {renderPosts()}
         </div>

@@ -9,25 +9,26 @@ import { PostCategory } from 'types/business';
 import { StyleProps } from 'types/general';
 import { addStringToUniqueArray, cn, removeStringFromArray } from 'utils/general';
 
-export interface PostCategoriesFilterProps extends StyleProps {
+export interface PostCategoriesFilterButtonsProps extends StyleProps {
   onChange?: (values: Array<string>) => void;
   value?: Array<string>;
   postCategories?: Array<PostCategory>;
+  excluding?: boolean;
 }
 
-export const PostCategoriesFilter = ({
+export const PostCategoriesFilterButtons = ({
   onChange,
   className,
   value,
   postCategories,
-}: PostCategoriesFilterProps) => {
+  excluding,
+}: PostCategoriesFilterButtonsProps) => {
   const debouncer = useDebouncer();
   const [state, setState] = useState<Array<string>>();
 
-
-  useEffect(()=>{
-    setState(value)
-  },[JSON.stringify(value)]);
+  useEffect(() => {
+    setState(value);
+  }, [JSON.stringify(value)]);
 
   if (!postCategories?.length) {
     return (
@@ -39,7 +40,7 @@ export const PostCategoriesFilter = ({
   }
 
   return (
-    <div className={cn('flex flex-wrap w-full gap-3', className)}>
+    <div className={cn('flex w-full gap-3', className)}>
       {postCategories.map(({ label, tag }, index) => {
         const selected = state && state.includes(tag);
 
@@ -48,12 +49,18 @@ export const PostCategoriesFilter = ({
             key={index}
             variant={selected ? 'primary' : 'outlined'}
             onClick={() => {
-              const newState = selected
-                ? removeStringFromArray(state, tag)
-                : addStringToUniqueArray(state || [], tag);
+              const getNewState = () => {
+                if (excluding) {
+                  return selected ? [] : [tag];
+                }
 
-                setState(newState);
+                return selected
+                  ? removeStringFromArray(state, tag)
+                  : addStringToUniqueArray(state || [], tag);
+              };
 
+              const newState = getNewState();
+              setState(newState);
               debouncer(() => onChange?.(newState), 1000);
             }}
             label={label}

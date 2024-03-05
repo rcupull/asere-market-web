@@ -70,13 +70,55 @@ export const LayoutSearch = ({ onChange, value, ...omittedProps }: LayoutSearchP
         {
           content: (
             <SwiperSliceSelect
-              label="Categorías"
+              label="Categorías(botones, no excluyentes)"
               selected={value?.search?.type === 'postCategories'}
               onSelect={() => onChange?.(getChangedLayout(value, { search: { type: 'postCategories' } }))}
             >
               <Skeleton
                 active="search"
                 layouts={getChangedLayout(value, { search: { type: 'postCategories' } })}
+              />
+            </SwiperSliceSelect>
+          ),
+        },
+        {
+          content: (
+            <SwiperSliceSelect
+              label="Categorías(botones, no excluyentes, deslizables)"
+              selected={value?.search?.type === 'postCategoriesScrollable'}
+              onSelect={() => onChange?.(getChangedLayout(value, { search: { type: 'postCategoriesScrollable' } }))}
+            >
+              <Skeleton
+                active="search"
+                layouts={getChangedLayout(value, { search: { type: 'postCategoriesScrollable' } })}
+              />
+            </SwiperSliceSelect>
+          ),
+        },
+        {
+          content: (
+            <SwiperSliceSelect
+              label="Categorías(botones, excluyentes)"
+              selected={value?.search?.type === 'postCategoriesExcluded'}
+              onSelect={() => onChange?.(getChangedLayout(value, { search: { type: 'postCategoriesExcluded' } }))}
+            >
+              <Skeleton
+                active="search"
+                layouts={getChangedLayout(value, { search: { type: 'postCategoriesExcluded' } })}
+              />
+            </SwiperSliceSelect>
+          ),
+        },
+        {
+          content: (
+            <SwiperSliceSelect
+              label="Categorías(botones, excluyentes, deslizables)"
+              selected={value?.search?.type === 'postCategoriesExcludedScrollable'}
+              onSelect={() => onChange?.(getChangedLayout(value, { search: { type: 'postCategoriesExcludedScrollable' } }))}
+            >
+              <Skeleton
+                active="search"
+                layouts={getChangedLayout(value, { search: { type: 'postCategoriesExcludedScrollable' } })}
               />
             </SwiperSliceSelect>
           ),

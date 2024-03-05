@@ -11,7 +11,7 @@ import { useFilters } from 'hooks/useFilters';
 
 import { LayoutPage } from 'pages/@common/layout-page';
 import { LayoutPageSection } from 'pages/@common/layout-page-section';
-import { SearchFilter } from 'pages/@common/search-filter';
+import { SearchFilter } from 'pages/@common/filters/search-filter';
 import { getImageEndpoint } from 'utils/api';
 import { getPostRoute } from 'utils/business';
 
