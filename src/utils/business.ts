@@ -16,6 +16,16 @@ export const getPostCategoryTag = (label: string): string => {
   return out;
 };
 
+export const getInitials = (fullname: string) => {
+  const names = fullname.split(' ');
+  let initials = names[0].substring(0, 1).toUpperCase();
+
+  if (names.length > 1) {
+    initials += names[names.length - 1].substring(0, 1).toUpperCase();
+  }
+  return initials;
+};
+
 export const getBusinessCategoryLabel = (category: BusinessCategory): string => {
   const record: Record<BusinessCategory, string> = {
     food: 'Comida',

@@ -77,14 +77,16 @@ export const SideBar = ({ className }: SideBarProps) => {
             <div className="flex flex-col items-center mb-2">
               <div className="relative">
                 <UserAvatar className="mt-4 !h-14 !w-14" />
-                <IconButtonUpdate
-                  className="!absolute -bottom-3 -right-3 !p-1 h-7 w-7"
-                  title="Editar perfil"
-                  onClick={() =>
-                    userId &&
-                    pushModal('ProfileUpdate', { userId, callAfarResources: 'refresh_auth_user' })
-                  }
-                />
+                <div className="absolute -bottom-3 -right-3 flex items-center justify-center rounded-full ring-2 ring-gray-900">
+                  <IconButtonUpdate
+                    className="!h-7 !w-7 !p-0.5"
+                    title="Editar perfil"
+                    onClick={() =>
+                      userId &&
+                      pushModal('ProfileUpdate', { userId, callAfarResources: 'refresh_auth_user' })
+                    }
+                  />
+                </div>
               </div>
               <span className="mt-4 text-sm border px-2 py-1 rounded-2xl">{name}</span>
             </div>

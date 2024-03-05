@@ -2,21 +2,41 @@ import { useAuthSignIn } from 'features/api/useAuthSignIn';
 
 import { StyleProps } from 'types/general';
 import { getImageEndpoint } from 'utils/api';
+import { getInitials } from 'utils/business';
 import { cn } from 'utils/general';
-
-const imageSrc =
-  'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80';
 
 export interface UserAvatarProps extends StyleProps {}
 
 export const UserAvatar = ({ className }: UserAvatarProps) => {
   const { authData } = useAuthSignIn();
 
-  const userProfileSrc =
-    authData?.user?.profileImage?.src && getImageEndpoint(authData?.user?.profileImage?.src);
-  const src = userProfileSrc || imageSrc;
+  let profileImageSrc = authData?.user?.profileImage?.src;
+  const profileName = authData?.user?.name;
+
+  if (profileImageSrc) {
+    profileImageSrc = profileImageSrc && getImageEndpoint(profileImageSrc);
+
+    return (
+      <img
+        data-id="UserAvatar"
+        className={cn('h-8 w-8 rounded-full', className)}
+        src={profileImageSrc}
+        alt=""
+      />
+    );
+  }
+
+  if(!profileName){
+    return <></>
+  }
+
 
   return (
-    <img data-id="UserAvatar" className={cn('h-8 w-8 rounded-full', className)} src={src} alt="" />
+    <div
+      data-id="UserAvatar"
+      className={cn('h-8 w-8 rounded-full flex items-center justify-center bg-gray-200', className)}
+    >
+      <span className='text-gray-600 text-xl'>{getInitials(profileName)}</span>
+    </div>
   );
 };
