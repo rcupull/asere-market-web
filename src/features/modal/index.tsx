@@ -6,8 +6,18 @@ import { dynamic, LoadableReturn } from 'utils/makeLazy';
 
 const componentRecord: Record<ModalId, LoadableReturn> = {
   PostNew: dynamic(() => import('./components/post-new').then((m) => ({ default: m.PostNew }))),
-  PostCategories: dynamic(() =>
-    import('./components/post-categories').then((m) => ({ default: m.PostCategories })),
+  UpdateBusinessLogo: dynamic(() =>
+    import('./components/update-business-logo').then((m) => ({ default: m.UpdateBusinessLogo })),
+  ),
+  UpdateBusinessBanner: dynamic(() =>
+    import('./components/update-business-banner').then((m) => ({
+      default: m.UpdateBusinessBanner,
+    })),
+  ),
+  UpdatePostCategories: dynamic(() =>
+    import('./components/update-post-categories').then((m) => ({
+      default: m.UpdatePostCategories,
+    })),
   ),
   BusinessNew: dynamic(() =>
     import('./components/business-new').then((m) => ({ default: m.BusinessNew })),

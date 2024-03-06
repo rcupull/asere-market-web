@@ -14,6 +14,7 @@ import { useGetOneUserBusiness } from 'features/api/useGetOneUserBusiness';
 import { useUpdateBusinessPostCategory } from 'features/api/useUpdateBusinessPostCategory';
 import { useModal } from 'features/modal/useModal';
 
+import { CallAfarResources, useCallFromAfar } from 'hooks/useCallFromAfar';
 import { useGetFormErrors } from 'hooks/useGetFormErrors';
 import { useSubmitPortal } from 'hooks/useSubmitPortal';
 
@@ -21,22 +22,27 @@ import { Formik } from 'formik';
 import { getPostCategoryTag } from 'utils/business';
 import { cn } from 'utils/general';
 
-export interface PostCategoriesProps {
+export interface UpdatePostCategoriesProps {
   routeName: string;
+  callAfarResources?: CallAfarResources;
 }
 
-export const PostCategories = ({ routeName }: PostCategoriesProps) => {
+export const UpdatePostCategories = ({
+  routeName,
+  callAfarResources,
+}: UpdatePostCategoriesProps) => {
   const { getOneUserBusiness } = useGetOneUserBusiness();
+  const { onCallAfar } = useCallFromAfar();
 
   const business = getOneUserBusiness.data;
 
   const onRefresh = () => getOneUserBusiness.fetch({ routeName });
 
   useEffect(() => {
-    if (business?.routeName !== routeName) {
-      onRefresh();
-    }
-  }, [business?.routeName, routeName]);
+    onRefresh();
+
+    return () => onCallAfar(callAfarResources);
+  }, []);
 
   const submitPortal = useSubmitPortal();
 
