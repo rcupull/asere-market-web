@@ -49,6 +49,7 @@ export const FieldPostCategoriesButtons = (props: FieldPostCategoriesButtonsProp
   const iconAdd = (
     <IconButtonAdd
       title="Editar las categorías"
+      className='text-green-600 font-bold ml-2'
       onClick={(e) => {
         e.preventDefault();
         e.stopPropagation();

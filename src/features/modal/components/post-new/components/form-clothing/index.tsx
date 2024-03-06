@@ -1,4 +1,5 @@
 import { Button } from 'components/button';
+import { Divider } from 'components/divider';
 import { FieldClothingSizeSelect } from 'components/field-clothing-size-select';
 import { FieldColorSelect } from 'components/field-colors-select';
 import { FieldInput } from 'components/field-input';
@@ -94,8 +95,10 @@ export const FormClothing = ({
         return (
           <form>
             <FieldInput name="name" label="Nombre del producto" />
+            <Divider />
 
             <FieldTextArea label="Descripción" name="description" rows={3} className="mt-6" />
+            <Divider />
 
             <FieldTextArea
               id="post_details"
@@ -104,6 +107,7 @@ export const FormClothing = ({
               className="mt-6"
               rows={3}
             />
+            <Divider />
 
             <FieldInputImages
               label="Imagen"
@@ -114,6 +118,7 @@ export const FormClothing = ({
               multi
               max={userPlan?.maxImagesByPosts}
             />
+            <Divider />
 
             <FieldPostCategoriesButtons
               label="Categorías"
@@ -121,6 +126,7 @@ export const FormClothing = ({
               className="mt-6"
               routeName={routeName}
             />
+            <Divider />
 
             <div className="flex flex-col sm:flex-row items-center gap-6">
               <FieldInput
@@ -151,10 +157,13 @@ export const FormClothing = ({
                 className="mt-6 w-full"
               />
             </div>
+            <Divider />
 
             <FieldColorSelect label="Colores" name="colors" className="mt-6" multi />
+            <Divider />
 
             <FieldClothingSizeSelect label="Tallas" name="clothingSizes" className="mt-6" multi />
+            <Divider />
 
             {submitPortal.getPortal(
               <Button

@@ -41,7 +41,7 @@ export const Resources = ({ business }: ResourcesProps) => {
 
       <ResourceLayout
         title="Logo"
-        description="El logo del negocio"
+        description="El logo o logotipo un punto de identificación para tu negocio y es el símbolo utilizado para reconocerla. Te separa de la competencia y es el medio para transmitir tus valores y mostrar a los consumidores por qué no eres como tus competidores."
         action={
           <Button label="Editar" onClick={() => pushModal('UpdateBusinessLogo', { routeName })} />
         }
@@ -49,7 +49,7 @@ export const Resources = ({ business }: ResourcesProps) => {
 
       <ResourceLayout
         title="Categorías"
-        description="Las categorías permiten clasificar facilmente las publicaciones por grupos predefinidos"
+        description="Las categorías permiten clasificar fácilmente las publicaciones por grupos predefinidos. Puedes crear, editar o eliminar categorías. Cada publicacion puede estar asociada a una o varias categorías. En la página de tu negocio, se podrá filtrar tus publicaciones por categorías muy facilmente."
         action={
           <Button label="Editar" onClick={() => pushModal('UpdatePostCategories', { routeName })} />
         }

@@ -80,7 +80,7 @@ export const UpdatePostCategories = ({
           }}
           onSubmit={() => {}}
         >
-          {({ values, isValid }) => {
+          {({ values, isValid, resetForm }) => {
             return (
               <form className="w-full">
                 <FieldInput
@@ -102,7 +102,10 @@ export const UpdatePostCategories = ({
                       addBusinessPostCategory.fetch(
                         { routeName, label, tag: getPostCategoryTag(label) },
                         {
-                          onAfterSuccess: () => onRefresh(),
+                          onAfterSuccess: () => {
+                            resetForm();
+                            onRefresh();
+                          },
                         },
                       );
                     }}

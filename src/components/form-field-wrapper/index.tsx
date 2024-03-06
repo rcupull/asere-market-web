@@ -12,10 +12,10 @@ export const FormFieldWrapper = ({
   children,
 }: FormFieldWrapperProps & { children: React.ReactNode; error?: Nullable<string> }) => {
   return (
-    <div data-id="FormFieldWrapper" className={className}>
+    <div data-id="FormFieldWrapper" className={cn('px-3', className)}>
       {label && (
         <label
-          className={cn('block text-sm font-medium leading-6 text-gray-900 mb-2 w-fit', {
+          className={cn('block text-sm font-semibold leading-6 text-gray-900 mb-2 w-fit', {
             'text-red-500': !!error,
           })}
         >
