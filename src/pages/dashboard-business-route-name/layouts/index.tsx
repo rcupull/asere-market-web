@@ -59,9 +59,18 @@ export const Layouts = ({ business, onRefresh }: LayoutsProps) => {
     onChange: setValue,
   };
 
+  const withSaveButton = (content: React.ReactNode) => (
+    <>
+      <Button
+        label="Guardar"
+        disabled={!hasChanges}
+        onClick={handleSubmit}
+      />
+      {content}
+    </>
+  );
   return (
     <LayoutPageSection>
-      <Button label="Guardar" disabled={!hasChanges} onClick={handleSubmit} />
       <Tabs<LayoutType>
         className="mt-4 gap-4"
         selected={query.layoutTab as number | undefined}
@@ -93,15 +102,15 @@ export const Layouts = ({ business, onRefresh }: LayoutsProps) => {
         items={[
           {
             label: 'banner',
-            content: <LayoutBanner {...commonProps} />,
+            content: withSaveButton(<LayoutBanner {...commonProps} />),
           },
           {
             label: 'search',
-            content: <LayoutSearch {...commonProps} />,
+            content: withSaveButton(<LayoutSearch {...commonProps} />),
           },
           {
             label: 'posts',
-            content: <LayoutPosts {...commonProps} />,
+            content: withSaveButton(<LayoutPosts {...commonProps} />),
           },
         ]}
       />
