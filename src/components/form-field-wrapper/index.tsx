@@ -2,7 +2,7 @@ import { Nullable, StyleProps } from 'types/general';
 import { cn } from 'utils/general';
 
 export interface FormFieldWrapperProps extends StyleProps {
-  label?: string;
+  label?: React.ReactNode;
 }
 
 export const FormFieldWrapper = ({

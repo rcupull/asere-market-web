@@ -1,10 +1,14 @@
 import { useEffect, useState } from 'react';
 
 import { FormFieldWrapper, FormFieldWrapperProps } from 'components/form-field-wrapper';
+import { IconButtonAdd } from 'components/icon-button-add';
 
-import { useGetOneBusiness } from 'features/api/useGetOneBusiness';
+import { useGetOneUserBusiness } from 'features/api/useGetOneUserBusiness';
+import { useModal } from 'features/modal/useModal';
 
+import { useCallFromAfar } from 'hooks/useCallFromAfar';
 import { FormikFieldProps, useFormikField } from 'hooks/useFormikField';
+import { useMemoizedHash } from 'hooks/useMemoizedHash';
 
 import { PostCategoriesFilterButtons } from '../post-categories-filter-buttons';
 
@@ -12,25 +16,62 @@ type State = Array<string>;
 
 export interface FieldPostCategoriesButtonsProps
   extends FormFieldWrapperProps,
-    FormikFieldProps<State> {}
+    FormikFieldProps<State> {
+  routeName: string;
+}
 
 export const FieldPostCategoriesButtons = (props: FieldPostCategoriesButtonsProps) => {
-  const { className, label } = props;
+  const { className, label, routeName } = props;
   const [state, setState] = useState<State>();
 
+  const { pushModal } = useModal();
   const { field, error } = useFormikField(props);
 
   const { value, onChange, name, onBlur } = field;
 
-  const { getOneBusiness } = useGetOneBusiness();
-  const postCategories = getOneBusiness.data?.postCategories;
+  const { getOneUserBusiness } = useGetOneUserBusiness();
+
+  const onRefresh = () => getOneUserBusiness.fetch({ routeName });
+
+  const callAfarResources = useMemoizedHash()
+  useCallFromAfar(callAfarResources, onRefresh);
+
+  useEffect(() => {
+    onRefresh();
+  }, []);
+
+  const postCategories = getOneUserBusiness.data?.postCategories;
 
   useEffect(() => {
     setState(value);
   }, [value]);
 
+  const iconAdd = (
+    <IconButtonAdd
+      title="Editar las categorías"
+      onClick={(e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        pushModal(
+          'UpdatePostCategories',
+          { routeName, callAfarResources },
+          { emergent: true },
+        );
+      }}
+    />
+  );
+
   return (
-    <FormFieldWrapper label={label} error={error} className={className}>
+    <FormFieldWrapper
+      label={
+        <div className="flex items-center">
+          {label}
+          {iconAdd}
+        </div>
+      }
+      error={error}
+      className={className}
+    >
       <PostCategoriesFilterButtons
         postCategories={postCategories}
         onChange={(newState) => {

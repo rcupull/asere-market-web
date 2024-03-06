@@ -5,7 +5,7 @@ export const slices = {
   useAuthSignIn: createSimpleSlice('useAuthSignIn', null),
   useGetAllUserBusinessRouteNames: createSimpleSlice('useGetAllUserBusinessRouteNames', null),
   useGetAllUserBusiness: createSimpleSlice('useGetAllUserBusiness', null),
-  useGetOneBusiness: createSimpleSlice('useGetOneBusiness', null),
+  useBusinessPageData: createSimpleSlice('useBusinessPageData', null),
   //
   useCallFromAfar: createSimpleSlice<Array<any>>('useCallFromAfar', []),
   emergentModals: createSimpleSlice<Array<any>>('emergentModals', []),

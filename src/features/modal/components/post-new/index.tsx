@@ -4,7 +4,7 @@ import { Badge } from 'components/badge';
 import { ButtonClose } from 'components/button-close';
 import { Modal } from 'components/modal';
 
-import { useGetOneBusiness } from 'features/api/useGetOneBusiness';
+import { useGetOneUserBusiness } from 'features/api/useGetOneUserBusiness';
 import { useGetOneUserPost } from 'features/api/useGetOneUserPost';
 
 import { CallAfarResources, useCallFromAfar } from 'hooks/useCallFromAfar';
@@ -29,10 +29,10 @@ export const PostNew = ({ routeName: routeNameProp, postId, callAfarResources }:
    *
    */
   const { getOneUserPost } = useGetOneUserPost();
-  const { getOneBusiness } = useGetOneBusiness();
+  const { getOneUserBusiness } = useGetOneUserBusiness();
 
   const post = getOneUserPost.data;
-  const business = getOneBusiness.data;
+  const business = getOneUserBusiness.data;
 
   useEffect(() => {
     if (postId) {
@@ -48,7 +48,7 @@ export const PostNew = ({ routeName: routeNameProp, postId, callAfarResources }:
 
   useEffect(() => {
     if (routeName) {
-      getOneBusiness.fetch({ routeName });
+      getOneUserBusiness.fetch({ routeName });
     }
   }, [routeName]);
 

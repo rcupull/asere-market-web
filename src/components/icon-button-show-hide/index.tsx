@@ -10,5 +10,5 @@ export const IconButtonShowHide = ({ hidden, ...props }: IconButtonShowHideProps
   const icon = hidden ? EyeSlashIcon : EyeIcon;
   const title = hidden ? 'Mostrar' : 'Ocultar';
 
-  return <IconButton svg={icon} variant="outlined" title={title} {...props} />;
+  return <IconButton svg={icon} title={title} {...props} />;
 };

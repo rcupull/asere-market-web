@@ -1,21 +1,15 @@
-import { useGetOneBusiness } from 'features/api/useGetOneBusiness';
-
-import { useRouter } from 'hooks/useRouter';
-
 import { BusinessHookLogo } from './business-hook-logo-';
 
+import { useBusinessPageData } from 'pages/@hooks/useBusinessPageData';
 import { StyleProps } from 'types/general';
 import { getImageEndpoint } from 'utils/api';
 
 export interface BusinessLogoProps extends StyleProps {}
 
 export const BusinessLogo = ({ className }: BusinessLogoProps) => {
-  const { isBusinessPage } = useRouter();
+  const { business } = useBusinessPageData();
 
-  const { getOneBusiness } = useGetOneBusiness();
-  const business = getOneBusiness.data;
-
-  if (isBusinessPage) {
+  if (business) {
     const src = business?.logo?.src;
 
     if (src) {

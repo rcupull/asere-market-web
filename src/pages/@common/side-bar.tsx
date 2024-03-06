@@ -9,11 +9,11 @@ import {
   EyeIcon,
   EyeSlashIcon,
   HomeIcon,
-  PlusCircleIcon,
   UserCircleIcon,
   UserPlusIcon,
 } from '@heroicons/react/24/outline';
 
+import { IconButtonAdd } from 'components/icon-button-add';
 import { IconButtonUpdate } from 'components/icon-button-update';
 import { ProLink } from 'components/pro-link';
 import { SideBar as SideBarBase } from 'components/side-bar';
@@ -54,9 +54,10 @@ export const SideBar = ({ className }: SideBarProps) => {
   const needPremium = isNotValidBussinessCountByUser(getAllUserBussiness.data?.length);
 
   const addNewBusinessButton = (
-    <PlusCircleIcon
+    <IconButtonAdd
       title="Agragar nuevo negocio"
-      className="ml-auto h-6 hover:text-gray-50 rounded-full"
+      className="ml-auto"
+      dark
       onClick={(e) => {
         e.stopPropagation();
         e.preventDefault();

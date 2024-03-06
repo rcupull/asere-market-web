@@ -4,10 +4,10 @@ import { Badge } from 'components/badge';
 import { Button } from 'components/button';
 
 import { useAuthSignIn } from 'features/api/useAuthSignIn';
-import { useGetOneBusiness } from 'features/api/useGetOneBusiness';
 
 import { useDebouncer } from 'hooks/useDebouncer';
 
+import { useBusinessPageData } from 'pages/@hooks/useBusinessPageData';
 import { PostCategory } from 'types/business';
 import { StyleProps } from 'types/general';
 import { addStringToUniqueArray, cn, removeStringFromArray } from 'utils/general';
@@ -34,9 +34,9 @@ export const PostCategoriesFilterButtons = ({
   const [state, setState] = useState<Array<string>>();
   const { authData } = useAuthSignIn();
 
-  const { getOneBusiness } = useGetOneBusiness();
+  const { business } = useBusinessPageData();
 
-  const isMyBussiness = getOneBusiness?.data?.createdBy === authData?.user?._id;
+  const isMyBussiness = business?.createdBy === authData?.user?._id;
 
   useEffect(() => {
     setState(value);

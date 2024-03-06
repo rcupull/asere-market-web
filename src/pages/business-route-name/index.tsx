@@ -1,7 +1,4 @@
-import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-
-import { useGetOneBusiness } from 'features/api/useGetOneBusiness';
 
 import { Banner } from './components/banner';
 import { Pagination } from './components/pagination';
@@ -9,22 +6,12 @@ import { Posts } from './components/posts';
 import { Search } from './components/search';
 
 import { LayoutPage } from 'pages/@common/layout-page';
+import { useBusinessPageData } from 'pages/@hooks/useBusinessPageData';
 
 export const BusinessRouteName = () => {
   const { routeName } = useParams();
 
-  const { getOneBusiness } = useGetOneBusiness();
-
-  useEffect(() => {
-    if (routeName) {
-      getOneBusiness.fetch({ routeName });
-      return () => {
-        getOneBusiness.reset();
-      };
-    }
-  }, []);
-
-  const business = getOneBusiness.data;
+  const { business } = useBusinessPageData();
 
   if (!routeName || !business) return <></>;
 

@@ -1,19 +1,11 @@
-import { useGetOneBusiness } from 'features/api/useGetOneBusiness';
-
-import { useRouter } from 'hooks/useRouter';
-
+import { useBusinessPageData } from 'pages/@hooks/useBusinessPageData';
 import { StyleProps } from 'types/general';
 import { cn } from 'utils/general';
 
 export interface BusinessNameProps extends StyleProps {}
 
 export const BusinessName = ({ className }: BusinessNameProps) => {
-  const { params, pathname } = useRouter();
-  const { routeName } = params;
-
-  const isBusinessPage = pathname === `/${routeName}`;
-  const { getOneBusiness } = useGetOneBusiness();
-  const { name } = getOneBusiness.data || {};
+  const { business } = useBusinessPageData();
 
   return (
     <div
@@ -22,7 +14,7 @@ export const BusinessName = ({ className }: BusinessNameProps) => {
         className,
       )}
     >
-      {isBusinessPage ? name : 'Hook'}
+      {business?.name || 'Hook'}
     </div>
   );
 };

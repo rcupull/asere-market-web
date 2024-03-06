@@ -3,6 +3,7 @@ import { useEffect } from 'react';
 import { useSimpleSlice } from 'features/slices/useSimpleSlice';
 
 type CallAfarId =
+  | string // some temporary id
   | 'home_refresh_posts'
   | 'dashboard_business_route_name_table_posts'
   | 'dashboard_business_table_business'

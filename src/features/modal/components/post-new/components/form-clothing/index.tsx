@@ -119,6 +119,7 @@ export const FormClothing = ({
               label="Categorías"
               name="postCategoriesTags"
               className="mt-6"
+              routeName={routeName}
             />
 
             <div className="flex flex-col sm:flex-row items-center gap-6">

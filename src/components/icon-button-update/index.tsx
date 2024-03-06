@@ -10,7 +10,6 @@ export const IconButtonUpdate = ({ className, ...props }: IconButtonUpdateProps)
   <IconButton
     svg={PencilIcon}
     {...props}
-    variant="outlined"
     className={cn('text-yellow-700', className)}
   />
 );
