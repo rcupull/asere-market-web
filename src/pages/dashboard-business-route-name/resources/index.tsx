@@ -8,10 +8,9 @@ import { Business } from 'types/business';
 
 export interface ResourcesProps {
   business: Business;
-  onRefresh: () => void;
 }
 
-export const Resources = ({ business, onRefresh }: ResourcesProps) => {
+export const Resources = ({ business }: ResourcesProps) => {
   return (
     <>
       <Banner business={business} />
@@ -22,7 +21,7 @@ export const Resources = ({ business, onRefresh }: ResourcesProps) => {
 
       <Divider />
 
-      <PostCategories business={business} onRefresh={onRefresh} />
+      <PostCategories business={business}/>
     </>
   );
 };

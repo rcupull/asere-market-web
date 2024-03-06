@@ -36,7 +36,7 @@ export const Home = () => {
             value={filters.value.search}
           />
         </div>
-        <CardGroup title="Recientes">
+        <CardGroup>
           {getAllPosts.data?.map((post, index) => {
             const { routeName, _id } = post;
 

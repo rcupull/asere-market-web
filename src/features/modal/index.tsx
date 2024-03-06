@@ -6,6 +6,9 @@ import { dynamic, LoadableReturn } from 'utils/makeLazy';
 
 const componentRecord: Record<ModalId, LoadableReturn> = {
   PostNew: dynamic(() => import('./components/post-new').then((m) => ({ default: m.PostNew }))),
+  PostCategories: dynamic(() =>
+    import('./components/post-categories').then((m) => ({ default: m.PostCategories })),
+  ),
   BusinessNew: dynamic(() =>
     import('./components/business-new').then((m) => ({ default: m.BusinessNew })),
   ),

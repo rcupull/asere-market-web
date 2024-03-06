@@ -73,7 +73,7 @@ export const DashboardBusinessRouteName = () => {
           },
           {
             label: 'Recursos',
-            content: <Resources business={business} onRefresh={onRefresh} />,
+            content: <Resources business={business} />,
           },
           {
             label: 'Diseños',
