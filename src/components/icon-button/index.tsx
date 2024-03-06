@@ -3,10 +3,10 @@ import { Button, ButtonProps } from 'components/button';
 import { cn } from 'utils/general';
 
 export interface IconButtonProps extends ButtonProps {
-  dark?: boolean
+  dark?: boolean;
 }
 
-export const IconButton = ({ className, variant, dark,  ...omittedProps }: IconButtonProps) => (
+export const IconButton = ({ className, variant, dark, ...omittedProps }: IconButtonProps) => (
   <Button
     {...omittedProps}
     className={cn(

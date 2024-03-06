@@ -117,7 +117,8 @@ export const SignIn = () => {
                     className="font-semibold text-indigo-600 hover:text-indigo-500 ml-auto"
                   >
                     planes premium y gratuitos
-                  </Link>.
+                  </Link>
+                  .
                 </div>
               </form>
             );

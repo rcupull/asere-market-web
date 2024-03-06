@@ -57,8 +57,6 @@ export const Layouts = ({ business, onRefresh }: LayoutsProps) => {
   const commonProps: LayoutSelectProps = {
     value,
     onChange: setValue,
-    initialSlide: query.slide as number | undefined,
-    onSlideChange: ({ activeIndex: slide }) => onChangeQuery({ slide }),
   };
 
   return (

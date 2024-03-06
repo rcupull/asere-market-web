@@ -1,143 +1,68 @@
-import { Swiper } from 'components/swiper';
-
 import { Skeleton } from '../../@common/skeleton';
 import { SwiperSliceSelect } from './SwiperSliceSelect';
+import { SwiperLayout } from './swipper-layout';
 import { LayoutSelectProps } from './types';
 import { getChangedLayout } from './utils';
+
+import { SearchLayoutType } from 'types/business';
+
+const contentMap: Array<{
+  label: string;
+  type: SearchLayoutType;
+}> = [
+  {
+    label: 'Sin barra de búsqueda',
+    type: 'none',
+  },
+  {
+    label: 'Izquierda',
+    type: 'left',
+  },
+  {
+    label: 'Centrada',
+    type: 'center',
+  },
+  {
+    label: 'Derecha',
+    type: 'right',
+  },
+  {
+    label: 'Categorías(botones, no excluyentes)',
+    type: 'postCategories',
+  },
+  {
+    label: 'Categorías(botones, no excluyentes, deslizables)',
+    type: 'postCategoriesScrollable',
+  },
+  {
+    label: 'Categorías(botones, excluyentes)',
+    type: 'postCategoriesExcluded',
+  },
+  {
+    label: 'Categorías(botones, excluyentes, deslizables)',
+    type: 'postCategoriesExcludedScrollable',
+  },
+];
 
 export interface LayoutSearchProps extends LayoutSelectProps {}
 
 export const LayoutSearch = ({ onChange, value, ...omittedProps }: LayoutSearchProps) => {
   return (
-    <Swiper
-      items={[
-        {
+    <SwiperLayout
+      activeIndex={contentMap.findIndex(({ type }) => type === value?.search?.type)}
+      items={contentMap.map(({ label, type }) => {
+        return {
           content: (
             <SwiperSliceSelect
-              label="Sin barra de búsqueda"
-              selected={value?.search?.type === 'none'}
-              onSelect={() => onChange?.(getChangedLayout(value, { search: { type: 'none' } }))}
+              label={label}
+              selected={value?.search?.type === type}
+              onSelect={() => onChange?.(getChangedLayout(value, { search: { type } }))}
             >
-              <Skeleton
-                active="search"
-                layouts={getChangedLayout(value, { search: { type: 'none' } })}
-              />
+              <Skeleton active="search" layouts={getChangedLayout(value, { search: { type } })} />
             </SwiperSliceSelect>
           ),
-        },
-        {
-          content: (
-            <SwiperSliceSelect
-              label="Izquierda"
-              selected={value?.search?.type === 'left'}
-              onSelect={() => onChange?.(getChangedLayout(value, { search: { type: 'left' } }))}
-            >
-              <Skeleton
-                active="search"
-                layouts={getChangedLayout(value, { search: { type: 'left' } })}
-              />
-            </SwiperSliceSelect>
-          ),
-        },
-        {
-          content: (
-            <SwiperSliceSelect
-              label="Centrada"
-              selected={value?.search?.type === 'center'}
-              onSelect={() => onChange?.(getChangedLayout(value, { search: { type: 'center' } }))}
-            >
-              <Skeleton
-                active="search"
-                layouts={getChangedLayout(value, { search: { type: 'center' } })}
-              />
-            </SwiperSliceSelect>
-          ),
-        },
-        {
-          content: (
-            <SwiperSliceSelect
-              label="Derecha"
-              selected={value?.search?.type === 'right'}
-              onSelect={() => onChange?.(getChangedLayout(value, { search: { type: 'right' } }))}
-            >
-              <Skeleton
-                active="search"
-                layouts={getChangedLayout(value, { search: { type: 'right' } })}
-              />
-            </SwiperSliceSelect>
-          ),
-        },
-        {
-          content: (
-            <SwiperSliceSelect
-              label="Categorías(botones, no excluyentes)"
-              selected={value?.search?.type === 'postCategories'}
-              onSelect={() =>
-                onChange?.(getChangedLayout(value, { search: { type: 'postCategories' } }))
-              }
-            >
-              <Skeleton
-                active="search"
-                layouts={getChangedLayout(value, { search: { type: 'postCategories' } })}
-              />
-            </SwiperSliceSelect>
-          ),
-        },
-        {
-          content: (
-            <SwiperSliceSelect
-              label="Categorías(botones, no excluyentes, deslizables)"
-              selected={value?.search?.type === 'postCategoriesScrollable'}
-              onSelect={() =>
-                onChange?.(
-                  getChangedLayout(value, { search: { type: 'postCategoriesScrollable' } }),
-                )
-              }
-            >
-              <Skeleton
-                active="search"
-                layouts={getChangedLayout(value, { search: { type: 'postCategoriesScrollable' } })}
-              />
-            </SwiperSliceSelect>
-          ),
-        },
-        {
-          content: (
-            <SwiperSliceSelect
-              label="Categorías(botones, excluyentes)"
-              selected={value?.search?.type === 'postCategoriesExcluded'}
-              onSelect={() =>
-                onChange?.(getChangedLayout(value, { search: { type: 'postCategoriesExcluded' } }))
-              }
-            >
-              <Skeleton
-                active="search"
-                layouts={getChangedLayout(value, { search: { type: 'postCategoriesExcluded' } })}
-              />
-            </SwiperSliceSelect>
-          ),
-        },
-        {
-          content: (
-            <SwiperSliceSelect
-              label="Categorías(botones, excluyentes, deslizables)"
-              selected={value?.search?.type === 'postCategoriesExcludedScrollable'}
-              onSelect={() =>
-                onChange?.(
-                  getChangedLayout(value, { search: { type: 'postCategoriesExcludedScrollable' } }),
-                )
-              }
-            >
-              <Skeleton
-                active="search"
-                layouts={getChangedLayout(value, {
-                  search: { type: 'postCategoriesExcludedScrollable' },
-                })}
-              />
-            </SwiperSliceSelect>
-          ),
-        },
-      ]}
+        };
+      })}
       {...omittedProps}
     />
   );

@@ -7,9 +7,5 @@ import { cn } from 'utils/general';
 export interface IconButtonUpdateProps extends IconButtonProps {}
 
 export const IconButtonUpdate = ({ className, ...props }: IconButtonUpdateProps) => (
-  <IconButton
-    svg={PencilIcon}
-    {...props}
-    className={cn('text-yellow-700', className)}
-  />
+  <IconButton svg={PencilIcon} {...props} className={cn('text-yellow-700', className)} />
 );

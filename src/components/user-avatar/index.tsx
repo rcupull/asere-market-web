@@ -26,17 +26,16 @@ export const UserAvatar = ({ className }: UserAvatarProps) => {
     );
   }
 
-  if(!profileName){
-    return <></>
+  if (!profileName) {
+    return <></>;
   }
-
 
   return (
     <div
       data-id="UserAvatar"
       className={cn('h-8 w-8 rounded-full flex items-center justify-center bg-gray-200', className)}
     >
-      <span className='text-gray-600 text-xl'>{getInitials(profileName)}</span>
+      <span className="text-gray-600 text-xl">{getInitials(profileName)}</span>
     </div>
   );
 };

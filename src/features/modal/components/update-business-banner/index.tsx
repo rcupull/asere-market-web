@@ -44,7 +44,6 @@ export const UpdateBusinessBanner = ({
     getOneUserBusiness.fetch({ routeName });
 
     return () => onCallAfar(callAfarResources);
-
   }, []);
 
   const { bannerImages } = business || {};

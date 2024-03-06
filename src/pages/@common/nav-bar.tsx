@@ -92,8 +92,8 @@ export const Navbar = ({ className }: NavbarProps) => {
               ]}
               className="ml-3 hidden sm:block flex-shrink-0"
             />
-          ): (
-            <Link to= '/sign-in' className='text-gray-200 text-nowrap'>
+          ) : (
+            <Link to="/sign-in" className="text-gray-200 text-nowrap">
               Iniciar sesión
             </Link>
           )}
@@ -102,4 +102,3 @@ export const Navbar = ({ className }: NavbarProps) => {
     />
   );
 };
-

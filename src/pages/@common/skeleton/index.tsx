@@ -92,7 +92,7 @@ export const Skeleton = ({ active, className, layouts }: SkeletonProps) => {
 
   return (
     <div className={cn('flex justify-center', className)}>
-      <div className="w-11/12 lg:w-8/12 xl:w-4/12 p-4 flex flex-col items-center gap-4">
+      <div className="w-11/12 lg:w-8/12 xl:w-4/12 p-4 flex flex-col items-center gap-4 ring-1 ring-gray-400 m-1 rounded-md">
         {renderBanner()}
 
         <div className="w-full sm:w-10/12">

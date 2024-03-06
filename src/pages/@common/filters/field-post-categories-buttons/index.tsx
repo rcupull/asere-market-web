@@ -33,7 +33,7 @@ export const FieldPostCategoriesButtons = (props: FieldPostCategoriesButtonsProp
 
   const onRefresh = () => getOneUserBusiness.fetch({ routeName });
 
-  const callAfarResources = useMemoizedHash()
+  const callAfarResources = useMemoizedHash();
   useCallFromAfar(callAfarResources, onRefresh);
 
   useEffect(() => {
@@ -49,15 +49,11 @@ export const FieldPostCategoriesButtons = (props: FieldPostCategoriesButtonsProp
   const iconAdd = (
     <IconButtonAdd
       title="Editar las categorías"
-      className='text-green-600 font-bold ml-2'
+      className="text-green-600 font-bold ml-2"
       onClick={(e) => {
         e.preventDefault();
         e.stopPropagation();
-        pushModal(
-          'UpdatePostCategories',
-          { routeName, callAfarResources },
-          { emergent: true },
-        );
+        pushModal('UpdatePostCategories', { routeName, callAfarResources }, { emergent: true });
       }}
     />
   );
