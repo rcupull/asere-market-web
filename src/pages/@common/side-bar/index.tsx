@@ -13,85 +13,43 @@ import {
   UserPlusIcon,
 } from '@heroicons/react/24/outline';
 
-import { IconButtonAdd } from 'components/icon-button-add';
-import { IconButtonUpdate } from 'components/icon-button-update';
 import { ProLink } from 'components/pro-link';
 import { SideBar as SideBarBase } from 'components/side-bar';
-import { UserAvatar } from 'components/user-avatar';
 
 import { useAuthSignIn } from 'features/api/useAuthSignIn';
 import { useAuthSignOut } from 'features/api/useAuthSignOut';
 import { useGetAllUserBusiness } from 'features/api/useGetAllUserBusiness';
 import { useGetUserPaymentPlan } from 'features/api/useGetUserPaymentPlan';
-import { useModal } from 'features/modal/useModal';
 
-import { useCallFromAfar } from 'hooks/useCallFromAfar';
 import { useRouter } from 'hooks/useRouter';
 
-import { Business } from 'types/business';
+import { AddNewBusinessButton } from './AddNewBusinessButton';
+import { SideBarUserHeader } from './SideBarUserHeader';
+
 import { StyleProps } from 'types/general';
 
 export interface SideBarProps extends StyleProps {}
 
 export const SideBar = ({ className }: SideBarProps) => {
   const { getAllUserBussiness } = useGetAllUserBusiness();
-  const { pushModal } = useModal();
-  const { pushRoute, isBusinessPage, params } = useRouter();
+  const {  isBusinessPage, params } = useRouter();
   const { routeName } = params;
-  const { isAdmin, isAuthenticated, authData } = useAuthSignIn();
+  const { isAdmin, isAuthenticated } = useAuthSignIn();
 
-  const { name, _id: userId } = authData?.user || {};
   const { authSignOut } = useAuthSignOut();
   const business = getAllUserBussiness.data || [];
 
-  useCallFromAfar('side_bar_redirect_to_last_created_business', (newBussiness: Business) => {
-    const { routeName } = newBussiness;
-    pushRoute(`/dashboard/business/${routeName}`, {}, { timeout: 100 });
-  });
 
   const { isNotValidBussinessCountByUser } = useGetUserPaymentPlan();
 
   const needPremium = isNotValidBussinessCountByUser(getAllUserBussiness.data?.length);
-
-  const addNewBusinessButton = (
-    <IconButtonAdd
-      title="Agragar nuevo negocio"
-      className="ml-auto"
-      dark
-      onClick={(e) => {
-        e.stopPropagation();
-        e.preventDefault();
-
-        pushModal('BusinessNew', {
-          callAfarResources: ['side_bar_redirect_to_last_created_business', 'getAllUserBussiness'],
-        });
-      }}
-    />
-  );
 
   return (
     <SideBarBase
       className={className}
       items={[
         isAuthenticated && {
-          content: (
-            <div className="flex flex-col items-center mb-2">
-              <div className="relative">
-                <UserAvatar className="mt-4 !h-14 !w-14" />
-                <div className="absolute -bottom-3 -right-3 flex items-center justify-center rounded-full ring-2 ring-gray-900">
-                  <IconButtonUpdate
-                    className="!h-7 !w-7 !p-0.5"
-                    title="Editar perfil"
-                    onClick={() =>
-                      userId &&
-                      pushModal('ProfileUpdate', { userId, callAfarResources: 'refresh_auth_user' })
-                    }
-                  />
-                </div>
-              </div>
-              <span className="mt-4 text-sm border px-2 py-1 rounded-2xl">{name}</span>
-            </div>
-          ),
+          content: <SideBarUserHeader />,
         },
         isAuthenticated && {
           divider: true,
@@ -125,7 +83,11 @@ export const SideBar = ({ className }: SideBarProps) => {
           label: 'Mis negocios',
           href: '/dashboard/business',
           svg: BookmarkIcon,
-          endElement: needPremium ? <ProLink className="ml-auto h-6" /> : addNewBusinessButton,
+          endElement: needPremium ? (
+            <ProLink className="ml-auto h-6" />
+          ) : (
+            <AddNewBusinessButton className="ml-auto" />
+          ),
         },
         ...business.map(({ name, routeName, hidden }) => {
           const Svg = hidden ? EyeSlashIcon : EyeIcon;
