@@ -1,5 +1,7 @@
 import { Navigate, Route, Routes } from 'react-router-dom';
 
+import { AuthenticatedAdmin } from 'components/autenticated-admin';
+
 import { useInit } from 'hooks/useInit';
 
 import { AuthenticatedUser } from './components/autenticated-user';
@@ -10,6 +12,10 @@ import { PaymentPlansPurchase } from 'pages/payment-plans-purchase';
 import { dynamic } from 'utils/makeLazy';
 
 const Business = dynamic(() => import('pages/business').then((m) => ({ default: m.Business })));
+const Admin = dynamic(() => import('pages/admin').then((m) => ({ default: m.Admin })));
+const AdminUsers = dynamic(() =>
+  import('pages/admin-users').then((m) => ({ default: m.AdminUsers })),
+);
 const AboutUs = dynamic(() => import('pages/about-us').then((m) => ({ default: m.AboutUs })));
 const BusinessRouteName = dynamic(() =>
   import('pages/business-route-name').then((m) => ({ default: m.BusinessRouteName })),
@@ -65,6 +71,14 @@ export const App = (): JSX.Element => {
       <Route
         path="/payment-plans/purchase"
         element={withPageProviders(<PaymentPlansPurchase />, AuthenticatedUser, LayoutMain)}
+      />
+
+      {/* ////////////////////////////////////////////// */}
+      <Route path="/admin" element={withPageProviders(<Admin />, AuthenticatedAdmin, LayoutMain)} />
+
+      <Route
+        path="/admin/users"
+        element={withPageProviders(<AdminUsers />, AuthenticatedAdmin, LayoutMain)}
       />
 
       {/* ////////////////////////////////////////////// */}

@@ -13,14 +13,13 @@ import { cn } from 'utils/general';
 export interface LayoutMainProps extends ChildrenProp {}
 
 export const LayoutMain = ({ children }: LayoutMainProps): JSX.Element => {
-  const { pathname } = useRouter();
+  const { isDashboardPage, isAdminPage } = useRouter();
 
-  const isDashboard = pathname.includes('dashboard');
 
   const smSideBar = (
     <div
       className={cn('min-w-64 hidden h-screen', {
-        'sm:block': isDashboard,
+        'sm:block': isDashboardPage || isAdminPage,
       })}
     >
       <SideBar />
@@ -58,7 +57,7 @@ export const LayoutMain = ({ children }: LayoutMainProps): JSX.Element => {
         {smSideBar}
         <div
           className={cn('w-full p-3', {
-            'sm:w-[calc(100%-16rem)]': isDashboard,
+            'sm:w-[calc(100%-16rem)]': isDashboardPage || isAdminPage,
           })}
         >
           {children}

@@ -22,6 +22,7 @@ interface UseRouterReturn {
   params: Record<string, string | undefined>;
   isBusinessPage: boolean;
   isDashboardPage: boolean;
+  isAdminPage: boolean;
   onChangeQuery: (
     partialQuery: Query,
     options?: {
@@ -59,6 +60,7 @@ export const useRouter = (): UseRouterReturn => {
   return {
     isBusinessPage: pathname === `/${routeName}`,
     isDashboardPage: pathname.startsWith('/dashboard'),
+    isAdminPage: pathname.startsWith('/admin'),
     params,
     search,
     queryToSearch,

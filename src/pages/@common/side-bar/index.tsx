@@ -10,6 +10,7 @@ import {
   EyeSlashIcon,
   HomeIcon,
   UserCircleIcon,
+  UserGroupIcon,
   UserPlusIcon,
 } from '@heroicons/react/24/outline';
 
@@ -32,13 +33,14 @@ export interface SideBarProps extends StyleProps {}
 
 export const SideBar = ({ className }: SideBarProps) => {
   const { getAllUserBussiness } = useGetAllUserBusiness();
-  const {  isBusinessPage, params } = useRouter();
+  const { isBusinessPage, isDashboardPage, isAdminPage, params } = useRouter();
   const { routeName } = params;
   const { isAdmin, isAuthenticated } = useAuthSignIn();
 
+  const isDashboardOrAdminPage = isDashboardPage || isAdmin;
+
   const { authSignOut } = useAuthSignOut();
   const business = getAllUserBussiness.data || [];
-
 
   const { isNotValidBussinessCountByUser } = useGetUserPaymentPlan();
 
@@ -51,7 +53,8 @@ export const SideBar = ({ className }: SideBarProps) => {
         isAuthenticated && {
           content: <SideBarUserHeader />,
         },
-        isAuthenticated && {
+        /////////////////////////////////////////////////////////////////////////////////////////////////////////
+        isDashboardOrAdminPage && {
           divider: true,
         },
         isBusinessPage && { label: 'Publicaciones', href: `/${routeName}`, svg: HomeIcon },
@@ -74,12 +77,17 @@ export const SideBar = ({ className }: SideBarProps) => {
           svg: UserCircleIcon,
           className: 'sm:hidden',
         },
-        isAdmin && { label: 'Admin', href: '/admin', svg: CodeBracketIcon, className: 'sm:hidden' },
+        /////////////////////////////////////////////////////////////////////////////////////////////////////////
         {
           divider: true,
           className: 'sm:hidden',
         },
-        isAuthenticated && {
+        isAuthenticated && isAdmin && {
+          label: 'Usuarios',
+          href: '/admin/users',
+          svg: UserGroupIcon,
+        },
+        isAuthenticated && !isAdmin && {
           label: 'Mis negocios',
           href: '/dashboard/business',
           svg: BookmarkIcon,
@@ -93,7 +101,7 @@ export const SideBar = ({ className }: SideBarProps) => {
           const Svg = hidden ? EyeSlashIcon : EyeIcon;
 
           return (
-            isAuthenticated && {
+            isAuthenticated && !isAdmin && {
               label: name,
               href: `/dashboard/business/${routeName}`,
               endElement: <Svg className="h-4 ml-auto" />,
@@ -101,10 +109,11 @@ export const SideBar = ({ className }: SideBarProps) => {
             }
           );
         }),
+        /////////////////////////////////////////////////////////////////////////////////////////////////////////
         isAuthenticated && {
           divider: true,
         },
-        isAuthenticated && {
+        isDashboardPage && {
           label: 'Configuración',
           href: '/dashboard/settings',
           svg: Cog8ToothIcon,

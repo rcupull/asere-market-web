@@ -1,4 +1,5 @@
 import { BaseIdentity, Image } from './general';
+import { PaymentPlanStatus, PaymentPlanType } from './payment';
 
 export type UserRole = 'user' | 'admin';
 
@@ -9,6 +10,17 @@ export interface User extends BaseIdentity {
   role: UserRole;
   validated: boolean;
   profileImage?: Image;
+  payment: {
+    planHistory: [
+      {
+        planType: PaymentPlanType;
+        dateOfPurchase: string;
+        trialMode: boolean;
+        status: PaymentPlanStatus;
+        validationPurchaseCode?: string;
+      },
+    ];
+  };
 }
 
 export type UserData = User | null;

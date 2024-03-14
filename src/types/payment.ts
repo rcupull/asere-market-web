@@ -1,4 +1,5 @@
 export type PaymentPlanType = 'free' | 'beginner' | 'professional' | 'company';
+export type PaymentPlanStatus = 'current' | 'validatingPurchase' | 'historical';
 
 export interface PaymentPlan {
   type: PaymentPlanType;
