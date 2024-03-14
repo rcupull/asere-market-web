@@ -17,8 +17,8 @@ import { useAuthSignOut } from 'features/api/useAuthSignOut';
 
 import { useRouter } from 'hooks/useRouter';
 
-import { BusinessHookLogo } from './business-hook-logo-';
 import { BusinessLogo } from './business-logo';
+import { BusinessMarketLogo } from './business-market-logo';
 import { BusinessName } from './business-name';
 
 import { StyleProps } from 'types/general';
@@ -47,19 +47,19 @@ export const Navbar = ({ className }: NavbarProps) => {
         !isBusinessPage && { name: 'Tiendas', href: '/business' },
         !isBusinessPage && { name: 'Precios', href: '/payment-plans' },
         isUser && { name: 'Panel', href: '/dashboard' },
-        !isBusinessPage && { name: '¿Que es Hook?', href: '/about-us' },
+        !isBusinessPage && { name: '¿Que es Asere Market?', href: '/about-us' },
         isAdmin && { name: 'Admin', href: '/admin' },
       ]}
       postContent={
         <>
           {!isAuthenticated && isBusinessPage && (
             <Menu
-              buttonElement={<BusinessHookLogo />}
+              buttonElement={<BusinessMarketLogo />}
               headerElement={
                 <div className="w-64 m-2 rounded-md px-4 py-3 border flex items-center justify-center">
                   <span className="text-center">
                     Haz crecer tu negocio online en Cuba y usa{' '}
-                    <span className="font-bold">Hook</span> para enganchar a tus clientes
+                    <span className="font-bold">Asere Market</span> para enganchar a tus clientes
                   </span>
                 </div>
               }

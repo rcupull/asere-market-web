@@ -1,4 +1,4 @@
-import { BusinessHookLogo } from './business-hook-logo-';
+import { BusinessMarketLogo } from './business-market-logo';
 
 import { useBusinessPageData } from 'pages/@hooks/useBusinessPageData';
 import { StyleProps } from 'types/general';
@@ -21,5 +21,5 @@ export const BusinessLogo = ({ className }: BusinessLogoProps) => {
     }
   }
 
-  return <BusinessHookLogo className={className} />;
+  return <BusinessMarketLogo className={className} />;
 };

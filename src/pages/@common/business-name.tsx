@@ -14,7 +14,7 @@ export const BusinessName = ({ className }: BusinessNameProps) => {
         className,
       )}
     >
-      {business?.name || 'Hook'}
+      {business?.name || 'Asere Market'}
     </div>
   );
 };

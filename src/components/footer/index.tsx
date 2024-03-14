@@ -1,24 +1,50 @@
-import { SocialNetworkFace } from './components/social-network-face';
-import { SocialNetworkIg } from './components/social-network-ig';
-import { SocialNetworkIn } from './components/social-network-in';
-import { SocialNetworkX } from './components/social-network-x';
+import {
+  SocialNetworkFace,
+  SocialNetworkIg,
+  SocialNetworkIn,
+  SocialNetworkX,
+} from './components/social-network-icons';
 
+import { SocialLinks } from 'types/business';
 import { StyleProps } from 'types/general';
 import { cn } from 'utils/general';
 
-export interface FooterProps extends StyleProps {}
+export interface FooterProps extends StyleProps {
+  socialLinks: SocialLinks;
+}
 
-export const Footer = ({ className }: FooterProps) => {
+export const Footer = ({ className, socialLinks }: FooterProps) => {
+  const { face, instagram, linkedin, twitter } = socialLinks;
+
+  const renderSocialNetworkLink = (Icon: React.FunctionComponent, href?: string) => {
+    if (!href) {
+      return null;
+    }
+
+    return (
+      <a
+        href={href}
+        className={cn(
+          'm-1 h-9 w-9 rounded-full border-2 border-white uppercase leading-normal text-white transition duration-150 ease-in-out hover:bg-black hover:bg-opacity-5 focus:outline-none focus:ring-0',
+          className,
+        )}
+        target="_blank"
+        rel="noreferrer"
+      >
+        <Icon />
+      </a>
+    );
+  };
   return (
     <footer
       className={cn('flex flex-col items-center bg-gray-800 text-center text-white', className)}
     >
       <div className="container px-6 pt-6">
         <div className="mb-6 flex justify-center">
-          <SocialNetworkFace to="/" />
-          <SocialNetworkX to="/" />
-          <SocialNetworkIg to="/" />
-          <SocialNetworkIn to="/" />
+          {renderSocialNetworkLink(SocialNetworkFace, face)}
+          {renderSocialNetworkLink(SocialNetworkIg, instagram)}
+          {renderSocialNetworkLink(SocialNetworkIn, linkedin)}
+          {renderSocialNetworkLink(SocialNetworkX, twitter)}
         </div>
 
         {/* <div>

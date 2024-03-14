@@ -46,6 +46,14 @@ export interface PostCategory {
   hidden?: boolean;
 }
 
+export interface SocialLinks {
+  face?: string;
+  instagram?: string;
+  twitter?: string;
+  linkedin?: string;
+  youtube?: string;
+}
+
 export interface Business extends BaseIdentity {
   name: string;
   category: BusinessCategory;
@@ -55,13 +63,7 @@ export interface Business extends BaseIdentity {
   bannerImages?: Array<Image>;
   logo?: Image;
   postCategories?: Array<PostCategory>;
-  socialLinks?: {
-    face?: string;
-    instagram?: string;
-    twitter?: string;
-    linkedin?: string;
-    youtube?: string;
-  };
+  socialLinks?: SocialLinks;
   layouts?: BusinessLayout;
   layoutsMobile?: BusinessLayout;
 }

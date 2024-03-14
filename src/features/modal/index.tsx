@@ -5,6 +5,11 @@ import { ModalId } from './types';
 import { dynamic, LoadableReturn } from 'utils/makeLazy';
 
 const componentRecord: Record<ModalId, LoadableReturn> = {
+  UpdateSocialNetworks: dynamic(() =>
+    import('./components/update-social-networks').then((m) => ({
+      default: m.UpdateSocialNetworks,
+    })),
+  ),
   PostNew: dynamic(() => import('./components/post-new').then((m) => ({ default: m.PostNew }))),
   UpdateBusinessLogo: dynamic(() =>
     import('./components/update-business-logo').then((m) => ({ default: m.UpdateBusinessLogo })),

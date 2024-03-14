@@ -54,6 +54,14 @@ export const Resources = ({ business }: ResourcesProps) => {
           <Button label="Editar" onClick={() => pushModal('UpdatePostCategories', { routeName })} />
         }
       />
+
+      <ResourceLayout
+        title="Redes sociales"
+        description="Configure los link de las redes sociales de su negocio."
+        action={
+          <Button label="Editar" onClick={() => pushModal('UpdateSocialNetworks', { routeName })} />
+        }
+      />
     </>
   );
 };

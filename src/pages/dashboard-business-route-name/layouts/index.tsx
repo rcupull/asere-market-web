@@ -61,11 +61,7 @@ export const Layouts = ({ business, onRefresh }: LayoutsProps) => {
 
   const withSaveButton = (content: React.ReactNode) => (
     <>
-      <Button
-        label="Guardar"
-        disabled={!hasChanges}
-        onClick={handleSubmit}
-      />
+      <Button label="Guardar" disabled={!hasChanges} onClick={handleSubmit} />
       {content}
     </>
   );

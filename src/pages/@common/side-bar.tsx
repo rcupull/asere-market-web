@@ -111,7 +111,7 @@ export const SideBar = ({ className }: SideBarProps) => {
           className: 'sm:hidden',
         },
         !isBusinessPage && {
-          label: '¿Que es Hook?',
+          label: '¿Que es Asere Market?',
           href: '/about-us',
           svg: UserCircleIcon,
           className: 'sm:hidden',

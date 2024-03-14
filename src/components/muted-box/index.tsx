@@ -3,7 +3,7 @@ import { cn } from 'utils/general';
 
 export interface MutedBoxProps extends StyleProps {
   active?: boolean;
-  onClick?:()=>void
+  onClick?: () => void;
 }
 
 export const MutedBox = ({ className, active, onClick }: MutedBoxProps) => {
