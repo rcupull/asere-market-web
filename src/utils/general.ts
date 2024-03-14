@@ -36,8 +36,11 @@ export const getFlattenJson = <T extends AnyRecord = AnyRecord>(value: T): T => 
     {} as T,
   );
 };
-export const getFlattenArray = <T extends Array<any> = Array<any>>(value: T): T => {
-  return value.filter(Boolean) as T;
+export const getFlattenArray = <T extends Array<any> = Array<any>>(
+  value: T,
+  cbValid: (e: any) => boolean = Boolean,
+): T => {
+  return value.filter(cbValid) as T;
 };
 
 export const getRange = (count = 0): Array<number> => {

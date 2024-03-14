@@ -1,6 +1,7 @@
 import { forwardRef } from 'react';
 
 import { FormFieldWrapper, FormFieldWrapperProps } from 'components/form-field-wrapper';
+import { Input } from 'components/input';
 
 import { useFormikField } from 'hooks/useFormikField';
 
@@ -17,14 +18,11 @@ export const FieldInput = forwardRef<HTMLInputElement, FieldInputProps>((props, 
 
   return (
     <FormFieldWrapper label={label} error={error} className={className}>
-      <input
+      <Input
         ref={ref}
-        className={cn(
-          'block w-full rounded-md border-0 py-1.5 px-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6',
-          {
-            'ring-1 rounded-md ring-red-500 focus:ring-red-500': !!error,
-          },
-        )}
+        className={cn({
+          'ring-1 rounded-md ring-red-500 focus:ring-red-500': !!error,
+        })}
         {...omittedProps}
         {...field}
       />

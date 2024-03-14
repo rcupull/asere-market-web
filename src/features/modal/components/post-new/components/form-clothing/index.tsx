@@ -19,7 +19,7 @@ import { PostNewFormProps } from '../../types';
 
 import { Formik } from 'formik';
 import { FieldPostCategoriesButtons } from 'pages/@common/filters/field-post-categories-buttons';
-import { Image } from 'types/general';
+import { Image, ImageFile } from 'types/general';
 import { Post, PostCurrency } from 'types/post';
 import { getImageEndpoint } from 'utils/api';
 
@@ -35,7 +35,7 @@ type State = Pick<
   | 'price'
   | 'details'
   | 'postCategoriesTags'
-> & { images: Array<File | Image> };
+> & { images: Array<ImageFile | Image> };
 
 export const FormClothing = ({
   routeName,

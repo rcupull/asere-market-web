@@ -3,12 +3,13 @@ import { forwardRef, useEffect, useMemo, useState } from 'react';
 
 import { EmptyImage } from 'components/empty-image';
 import { FormFieldWrapper, FormFieldWrapperProps } from 'components/form-field-wrapper';
+import { Input } from 'components/input';
 import { ProLink } from 'components/pro-link';
 
 import { useFormikField } from 'hooks/useFormikField';
 
-import { Image } from 'types/general';
-import { cn, getFlattenArray, isNumber } from 'utils/general';
+import { Image, ImageFile } from 'types/general';
+import { cn, getFlattenArray, isNumber, removeRow, updateRow } from 'utils/general';
 
 export interface FieldInputImagesProps
   extends React.InputHTMLAttributes<HTMLInputElement>,
@@ -16,13 +17,22 @@ export interface FieldInputImagesProps
   multi?: boolean;
   getImageSrc?: (src: string) => string;
   max?: number;
+  enabledImageHref?: boolean;
 }
 
-type State = Array<Image | File | undefined | null>;
+type State = Array<Image | ImageFile | undefined | null>;
 
 export const FieldInputImages = forwardRef<HTMLInputElement, FieldInputImagesProps>(
   (props, ref) => {
-    const { className, label, multi, max, getImageSrc: getImageSrcProp, ...omittedProps } = props;
+    const {
+      className,
+      label,
+      multi,
+      max,
+      getImageSrc: getImageSrcProp,
+      enabledImageHref,
+      ...omittedProps
+    } = props;
 
     const { field, error } = useFormikField(props);
 
@@ -34,19 +44,23 @@ export const FieldInputImages = forwardRef<HTMLInputElement, FieldInputImagesPro
     const [previewIndex, setPreviewIndex] = useState<number>(0);
 
     const isDisabledByPremium = (s: State) => {
-      return isNumber(max) && max <= getFlattenArray(s).length;
+      return isNumber(max) && max <= getFlattenState(s).length;
     };
 
     const addOneEmptyPreview = (s: State): State => {
       return isDisabledByPremium(s) ? s : [...s, undefined];
     };
 
-    const getImageSrc = (image: Image | File) => {
-      if (image instanceof File) {
-        return URL.createObjectURL(image);
+    const getImageSrc = (image: Image | ImageFile) => {
+      if (image.src instanceof File) {
+        return URL.createObjectURL(image.src);
       }
 
-      return getImageSrcProp?.(image.src) || '';
+      if (typeof image.src === 'string') {
+        return getImageSrcProp?.(image.src) || '';
+      }
+
+      return '';
     };
 
     const previewImage = useMemo(() => {
@@ -60,7 +74,7 @@ export const FieldInputImages = forwardRef<HTMLInputElement, FieldInputImagesPro
     }, [previewIndex, stateToPreview]);
 
     useEffect(() => {
-      if (value !== state || isNumber(max)) {
+      if (value !== state) {
         const newState = (value || []) as unknown as State;
         setState(newState);
         const newPreviewState = addOneEmptyPreview(newState);
@@ -69,33 +83,56 @@ export const FieldInputImages = forwardRef<HTMLInputElement, FieldInputImagesPro
       }
     }, [value, max]);
 
+    const getFlattenState = (newState: State): State => {
+      return getFlattenArray(newState, (val) => !!val?.src);
+    };
+
     const handleChange = (file: File | null | undefined, action: 'add' | 'remove' | 'change') => {
       let newStateToPreview = [...stateToPreview];
-      newStateToPreview[previewIndex] = file;
 
       switch (action) {
         case 'add': {
+          if (!file) return;
+
+          newStateToPreview = updateRow(
+            newStateToPreview,
+            {
+              src: file,
+            },
+            previewIndex,
+          );
+
           newStateToPreview = addOneEmptyPreview(newStateToPreview);
           break;
         }
         case 'remove': {
           setPreviewIndex(0);
-          newStateToPreview = getFlattenArray(newStateToPreview);
-          newStateToPreview = addOneEmptyPreview(newStateToPreview);
+          newStateToPreview = removeRow(newStateToPreview, previewIndex);
+
           break;
         }
         case 'change': {
-          newStateToPreview = addOneEmptyPreview(newStateToPreview);
+          if (!file) return;
+
+          newStateToPreview = updateRow(
+            newStateToPreview,
+            {
+              ...newStateToPreview[previewIndex],
+              src: file,
+            },
+            previewIndex,
+          );
+
           break;
         }
-
         default:
           break;
       }
 
       setStateToPreview(newStateToPreview);
 
-      const newState = getFlattenArray(newStateToPreview);
+      const newState = getFlattenState(newStateToPreview);
+
       setState(newState);
 
       field.onChange({
@@ -104,6 +141,28 @@ export const FieldInputImages = forwardRef<HTMLInputElement, FieldInputImagesPro
           value: newState,
         },
       });
+    };
+
+    const handleChangeHref = (href: string) => {
+      let newStateToPreview = [...stateToPreview];
+
+      const current = newStateToPreview[previewIndex];
+
+      if (current) {
+        current.href = href;
+        newStateToPreview = updateRow(newStateToPreview, current, previewIndex);
+
+        setStateToPreview(newStateToPreview);
+        const newState = getFlattenState(newStateToPreview);
+        setState(newState);
+
+        field.onChange({
+          target: {
+            name: field.name,
+            value: newState,
+          },
+        });
+      }
     };
 
     return (
@@ -214,6 +273,27 @@ export const FieldInputImages = forwardRef<HTMLInputElement, FieldInputImagesPro
             </div>
           )}
         </div>
+
+        {previewImage && enabledImageHref && (
+          <div className="flex items-center mt-2">
+            <Input
+              placeholder="Escriba la url promocional de esta imagen del banner (opcional). Ejemplo: https://example.com"
+              value={stateToPreview[previewIndex]?.href || ''}
+              onChange={(e) => {
+                e.preventDefault();
+                handleChangeHref(e.target.value);
+              }}
+            />
+            <a
+              href={stateToPreview[previewIndex]?.href || ''}
+              className="text-nowrap ml-2 hyperlink"
+              target="_blank"
+              rel="noreferrer"
+            >
+              Ir al link
+            </a>
+          </div>
+        )}
       </FormFieldWrapper>
     );
   },

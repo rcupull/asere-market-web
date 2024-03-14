@@ -21,4 +21,11 @@ export interface ChildrenProp {
 export interface Image {
   src: string;
   alt?: string;
+  href?: string;
+}
+
+export interface ImageFile {
+  src: File;
+  alt?: string;
+  href?: string;
 }

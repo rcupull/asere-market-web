@@ -3,12 +3,12 @@ import { useFetch } from 'hooks/useFetch';
 import { useAuthSignIn } from './useAuthSignIn';
 
 import { FetchResource } from 'types/api';
-import { Image } from 'types/general';
+import { Image, ImageFile } from 'types/general';
 import { getEndpoint } from 'utils/api';
 
 export const useAddManyUserPostImages = (): {
   addManyUserPostImages: FetchResource<
-    { images: Array<File | Image>; routeName: string; postId: string },
+    { images: Array<ImageFile | Image>; routeName: string; postId: string },
     Array<Image>
   >;
 } => {
@@ -25,9 +25,9 @@ export const useAddManyUserPostImages = (): {
       fetch: ({ images, routeName, postId }, options = {}) => {
         const promises = images.map((image) => {
           return new Promise<Image>((resolve) => {
-            if (image instanceof File) {
+            if (image.src instanceof File) {
               const form = new FormData();
-              form.append('image', image);
+              form.append('image', image.src);
 
               fetch[2](
                 {
@@ -45,13 +45,14 @@ export const useAddManyUserPostImages = (): {
                 {
                   onAfterSuccess: (response) => {
                     resolve({
+                      ...image,
                       src: response.imageSrc,
                     });
                   },
                 },
               );
             } else {
-              resolve(image);
+              resolve(image as Image);
             }
           });
         });

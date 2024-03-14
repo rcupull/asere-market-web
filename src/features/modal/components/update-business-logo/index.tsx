@@ -15,11 +15,11 @@ import { CallAfarResources, useCallFromAfar } from 'hooks/useCallFromAfar';
 import { useSubmitPortal } from 'hooks/useSubmitPortal';
 
 import { Formik } from 'formik';
-import { Image } from 'types/general';
+import { Image, ImageFile } from 'types/general';
 import { getImageEndpoint } from 'utils/api';
 
 interface State {
-  logoField: Array<File | Image | undefined>;
+  logoField: Array<ImageFile | Image | undefined>;
 }
 
 export interface UpdateBusinessLogoProps {

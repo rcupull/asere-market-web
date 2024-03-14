@@ -19,7 +19,22 @@ export const Banner = ({ business, className }: BannerProps) => {
     return <></>;
   }
 
-  const renderContent = (content: React.ReactNode) => {
+  const renderContent = (args: { content?: React.ReactNode; href?: string }) => {
+    const { content, href } = args;
+
+    if (href) {
+      return (
+        <a
+          href={href}
+          className={cn('h-96 flex items-center justify-center', className)}
+          target="_blank"
+          rel="noreferrer"
+        >
+          {content || <EmptyImage />}
+        </a>
+      );
+    }
+
     return (
       <div className={cn('h-96 flex items-center justify-center', className)}>
         {content || <EmptyImage />}
@@ -28,12 +43,12 @@ export const Banner = ({ business, className }: BannerProps) => {
   };
 
   if (bannerLayout?.type === 'static') {
-    const mainImage = bannerImages?.[0];
-    const previewSrc = mainImage?.src && getImageEndpoint(mainImage?.src);
+    const { src, href } = bannerImages?.[0] || {};
 
-    return renderContent(
-      previewSrc && <img src={previewSrc} className="object-contain w-full h-full" />,
-    );
+    return renderContent({
+      content: <img src={src && getImageEndpoint(src)} className="object-contain w-full h-full" />,
+      href,
+    });
   }
 
   if (bannerLayout?.type === 'swipableClassic') {
@@ -43,13 +58,17 @@ export const Banner = ({ business, className }: BannerProps) => {
           autoplay={{
             delay: 5000,
           }}
-          items={bannerImages?.map(({ src }) => {
-            const imageSrc = src && getImageEndpoint(src);
-
+          items={bannerImages?.map(({ src, href }) => {
             return {
-              content: renderContent(
-                <img src={imageSrc} className="object-contain w-full h-full" />,
-              ),
+              content: renderContent({
+                content: (
+                  <img
+                    src={src && getImageEndpoint(src)}
+                    className="object-contain w-full h-full"
+                  />
+                ),
+                href,
+              }),
             };
           })}
         />
