@@ -141,19 +141,16 @@ export const SideBar = ({ className }: SideBarProps) => {
         }),
         isAuthenticated && {
           divider: true,
-          className: 'sm:hidden',
         },
         isAuthenticated && {
-          label: 'Settings',
-          href: '/settings',
+          label: 'Configuración',
+          href: '/dashboard/settings',
           svg: Cog8ToothIcon,
-          className: 'sm:hidden',
         },
         isAuthenticated && {
           label: 'Cerrar sesión',
           svg: ArrowRightStartOnRectangleIcon,
           onClick: () => authSignOut.fetch(undefined),
-          className: 'sm:hidden',
         },
         !isAuthenticated && {
           label: 'Créate una cuenta',

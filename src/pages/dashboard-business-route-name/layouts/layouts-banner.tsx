@@ -7,7 +7,7 @@ import { getChangedLayout } from './utils';
 import { BannerLayoutType } from 'types/business';
 
 const contentMap: Array<{
-  label: string;
+  label: React.ReactNode;
   type: BannerLayoutType;
 }> = [
   {

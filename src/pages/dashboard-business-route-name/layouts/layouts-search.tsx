@@ -6,8 +6,16 @@ import { getChangedLayout } from './utils';
 
 import { SearchLayoutType } from 'types/business';
 
+const renderCategoryLabel = (detail: string) => {
+  return (
+    <span>
+      Categorías<span className="text-gray-500">({detail})</span>
+    </span>
+  );
+};
+
 const contentMap: Array<{
-  label: string;
+  label: React.ReactNode;
   type: SearchLayoutType;
 }> = [
   {
@@ -27,19 +35,19 @@ const contentMap: Array<{
     type: 'right',
   },
   {
-    label: 'Categorías(botones, no excluyentes)',
+    label: renderCategoryLabel('selección múltiple'),
     type: 'postCategories',
   },
   {
-    label: 'Categorías(botones, no excluyentes, deslizables)',
+    label: renderCategoryLabel('selección múltiple, deslizable'),
     type: 'postCategoriesScrollable',
   },
   {
-    label: 'Categorías(botones, excluyentes)',
+    label: renderCategoryLabel('selección simple'),
     type: 'postCategoriesExcluded',
   },
   {
-    label: 'Categorías(botones, excluyentes, deslizables)',
+    label: renderCategoryLabel('selección simple, deslizable'),
     type: 'postCategoriesExcludedScrollable',
   },
 ];

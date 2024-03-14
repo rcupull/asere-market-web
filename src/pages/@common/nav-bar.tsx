@@ -1,7 +1,6 @@
 import {
   ArrowRightEndOnRectangleIcon,
   ArrowRightStartOnRectangleIcon,
-  Cog8ToothIcon,
   HomeIcon,
   UserGroupIcon,
   UserPlusIcon,
@@ -37,7 +36,7 @@ export const Navbar = ({ className }: NavbarProps) => {
       preContent={
         <>
           <BusinessLogo className="hidden sm:block flex-shrink-0" />
-          <BusinessName className="ml-10 sm:ml-0 mr-auto" />
+          <BusinessName className="ml-10 sm:ml-0 mr-auto flex-shrink-0" />
           <div className="w-px h-3/6 bg-gray-400 hidden sm:block flex-shrink-0" />
         </>
       }
@@ -83,7 +82,7 @@ export const Navbar = ({ className }: NavbarProps) => {
                 </div>
               }
               items={[
-                { label: 'Configuración', href: '/settings', svg: Cog8ToothIcon },
+                // { label: 'Configuración', href: '/settings', svg: Cog8ToothIcon },
                 {
                   label: 'Cerrar sesiónn',
                   onClick: () => authSignOut.fetch(undefined),
