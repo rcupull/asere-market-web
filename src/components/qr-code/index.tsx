@@ -1,11 +1,11 @@
-import QRCode, { QRCodeProps } from 'react-qr-code';
+import ReactQRCode, { QRCodeProps as ReactQRCodeProps } from 'react-qr-code';
 
-interface QrCodeProps extends QRCodeProps {}
+interface QrCodeProps extends ReactQRCodeProps {}
 
-export const QrCode = (props: QrCodeProps) => {
+export const QrCode = ({ value }: QrCodeProps) => {
   return (
     <div className="bg-white p-16">
-      <QRCode {...props} />
+      <ReactQRCode value={value} />
     </div>
   );
 };

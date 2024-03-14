@@ -61,8 +61,13 @@ export const Layouts = ({ business, onRefresh }: LayoutsProps) => {
 
   const withSaveButton = (content: React.ReactNode) => (
     <>
-      <div className='flex justify-center'>
-      <Button className='w-full mb-4' label="Guardar" disabled={!hasChanges} onClick={handleSubmit} />
+      <div className="flex justify-center">
+        <Button
+          className="w-full mb-4"
+          label="Guardar"
+          disabled={!hasChanges}
+          onClick={handleSubmit}
+        />
       </div>
       {content}
     </>

@@ -82,9 +82,8 @@ export const Navbar = ({ className }: NavbarProps) => {
                 </div>
               }
               items={[
-                // { label: 'Configuración', href: '/settings', svg: Cog8ToothIcon },
                 {
-                  label: 'Cerrar sesiónn',
+                  label: 'Cerrar sesión',
                   onClick: () => authSignOut.fetch(undefined),
                   svg: ArrowRightStartOnRectangleIcon,
                 },
