@@ -1,8 +1,9 @@
+import { Navigate } from "react-router-dom";
 
 export const Admin = () => {
-  return (
-    <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
-      <div>Admin</div>
-    </div>
-  );
+
+  /**
+   * TODO en esta pagina se mostraran estadisticas del uso de la plataforma y de los planes y usuarios
+   */
+  return <Navigate to="/admin/users" />;
 };

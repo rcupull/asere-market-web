@@ -81,12 +81,18 @@ export const SideBar = ({ className }: SideBarProps) => {
           divider: true,
           className: 'sm:hidden',
         },
-        isAuthenticated && isAdmin && {
+        isAuthenticated && isAdmin && { // ADMIN
+          label: 'Admin',
+          href: '/admin',
+          svg: Cog8ToothIcon,
+        },
+        isAuthenticated && isAdmin && { // ADMIN
           label: 'Usuarios',
           href: '/admin/users',
           svg: UserGroupIcon,
+          className: 'pl-10',
         },
-        isAuthenticated && !isAdmin && {
+        isAuthenticated && !isAdmin && { // BUSINESS
           label: 'Mis negocios',
           href: '/dashboard/business',
           svg: BookmarkIcon,
@@ -96,7 +102,7 @@ export const SideBar = ({ className }: SideBarProps) => {
             <AddNewBusinessButton className="ml-auto" />
           ),
         },
-        ...business.map(({ name, routeName, hidden }) => {
+        ...business.map(({ name, routeName, hidden }) => { // BUSINESS
           const Svg = hidden ? EyeSlashIcon : EyeIcon;
 
           return (
@@ -117,18 +123,18 @@ export const SideBar = ({ className }: SideBarProps) => {
           href: '/dashboard/settings',
           svg: Cog8ToothIcon,
         },
-        isAuthenticated && {
+        isAuthenticated && { // AUTH
           label: 'Cerrar sesión',
           svg: ArrowRightStartOnRectangleIcon,
           onClick: () => authSignOut.fetch(undefined),
         },
-        !isAuthenticated && {
+        !isAuthenticated && { // AUTH
           label: 'Créate una cuenta',
           svg: UserPlusIcon,
           href: '/sign-up',
           className: 'sm:hidden',
         },
-        !isAuthenticated && {
+        !isAuthenticated && { // AUTH
           label: 'Iniciar sesión',
           svg: ArrowRightEndOnRectangleIcon,
           href: '/sign-in',
