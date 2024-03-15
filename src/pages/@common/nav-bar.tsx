@@ -20,6 +20,7 @@ import { BusinessLogo } from './business-logo';
 import { BusinessMarketLogo } from './business-market-logo';
 import { BusinessName } from './business-name';
 
+import { useBusinessPageData } from 'pages/@hooks/useBusinessPageData';
 import { StyleProps } from 'types/general';
 
 export interface NavbarProps extends StyleProps {}
@@ -29,6 +30,8 @@ export const Navbar = ({ className }: NavbarProps) => {
   const { user } = authData || {};
   const { isBusinessPage, params } = useRouter();
   const { routeName } = params;
+  const { business } = useBusinessPageData();
+  const aboutUsPage = business?.aboutUsPage || {};
 
   return (
     <NavBarBase
@@ -42,6 +45,7 @@ export const Navbar = ({ className }: NavbarProps) => {
       }
       items={[
         isBusinessPage && { name: 'Publicaciones', href: `/${routeName}` },
+        isBusinessPage && aboutUsPage?.visible && { name: aboutUsPage.title || '<Sin titulo>', href: `/${routeName}/about-us` },
         !isBusinessPage && { name: 'Home', href: '/' },
         !isBusinessPage && { name: 'Tiendas', href: '/business' },
         !isBusinessPage && { name: 'Precios', href: '/payment-plans' },

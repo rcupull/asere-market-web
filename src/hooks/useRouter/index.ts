@@ -58,7 +58,7 @@ export const useRouter = (): UseRouterReturn => {
   const { routeName } = params;
 
   return {
-    isBusinessPage: pathname === `/${routeName}`,
+    isBusinessPage: pathname.startsWith(`/${routeName}`),
     isDashboardPage: pathname.startsWith('/dashboard'),
     isAdminPage: pathname.startsWith('/admin'),
     params,

@@ -54,6 +54,12 @@ export interface SocialLinks {
   youtube?: string;
 }
 
+export interface BusinessAboutUsPage {
+  visible?: boolean;
+  title?: string;
+  description?: string; // checkeditor text
+}
+
 export interface Business extends BaseIdentity {
   name: string;
   category: BusinessCategory;
@@ -66,4 +72,5 @@ export interface Business extends BaseIdentity {
   socialLinks?: SocialLinks;
   layouts?: BusinessLayout;
   layoutsMobile?: BusinessLayout;
+  aboutUsPage?: BusinessAboutUsPage;
 }

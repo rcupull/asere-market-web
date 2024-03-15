@@ -2,6 +2,7 @@ import { BusinessNewProps } from './components/business-new';
 import { ConfirmationProps } from './components/confirmation';
 import { PostNewProps } from './components/post-new';
 import { ProfileUpdateProps } from './components/profile-update';
+import { UpdateBusinessAboutUsProps } from './components/update-business-about-us';
 import { UpdateBusinessBannerProps } from './components/update-business-banner';
 import { UpdateBusinessLogoProps } from './components/update-business-logo';
 import { UpdatePostCategoriesProps } from './components/update-post-categories';
@@ -17,7 +18,8 @@ export type ModalId =
   | 'UpdateBusinessLogo'
   | 'UpdateBusinessBanner'
   | 'UpdateSocialNetworks'
-  | 'UpdateUserPlan';
+  | 'UpdateUserPlan'
+  | 'UpdateBusinessAboutUs';
 
 export type ModalWindowProps<Id extends ModalId> = Id extends 'PostNew'
   ? PostNewProps
@@ -37,7 +39,9 @@ export type ModalWindowProps<Id extends ModalId> = Id extends 'PostNew'
                 ? UpdateSocialNetworksProps
                 : Id extends 'UpdateUserPlan'
                   ? UpdateUserPlanProps
-                  : undefined;
+                  : Id extends 'UpdateBusinessAboutUs'
+                    ? UpdateBusinessAboutUsProps
+                    : undefined;
 
 export interface ModalWindowOptions {
   timeout?: number;

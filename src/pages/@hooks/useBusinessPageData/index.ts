@@ -7,6 +7,7 @@ import { useRouter } from 'hooks/useRouter';
 
 import { Business } from 'types/business';
 
+let fetching = false;
 /**
  *  this hook share the data in the business page
  */
@@ -19,7 +20,7 @@ export const useBusinessPageData = (): {
 
   const { getOneBusiness } = useGetOneBusiness();
 
-  const { data, setData, reset } = useSimpleSlice<Business>('useBusinessPageData');
+  const { data, setData } = useSimpleSlice<Business>('useBusinessPageData');
 
   const onRefresh = () => {
     if (!routeName) return;
@@ -27,12 +28,17 @@ export const useBusinessPageData = (): {
   };
 
   useEffect(() => {
-    if (isBusinessPage && routeName && !data) {
+    if (isBusinessPage && routeName && !data && !fetching) {
+      fetching = true;
       onRefresh();
-
-      return () => reset();
     }
   }, [routeName]);
+
+  useEffect(() => {
+    if (getOneBusiness.status.isSuccess) {
+      fetching = false;
+    }
+  }, [getOneBusiness.status.isSuccess]);
 
   return {
     business: data,
