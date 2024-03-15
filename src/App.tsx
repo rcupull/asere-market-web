@@ -24,7 +24,9 @@ const BusinessRouteNamePostId = dynamic(() =>
   import('pages/business-route-name-postId').then((m) => ({ default: m.BusinessRouteNamePostId })),
 );
 const BusinessRouteNameAboutUs = dynamic(() =>
-  import('pages/business-route-name-about-us').then((m) => ({ default: m.BusinessRouteNameAboutUs })),
+  import('pages/business-route-name-about-us').then((m) => ({
+    default: m.BusinessRouteNameAboutUs,
+  })),
 );
 const DashboardSettings = dynamic(() =>
   import('pages/dashboard-settings').then((m) => ({

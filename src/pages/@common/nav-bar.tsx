@@ -45,7 +45,11 @@ export const Navbar = ({ className }: NavbarProps) => {
       }
       items={[
         isBusinessPage && { name: 'Publicaciones', href: `/${routeName}` },
-        isBusinessPage && aboutUsPage?.visible && { name: aboutUsPage.title || '<Sin titulo>', href: `/${routeName}/about-us` },
+        isBusinessPage &&
+          aboutUsPage?.visible && {
+            name: aboutUsPage.title || '<Sin titulo>',
+            href: `/${routeName}/about-us`,
+          },
         !isBusinessPage && { name: 'Home', href: '/' },
         !isBusinessPage && { name: 'Tiendas', href: '/business' },
         !isBusinessPage && { name: 'Precios', href: '/payment-plans' },

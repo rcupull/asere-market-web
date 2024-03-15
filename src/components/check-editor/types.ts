@@ -1,3 +1,7 @@
+/**
+ * Extracted with Array.from(editor.ui.componentFactory.names())
+ */
+
 export type CheckEditorToolbarItem =
   | 'accessibilityHelp'
   | 'selectAll'

@@ -27,7 +27,10 @@ export const SideBarUserHeader = ({ className }: SideBarUserHeaderProps) => {
             title="Editar perfil"
             onClick={() =>
               userId &&
-              pushModal('ProfileUpdate', { userId, callAfarResources: callAfarIds.refresh_auth_user })
+              pushModal('ProfileUpdate', {
+                userId,
+                callAfarResources: callAfarIds.refresh_auth_user,
+              })
             }
           />
         </div>

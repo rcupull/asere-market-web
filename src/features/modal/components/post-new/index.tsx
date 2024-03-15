@@ -80,7 +80,7 @@ export const PostNew = ({ routeName: routeNameProp, postId, callAfarResources }:
 
   return (
     <Modal
-      title="Nueva publicación"
+      title={postId ? 'Editar publicación' : 'Nueva publicación'}
       content={getForm()}
       badge={<Badge variant="info" />}
       primaryBtn={<div ref={submitPortal.ref} />}

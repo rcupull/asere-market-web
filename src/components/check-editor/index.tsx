@@ -11,12 +11,38 @@ export interface CheckEditorProps extends StyleProps {
   onBlur?: (args: { event: any; editor: ClassicEditor; data: string }) => void;
   onFocus?: (args: { event: any; editor: ClassicEditor; data: string }) => void;
   onChange?: (args: { event: any; editor: ClassicEditor; data: string }) => void;
+  onReady?: (editor: ClassicEditor) => void;
   value?: string;
+  classNameContainer?: string;
 }
 
-export const CheckEditor = ({ onBlur, onChange, onFocus, value, className }: CheckEditorProps) => {
+export const CheckEditor = ({
+  onBlur,
+  onChange,
+  onFocus,
+  onReady,
+  value,
+  className,
+  classNameContainer,
+}: CheckEditorProps) => {
+  const addStylesToContainer = () => {
+    const [element] = document.getElementsByClassName('ck-editor__editable_inline');
+
+    if (!element) return;
+
+    element.classList.add('overflow-auto');
+
+    if (classNameContainer) {
+      if (element) {
+        classNameContainer.split(' ').forEach((className) => {
+          element.classList.add(className);
+        });
+      }
+    }
+  };
+
   return (
-    <HtmlTextContainer className={ className}>
+    <HtmlTextContainer className={className}>
       <CKEditor
         editor={ClassicEditor}
         config={{
@@ -38,9 +64,15 @@ export const CheckEditor = ({ onBlur, onChange, onFocus, value, className }: Che
           },
         }}
         data={value}
-        onChange={(event, editor) => {
-          console.log(Array.from(editor.ui.componentFactory.names()));
+        onReady={(editor) => {
+          /**
+           * Add custom clases to container
+           */
+          addStylesToContainer();
 
+          onReady?.(editor);
+        }}
+        onChange={(event, editor) => {
           const data = editor.getData();
           onChange?.({ event, editor, data });
         }}

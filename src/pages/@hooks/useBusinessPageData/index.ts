@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 
+import { useAuthSignIn } from 'features/api/useAuthSignIn';
 import { useGetOneBusiness } from 'features/api/useGetOneBusiness';
 import { useSimpleSlice } from 'features/slices/useSimpleSlice';
 
@@ -14,9 +15,11 @@ let fetching = false;
 export const useBusinessPageData = (): {
   business: Business | null;
   onRefresh: () => void;
+  owner: boolean;
 } => {
   const { params, isBusinessPage } = useRouter();
   const { routeName } = params;
+  const { authData } = useAuthSignIn();
 
   const { getOneBusiness } = useGetOneBusiness();
 
@@ -41,6 +44,7 @@ export const useBusinessPageData = (): {
   }, [getOneBusiness.status.isSuccess]);
 
   return {
+    owner: authData?.user._id === data?.createdBy,
     business: data,
     onRefresh,
   };

@@ -15,7 +15,6 @@ export interface LayoutMainProps extends ChildrenProp {}
 export const LayoutMain = ({ children }: LayoutMainProps): JSX.Element => {
   const { isDashboardPage, isAdminPage } = useRouter();
 
-
   const smSideBar = (
     <div
       className={cn('min-w-64 hidden h-screen', {

@@ -11,10 +11,10 @@ const componentRecord: Record<ModalId, LoadableReturn> = {
     })),
   ),
   UpdateBusinessAboutUs: dynamic(() =>
-  import('./components/update-business-about-us').then((m) => ({
-    default: m.UpdateBusinessAboutUs,
-  })),
-),
+    import('./components/update-business-about-us').then((m) => ({
+      default: m.UpdateBusinessAboutUs,
+    })),
+  ),
   UpdateSocialNetworks: dynamic(() =>
     import('./components/update-social-networks').then((m) => ({
       default: m.UpdateSocialNetworks,

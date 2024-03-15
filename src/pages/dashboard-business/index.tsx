@@ -25,7 +25,9 @@ export const DashboardBusiness = () => {
       <ButtonNew
         className="mt-6"
         label="Crear mi primer negocio"
-        onClick={() => pushModal('BusinessNew', { callAfarResources: callAfarIds.getAllUserBussiness })}
+        onClick={() =>
+          pushModal('BusinessNew', { callAfarResources: callAfarIds.getAllUserBussiness })
+        }
       />
     </div>
   );

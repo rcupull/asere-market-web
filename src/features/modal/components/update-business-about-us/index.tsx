@@ -1,4 +1,4 @@
-import { useEffect, useMemo } from 'react';
+import { useEffect } from 'react';
 
 import { Badge } from 'components/badge';
 import { Button } from 'components/button';
@@ -44,12 +44,14 @@ export const UpdateBusinessAboutUs = ({
   const submitportal = useSubmitPortal();
   const { updateOneUserBusiness } = useUpdateOneUserBusiness();
 
-  const initialValues = useMemo<State>(() => business?.aboutUsPage || {}, [business]);
-
   const content = (
     <>
       <Formik<State>
-        initialValues={initialValues}
+        initialValues={{
+          visible: business?.aboutUsPage?.visible || false,
+          title: business?.aboutUsPage?.title || '',
+          description: business?.aboutUsPage?.description || '',
+        }}
         enableReinitialize
         onSubmit={() => {}}
       >
@@ -60,7 +62,12 @@ export const UpdateBusinessAboutUs = ({
 
               <FieldInput label="Título de la página" name="title" className="mt-6" />
 
-              <FieldCheckEditor label="Descripción" name="description" className="mt-6" />
+              <FieldCheckEditor
+                label="Descripción"
+                name="description"
+                className="mt-6"
+                classNameContainer="max-h-[50vh]"
+              />
 
               {submitportal.getPortal(
                 <Button

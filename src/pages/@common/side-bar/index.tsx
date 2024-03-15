@@ -81,32 +81,40 @@ export const SideBar = ({ className }: SideBarProps) => {
           divider: true,
           className: 'sm:hidden',
         },
-        isAuthenticated && isAdmin && { // ADMIN
-          label: 'Admin',
-          href: '/admin',
-          svg: Cog8ToothIcon,
-        },
-        isAuthenticated && isAdmin && { // ADMIN
-          label: 'Usuarios',
-          href: '/admin/users',
-          svg: UserGroupIcon,
-          className: 'pl-10',
-        },
-        isAuthenticated && !isAdmin && { // BUSINESS
-          label: 'Mis negocios',
-          href: '/dashboard/business',
-          svg: BookmarkIcon,
-          endElement: needPremium ? (
-            <ProLink className="ml-auto h-6" />
-          ) : (
-            <AddNewBusinessButton className="ml-auto" />
-          ),
-        },
-        ...business.map(({ name, routeName, hidden }) => { // BUSINESS
+        isAuthenticated &&
+          isAdmin && {
+            // ADMIN
+            label: 'Admin',
+            href: '/admin',
+            svg: Cog8ToothIcon,
+          },
+        isAuthenticated &&
+          isAdmin && {
+            // ADMIN
+            label: 'Usuarios',
+            href: '/admin/users',
+            svg: UserGroupIcon,
+            className: 'pl-10',
+          },
+        isAuthenticated &&
+          !isAdmin && {
+            // BUSINESS
+            label: 'Mis negocios',
+            href: '/dashboard/business',
+            svg: BookmarkIcon,
+            endElement: needPremium ? (
+              <ProLink className="ml-auto h-6" />
+            ) : (
+              <AddNewBusinessButton className="ml-auto" />
+            ),
+          },
+        ...business.map(({ name, routeName, hidden }) => {
+          // BUSINESS
           const Svg = hidden ? EyeSlashIcon : EyeIcon;
 
           return (
-            isAuthenticated && !isAdmin && {
+            isAuthenticated &&
+            !isAdmin && {
               label: name,
               href: `/dashboard/business/${routeName}`,
               endElement: <Svg className="h-4 ml-auto" />,
@@ -123,18 +131,21 @@ export const SideBar = ({ className }: SideBarProps) => {
           href: '/dashboard/settings',
           svg: Cog8ToothIcon,
         },
-        isAuthenticated && { // AUTH
+        isAuthenticated && {
+          // AUTH
           label: 'Cerrar sesión',
           svg: ArrowRightStartOnRectangleIcon,
           onClick: () => authSignOut.fetch(undefined),
         },
-        !isAuthenticated && { // AUTH
+        !isAuthenticated && {
+          // AUTH
           label: 'Créate una cuenta',
           svg: UserPlusIcon,
           href: '/sign-up',
           className: 'sm:hidden',
         },
-        !isAuthenticated && { // AUTH
+        !isAuthenticated && {
+          // AUTH
           label: 'Iniciar sesión',
           svg: ArrowRightEndOnRectangleIcon,
           href: '/sign-in',

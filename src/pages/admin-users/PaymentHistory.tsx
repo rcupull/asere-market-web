@@ -22,7 +22,7 @@ export const PaymentHistory = ({ user, callAfarResources }: PaymentHistoryProps)
     return (
       <div className="flex justify-between items-center">
         <span className="font-bold text-nowrap mr-2">{`${key}: `}</span>
-        <span className='text-nowrap text-gray-500'>{`${value}`}</span>
+        <span className="text-nowrap text-gray-500">{`${value}`}</span>
       </div>
     );
   };

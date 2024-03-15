@@ -26,7 +26,7 @@ export const AdminUsers = () => {
   }, []);
 
   return (
-    <LayoutPageSection title='Usuarios'>
+    <LayoutPageSection title="Usuarios">
       <TopActions className="justify-end mb-2">
         <ButtonRefresh onClick={onRefresh} isBusy={getAllAdminUsers.status.isBusy} />
       </TopActions>

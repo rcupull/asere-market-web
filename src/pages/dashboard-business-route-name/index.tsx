@@ -62,7 +62,7 @@ export const DashboardBusinessRouteName = () => {
             onClick={() => pushRoute(`/${routeName}`)}
             title="Ver la página de este negocio"
           />
-          
+
           <OptionsMenu business={business} onRefresh={onRefresh} />
         </div>
       }
