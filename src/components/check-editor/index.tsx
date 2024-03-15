@@ -1,5 +1,9 @@
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 
+import { HtmlTextContainer } from 'components/html-text-container';
+
+import { CheckEditorToolbarItem } from './types';
+
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { StyleProps } from 'types/general';
 
@@ -12,11 +16,31 @@ export interface CheckEditorProps extends StyleProps {
 
 export const CheckEditor = ({ onBlur, onChange, onFocus, value, className }: CheckEditorProps) => {
   return (
-    <div className={className}>
+    <HtmlTextContainer className={ className}>
       <CKEditor
         editor={ClassicEditor}
+        config={{
+          toolbar: {
+            items: [
+              'undo',
+              'redo',
+              '|',
+              'heading',
+              '|',
+              'bold',
+              'italic',
+              '|',
+              'link',
+              'numberedList',
+              'bulletedList',
+            ] as Array<CheckEditorToolbarItem>,
+            shouldNotGroupWhenFull: true,
+          },
+        }}
         data={value}
         onChange={(event, editor) => {
+          console.log(Array.from(editor.ui.componentFactory.names()));
+
           const data = editor.getData();
           onChange?.({ event, editor, data });
         }}
@@ -29,6 +53,6 @@ export const CheckEditor = ({ onBlur, onChange, onFocus, value, className }: Che
           onFocus?.({ event, editor, data });
         }}
       />
-    </div>
+    </HtmlTextContainer>
   );
 };
