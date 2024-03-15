@@ -23,7 +23,7 @@ export const Business = () => {
   });
 
   return (
-    <LayoutPage title="Todas las tiendas">
+    <LayoutPage title="Tiendas">
       <LayoutPageSection>
         <div className="flex justify-end">
           <SearchFilter

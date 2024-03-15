@@ -24,13 +24,14 @@ export interface FieldSelectProps<Option extends AnyRecord = AnyRecord, Value = 
 export const FieldSelect = <Value extends AnyRecord = AnyRecord>(
   props: FieldSelectProps<Value>,
 ) => {
-  const { value, items, renderOption, renderValue, label, className, optionToValue } = props;
+  const { items, renderOption, renderValue, label, className, optionToValue } = props;
   const [state, setState] = useState<Value>();
 
   const { field, error } = useFormikField(props);
+  const { value } = field;
 
   useEffect(() => {
-    setState(value);
+    setState(optionToValue ? items.find((item) => optionToValue(item) === value) : value);
   }, [value]);
 
   return (

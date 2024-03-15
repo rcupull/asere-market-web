@@ -9,8 +9,8 @@ import { FieldInput } from 'components/field-input';
 import { Modal } from 'components/modal';
 
 import { useAddBusinessPostCategory } from 'features/api/useAddBusinessPostCategory';
-import { useDelBusinessPostCategory } from 'features/api/useDelBusinessPostCategory';
 import { useGetOneUserBusiness } from 'features/api/useGetOneUserBusiness';
+import { useRemoveBusinessPostCategory } from 'features/api/useRemoveBusinessPostCategory';
 import { useUpdateBusinessPostCategory } from 'features/api/useUpdateBusinessPostCategory';
 import { useModal } from 'features/modal/useModal';
 
@@ -140,7 +140,7 @@ export const UpdatePostCategories = ({
                     {
                       useProps: () => {
                         const { onClose } = useModal();
-                        const { delBusinessPostCategory } = useDelBusinessPostCategory();
+                        const { removeBusinessPostCategory } = useRemoveBusinessPostCategory();
 
                         return {
                           content: (
@@ -155,9 +155,9 @@ export const UpdatePostCategories = ({
                           primaryBtn: (
                             <ButtonRemove
                               label="Eliminar"
-                              isBusy={delBusinessPostCategory.status.isBusy}
+                              isBusy={removeBusinessPostCategory.status.isBusy}
                               onClick={() => {
-                                delBusinessPostCategory.fetch(
+                                removeBusinessPostCategory.fetch(
                                   {
                                     routeName,
                                     tag,
@@ -188,7 +188,7 @@ export const UpdatePostCategories = ({
                     {
                       useProps: () => {
                         const { onClose } = useModal();
-                        const { delBusinessPostCategory } = useDelBusinessPostCategory();
+                        const { removeBusinessPostCategory } = useRemoveBusinessPostCategory();
                         const { updateBusinessPostCategory } = useUpdateBusinessPostCategory();
 
                         return {
@@ -212,7 +212,7 @@ export const UpdatePostCategories = ({
                           primaryBtn: (
                             <Button
                               label="Continuar"
-                              isBusy={delBusinessPostCategory.status.isBusy}
+                              isBusy={removeBusinessPostCategory.status.isBusy}
                               onClick={() => {
                                 updateBusinessPostCategory.fetch(
                                   {

@@ -5,8 +5,8 @@ import { useAuthSignIn } from './useAuthSignIn';
 import { FetchResource } from 'types/api';
 import { getEndpoint } from 'utils/api';
 
-export const useDelBusinessPostCategory = (): {
-  delBusinessPostCategory: FetchResource<{ routeName: string; tag: string }, void>;
+export const useRemoveBusinessPostCategory = (): {
+  removeBusinessPostCategory: FetchResource<{ routeName: string; tag: string }, void>;
 } => {
   const fetch = useFetch();
   const { authData } = useAuthSignIn();
@@ -14,7 +14,7 @@ export const useDelBusinessPostCategory = (): {
   const userId = authData?.user._id || '<unknow user>';
 
   return {
-    delBusinessPostCategory: {
+    removeBusinessPostCategory: {
       data: fetch[0],
       status: fetch[1],
       fetch: ({ routeName, tag }, options = {}) => {

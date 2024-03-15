@@ -59,7 +59,7 @@ export const SideBar = ({ className }: SideBarProps) => {
         isBusinessPage && { label: 'Publicaciones', href: `/${routeName}`, svg: HomeIcon },
         !isBusinessPage && { label: 'Inicio', href: '/', svg: HomeIcon, className: 'sm:hidden' },
         !isBusinessPage && {
-          label: 'Todas las tiendas',
+          label: 'Tiendas',
           href: '/business',
           svg: BuildingLibraryIcon,
           className: 'sm:hidden',
