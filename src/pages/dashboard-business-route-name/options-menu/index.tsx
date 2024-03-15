@@ -17,7 +17,7 @@ import { useRemoveOneUserBusiness } from 'features/api/useRemoveOneUserBusiness'
 import { useUpdateOneUserBusiness } from 'features/api/useUpdateOneUserBusiness';
 import { useModal } from 'features/modal/useModal';
 
-import { useCallFromAfar } from 'hooks/useCallFromAfar';
+import { callAfarIds, useCallFromAfar } from 'hooks/useCallFromAfar';
 import { useRouter } from 'hooks/useRouter';
 
 import { Business } from 'types/business';
@@ -63,7 +63,7 @@ export const OptionsMenu = ({ business, onRefresh }: OptionsMenuProps) => {
                     {
                       onAfterSuccess: () => {
                         onRefresh();
-                        onCallAfar('getAllUserBussiness'); // update all the bussiness
+                        onCallAfar(callAfarIds.getAllUserBussiness); // update all the bussiness
                         onClose();
                       },
                     },
@@ -107,7 +107,7 @@ export const OptionsMenu = ({ business, onRefresh }: OptionsMenuProps) => {
                       onAfterSuccess: () => {
                         onRefresh();
 
-                        onCallAfar('getAllUserBussiness'); // update all the bussiness
+                        onCallAfar(callAfarIds.getAllUserBussiness); // update all the bussiness
                         pushRoute('/dashboard/business');
                         onClose();
                       },
@@ -138,8 +138,8 @@ export const OptionsMenu = ({ business, onRefresh }: OptionsMenuProps) => {
             pushModal('BusinessNew', {
               routeName,
               callAfarResources: [
-                'getAllUserBussiness',
-                'redirect_to_dashboard_business_routename',
+                callAfarIds.getAllUserBussiness,
+                callAfarIds.redirect_to_dashboard_business_routename,
               ],
             });
           },

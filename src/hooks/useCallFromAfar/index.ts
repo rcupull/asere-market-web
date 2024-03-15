@@ -2,23 +2,21 @@ import { useEffect } from 'react';
 
 import { useSimpleSlice } from 'features/slices/useSimpleSlice';
 
-type CallAfarId =
-  | string // some temporary id
-  | 'home_refresh_posts'
-  | 'dashboard_business_route_name_table_posts'
-  | 'dashboard_business_table_business'
-  | 'business_route_name_refresh_posts'
-  | 'side_bar_redirect_to_last_created_business'
-  | 'getUserPaymentPlan'
-  | 'getAllUserBusinessRouteNames'
-  | 'getAllUserBussiness'
-  | 'getAllUserBussiness'
-  | 'getAllUserBussiness'
-  | 'redirect_to_dashboard_business_routename'
-  | 'redirect_to_routename'
-  | 'refresh_auth_user';
+export const callAfarIds = {
+  home_refresh_posts: 'home_refresh_posts',
+  dashboard_business_route_name_table_posts: 'dashboard_business_route_name_table_posts',
+  business_route_name_refresh_posts: 'business_route_name_refresh_posts',
+  side_bar_redirect_to_last_created_business: 'side_bar_redirect_to_last_created_business',
+  getUserPaymentPlan: 'getUserPaymentPlan',
+  getAllUserBusinessRouteNames: 'getAllUserBusinessRouteNames',
+  getAllUserBussiness: 'getAllUserBussiness',
+  redirect_to_dashboard_business_routename: 'redirect_to_dashboard_business_routename',
+  redirect_to_routename: 'redirect_to_routename',
+  refresh_auth_user: 'refresh_auth_user',
+  getAllAdminUsers: 'getAllAdminUsers',
+};
 
-export type CallAfarResources = CallAfarId | Array<CallAfarId>;
+export type CallAfarResources = string | Array<string>;
 
 export const useCallFromAfar = (
   currentId?: CallAfarResources,

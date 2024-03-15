@@ -3,7 +3,6 @@ import {
   ArrowRightStartOnRectangleIcon,
   BookmarkIcon,
   BuildingLibraryIcon,
-  CodeBracketIcon,
   Cog8ToothIcon,
   CurrencyDollarIcon,
   EyeIcon,
@@ -33,7 +32,7 @@ export interface SideBarProps extends StyleProps {}
 
 export const SideBar = ({ className }: SideBarProps) => {
   const { getAllUserBussiness } = useGetAllUserBusiness();
-  const { isBusinessPage, isDashboardPage, isAdminPage, params } = useRouter();
+  const { isBusinessPage, isDashboardPage, params } = useRouter();
   const { routeName } = params;
   const { isAdmin, isAuthenticated } = useAuthSignIn();
 

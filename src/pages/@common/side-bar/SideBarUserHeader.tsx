@@ -4,6 +4,8 @@ import { UserAvatar } from 'components/user-avatar';
 import { useAuthSignIn } from 'features/api/useAuthSignIn';
 import { useModal } from 'features/modal/useModal';
 
+import { callAfarIds } from 'hooks/useCallFromAfar';
+
 import { StyleProps } from 'types/general';
 import { cn } from 'utils/general';
 
@@ -25,7 +27,7 @@ export const SideBarUserHeader = ({ className }: SideBarUserHeaderProps) => {
             title="Editar perfil"
             onClick={() =>
               userId &&
-              pushModal('ProfileUpdate', { userId, callAfarResources: 'refresh_auth_user' })
+              pushModal('ProfileUpdate', { userId, callAfarResources: callAfarIds.refresh_auth_user })
             }
           />
         </div>

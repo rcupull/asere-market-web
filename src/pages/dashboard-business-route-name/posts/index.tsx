@@ -8,7 +8,7 @@ import { useGetAllUserPosts } from 'features/api/useGetAllUserPosts';
 import { useGetUserPaymentPlan } from 'features/api/useGetUserPaymentPlan';
 import { useModal } from 'features/modal/useModal';
 
-import { useCallFromAfar } from 'hooks/useCallFromAfar';
+import { callAfarIds, useCallFromAfar } from 'hooks/useCallFromAfar';
 import { useHiddenPostControl } from 'hooks/useHiddenPostsControl';
 
 import { RowActions } from './RowActions';
@@ -39,7 +39,7 @@ export const Posts = ({ business }: PostsProps) => {
 
   const { isNotValidPostsCountByBussines } = useGetUserPaymentPlan();
 
-  useCallFromAfar('dashboard_business_route_name_table_posts', onRefresh);
+  useCallFromAfar(callAfarIds.dashboard_business_route_name_table_posts, onRefresh);
 
   return (
     <>
@@ -51,7 +51,7 @@ export const Posts = ({ business }: PostsProps) => {
           onClick={() =>
             pushModal('PostNew', {
               routeName,
-              callAfarResources: 'dashboard_business_route_name_table_posts',
+              callAfarResources: callAfarIds.dashboard_business_route_name_table_posts,
             })
           }
           className="ml-auto"
@@ -75,7 +75,7 @@ export const Posts = ({ business }: PostsProps) => {
                 rowData={rowData}
                 routeName={routeName}
                 hiddenPostControl={hiddenPostControl}
-                callAfarResources="dashboard_business_route_name_table_posts"
+                callAfarResources={callAfarIds.dashboard_business_route_name_table_posts}
               />,
               name,
               description,

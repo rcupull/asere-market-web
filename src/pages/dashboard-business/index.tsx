@@ -5,6 +5,7 @@ import { ButtonNew } from 'components/button-new';
 import { useGetAllUserBusiness } from 'features/api/useGetAllUserBusiness';
 import { useModal } from 'features/modal/useModal';
 
+import { callAfarIds } from 'hooks/useCallFromAfar';
 import { useRouter } from 'hooks/useRouter';
 
 export const DashboardBusiness = () => {
@@ -24,7 +25,7 @@ export const DashboardBusiness = () => {
       <ButtonNew
         className="mt-6"
         label="Crear mi primer negocio"
-        onClick={() => pushModal('BusinessNew', { callAfarResources: 'getAllUserBussiness' })}
+        onClick={() => pushModal('BusinessNew', { callAfarResources: callAfarIds.getAllUserBussiness })}
       />
     </div>
   );

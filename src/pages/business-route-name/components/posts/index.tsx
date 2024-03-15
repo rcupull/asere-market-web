@@ -7,7 +7,7 @@ import { ProductSimple } from 'components/product/product-simple';
 import { useGetAllPosts } from 'features/api/useGetAllPosts';
 import { useGetAllUserBusinessRouteNames } from 'features/api/useGetAllUserBusinessRouteNames';
 
-import { useCallFromAfar } from 'hooks/useCallFromAfar';
+import { callAfarIds, useCallFromAfar } from 'hooks/useCallFromAfar';
 
 import { PaginationProps } from '../pagination';
 import { SearchProps } from '../search';
@@ -33,7 +33,7 @@ export const Posts = ({ business, className, getSearch, getPagination }: PostsPr
   const { getAllPosts } = useGetAllPosts();
 
   const refOnRefresh = useRef<() => void>();
-  useCallFromAfar('business_route_name_refresh_posts', () => {
+  useCallFromAfar(callAfarIds.business_route_name_refresh_posts, () => {
     refOnRefresh.current?.();
   });
 
@@ -83,7 +83,7 @@ export const Posts = ({ business, className, getSearch, getPagination }: PostsPr
                 href={getPostRoute({ routeName, postId: _id })}
                 getImageUrl={getImageEndpoint}
                 enabledUpdate={isUserOwnerOfRoute(routeName)}
-                callAfarResources="business_route_name_refresh_posts"
+                callAfarResources={callAfarIds.business_route_name_refresh_posts}
               />
             );
           })}

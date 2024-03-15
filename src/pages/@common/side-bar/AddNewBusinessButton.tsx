@@ -2,7 +2,7 @@ import { IconButtonAdd } from 'components/icon-button-add';
 
 import { useModal } from 'features/modal/useModal';
 
-import { useCallFromAfar } from 'hooks/useCallFromAfar';
+import { callAfarIds, useCallFromAfar } from 'hooks/useCallFromAfar';
 import { useRouter } from 'hooks/useRouter';
 
 import { Business } from 'types/business';
@@ -14,10 +14,13 @@ export const AddNewBusinessButton = ({ className }: AddNewBusinessButtonProps) =
   const { pushModal } = useModal();
   const { pushRoute } = useRouter();
 
-  useCallFromAfar('side_bar_redirect_to_last_created_business', (newBussiness: Business) => {
-    const { routeName } = newBussiness;
-    pushRoute(`/dashboard/business/${routeName}`, {}, { timeout: 100 });
-  });
+  useCallFromAfar(
+    callAfarIds.side_bar_redirect_to_last_created_business,
+    (newBussiness: Business) => {
+      const { routeName } = newBussiness;
+      pushRoute(`/dashboard/business/${routeName}`, {}, { timeout: 100 });
+    },
+  );
 
   return (
     <IconButtonAdd
@@ -28,7 +31,10 @@ export const AddNewBusinessButton = ({ className }: AddNewBusinessButtonProps) =
         e.preventDefault();
 
         pushModal('BusinessNew', {
-          callAfarResources: ['side_bar_redirect_to_last_created_business', 'getAllUserBussiness'],
+          callAfarResources: [
+            callAfarIds.side_bar_redirect_to_last_created_business,
+            callAfarIds.getAllUserBussiness,
+          ],
         });
       }}
       className={className}

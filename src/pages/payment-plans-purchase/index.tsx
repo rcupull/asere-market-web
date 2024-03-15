@@ -10,7 +10,7 @@ import { getQrCodeValueTransfer } from 'components/qr-code/utils';
 import { useAddOnePaymentPlanPurchase } from 'features/api/useAddOnePaymentPlanPurchase';
 import { useGetOnePaymentPlan } from 'features/api/useGetOnePaymentPlan';
 
-import { useCallFromAfar } from 'hooks/useCallFromAfar';
+import { callAfarIds, useCallFromAfar } from 'hooks/useCallFromAfar';
 import { useGetFormErrors } from 'hooks/useGetFormErrors';
 import { useRouter } from 'hooks/useRouter';
 import { useSubmitPortal } from 'hooks/useSubmitPortal';
@@ -126,7 +126,7 @@ export const PaymentPlansPurchase = () => {
                               },
                               {
                                 onAfterSuccess: () => {
-                                  onCallAfar('getUserPaymentPlan');
+                                  onCallAfar(callAfarIds.getUserPaymentPlan);
                                 },
                               },
                             );

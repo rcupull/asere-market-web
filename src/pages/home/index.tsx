@@ -6,7 +6,7 @@ import { ProductSimple } from 'components/product/product-simple';
 import { useGetAllPosts } from 'features/api/useGetAllPosts';
 import { useGetAllUserBusinessRouteNames } from 'features/api/useGetAllUserBusinessRouteNames';
 
-import { useCallFromAfar } from 'hooks/useCallFromAfar';
+import { callAfarIds, useCallFromAfar } from 'hooks/useCallFromAfar';
 import { useFilters } from 'hooks/useFilters';
 
 import { SearchFilter } from 'pages/@common/filters/search-filter';
@@ -23,7 +23,7 @@ export const Home = () => {
     onChange: (filters) => getAllPosts.fetch({ filters }),
   });
 
-  useCallFromAfar('home_refresh_posts', filters.onRefresh);
+  useCallFromAfar(callAfarIds.home_refresh_posts, filters.onRefresh);
 
   return (
     <LayoutPage>
@@ -47,7 +47,7 @@ export const Home = () => {
                 href={getPostRoute({ routeName, postId: _id })}
                 getImageUrl={getImageEndpoint}
                 enabledUpdate={isUserOwnerOfRoute(routeName)}
-                callAfarResources="home_refresh_posts"
+                callAfarResources={callAfarIds.home_refresh_posts}
               />
             );
           })}

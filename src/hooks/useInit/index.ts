@@ -5,7 +5,7 @@ import { useGetAllUserBusiness } from 'features/api/useGetAllUserBusiness';
 import { useGetAllUserBusinessRouteNames } from 'features/api/useGetAllUserBusinessRouteNames';
 import { useGetUserPaymentPlan } from 'features/api/useGetUserPaymentPlan';
 
-import { useCallFromAfar } from 'hooks/useCallFromAfar';
+import { callAfarIds, useCallFromAfar } from 'hooks/useCallFromAfar';
 import { useDebouncer } from 'hooks/useDebouncer';
 import { useRouter } from 'hooks/useRouter';
 
@@ -24,19 +24,19 @@ export const useInit = () => {
   const getAllUserBusinessRouteNamesRefresh = () => getAllUserBusinessRouteNames.fetch(undefined);
   const getAllUserBussinessRefresh = () => getAllUserBussiness.fetch({});
 
-  useCallFromAfar('getUserPaymentPlan', getUserPaymentPlanRefresh);
-  useCallFromAfar('getAllUserBusinessRouteNames', getAllUserBusinessRouteNamesRefresh);
-  useCallFromAfar('getAllUserBussiness', getAllUserBussinessRefresh);
+  useCallFromAfar(callAfarIds.getUserPaymentPlan, getUserPaymentPlanRefresh);
+  useCallFromAfar(callAfarIds.getAllUserBusinessRouteNames, getAllUserBusinessRouteNamesRefresh);
+  useCallFromAfar(callAfarIds.getAllUserBussiness, getAllUserBussinessRefresh);
 
-  useCallFromAfar('redirect_to_dashboard_business_routename', ({ routeName }) => {
+  useCallFromAfar(callAfarIds.redirect_to_dashboard_business_routename, ({ routeName }) => {
     pushRoute(`/dashboard/business/${routeName}`, undefined, { timeout: 100 });
   });
 
-  useCallFromAfar('redirect_to_routename', ({ routeName }) => {
+  useCallFromAfar(callAfarIds.redirect_to_routename, ({ routeName }) => {
     pushRoute(`/${routeName}`, undefined, { timeout: 100 });
   });
 
-  useCallFromAfar('refresh_auth_user', onRefreshAuthUser);
+  useCallFromAfar(callAfarIds.refresh_auth_user, onRefreshAuthUser);
 
   const init = () => {
     getUserPaymentPlanRefresh();

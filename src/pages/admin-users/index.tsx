@@ -5,6 +5,8 @@ import { Table } from 'components/table';
 
 import { useGetAllAdminUsers } from 'features/api/useGetAllAdminUsers';
 
+import { callAfarIds, useCallFromAfar } from 'hooks/useCallFromAfar';
+
 import { PaymentHistory } from './PaymentHistory';
 import { RowActions } from './RowActions';
 
@@ -16,6 +18,8 @@ export const AdminUsers = () => {
   const { getAllAdminUsers } = useGetAllAdminUsers();
 
   const onRefresh = () => getAllAdminUsers.fetch(undefined);
+  useCallFromAfar(callAfarIds.getAllAdminUsers, onRefresh);
+
   useEffect(() => {
     onRefresh();
   }, []);
@@ -33,7 +37,11 @@ export const AdminUsers = () => {
 
           return {
             nodes: [
-              <RowActions key="RowActions" rowData={rowData} />,
+              <RowActions
+                key="RowActions"
+                rowData={rowData}
+                callAfarResources={callAfarIds.getAllAdminUsers}
+              />,
               name,
               email,
               <PaymentHistory key="PaymentHistory" payment={payment} />,
