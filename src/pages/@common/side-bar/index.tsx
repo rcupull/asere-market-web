@@ -5,14 +5,13 @@ import {
   BuildingLibraryIcon,
   Cog8ToothIcon,
   CurrencyDollarIcon,
-  EyeIcon,
-  EyeSlashIcon,
   HomeIcon,
   UserCircleIcon,
   UserGroupIcon,
   UserPlusIcon,
 } from '@heroicons/react/24/outline';
 
+import { IconShowHide } from 'components/icon-show-hide';
 import { ProLink } from 'components/pro-link';
 import { SideBar as SideBarBase } from 'components/side-bar';
 
@@ -110,14 +109,13 @@ export const SideBar = ({ className }: SideBarProps) => {
           },
         ...business.map(({ name, routeName, hidden }) => {
           // BUSINESS
-          const Svg = hidden ? EyeSlashIcon : EyeIcon;
 
           return (
             isAuthenticated &&
             !isAdmin && {
               label: name,
               href: `/dashboard/business/${routeName}`,
-              endElement: <Svg className="h-4 ml-auto" />,
+              endElement: <IconShowHide className="h-4 ml-auto" hidden={hidden} />,
               className: 'pl-10',
             }
           );

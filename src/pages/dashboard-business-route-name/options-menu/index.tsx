@@ -1,11 +1,4 @@
-import {
-  ArrowTopRightOnSquareIcon,
-  Bars3Icon,
-  EyeIcon,
-  EyeSlashIcon,
-  PencilSquareIcon,
-  TrashIcon,
-} from '@heroicons/react/24/outline';
+import { Bars3Icon } from '@heroicons/react/24/outline';
 
 import { Badge } from 'components/badge';
 import { Button } from 'components/button';
@@ -15,6 +8,10 @@ import { IconButtonRemove } from 'components/icon-button-remove ';
 import { IconButtonShowHide } from 'components/icon-button-show-hide';
 import { IconButtonUpdate } from 'components/icon-button-update';
 import { IconButtonView } from 'components/icon-button-view';
+import { IconRemove } from 'components/icon-remove';
+import { IconShowHide } from 'components/icon-show-hide';
+import { IconUpdate } from 'components/icon-update';
+import { IconView } from 'components/icon-view';
 import { Menu } from 'components/menu';
 
 import { useRemoveOneUserBusiness } from 'features/api/useRemoveOneUserBusiness';
@@ -25,7 +22,6 @@ import { callAfarIds, useCallFromAfar } from 'hooks/useCallFromAfar';
 import { useRouter } from 'hooks/useRouter';
 
 import { Business } from 'types/business';
-import { cn } from 'utils/general';
 
 export interface OptionsMenuProps {
   business: Business;
@@ -136,7 +132,7 @@ export const OptionsMenu = ({ business, onRefresh }: OptionsMenuProps) => {
         {
           label: `${hidden ? 'Mostrar' : 'Ocultar'} este negocio`,
           onClick: handleShowHide,
-          svg: hidden ? EyeIcon : EyeSlashIcon,
+          svg: ({ className }) => <IconShowHide hidden={hidden} className={className} />,
         },
         {
           label: 'Editar el negocio',
@@ -149,17 +145,17 @@ export const OptionsMenu = ({ business, onRefresh }: OptionsMenuProps) => {
               ],
             });
           },
-          svg: ({ className }) => <PencilSquareIcon className={cn('text-blue-700', className)} />,
+          svg: IconUpdate,
         },
         {
           label: 'Ver la página de este negocio',
           onClick: () => pushRoute(`/${routeName}`),
-          svg: ArrowTopRightOnSquareIcon,
+          svg: IconView,
         },
         {
           label: 'Eliminar el negocio',
           onClick: handleDelete,
-          svg: ({ className }) => <TrashIcon className={cn('text-red-700', className)} />,
+          svg: IconRemove,
         },
       ]}
     />
@@ -168,6 +164,7 @@ export const OptionsMenu = ({ business, onRefresh }: OptionsMenuProps) => {
   const smContent = (
     <div className="items-center hidden sm:flex">
       <IconButtonShowHide
+        hidden={hidden}
         title={`${hidden ? 'Mostrar' : 'Ocultar'} este negocio`}
         onClick={handleShowHide}
       />

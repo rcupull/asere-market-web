@@ -1,4 +1,3 @@
-import { EyeIcon, EyeSlashIcon, TrashIcon } from '@heroicons/react/24/outline';
 import { useEffect } from 'react';
 
 import { Badge } from 'components/badge';
@@ -6,6 +5,8 @@ import { Button } from 'components/button';
 import { ButtonClose } from 'components/button-close';
 import { ButtonRemove } from 'components/button-remove';
 import { FieldInput } from 'components/field-input';
+import { IconButtonRemove } from 'components/icon-button-remove ';
+import { IconButtonShowHide } from 'components/icon-button-show-hide';
 import { Modal } from 'components/modal';
 
 import { useAddBusinessPostCategory } from 'features/api/useAddBusinessPostCategory';
@@ -122,8 +123,6 @@ export const UpdatePostCategories = ({
 
       <div className="flex flex-wrap mt-3 gap-3 border border-gray-300 rounded-md p-3 ">
         {postCategories.map(({ label, hidden, tag }, index) => {
-          const EyeComponent = hidden ? EyeSlashIcon : EyeIcon;
-
           return (
             <div
               key={index}
@@ -132,8 +131,8 @@ export const UpdatePostCategories = ({
               })}
             >
               {label}
-              <TrashIcon
-                className="w-5 text-gray-600 hover:text-gray-800 cursor-pointer"
+              <IconButtonRemove
+                className="text-gray-600 hover:text-gray-800 cursor-pointer"
                 onClick={() => {
                   pushModal(
                     'Confirmation',
@@ -180,8 +179,8 @@ export const UpdatePostCategories = ({
                 }}
               />
 
-              <EyeComponent
-                className={cn('w-5 text-gray-600 hover:text-gray-800 cursor-pointer')}
+              <IconButtonShowHide
+                hidden={hidden}
                 onClick={() => {
                   pushModal(
                     'Confirmation',

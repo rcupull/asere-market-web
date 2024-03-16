@@ -1,8 +1,9 @@
-import { PlusIcon, TrashIcon } from '@heroicons/react/24/outline';
+import { PlusIcon } from '@heroicons/react/24/outline';
 import { forwardRef, useEffect, useMemo, useState } from 'react';
 
 import { EmptyImage } from 'components/empty-image';
 import { FormFieldWrapper, FormFieldWrapperProps } from 'components/form-field-wrapper';
+import { IconButtonRemove } from 'components/icon-button-remove ';
 import { Input } from 'components/input';
 import { ProLink } from 'components/pro-link';
 
@@ -225,14 +226,13 @@ export const FieldInputImages = forwardRef<HTMLInputElement, FieldInputImagesPro
                 src={previewImage}
                 className="object-contain w-full h-full border-2 p-2 border-dashed border-gray-300"
               />
-              <div
-                className="!absolute top-1 right-1 flex items-center justify-center cursor-pointer bg-gray-200 p-2 hover:bg-gray-300 rounded-md text-red-600"
+
+              <IconButtonRemove
+                className="!absolute top-1 right-0"
                 onClick={() => {
                   handleChange(null, 'remove');
                 }}
-              >
-                <TrashIcon className="h-6 w-6" />
-              </div>
+              />
             </>
           ) : (
             <div className="flex justify-center rounded-lg border border-dashed border-gray-900/25 px-6 py-10">
