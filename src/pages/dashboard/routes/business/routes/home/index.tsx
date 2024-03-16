@@ -8,7 +8,7 @@ import { useModal } from 'features/modal/useModal';
 import { callAfarIds } from 'hooks/useCallFromAfar';
 import { useRouter } from 'hooks/useRouter';
 
-export const DashboardBusiness = () => {
+export const Home = () => {
   const { getAllUserBussiness } = useGetAllUserBusiness();
 
   const { pushModal } = useModal();

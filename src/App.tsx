@@ -1,4 +1,4 @@
-import { Navigate, Route, Routes } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 
 import { AuthenticatedAdmin } from 'components/autenticated-admin';
 
@@ -12,6 +12,8 @@ import { PaymentPlansPurchase } from 'pages/payment-plans-purchase';
 import { dynamic } from 'utils/makeLazy';
 
 const Business = dynamic(() => import('pages/business').then((m) => ({ default: m.Business })));
+const Dashboard = dynamic(() => import('pages/dashboard').then((m) => ({ default: m.Dashboard })));
+
 const Admin = dynamic(() => import('pages/admin').then((m) => ({ default: m.Admin })));
 const AdminUsers = dynamic(() =>
   import('pages/admin-users').then((m) => ({ default: m.AdminUsers })),
@@ -21,11 +23,6 @@ const BusinessRouteName = dynamic(() =>
   import('pages/business-route-name').then((m) => ({ default: m.BusinessRouteName })),
 );
 
-const DashboardSettings = dynamic(() =>
-  import('pages/dashboard-settings').then((m) => ({
-    default: m.DashboardSettings,
-  })),
-);
 const PaymentPlans = dynamic(() =>
   import('pages/payment-plans').then((m) => ({ default: m.PaymentPlans })),
 );
@@ -36,16 +33,6 @@ const NotFound = dynamic(() => import('pages/not-found').then((m) => ({ default:
 const SignIn = dynamic(() => import('pages/sign-in').then((m) => ({ default: m.SignIn })));
 const SignUp = dynamic(() => import('pages/sign-up').then((m) => ({ default: m.SignUp })));
 const Home = dynamic(() => import('pages/home').then((m) => ({ default: m.Home })));
-const DashboardBusiness = dynamic(() =>
-  import('pages/dashboard-business').then((m) => ({
-    default: m.DashboardBusiness,
-  })),
-);
-const DashboardBusinessRouteName = dynamic(() =>
-  import('pages/dashboard-business-route-name').then((m) => ({
-    default: m.DashboardBusinessRouteName,
-  })),
-);
 
 export const App = (): JSX.Element => {
   useInit();
@@ -81,27 +68,8 @@ export const App = (): JSX.Element => {
 
       {/* ////////////////////////////////////////////// */}
       <Route
-        path="/dashboard"
-        element={withPageProviders(
-          <Navigate to="/dashboard/business" />,
-          AuthenticatedUser,
-          LayoutMain,
-        )}
-      />
-
-      <Route
-        path="/dashboard/business"
-        element={withPageProviders(<DashboardBusiness />, AuthenticatedUser, LayoutMain)}
-      />
-
-      <Route
-        path="/dashboard/settings"
-        element={withPageProviders(<DashboardSettings />, AuthenticatedUser, LayoutMain)}
-      />
-
-      <Route
-        path="/dashboard/business/:routeName"
-        element={withPageProviders(<DashboardBusinessRouteName />, AuthenticatedUser, LayoutMain)}
+        path="/dashboard/*"
+        element={withPageProviders(<Dashboard />, AuthenticatedUser, LayoutMain)}
       />
 
       <Route path="/business" element={withPageProviders(<Business />, LayoutMain)} />

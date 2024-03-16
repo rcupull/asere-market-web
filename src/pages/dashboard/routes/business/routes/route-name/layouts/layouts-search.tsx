@@ -1,4 +1,4 @@
-import { Skeleton } from '../../@common/skeleton';
+import { Skeleton } from '../../../../../../@common/skeleton';
 import { SwiperSliceSelect } from './SwiperSliceSelect';
 import { SwiperLayout } from './swipper-layout';
 import { LayoutSelectProps } from './types';

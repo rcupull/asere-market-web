@@ -6,18 +6,17 @@ import { useRouter } from 'hooks/useRouter';
 
 import { useBusinessPageData } from 'pages/@hooks/useBusinessPageData';
 import { dynamic } from 'utils/makeLazy';
-const PostId = dynamic(() =>
-  import('pages/business-route-name/routes/postId').then((m) => ({ default: m.PostId })),
-);
+
+const PostId = dynamic(() => import('./routes/postId').then((m) => ({ default: m.PostId })));
 
 const Home = dynamic(() =>
-  import('pages/business-route-name/routes/home').then((m) => ({
+  import('./routes/home').then((m) => ({
     default: m.Home,
   })),
 );
 
 const AboutUs = dynamic(() =>
-  import('pages/business-route-name/routes/about-us').then((m) => ({
+  import('./routes/about-us').then((m) => ({
     default: m.AboutUs,
   })),
 );

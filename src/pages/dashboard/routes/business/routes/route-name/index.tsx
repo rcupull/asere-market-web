@@ -15,7 +15,7 @@ import { Resources } from './resources';
 
 import { LayoutSection } from 'pages/@common/layout-section';
 
-export const DashboardBusinessRouteName = () => {
+export const RouteName = () => {
   const { params, query, onChangeQuery } = useRouter();
   const { routeName } = params;
 

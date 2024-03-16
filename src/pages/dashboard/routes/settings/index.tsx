@@ -1,3 +1,3 @@
-export const DashboardSettings = () => {
+export const Settings = () => {
   return <div>DashboardSettings</div>;
 };
