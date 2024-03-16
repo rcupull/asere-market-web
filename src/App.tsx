@@ -15,9 +15,7 @@ const Business = dynamic(() => import('pages/business').then((m) => ({ default: 
 const Dashboard = dynamic(() => import('pages/dashboard').then((m) => ({ default: m.Dashboard })));
 
 const Admin = dynamic(() => import('pages/admin').then((m) => ({ default: m.Admin })));
-const AdminUsers = dynamic(() =>
-  import('pages/admin-users').then((m) => ({ default: m.AdminUsers })),
-);
+
 const AboutUs = dynamic(() => import('pages/about-us').then((m) => ({ default: m.AboutUs })));
 const BusinessRouteName = dynamic(() =>
   import('pages/business-route-name').then((m) => ({ default: m.BusinessRouteName })),
@@ -59,11 +57,9 @@ export const App = (): JSX.Element => {
       />
 
       {/* ////////////////////////////////////////////// */}
-      <Route path="/admin" element={withPageProviders(<Admin />, AuthenticatedAdmin, LayoutMain)} />
-
       <Route
-        path="/admin/users"
-        element={withPageProviders(<AdminUsers />, AuthenticatedAdmin, LayoutMain)}
+        path="/admin/*"
+        element={withPageProviders(<Admin />, AuthenticatedAdmin, LayoutMain)}
       />
 
       {/* ////////////////////////////////////////////// */}

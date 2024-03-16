@@ -15,7 +15,7 @@ import { TopActions } from 'pages/@common/top-actions';
 import { User } from 'types/auth';
 import { getDateString } from 'utils/date';
 
-export const AdminUsers = () => {
+export const Users = () => {
   const { getAllAdminUsers } = useGetAllAdminUsers();
 
   const onRefresh = () => getAllAdminUsers.fetch(undefined);

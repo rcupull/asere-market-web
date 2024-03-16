@@ -1,8 +1,14 @@
-import { Navigate } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
+
+import { dynamic } from 'utils/makeLazy';
+const Home = dynamic(() => import('./routes/home').then((m) => ({ default: m.Home })));
+const Users = dynamic(() => import('./routes/users').then((m) => ({ default: m.Users })));
 
 export const Admin = () => {
-  /**
-   * TODO en esta pagina se mostraran estadisticas del uso de la plataforma y de los planes y usuarios
-   */
-  return <Navigate to="/admin/users" />;
+  return (
+    <Routes>
+      <Route path="/" element={<Home />} />
+      <Route path="users" element={<Users />} />
+    </Routes>
+  );
 };
