@@ -8,6 +8,7 @@ import { cn, compact } from 'utils/general';
 interface Item {
   name: string;
   href: string;
+  className?: string;
 }
 
 export interface NavbarProps extends StyleProps {
@@ -41,6 +42,7 @@ export const NavBar = ({ items, preContent, postContent, className }: NavbarProp
                   ? 'bg-gray-900 text-white'
                   : 'text-gray-300 hover:bg-gray-700 hover:text-white',
                 'rounded-md px-3 py-2 text-sm font-medium text-nowrap',
+                item.className,
               )}
               aria-current={current ? 'page' : undefined}
             >

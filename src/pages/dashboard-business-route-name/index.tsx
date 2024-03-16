@@ -1,7 +1,6 @@
 import { useEffect } from 'react';
 import { Navigate } from 'react-router-dom';
 
-import { IconButtonView } from 'components/icon-button-view';
 import { Tabs } from 'components/tabs';
 
 import { useGetOneUserBusiness } from 'features/api/useGetOneUserBusiness';
@@ -17,7 +16,7 @@ import { Resources } from './resources';
 import { LayoutSection } from 'pages/@common/layout-section';
 
 export const DashboardBusinessRouteName = () => {
-  const { params, query, onChangeQuery, pushRoute } = useRouter();
+  const { params, query, onChangeQuery } = useRouter();
   const { routeName } = params;
 
   const { getOneUserBusiness } = useGetOneUserBusiness();
@@ -57,11 +56,6 @@ export const DashboardBusinessRouteName = () => {
               Oculto
             </div>
           )}
-
-          <IconButtonView
-            onClick={() => pushRoute(`/${routeName}`)}
-            title="Ver la página de este negocio"
-          />
 
           <OptionsMenu business={business} onRefresh={onRefresh} />
         </div>

@@ -54,12 +54,18 @@ export const SignIn = () => {
             authSignIn.fetch(
               { email, password },
               {
-                onAfterSuccess: () => {
+                onAfterSuccess: (response) => {
+                  const role = response.user.role;
+
                   setSubmitting(false);
 
                   const { redirect } = query;
 
-                  pushRoute(redirect ? `${redirect}` : '/dashboard');
+                  if (redirect) {
+                    return pushRoute(`${redirect}`);
+                  }
+
+                  pushRoute(role === 'admin' ? `/admin` : '/dashboard');
                 },
                 onAfterFailed: () => {
                   setSubmitting(false);

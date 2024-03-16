@@ -50,12 +50,14 @@ export const Navbar = ({ className }: NavbarProps) => {
             name: aboutUsPage.title || '<Sin titulo>',
             href: `/${routeName}/about-us`,
           },
+        ////////////////////////////////////////////////////////////////////////////////////////////////
         !isBusinessPage && { name: 'Home', href: '/' },
         !isBusinessPage && { name: 'Tiendas', href: '/business' },
         !isBusinessPage && { name: 'Precios', href: '/payment-plans' },
-        isUser && { name: 'Panel', href: '/dashboard' },
         !isBusinessPage && { name: '¿Que es Asere Market?', href: '/about-us' },
-        isAdmin && { name: 'Admin', href: '/admin' },
+        ////////////////////////////////////////////////////////////////////////////////////////////////
+        isAdmin && { name: 'Admin', href: '/admin', className: '!ml-auto' },
+        isUser && { name: 'Panel de Control', href: '/dashboard', className: '!ml-auto' },
       ]}
       postContent={
         <>

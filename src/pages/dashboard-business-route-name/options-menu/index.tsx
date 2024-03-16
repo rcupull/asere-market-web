@@ -11,6 +11,10 @@ import { Badge } from 'components/badge';
 import { Button } from 'components/button';
 import { ButtonRemove } from 'components/button-remove';
 import { IconButton } from 'components/icon-button';
+import { IconButtonRemove } from 'components/icon-button-remove ';
+import { IconButtonShowHide } from 'components/icon-button-show-hide';
+import { IconButtonUpdate } from 'components/icon-button-update';
+import { IconButtonView } from 'components/icon-button-view';
 import { Menu } from 'components/menu';
 
 import { useRemoveOneUserBusiness } from 'features/api/useRemoveOneUserBusiness';
@@ -21,6 +25,7 @@ import { callAfarIds, useCallFromAfar } from 'hooks/useCallFromAfar';
 import { useRouter } from 'hooks/useRouter';
 
 import { Business } from 'types/business';
+import { cn } from 'utils/general';
 
 export interface OptionsMenuProps {
   business: Business;
@@ -123,8 +128,9 @@ export const OptionsMenu = ({ business, onRefresh }: OptionsMenuProps) => {
     );
   };
 
-  return (
+  const xsContent = (
     <Menu
+      className="sm:hidden"
       buttonElement={<IconButton svg={Bars3Icon} />}
       items={[
         {
@@ -143,7 +149,7 @@ export const OptionsMenu = ({ business, onRefresh }: OptionsMenuProps) => {
               ],
             });
           },
-          svg: PencilSquareIcon,
+          svg: ({ className }) => <PencilSquareIcon className={cn('text-blue-700', className)} />,
         },
         {
           label: 'Ver la página de este negocio',
@@ -153,9 +159,47 @@ export const OptionsMenu = ({ business, onRefresh }: OptionsMenuProps) => {
         {
           label: 'Eliminar el negocio',
           onClick: handleDelete,
-          svg: TrashIcon,
+          svg: ({ className }) => <TrashIcon className={cn('text-red-700', className)} />,
         },
       ]}
     />
+  );
+
+  const smContent = (
+    <div className="items-center hidden sm:flex">
+      <IconButtonShowHide
+        title={`${hidden ? 'Mostrar' : 'Ocultar'} este negocio`}
+        onClick={handleShowHide}
+      />
+
+      <IconButtonUpdate
+        title="Editar el negocio"
+        onClick={() => {
+          pushModal('BusinessNew', {
+            routeName,
+            callAfarResources: [
+              callAfarIds.getAllUserBussiness,
+              callAfarIds.redirect_to_dashboard_business_routename,
+            ],
+          });
+        }}
+      />
+
+      <IconButtonView
+        title="Ver la página de este negocio"
+        onClick={() => {
+          pushRoute(`/${routeName}`);
+        }}
+      />
+
+      <IconButtonRemove title="Eliminar el negocio" onClick={handleDelete} />
+    </div>
+  );
+
+  return (
+    <>
+      {xsContent}
+      {smContent}
+    </>
   );
 };
