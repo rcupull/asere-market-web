@@ -37,8 +37,6 @@ export const UpdateBusinessAboutUs = ({
 
   useEffect(() => {
     onRefresh();
-
-    return () => onCallAfar(callAfarResources);
   }, []);
 
   const submitportal = useSubmitPortal();
@@ -84,6 +82,7 @@ export const UpdateBusinessAboutUs = ({
                       },
                       {
                         onAfterSuccess: () => {
+                          onCallAfar(callAfarResources);
                           onClose();
                         },
                       },

@@ -16,7 +16,7 @@ import { useGetOnePost } from 'features/api/useGetOnePost';
 import { LayoutPage } from 'pages/@common/layout-page';
 import { getImageEndpoint } from 'utils/api';
 
-export const BusinessRouteNamePostId = () => {
+export const PostId = () => {
   const { postId } = useParams();
 
   const { getOnePost } = useGetOnePost();

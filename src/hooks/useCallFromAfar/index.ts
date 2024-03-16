@@ -14,7 +14,8 @@ export const callAfarIds = {
   redirect_to_routename: 'redirect_to_routename',
   refresh_auth_user: 'refresh_auth_user',
   getAllAdminUsers: 'getAllAdminUsers',
-  useBusinessPageData: 'useBusinessPageData',
+  //
+  useBusinessPageData_Refresh: 'useBusinessPageData_Refresh',
 };
 
 export type CallAfarResources = string | Array<string>;

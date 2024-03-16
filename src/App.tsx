@@ -20,14 +20,7 @@ const AboutUs = dynamic(() => import('pages/about-us').then((m) => ({ default: m
 const BusinessRouteName = dynamic(() =>
   import('pages/business-route-name').then((m) => ({ default: m.BusinessRouteName })),
 );
-const BusinessRouteNamePostId = dynamic(() =>
-  import('pages/business-route-name-postId').then((m) => ({ default: m.BusinessRouteNamePostId })),
-);
-const BusinessRouteNameAboutUs = dynamic(() =>
-  import('pages/business-route-name-about-us').then((m) => ({
-    default: m.BusinessRouteNameAboutUs,
-  })),
-);
+
 const DashboardSettings = dynamic(() =>
   import('pages/dashboard-settings').then((m) => ({
     default: m.DashboardSettings,
@@ -113,17 +106,7 @@ export const App = (): JSX.Element => {
 
       <Route path="/business" element={withPageProviders(<Business />, LayoutMain)} />
 
-      <Route path="/:routeName" element={withPageProviders(<BusinessRouteName />, LayoutMain)} />
-
-      <Route
-        path="/:routeName/about-us"
-        element={withPageProviders(<BusinessRouteNameAboutUs />, LayoutMain)}
-      />
-
-      <Route
-        path="/:routeName/:postId"
-        element={withPageProviders(<BusinessRouteNamePostId />, LayoutMain)}
-      />
+      <Route path="/:routeName/*" element={withPageProviders(<BusinessRouteName />, LayoutMain)} />
     </Routes>
   );
 };

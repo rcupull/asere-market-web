@@ -69,7 +69,11 @@ export const Resources = ({ business }: ResourcesProps) => {
         action={
           <Button
             label="Editar"
-            onClick={() => pushModal('UpdateBusinessAboutUs', { routeName })}
+            onClick={() =>
+              pushModal('UpdateBusinessAboutUs', {
+                routeName,
+              })
+            }
           />
         }
       />

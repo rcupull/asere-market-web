@@ -1,29 +1,53 @@
-import { useParams } from 'react-router-dom';
+import { useEffect } from 'react';
+import { Route, Routes } from 'react-router-dom';
 
-import { Banner } from './components/banner';
-import { Pagination } from './components/pagination';
-import { Posts } from './components/posts';
-import { Search } from './components/search';
+import { callAfarIds, useCallFromAfar } from 'hooks/useCallFromAfar';
+import { useRouter } from 'hooks/useRouter';
 
-import { LayoutPage } from 'pages/@common/layout-page';
 import { useBusinessPageData } from 'pages/@hooks/useBusinessPageData';
+import { dynamic } from 'utils/makeLazy';
+const PostId = dynamic(() =>
+  import('pages/business-route-name/routes/postId').then((m) => ({ default: m.PostId })),
+);
+
+const Home = dynamic(() =>
+  import('pages/business-route-name/routes/home').then((m) => ({
+    default: m.Home,
+  })),
+);
+
+const AboutUs = dynamic(() =>
+  import('pages/business-route-name/routes/about-us').then((m) => ({
+    default: m.AboutUs,
+  })),
+);
 
 export const BusinessRouteName = () => {
-  const { routeName } = useParams();
+  const { params, isBusinessPage } = useRouter();
+  const { routeName } = params;
 
-  const { business } = useBusinessPageData();
+  const { business, onRefresh, onReset } = useBusinessPageData();
+
+  const handleRefresh = () => routeName && onRefresh({ routeName });
+  useCallFromAfar(callAfarIds.useBusinessPageData_Refresh, handleRefresh);
+
+  useEffect(() => {
+    if (isBusinessPage && routeName && !business) {
+      handleRefresh();
+
+      return () => onReset();
+    }
+  }, [routeName]);
 
   if (!routeName || !business) return <></>;
 
   return (
-    <LayoutPage>
-      <Banner business={business} />
+    <Routes>
+      <Route path="/" element={<Home />} />
 
-      <Posts
-        business={business}
-        getSearch={(props) => <Search {...props} />}
-        getPagination={(props) => <Pagination {...props} />}
-      />
-    </LayoutPage>
+      <Route path="about-us" element={<AboutUs />} />
+
+      <Route path=":postId" element={<PostId />} />
+    </Routes>
   );
 };
