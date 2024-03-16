@@ -74,7 +74,11 @@ export const Navbar = ({ className }: NavbarProps) => {
               }
               items={[
                 { label: 'Inicio', href: '/', svg: HomeIcon },
-                { label: 'Iniciar sesión', href: '/auth/sign-in', svg: ArrowRightEndOnRectangleIcon },
+                {
+                  label: 'Iniciar sesión',
+                  href: '/auth/sign-in',
+                  svg: ArrowRightEndOnRectangleIcon,
+                },
                 { label: 'Créate una cuenta', href: '/auth/sign-up', svg: UserPlusIcon },
                 { label: 'Saber más sobre nosotros', href: '/about-us', svg: UserGroupIcon },
               ]}

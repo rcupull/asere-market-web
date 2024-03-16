@@ -1,16 +1,11 @@
-import React, { useRef } from 'react';
-import { CookiesProvider, useCookies } from 'react-cookie';
+import { createContext, useRef } from 'react';
+import { CookiesProvider as ReactCookiesProvider, useCookies } from 'react-cookie';
 
-type UseCookies = typeof useCookies;
+import { CookiesUtils } from './types';
 
-interface CookiesUtils {
-  getCookie: (key: string) => ReturnType<UseCookies>[0];
-  getCookies: () => ReturnType<UseCookies>[0];
-  setCookie: ReturnType<UseCookies>[1];
-  removeCookie: ReturnType<UseCookies>[2];
-}
+import { ChildrenProp } from 'types/general';
 
-export const cookiesUtils: CookiesUtils = {
+export let cookiesUtilsBackdoor: CookiesUtils = {
   setCookie: () => {
     console.log('calling default setCookie');
     /**NOP */
@@ -29,11 +24,9 @@ export const cookiesUtils: CookiesUtils = {
   },
 };
 
-interface CookiesServiceProps {
-  children: React.ReactNode;
-}
+export const CookiesContext = createContext<CookiesUtils>(cookiesUtilsBackdoor);
 
-export const CookiesService = ({ children }: CookiesServiceProps): JSX.Element => {
+const CookiesProvider = ({ children }: ChildrenProp) => {
   const args = useCookies();
 
   const useCookiesPersistent = useRef(args);
@@ -41,7 +34,6 @@ export const CookiesService = ({ children }: CookiesServiceProps): JSX.Element =
 
   const setCookie: CookiesUtils['setCookie'] = (name, value, options = {}) => {
     const [, setCookie] = useCookiesPersistent.current;
-
     setCookie(name, value, {
       path: '/',
       ...options,
@@ -63,18 +55,24 @@ export const CookiesService = ({ children }: CookiesServiceProps): JSX.Element =
     removeCookie(...args);
   };
 
-  cookiesUtils.setCookie = setCookie;
-  cookiesUtils.getCookie = getCookie;
-  cookiesUtils.getCookies = getCookies;
-  cookiesUtils.removeCookie = removeCookie;
+  cookiesUtilsBackdoor = {
+    getCookie,
+    getCookies,
+    removeCookie,
+    setCookie,
+  };
 
+  return <CookiesContext.Provider value={cookiesUtilsBackdoor}>{children}</CookiesContext.Provider>;
+};
+
+export const CookiesService = ({ children }: ChildrenProp) => {
   return (
-    <CookiesProvider
+    <ReactCookiesProvider
       defaultSetOptions={{
         path: '/',
       }}
     >
-      {children}
-    </CookiesProvider>
+      <CookiesProvider>{children}</CookiesProvider>
+    </ReactCookiesProvider>
   );
 };

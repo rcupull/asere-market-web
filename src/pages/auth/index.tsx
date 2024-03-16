@@ -4,7 +4,9 @@ import { dynamic } from 'utils/makeLazy';
 const Home = dynamic(() => import('./routes/home').then((m) => ({ default: m.Home })));
 const SignIn = dynamic(() => import('./routes/sign-in').then((m) => ({ default: m.SignIn })));
 const SignUp = dynamic(() => import('./routes/sign-up').then((m) => ({ default: m.SignUp })));
-const ValidateAccount = dynamic(() => import('./routes/validate-account').then((m) => ({ default: m.ValidateAccount })));
+const ValidateAccount = dynamic(() =>
+  import('./routes/validate-account').then((m) => ({ default: m.ValidateAccount })),
+);
 
 export const Auth = () => {
   return (

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-import { cookiesUtils } from 'features/cookies';
+import { useCookies } from 'features/cookies/useCookies';
 
 import { useDebouncedValue } from 'hooks/useDebouncedValue';
 
@@ -46,7 +46,7 @@ export const useFetch = <Data = any>(): UseFetchReturn<Data> => {
   const [error, setError] = useState<ApiError | null>(null);
   const [status, setStatus] = useState<ApiStatus>('NOT_STARTED');
   const [wasCalled, setWasCalled] = useState<boolean>(false);
-
+  const { getCookie } = useCookies();
   const debouncedStatus = useDebouncedValue<ApiStatus>(status, 100);
 
   useEffect(() => {
@@ -72,7 +72,7 @@ export const useFetch = <Data = any>(): UseFetchReturn<Data> => {
 
       const resourcesArray = args instanceof Array ? args : [args];
 
-      const token = cookiesUtils.getCookie('token') as string | null;
+      const token = getCookie('token') as string | null;
 
       const promises = resourcesArray.map(({ method, url, data, headers = {} }) => {
         return axios({

@@ -1,4 +1,4 @@
-import { cookiesUtils } from 'features/cookies';
+import { cookiesUtilsBackdoor } from 'features/cookies';
 import { slices } from 'features/slices';
 
 import { configureStore } from '@reduxjs/toolkit';
@@ -24,8 +24,8 @@ export const makerStore = (preloadedState: Partial<AnyRecord> = {}) => {
   });
 
   // setting authentication data
-  const token = cookiesUtils.getCookie('token') as string | null;
-  const user = cookiesUtils.getCookie('user') as User | null;
+  const token = cookiesUtilsBackdoor.getCookie('token') as string | null;
+  const user = cookiesUtilsBackdoor.getCookie('user') as User | null;
   if (token && user) {
     const authData: AuthData = {
       token,

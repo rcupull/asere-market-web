@@ -32,7 +32,7 @@ export const Users = () => {
       </TopActions>
 
       <Table<User>
-        heads={[null, 'Nombre','Email', 'Validado', 'Plan Contratado', 'Fecha de Creación']}
+        heads={[null, 'Nombre', 'Email', 'Validado', 'Plan Contratado', 'Fecha de Creación']}
         getRowProps={(rowData) => {
           const { name, createdAt, email, validated } = rowData;
 
