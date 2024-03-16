@@ -10,8 +10,7 @@ import { useGetOneUserPost } from 'features/api/useGetOneUserPost';
 import { CallAfarResources, useCallFromAfar } from 'hooks/useCallFromAfar';
 import { useSubmitPortal } from 'hooks/useSubmitPortal';
 
-import { FormClothing } from './components/form-clothing';
-import { FormSimple } from './components/form-simple';
+import { PostForm } from './PostForm';
 
 export interface PostNewProps {
   routeName?: string;
@@ -56,24 +55,79 @@ export const PostNew = ({ routeName: routeNameProp, postId, callAfarResources }:
     return <></>;
   }
 
-  const getForm = () => {
+  const getContent = () => {
     if (businessCategory === 'clothing') {
       return (
-        <FormClothing
+        <PostForm
           routeName={routeName}
           submitPortal={submitPortal}
           onAfterSuccess={onRefresh}
           post={post}
+          render={[
+            'name',
+            'description',
+            'price',
+            'currency',
+            'clothingSizes',
+            'colors',
+            'details',
+            'postCategoriesTags',
+            'images',
+          ]}
+          validations={[
+            {
+              field: 'description',
+              type: 'required',
+            },
+            {
+              field: 'name',
+              type: 'required',
+            },
+            {
+              field: 'currency',
+              type: 'required',
+            },
+            {
+              field: 'price',
+              type: 'required',
+            },
+          ]}
         />
       );
     }
 
     return (
-      <FormSimple
+      <PostForm
         routeName={routeName}
         submitPortal={submitPortal}
         onAfterSuccess={onRefresh}
         post={post}
+        render={[
+          'name',
+          'description',
+          'price',
+          'currency',
+          'details',
+          'images',
+        ]}
+        validations={[
+          {
+            field: 'description',
+            type: 'required',
+          },
+          {
+            field: 'name',
+            type: 'required',
+          },
+          {
+            field: 'currency',
+            type: 'required',
+          },
+          {
+            field: 'price',
+            type: 'required',
+          },
+        ]}
       />
     );
   };
@@ -81,7 +135,7 @@ export const PostNew = ({ routeName: routeNameProp, postId, callAfarResources }:
   return (
     <Modal
       title={postId ? 'Editar publicación' : 'Nueva publicación'}
-      content={getForm()}
+      content={getContent()}
       badge={<Badge variant="info" />}
       primaryBtn={<div ref={submitPortal.ref} />}
       secondaryBtn={<ButtonClose />}

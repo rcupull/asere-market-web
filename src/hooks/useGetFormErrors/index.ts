@@ -1,7 +1,7 @@
 import { useRef } from 'react';
 
 import { AnyRecord } from 'types/general';
-import { getFlattenJson } from 'utils/general';
+import { getFlattenJson, isNullOrUndefinedOrEmptyString } from 'utils/general';
 
 const emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
 
@@ -10,7 +10,7 @@ const validationsCallback = {
     if (value instanceof Array) {
       return value.length > 0;
     }
-    return !!value;
+    return !isNullOrUndefinedOrEmptyString(value);
   },
   email: (value: string): boolean => {
     return emailRegex.test(value);
@@ -28,7 +28,7 @@ interface Validation<V extends AnyRecord, F extends keyof V = keyof V> {
   message?: string;
 }
 
-type GetFormErrors<V extends AnyRecord, F extends keyof V = keyof V> = (
+export type GetFormErrors<V extends AnyRecord, F extends keyof V = keyof V> = (
   value: V,
   validations: Array<Validation<V, F>>,
 ) => Promise<Partial<Record<F, string>>>;

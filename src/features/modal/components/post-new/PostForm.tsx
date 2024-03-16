@@ -1,3 +1,5 @@
+import { useMemo } from 'react';
+
 import { Button } from 'components/button';
 import { Divider } from 'components/divider';
 import { FieldClothingSizeSelect } from 'components/field-clothing-size-select';
@@ -13,17 +15,15 @@ import { useGetUserPaymentPlan } from 'features/api/useGetUserPaymentPlan';
 import { useUpdateOneUserPost } from 'features/api/useUpdateOneUserPost';
 import { useModal } from 'features/modal/useModal';
 
-import { useGetFormErrors } from 'hooks/useGetFormErrors';
-
-import { PostNewFormProps } from '../../types';
+import { GetFormErrors, useGetFormErrors } from 'hooks/useGetFormErrors';
+import { SubmitPortal } from 'hooks/useSubmitPortal';
 
 import { Formik } from 'formik';
 import { FieldPostCategoriesButtons } from 'pages/@common/filters/field-post-categories-buttons';
+import { OnAfterSuccess } from 'types/api';
 import { Image, ImageFile } from 'types/general';
 import { Post, PostCurrency } from 'types/post';
 import { getImageEndpoint } from 'utils/api';
-
-export interface FormClothingProps extends PostNewFormProps {}
 
 type State = Pick<
   Post,
@@ -37,12 +37,23 @@ type State = Pick<
   | 'postCategoriesTags'
 > & { images: Array<ImageFile | Image> };
 
-export const FormClothing = ({
+export interface PostFormProps {
+  submitPortal: SubmitPortal;
+  routeName: string;
+  onAfterSuccess?: OnAfterSuccess;
+  post?: Post | null;
+  validations: Parameters<GetFormErrors<State>>[1];
+  render: Array<keyof State>;
+}
+
+export const PostForm = ({
   routeName,
   submitPortal,
   onAfterSuccess,
   post,
-}: FormClothingProps) => {
+  validations: validationsProp,
+  render,
+}: PostFormProps) => {
   const { onClose } = useModal();
 
   const { addOneUserPost } = useAddOneUserPost();
@@ -53,6 +64,10 @@ export const FormClothing = ({
   const { addManyUserPostImages } = useAddManyUserPostImages();
 
   const getFormErrors = useGetFormErrors();
+
+  const validations = useMemo(() => {
+    return validationsProp.filter((validation) => render.includes(validation.field));
+  }, [JSON.stringify([validationsProp, render])]);
 
   return (
     <Formik<State>
@@ -69,101 +84,119 @@ export const FormClothing = ({
         ...(post || {}),
       }}
       enableReinitialize
-      validate={(values) => {
-        return getFormErrors(values, [
-          {
-            field: 'description',
-            type: 'required',
-          },
-          {
-            field: 'name',
-            type: 'required',
-          },
-          {
-            field: 'currency',
-            type: 'required',
-          },
-          {
-            field: 'price',
-            type: 'required',
-          },
-        ]);
-      }}
+      validate={(values) => getFormErrors(values, validations)}
       onSubmit={() => {}}
     >
       {({ values, isValid }) => {
         return (
           <form>
-            <FieldInput name="name" label="Nombre del producto" />
-            <Divider />
+            {render.includes('name') && (
+              <>
+                <FieldInput name="name" label="Nombre del producto" />
+                <Divider />
+              </>
+            )}
 
-            <FieldTextArea label="Descripción" name="description" rows={3} className="mt-6" />
-            <Divider />
+            {render.includes('description') && (
+              <>
+                <FieldTextArea label="Descripción" name="description" rows={3} className="mt-6" />
+                <Divider />
+              </>
+            )}
 
-            <FieldTextArea
-              id="post_details"
-              name="details"
-              label="Detalles del producto"
-              className="mt-6"
-              rows={3}
-            />
-            <Divider />
+            {render.includes('details') && (
+              <>
+                <FieldTextArea
+                  id="post_details"
+                  name="details"
+                  label="Detalles del producto"
+                  className="mt-6"
+                  rows={3}
+                />
+                <Divider />
+              </>
+            )}
 
-            <FieldInputImages
-              label="Imagen"
-              id="images"
-              name="images"
-              className="mt-6"
-              getImageSrc={getImageEndpoint}
-              multi
-              max={userPlan?.maxImagesByPosts}
-            />
-            <Divider />
+            {render.includes('images') && (
+              <>
+                <FieldInputImages
+                  label="Imagen"
+                  id="images"
+                  name="images"
+                  className="mt-6"
+                  getImageSrc={getImageEndpoint}
+                  multi
+                  max={userPlan?.maxImagesByPosts}
+                />
+                <Divider />
+              </>
+            )}
 
-            <FieldPostCategoriesButtons
-              label="Categorías"
-              name="postCategoriesTags"
-              className="mt-6"
-              routeName={routeName}
-            />
-            <Divider />
+            {render.includes('postCategoriesTags') && (
+              <>
+                <FieldPostCategoriesButtons
+                  label="Categorías"
+                  name="postCategoriesTags"
+                  className="mt-6"
+                  routeName={routeName}
+                />
+                <Divider />
+              </>
+            )}
 
-            <div className="flex flex-col sm:flex-row items-center gap-6">
-              <FieldInput
-                id="post_price"
-                name="price"
-                label="Precio"
-                type="number"
-                className="mt-6 w-full"
-              />
+            {(render.includes('price') || render.includes('currency')) && (
+              <>
+                <div className="flex flex-col sm:flex-row items-center gap-6">
+                  <FieldInput
+                    id="post_price"
+                    name="price"
+                    label="Precio"
+                    type="number"
+                    className="mt-6 w-full"
+                  />
 
-              <FieldSelect<{ currency: PostCurrency }>
-                items={[
-                  {
-                    currency: 'CUP',
-                  },
-                  {
-                    currency: 'MLC',
-                  },
-                  {
-                    currency: 'USD',
-                  },
-                ]}
-                renderOption={({ currency }) => currency}
-                renderValue={({ currency }) => currency}
-                optionToValue={({ currency }) => currency}
-                name="currency"
-                label="Moneda"
-                className="mt-6 w-full"
-              />
-            </div>
-            <Divider />
+                  <FieldSelect<{ currency: PostCurrency }>
+                    items={[
+                      {
+                        currency: 'CUP',
+                      },
+                      {
+                        currency: 'MLC',
+                      },
+                      {
+                        currency: 'USD',
+                      },
+                    ]}
+                    renderOption={({ currency }) => currency}
+                    renderValue={({ currency }) => currency}
+                    optionToValue={({ currency }) => currency}
+                    name="currency"
+                    label="Moneda"
+                    className="mt-6 w-full"
+                  />
+                </div>
+                <Divider />
+              </>
+            )}
 
-            <FieldColorSelect label="Colores" name="colors" className="mt-6" multi />
-            <Divider />
+            {render.includes('colors') && (
+              <>
+                <FieldColorSelect label="Colores" name="colors" className="mt-6" multi />
+                <Divider />
+              </>
+            )}
 
-            <FieldClothingSizeSelect label="Tallas" name="clothingSizes" className="mt-6" multi />
-            <Divider />
+            {render.includes('clothingSizes') && (
+              <>
+                <FieldClothingSizeSelect
+                  label="Tallas"
+                  name="clothingSizes"
+                  className="mt-6"
+                  multi
+                />
+                <Divider />
+              </>
+            )}
 
             {submitPortal.getPortal(
               <Button
