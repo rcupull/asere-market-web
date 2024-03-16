@@ -3,16 +3,17 @@ import { Link } from 'react-router-dom';
 import { Button } from 'components/button';
 import { FieldInput } from 'components/field-input';
 
-import { useAuthSignUp } from 'features/api/useAuthSignUp';
+import { useAuthSignIn } from 'features/api/useAuthSignIn';
 
 import { useGetFormErrors } from 'hooks/useGetFormErrors';
 import { useRouter } from 'hooks/useRouter';
 
 import { Formik } from 'formik';
 
-export const SignUp = () => {
-  const { authSignUp } = useAuthSignUp();
-  const { pushRoute, search } = useRouter();
+export const SignIn = () => {
+  const { authSignIn } = useAuthSignIn();
+
+  const { pushRoute, search, query } = useRouter();
   const getFormErrors = useGetFormErrors();
 
   return (
@@ -24,18 +25,13 @@ export const SignUp = () => {
           alt="Your Company"
         />
         <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
-          Resgistrarse
+          Inicia sesión en tu cuenta
         </h2>
       </div>
 
       <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
         <Formik
-          initialValues={{
-            email: '',
-            password: '',
-            confirmPassword: '',
-            name: '',
-          }}
+          initialValues={{ email: '', password: '' }}
           validate={(values) => {
             return getFormErrors(values, [
               {
@@ -50,27 +46,26 @@ export const SignUp = () => {
                 field: 'password',
                 type: 'required',
               },
-              {
-                field: 'name',
-                type: 'required',
-              },
-              {
-                field: 'confirmPassword',
-                type: 'equal',
-                equalField: 'password',
-              },
             ]);
           }}
           onSubmit={(values, { setSubmitting }) => {
-            const { email, password, name } = values;
+            const { email, password } = values;
 
-            authSignUp.fetch(
-              { email, password, name },
+            authSignIn.fetch(
+              { email, password },
               {
-                onAfterSuccess: () => {
+                onAfterSuccess: (response) => {
+                  const role = response.user.role;
+
                   setSubmitting(false);
 
-                  pushRoute(`/validate-account${search}`);
+                  const { redirect } = query;
+
+                  if (redirect) {
+                    return pushRoute(`${redirect}`);
+                  }
+
+                  pushRoute(role === 'admin' ? `/admin` : '/dashboard');
                 },
                 onAfterFailed: () => {
                   setSubmitting(false);
@@ -82,56 +77,54 @@ export const SignUp = () => {
           {({ handleSubmit, isSubmitting }) => {
             return (
               <form onSubmit={handleSubmit}>
-                <FieldInput id="name" name="name" autoComplete="name" label="Nombre" />
-
                 <FieldInput
                   id="email"
                   name="email"
                   type="email"
                   autoComplete="email"
-                  label="Correo electrónico"
-                  className="mt-6"
+                  label="Correo Electrónico"
                 />
 
-                <div className="relative">
-                  <FieldInput
-                    id="password"
-                    name="password"
-                    type="password"
-                    autoComplete="password"
-                    label="Contraseña"
-                    className="mt-6"
-                  />
-                  {/* <div className="absolute top-0 right-0 text-sm">
-                    <a href="#" className="font-semibold text-indigo-600 hover:text-indigo-500">
-                      Forgot password?
-                    </a>
-                  </div> */}
-                </div>
-
                 <FieldInput
-                  id="confirmPassword"
-                  name="confirmPassword"
+                  id="password"
+                  name="password"
                   type="password"
-                  label="Confirmar contraseña"
+                  autoComplete="current-password"
+                  label="Contraseña"
                   className="mt-6"
                 />
 
                 <Button
-                  label="Registrar"
+                  label="Iniciar sesión"
                   type="submit"
                   disabled={isSubmitting}
-                  isBusy={authSignUp.status.isBusy}
+                  isBusy={authSignIn.status.isBusy}
                   className="mt-6 w-full"
                 />
 
-                <div className="w-100 text-sm flex pt-4">
+                <div className="w-100 text-sm pt-4">
+                  No tienes una cuenta?{' '}
                   <Link
-                    to={`/sign-in${search}`}
+                    to={`/auth/sign-up${search}`}
                     className="font-semibold text-indigo-600 hover:text-indigo-500 ml-auto"
                   >
-                    Iniciar sesión
+                    Regístrate gratis
+                  </Link>{' '}
+                  para obtener los beneficios de nuestro sistema. También puedes{' '}
+                  <Link
+                    to="/about-us"
+                    className="font-semibold text-indigo-600 hover:text-indigo-500 ml-auto"
+                  >
+                    saber más de nosotros
+                  </Link>{' '}
+                  o darle un vistazo a nuestros{' '}
+                  <Link
+                    to="/payment-plans"
+                    className="font-semibold text-indigo-600 hover:text-indigo-500 ml-auto"
+                  >
+                    planes premium y gratuitos
                   </Link>
+                  .
                 </div>
               </form>
             );

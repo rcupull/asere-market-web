@@ -15,6 +15,7 @@ const Business = dynamic(() => import('pages/business').then((m) => ({ default: 
 const Dashboard = dynamic(() => import('pages/dashboard').then((m) => ({ default: m.Dashboard })));
 
 const Admin = dynamic(() => import('pages/admin').then((m) => ({ default: m.Admin })));
+const Auth = dynamic(() => import('pages/auth').then((m) => ({ default: m.Auth })));
 
 const AboutUs = dynamic(() => import('pages/about-us').then((m) => ({ default: m.AboutUs })));
 const BusinessRouteName = dynamic(() =>
@@ -24,12 +25,7 @@ const BusinessRouteName = dynamic(() =>
 const PaymentPlans = dynamic(() =>
   import('pages/payment-plans').then((m) => ({ default: m.PaymentPlans })),
 );
-const ValidateAccount = dynamic(() =>
-  import('pages/validate-account').then((m) => ({ default: m.ValidateAccount })),
-);
 const NotFound = dynamic(() => import('pages/not-found').then((m) => ({ default: m.NotFound })));
-const SignIn = dynamic(() => import('pages/sign-in').then((m) => ({ default: m.SignIn })));
-const SignUp = dynamic(() => import('pages/sign-up').then((m) => ({ default: m.SignUp })));
 const Home = dynamic(() => import('pages/home').then((m) => ({ default: m.Home })));
 
 export const App = (): JSX.Element => {
@@ -38,16 +34,10 @@ export const App = (): JSX.Element => {
   return (
     <Routes>
       <Route path="/" element={withPageProviders(<Home />, LayoutMain)} />
-      <Route path="/sign-in" element={withPageProviders(<SignIn />, LayoutMain)} />
-      <Route path="/sign-up" element={withPageProviders(<SignUp />, LayoutMain)} />
-      <Route path="/not-found" element={withPageProviders(<NotFound />, LayoutMain)} />
-      <Route
-        path="/validate-account"
-        element={withPageProviders(<ValidateAccount />, LayoutMain)}
-      />
-      <Route path="/about-us" element={withPageProviders(<AboutUs />, LayoutMain)} />
 
-      {/* ////////////////////////////////////////////// */}
+      <Route path="auth/*" element={withPageProviders(<Auth />, LayoutMain)} />
+      <Route path="/not-found" element={withPageProviders(<NotFound />, LayoutMain)} />
+      <Route path="/about-us" element={withPageProviders(<AboutUs />, LayoutMain)} />
 
       <Route path="/payment-plans" element={withPageProviders(<PaymentPlans />, LayoutMain)} />
 
@@ -56,13 +46,11 @@ export const App = (): JSX.Element => {
         element={withPageProviders(<PaymentPlansPurchase />, AuthenticatedUser, LayoutMain)}
       />
 
-      {/* ////////////////////////////////////////////// */}
       <Route
         path="/admin/*"
         element={withPageProviders(<Admin />, AuthenticatedAdmin, LayoutMain)}
       />
 
-      {/* ////////////////////////////////////////////// */}
       <Route
         path="/dashboard/*"
         element={withPageProviders(<Dashboard />, AuthenticatedUser, LayoutMain)}

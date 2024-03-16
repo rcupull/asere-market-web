@@ -14,7 +14,7 @@ export const AutenticatedRole = ({
   const role = authData?.user?.role;
 
   if (!authData) {
-    return <Navigate to="/sign-in" />;
+    return <Navigate to="/auth/sign-in" />;
   }
 
   if (role && roles?.length && !roles.includes(role)) {

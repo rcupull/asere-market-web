@@ -18,7 +18,7 @@ export const PaymentPlans = () => {
     if (isAuthenticated) {
       pushRoute('/payment-plans/purchase', { type });
     } else {
-      pushRoute('/sign-in', { redirect: `/payment-plans/purchase?${queryToSearch({ type })}` });
+      pushRoute('/auth/sign-in', { redirect: `/payment-plans/purchase?${queryToSearch({ type })}` });
     }
   };
 

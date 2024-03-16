@@ -32,9 +32,9 @@ export const Users = () => {
       </TopActions>
 
       <Table<User>
-        heads={[null, 'Nombre', 'Email', 'Plan Contratado', 'Fecha de Creación']}
+        heads={[null, 'Nombre','Email', 'Validado', 'Plan Contratado', 'Fecha de Creación']}
         getRowProps={(rowData) => {
-          const { name, createdAt, email } = rowData;
+          const { name, createdAt, email, validated } = rowData;
 
           return {
             nodes: [
@@ -45,6 +45,7 @@ export const Users = () => {
               />,
               name,
               email,
+              `${validated}`,
               <PaymentHistory
                 key="PaymentHistory"
                 user={rowData}

@@ -139,14 +139,14 @@ export const SideBar = ({ className }: SideBarProps) => {
           // AUTH
           label: 'Créate una cuenta',
           svg: UserPlusIcon,
-          href: '/sign-up',
+          href: '/auth/sign-up',
           className: 'sm:hidden',
         },
         !isAuthenticated && {
           // AUTH
           label: 'Iniciar sesión',
           svg: ArrowRightEndOnRectangleIcon,
-          href: '/sign-in',
+          href: '/auth/sign-in',
           className: 'sm:hidden',
         },
       ]}

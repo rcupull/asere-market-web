@@ -54,7 +54,7 @@ export const ValidateAccount = () => {
                 onAfterSuccess: () => {
                   setSubmitting(false);
 
-                  pushRoute(`/sign-in${search}`);
+                  pushRoute(`/auth/sign-in${search}`);
                 },
                 onAfterFailed: () => {
                   setSubmitting(false);

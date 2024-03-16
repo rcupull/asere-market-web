@@ -74,8 +74,8 @@ export const Navbar = ({ className }: NavbarProps) => {
               }
               items={[
                 { label: 'Inicio', href: '/', svg: HomeIcon },
-                { label: 'Iniciar sesión', href: '/sign-in', svg: ArrowRightEndOnRectangleIcon },
-                { label: 'Créate una cuenta', href: '/sign-up', svg: UserPlusIcon },
+                { label: 'Iniciar sesión', href: '/auth/sign-in', svg: ArrowRightEndOnRectangleIcon },
+                { label: 'Créate una cuenta', href: '/auth/sign-up', svg: UserPlusIcon },
                 { label: 'Saber más sobre nosotros', href: '/about-us', svg: UserGroupIcon },
               ]}
               className="flex-shrink-0"
@@ -101,7 +101,7 @@ export const Navbar = ({ className }: NavbarProps) => {
               className="ml-3 hidden sm:block flex-shrink-0"
             />
           ) : (
-            <Link to="/sign-in" className="text-gray-200 text-nowrap">
+            <Link to="/auth/sign-in" className="text-gray-200 text-nowrap">
               Iniciar sesión
             </Link>
           )}
