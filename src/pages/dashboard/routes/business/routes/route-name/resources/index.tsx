@@ -64,7 +64,7 @@ export const Resources = ({ business }: ResourcesProps) => {
       />
 
       <ResourceLayout
-        title="Mi página de presentación"
+        title="Sobre mi negocio"
         description="Mediante su página de presentación usted puede indentificar su tienda para que sus clientes conozcan sobre sus ventas y demás(TODO)"
         action={
           <Button

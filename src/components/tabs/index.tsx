@@ -28,7 +28,7 @@ const clasicItemRender: ItemRender = ({ selected, label }) => {
   return (
     <div
       className={cn(
-        'w-full mx-1 max-w-28 text-center p-2 bg-gray-50 rounded-sm hover:bg-gray-100 border-b-2 border-transparent',
+        'w-full max-w-28 text-center p-2 bg-gray-50 rounded-sm hover:bg-gray-100 border-b-2 border-transparent',
         {
           '!border-indigo-600': selected,
         },
@@ -49,7 +49,7 @@ export const Tabs = <L extends string = string>({
 }: TabsProps<L>) => {
   return (
     <Tab.Group selectedIndex={selected} onChange={onSelect}>
-      <Tab.List className={cn('flex', className)}>
+      <Tab.List className={cn('flex gap-1', className)}>
         {items.map(({ label, className }, index) => {
           return (
             <Tab key={index} as={Fragment}>
