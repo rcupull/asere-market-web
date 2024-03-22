@@ -4,13 +4,15 @@ import { Badge } from 'components/badge';
 import { ButtonClose } from 'components/button-close';
 import { Modal } from 'components/modal';
 
-import { useGetOneUserBusiness } from 'features/api/useGetOneUserBusiness';
 import { useGetOneUserPost } from 'features/api/useGetOneUserPost';
+import { useModal } from 'features/modal/useModal';
 
 import { CallAfarResources, useCallFromAfar } from 'hooks/useCallFromAfar';
 import { useSubmitPortal } from 'hooks/useSubmitPortal';
 
-import { PostForm } from './PostForm';
+import { PostForm, PostFormProps } from './PostForm';
+
+import { useBusinessOwnerData } from 'pages/@hooks/useBusinessOwnerData';
 
 export interface PostNewProps {
   routeName?: string;
@@ -20,49 +22,68 @@ export interface PostNewProps {
 
 export const PostNew = ({ routeName: routeNameProp, postId, callAfarResources }: PostNewProps) => {
   const submitPortal = useSubmitPortal();
+  const { onClose } = useModal();
 
   const { onCallAfar } = useCallFromAfar();
   const onRefresh = () => onCallAfar(callAfarResources);
+
+  const onAfterSuccess = () => {
+    onRefresh();
+    onClose();
+  };
 
   /**
    *
    */
   const { getOneUserPost } = useGetOneUserPost();
-  const { getOneUserBusiness } = useGetOneUserBusiness();
+  const businessOwnerData = useBusinessOwnerData();
 
   const post = getOneUserPost.data;
-  const business = getOneUserBusiness.data;
+  const business = businessOwnerData.data;
 
   useEffect(() => {
-    if (postId) {
-      getOneUserPost.fetch({ id: postId });
+    if(routeNameProp){
+      return businessOwnerData.onRefresh({ routeName: routeNameProp });
     }
-  }, [postId]);
+
+    if (postId) {
+      getOneUserPost.fetch(
+        { id: postId },
+        {
+          onAfterSuccess: ({ routeName }) => {
+            businessOwnerData.onRefresh({ routeName });
+          },
+        },
+      );
+    }
+  }, []);
 
   /**
    *
    */
   const routeName = routeNameProp || post?.routeName;
-  const businessCategory = business?.category;
 
-  useEffect(() => {
-    if (routeName) {
-      getOneUserBusiness.fetch({ routeName });
-    }
-  }, [routeName]);
-
-  if (!routeName) {
+  if (!routeName || !business) {
     return <></>;
   }
 
+  const businessCategory = business.category;
+
+
   const getContent = () => {
+    const commonProps: PostFormProps = {
+      routeName,
+      submitPortal,
+      onAfterSuccess,
+      post,
+      render: [],
+      validations: [],
+    };
+
     if (businessCategory === 'clothing') {
       return (
         <PostForm
-          routeName={routeName}
-          submitPortal={submitPortal}
-          onAfterSuccess={onRefresh}
-          post={post}
+          {...commonProps}
           render={[
             'name',
             'description',
@@ -98,18 +119,8 @@ export const PostNew = ({ routeName: routeNameProp, postId, callAfarResources }:
 
     return (
       <PostForm
-        routeName={routeName}
-        submitPortal={submitPortal}
-        onAfterSuccess={onRefresh}
-        post={post}
-        render={[
-          'name',
-          'description',
-          'price',
-          'currency',
-          'details',
-          'images',
-        ]}
+        {...commonProps}
+        render={['name', 'description', 'price', 'currency', 'details', 'images']}
         validations={[
           {
             field: 'description',

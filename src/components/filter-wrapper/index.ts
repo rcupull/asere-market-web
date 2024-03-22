@@ -4,9 +4,7 @@ import { AnyRecord } from 'types/general';
 
 interface FilterArgs<S extends AnyRecord = AnyRecord> {
   onChange?: (state: S) => void;
-  notPersisteInRoute?: boolean;
   notCallChangeWhenMount?: boolean;
-  initialFilters?: S;
 }
 
 export interface Filters<S extends AnyRecord = AnyRecord> {

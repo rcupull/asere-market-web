@@ -1,14 +1,13 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 
 import { useRouter } from 'hooks/useRouter';
 
 import { AnyRecord } from 'types/general';
+import { getFlattenJson, isEmpty, isString } from 'utils/general';
 
 export interface UseFiltersArgs<S> {
   onChange?: (state: S) => void;
-  notPersisteInRoute?: boolean;
   notCallChangeWhenMount?: boolean;
-  initialFilters?: S;
 }
 
 export interface UseFiltersReturn<S extends AnyRecord = AnyRecord> {
@@ -20,15 +19,24 @@ export interface UseFiltersReturn<S extends AnyRecord = AnyRecord> {
 export const useFilters = <S extends AnyRecord = AnyRecord>(
   args: UseFiltersArgs<S>,
 ): UseFiltersReturn<S> => {
-  const { onChange, initialFilters = {}, notPersisteInRoute, notCallChangeWhenMount } = args || {};
-  const [localState, setLocalState] = useState<S>(initialFilters as S);
-  const { query: queryState, onChangeQuery: onChangeQueryState } = useRouter();
+  const { onChange, notCallChangeWhenMount } = args || {};
 
-  const filterValue = (notPersisteInRoute ? localState : queryState) as S;
-  const handleChangeFilterState = notPersisteInRoute ? setLocalState : onChangeQueryState;
+  const { query = {}, onChangeQuery } = useRouter();
+
+  const filterValue = isString(query.filters) ? JSON.parse(query.filters) : {};
+
+  const handleChangeFilterState = (filtersValue: S) => {
+    const filters = isEmpty(getFlattenJson(filtersValue))
+      ? undefined
+      : JSON.stringify(filtersValue);
+
+    onChangeQuery({
+      filters,
+    });
+  };
 
   const onMergeFilters = (partialValue: S) => {
-    const newValue = { ...filterValue, ...partialValue };
+    const newValue = { ...(filterValue || {}), ...partialValue };
     handleChangeFilterState(newValue);
   };
 

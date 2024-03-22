@@ -13,7 +13,6 @@ import { useAddManyUserPostImages } from 'features/api/useAddManyUserPostImages'
 import { useAddOneUserPost } from 'features/api/useAddOneUserPost';
 import { useGetUserPaymentPlan } from 'features/api/useGetUserPaymentPlan';
 import { useUpdateOneUserPost } from 'features/api/useUpdateOneUserPost';
-import { useModal } from 'features/modal/useModal';
 
 import { GetFormErrors, useGetFormErrors } from 'hooks/useGetFormErrors';
 import { SubmitPortal } from 'hooks/useSubmitPortal';
@@ -40,7 +39,7 @@ type State = Pick<
 export interface PostFormProps {
   submitPortal: SubmitPortal;
   routeName: string;
-  onAfterSuccess?: OnAfterSuccess;
+  onAfterSuccess: OnAfterSuccess;
   post?: Post | null;
   validations: Parameters<GetFormErrors<State>>[1];
   render: Array<keyof State>;
@@ -54,8 +53,6 @@ export const PostForm = ({
   validations: validationsProp,
   render,
 }: PostFormProps) => {
-  const { onClose } = useModal();
-
   const { addOneUserPost } = useAddOneUserPost();
   const { updateOneUserPost } = useUpdateOneUserPost();
 
@@ -237,10 +234,7 @@ export const PostForm = ({
                               postCategoriesTags,
                             },
                             {
-                              onAfterSuccess: (response) => {
-                                onAfterSuccess?.(response);
-                                onClose();
-                              },
+                              onAfterSuccess,
                             },
                           );
                         },

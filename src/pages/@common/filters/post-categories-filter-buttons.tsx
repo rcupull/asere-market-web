@@ -13,7 +13,7 @@ import { StyleProps } from 'types/general';
 import { addStringToUniqueArray, cn, removeStringFromArray } from 'utils/general';
 
 export interface PostCategoriesFilterButtonsProps extends StyleProps {
-  onChange?: (values: Array<string>) => void;
+  onChange?: (values: Array<string> | undefined) => void;
   value?: Array<string>;
   postCategories?: Array<PostCategory>;
   excluding?: boolean;
@@ -95,7 +95,7 @@ export const PostCategoriesFilterButtons = ({
 
               const newState = getNewState();
               setState(newState);
-              debouncer(() => onChange?.(newState), debounceDelay);
+              debouncer(() => onChange?.(newState.length ? newState : undefined), debounceDelay);
             }}
             label={label}
           />

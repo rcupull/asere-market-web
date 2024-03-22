@@ -6,6 +6,7 @@ export const slices = {
   useGetAllUserBusinessRouteNames: createSimpleSlice('useGetAllUserBusinessRouteNames', null),
   useGetAllUserBusiness: createSimpleSlice('useGetAllUserBusiness', null),
   useBusinessPageData: createSimpleSlice('useBusinessPageData', null),
+  useBusinessOwnerData: createSimpleSlice('useBusinessOwnerData', null),
   //
   useCallFromAfar: createSimpleSlice<Array<any>>('useCallFromAfar', []),
   emergentModals: createSimpleSlice<Array<any>>('emergentModals', []),

@@ -5,9 +5,8 @@ import { FilterWrapper } from 'components/filter-wrapper';
 import { ProductSimple } from 'components/product/product-simple';
 
 import { useGetAllPosts } from 'features/api/useGetAllPosts';
-import { useGetAllUserBusinessRouteNames } from 'features/api/useGetAllUserBusinessRouteNames';
 
-import { callAfarIds, useCallFromAfar } from 'hooks/useCallFromAfar';
+import { useCallFromAfar } from 'hooks/useCallFromAfar';
 
 import { PaginationProps } from '../pagination';
 import { SearchProps } from '../search';
@@ -29,11 +28,12 @@ export const Posts = ({ business, className, getSearch, getPagination }: PostsPr
 
   const postsLayout = layouts?.posts;
 
-  const { isUserOwnerOfRoute } = useGetAllUserBusinessRouteNames();
   const { getAllPosts } = useGetAllPosts();
 
   const refOnRefresh = useRef<() => void>();
-  useCallFromAfar(callAfarIds.business_route_name_refresh_posts, () => {
+
+  const callAfarResources = `${routeName}_posts`;
+  useCallFromAfar(callAfarResources, () => {
     refOnRefresh.current?.();
   });
 
@@ -52,7 +52,7 @@ export const Posts = ({ business, className, getSearch, getPagination }: PostsPr
   const renderFilterWrapper = (content: React.ReactNode) => {
     return (
       <FilterWrapper<{ search?: string; page?: number }>
-        onChange={(filters) => routeName && getAllPosts.fetch({ routeNames: [routeName], filters })}
+      onChange={(filters) => routeName && getAllPosts.fetch({ routeNames: [routeName], filters })}
       >
         {(filters) => {
           refOnRefresh.current = filters.onRefresh;
@@ -82,8 +82,7 @@ export const Posts = ({ business, className, getSearch, getPagination }: PostsPr
                 post={post}
                 href={getPostRoute({ routeName, postId: _id })}
                 getImageUrl={getImageEndpoint}
-                enabledUpdate={isUserOwnerOfRoute(routeName)}
-                callAfarResources={callAfarIds.business_route_name_refresh_posts}
+                callAfarResources={callAfarResources}
               />
             );
           })}

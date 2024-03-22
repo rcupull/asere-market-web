@@ -1,4 +1,9 @@
+import { Link } from 'react-router-dom';
+
+import { IconButtonUpdate } from 'components/icon-button-update';
+
 import { LayoutPage } from 'pages/@common/layout-page';
+import { UpdateSomethingContainer } from 'pages/@common/update-something-container';
 import { useBusinessPageData } from 'pages/@hooks/useBusinessPageData';
 import { Banner } from 'pages/business-route-name/components/banner';
 import { Pagination } from 'pages/business-route-name/components/pagination';
@@ -21,6 +26,12 @@ export const Home = () => {
         getSearch={(props) => <Search {...props} />}
         getPagination={(props) => <Pagination {...props} />}
       />
+
+      <UpdateSomethingContainer position='top-right'>
+        <Link to={`/dashboard/business/${business.routeName}`}>
+          <IconButtonUpdate />
+        </Link>
+      </UpdateSomethingContainer>
     </LayoutPage>
   );
 };

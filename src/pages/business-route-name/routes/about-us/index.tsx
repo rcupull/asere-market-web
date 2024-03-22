@@ -8,7 +8,7 @@ import { useModal } from 'features/modal/useModal';
 import { callAfarIds } from 'hooks/useCallFromAfar';
 
 import { LayoutPage } from 'pages/@common/layout-page';
-import { UpdatePageContainer } from 'pages/@common/update-page-container';
+import { UpdateSomethingContainer } from 'pages/@common/update-something-container';
 import { useBusinessPageData } from 'pages/@hooks/useBusinessPageData';
 
 export const AboutUs = () => {
@@ -26,12 +26,12 @@ export const AboutUs = () => {
   }
 
   return (
-    <LayoutPage title={title}>
+    <LayoutPage title={title} >
       {description && (
         <HtmlTextContainer className="w-full" dangerouslySetInnerHTML={{ __html: description }} />
       )}
 
-      <UpdatePageContainer>
+      <UpdateSomethingContainer position='top-right'>
         <IconButtonUpdate
           onClick={() =>
             pushModal('UpdateBusinessAboutUs', {
@@ -40,7 +40,7 @@ export const AboutUs = () => {
             })
           }
         />
-      </UpdatePageContainer>
+      </UpdateSomethingContainer>
     </LayoutPage>
   );
 };

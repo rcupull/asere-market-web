@@ -7,25 +7,18 @@ import { useModal } from 'features/modal/useModal';
 
 import { CallAfarResources } from 'hooks/useCallFromAfar';
 
+import { UpdateSomethingContainer } from 'pages/@common/update-something-container';
 import { Post } from 'types/post';
 import { cn } from 'utils/general';
 export interface Props {
   className?: string;
   post: Post;
   href: string;
-  enabledUpdate?: boolean;
   getImageUrl?: (src: string) => string;
   callAfarResources?: CallAfarResources;
 }
 
-export const ProductSimple = ({
-  className,
-  post,
-  getImageUrl,
-  href,
-  enabledUpdate,
-  callAfarResources,
-}: Props) => {
+export const ProductSimple = ({ className, post, getImageUrl, href, callAfarResources }: Props) => {
   const { price, name, images, currency } = post;
 
   const image = images?.[0];
@@ -53,14 +46,14 @@ export const ProductSimple = ({
           <p className="mt-1 text-lg font-medium text-gray-900">{`${price} ${currency}`}</p>
         </div>
 
-        {enabledUpdate && (
+        <UpdateSomethingContainer>
           <IconButtonUpdate
             onClick={(e) => {
               e.preventDefault();
               pushModal('PostNew', { postId: post._id, callAfarResources });
             }}
           />
-        )}
+        </UpdateSomethingContainer>
       </div>
     </Link>
   );

@@ -5,7 +5,6 @@ import { useSimpleSlice } from 'features/slices/useSimpleSlice';
 export const callAfarIds = {
   home_refresh_posts: 'home_refresh_posts',
   dashboard_business_route_name_table_posts: 'dashboard_business_route_name_table_posts',
-  business_route_name_refresh_posts: 'business_route_name_refresh_posts',
   side_bar_redirect_to_last_created_business: 'side_bar_redirect_to_last_created_business',
   getUserPaymentPlan: 'getUserPaymentPlan',
   getAllUserBusinessRouteNames: 'getAllUserBusinessRouteNames',

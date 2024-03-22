@@ -4,7 +4,6 @@ import { Pagination } from 'components/pagination';
 import { ProductSimple } from 'components/product/product-simple';
 
 import { useGetAllPosts } from 'features/api/useGetAllPosts';
-import { useGetAllUserBusinessRouteNames } from 'features/api/useGetAllUserBusinessRouteNames';
 
 import { callAfarIds, useCallFromAfar } from 'hooks/useCallFromAfar';
 import { useFilters } from 'hooks/useFilters';
@@ -17,7 +16,6 @@ import { getPostRoute } from 'utils/business';
 
 export const Home = () => {
   const { getAllPosts } = useGetAllPosts();
-  const { isUserOwnerOfRoute } = useGetAllUserBusinessRouteNames();
 
   const filters = useFilters<{ search?: string; page?: number }>({
     onChange: (filters) => getAllPosts.fetch({ filters }),
@@ -46,7 +44,6 @@ export const Home = () => {
                 post={post}
                 href={getPostRoute({ routeName, postId: _id })}
                 getImageUrl={getImageEndpoint}
-                enabledUpdate={isUserOwnerOfRoute(routeName)}
                 callAfarResources={callAfarIds.home_refresh_posts}
               />
             );

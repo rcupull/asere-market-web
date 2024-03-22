@@ -3,7 +3,6 @@ import { useEffect, useState } from 'react';
 import { FormFieldWrapper, FormFieldWrapperProps } from 'components/form-field-wrapper';
 import { IconButtonAdd } from 'components/icon-button-add';
 
-import { useGetOneUserBusiness } from 'features/api/useGetOneUserBusiness';
 import { useModal } from 'features/modal/useModal';
 
 import { useCallFromAfar } from 'hooks/useCallFromAfar';
@@ -11,6 +10,8 @@ import { FormikFieldProps, useFormikField } from 'hooks/useFormikField';
 import { useMemoizedHash } from 'hooks/useMemoizedHash';
 
 import { PostCategoriesFilterButtons } from '../post-categories-filter-buttons';
+
+import { useBusinessOwnerData } from 'pages/@hooks/useBusinessOwnerData';
 
 type State = Array<string>;
 
@@ -29,18 +30,12 @@ export const FieldPostCategoriesButtons = (props: FieldPostCategoriesButtonsProp
 
   const { value, onChange, name, onBlur } = field;
 
-  const { getOneUserBusiness } = useGetOneUserBusiness();
-
-  const onRefresh = () => getOneUserBusiness.fetch({ routeName });
+  const businessOwnerData = useBusinessOwnerData();
 
   const callAfarResources = useMemoizedHash();
-  useCallFromAfar(callAfarResources, onRefresh);
+  useCallFromAfar(callAfarResources, () => businessOwnerData.onRefresh({ routeName }));
 
-  useEffect(() => {
-    onRefresh();
-  }, []);
-
-  const postCategories = getOneUserBusiness.data?.postCategories;
+  const postCategories = businessOwnerData.data?.postCategories;
 
   useEffect(() => {
     setState(value);

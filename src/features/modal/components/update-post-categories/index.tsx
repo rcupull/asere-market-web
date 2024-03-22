@@ -10,7 +10,6 @@ import { IconButtonShowHide } from 'components/icon-button-show-hide';
 import { Modal } from 'components/modal';
 
 import { useAddBusinessPostCategory } from 'features/api/useAddBusinessPostCategory';
-import { useGetOneUserBusiness } from 'features/api/useGetOneUserBusiness';
 import { useRemoveBusinessPostCategory } from 'features/api/useRemoveBusinessPostCategory';
 import { useUpdateBusinessPostCategory } from 'features/api/useUpdateBusinessPostCategory';
 import { useModal } from 'features/modal/useModal';
@@ -20,6 +19,7 @@ import { useGetFormErrors } from 'hooks/useGetFormErrors';
 import { useSubmitPortal } from 'hooks/useSubmitPortal';
 
 import { Formik } from 'formik';
+import { useBusinessOwnerData } from 'pages/@hooks/useBusinessOwnerData';
 import { getPostCategoryTag } from 'utils/business';
 import { cn } from 'utils/general';
 
@@ -32,15 +32,15 @@ export const UpdatePostCategories = ({
   routeName,
   callAfarResources,
 }: UpdatePostCategoriesProps) => {
-  const { getOneUserBusiness } = useGetOneUserBusiness();
+  const businessOwnerData = useBusinessOwnerData();
   const { onCallAfar } = useCallFromAfar();
 
-  const business = getOneUserBusiness.data;
+  const business = businessOwnerData.data;
 
-  const onRefresh = () => getOneUserBusiness.fetch({ routeName });
+  const onRefresh = () => businessOwnerData.onRefresh({routeName});
 
   useEffect(() => {
-    onRefresh();
+    onRefresh()
 
     return () => onCallAfar(callAfarResources);
   }, []);
