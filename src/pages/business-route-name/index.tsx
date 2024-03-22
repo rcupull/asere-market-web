@@ -1,7 +1,6 @@
 import { useEffect } from 'react';
 import { Route, Routes } from 'react-router-dom';
 
-import { callAfarIds, useCallFromAfar } from 'hooks/useCallFromAfar';
 import { useRouter } from 'hooks/useRouter';
 
 import { useBusinessPageData } from 'pages/@hooks/useBusinessPageData';
@@ -22,17 +21,14 @@ const AboutUs = dynamic(() =>
 );
 
 export const BusinessRouteName = () => {
-  const { params, isBusinessPage } = useRouter();
+  const { params } = useRouter();
   const { routeName } = params;
 
   const { business, onRefresh, onReset } = useBusinessPageData();
 
-  const handleRefresh = () => routeName && onRefresh({ routeName });
-  useCallFromAfar(callAfarIds.useBusinessPageData_Refresh, handleRefresh);
-
   useEffect(() => {
-    if (isBusinessPage && routeName && !business) {
-      handleRefresh();
+    if (routeName) {
+      onRefresh({ routeName });
 
       return () => onReset();
     }
@@ -42,11 +38,11 @@ export const BusinessRouteName = () => {
 
   return (
     <Routes>
-      <Route path="/" element={<Home />} />
+      <Route path="/" element={<Home business={business} />} />
 
-      <Route path="about-us" element={<AboutUs />} />
+      <Route path="about-us" element={<AboutUs business={business} />} />
 
-      <Route path=":postId" element={<PostId />} />
+      <Route path=":postId" element={<PostId />}/>
     </Routes>
   );
 };

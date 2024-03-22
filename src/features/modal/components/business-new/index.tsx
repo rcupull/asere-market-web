@@ -9,7 +9,6 @@ import { Modal } from 'components/modal';
 
 import { useAddOneUserBusiness } from 'features/api/useAddOneUserBusiness';
 import { useGetAllBusiness } from 'features/api/useGetAllBusiness';
-import { useGetOneUserBusiness } from 'features/api/useGetOneUserBusiness';
 import { useUpdateOneUserBusiness } from 'features/api/useUpdateOneUserBusiness';
 import { useModal } from 'features/modal/useModal';
 
@@ -20,6 +19,7 @@ import { useSubmitPortal } from 'hooks/useSubmitPortal';
 
 import { Formik } from 'formik';
 import { FormRouteName } from 'pages/@common/form-route-name';
+import { useBusinessOwnerData } from 'pages/@hooks/useBusinessOwnerData';
 import { BusinessCategory } from 'types/business';
 import { getBusinessCategoryLabel, getRouteName } from 'utils/business';
 
@@ -38,15 +38,15 @@ export const BusinessNew = ({ callAfarResources, routeName }: BusinessNewProps) 
   const { addOneUserBusiness } = useAddOneUserBusiness();
   const { updateOneUserBusiness } = useUpdateOneUserBusiness();
 
-  const { getOneUserBusiness } = useGetOneUserBusiness();
+  const businessOwnerData = useBusinessOwnerData();
 
-  const business = getOneUserBusiness.data;
+  const business = businessOwnerData.data;
 
   useEffect(() => {
     if (routeName) {
-      getOneUserBusiness.fetch({ routeName });
+      businessOwnerData.onRefresh({ routeName });
     }
-  }, [routeName]);
+  }, []);
 
   const debouncer = useDebouncer();
 

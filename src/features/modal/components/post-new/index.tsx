@@ -41,13 +41,10 @@ export const PostNew = ({ routeName: routeNameProp, postId, callAfarResources }:
   const post = getOneUserPost.data;
   const business = businessOwnerData.data;
 
-  useEffect(() => {
-    if(routeNameProp){
-      return businessOwnerData.onRefresh({ routeName: routeNameProp });
-    }
 
+  useEffect(() => {
     if (postId) {
-      getOneUserPost.fetch(
+      return getOneUserPost.fetch(
         { id: postId },
         {
           onAfterSuccess: ({ routeName }) => {
@@ -55,6 +52,10 @@ export const PostNew = ({ routeName: routeNameProp, postId, callAfarResources }:
           },
         },
       );
+    }
+
+    if (routeNameProp) {
+      businessOwnerData.onRefresh({ routeName: routeNameProp });
     }
   }, []);
 
@@ -68,7 +69,6 @@ export const PostNew = ({ routeName: routeNameProp, postId, callAfarResources }:
   }
 
   const businessCategory = business.category;
-
 
   const getContent = () => {
     const commonProps: PostFormProps = {

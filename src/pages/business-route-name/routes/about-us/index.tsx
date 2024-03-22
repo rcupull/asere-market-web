@@ -1,42 +1,48 @@
-import { Navigate, useParams } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 
 import { HtmlTextContainer } from 'components/html-text-container';
 import { IconButtonUpdate } from 'components/icon-button-update';
 
 import { useModal } from 'features/modal/useModal';
 
-import { callAfarIds } from 'hooks/useCallFromAfar';
+import { useCallFromAfar } from 'hooks/useCallFromAfar';
 
 import { LayoutPage } from 'pages/@common/layout-page';
 import { UpdateSomethingContainer } from 'pages/@common/update-something-container';
 import { useBusinessPageData } from 'pages/@hooks/useBusinessPageData';
+import { Business } from 'types/business';
 
-export const AboutUs = () => {
-  const { routeName } = useParams();
+interface AboutUsProps {
+  business: Business;
+}
+
+export const AboutUs = ({ business }: AboutUsProps) => {
+  const { routeName, aboutUsPage } = business;
+  const { description, title, visible } = aboutUsPage || {};
+
   const { pushModal } = useModal();
 
-  const { business } = useBusinessPageData();
+  const { onRefresh } = useBusinessPageData();
 
-  if (!routeName || !business) return <></>;
-
-  const { description, title, visible } = business.aboutUsPage || {};
+  const callAfarResources = 'businessRouteName_aboutUs_businessPageData_onRefresh';
+  useCallFromAfar(callAfarResources, () => onRefresh({ routeName }));
 
   if (!visible) {
     return <Navigate to={`/${routeName}`} />;
   }
 
   return (
-    <LayoutPage title={title} >
+    <LayoutPage title={title}>
       {description && (
         <HtmlTextContainer className="w-full" dangerouslySetInnerHTML={{ __html: description }} />
       )}
 
-      <UpdateSomethingContainer position='top-right'>
+      <UpdateSomethingContainer position="top-right">
         <IconButtonUpdate
           onClick={() =>
             pushModal('UpdateBusinessAboutUs', {
               routeName,
-              callAfarResources: callAfarIds.useBusinessPageData_Refresh,
+              callAfarResources,
             })
           }
         />

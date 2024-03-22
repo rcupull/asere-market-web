@@ -37,10 +37,9 @@ export const UpdatePostCategories = ({
 
   const business = businessOwnerData.data;
 
-  const onRefresh = () => businessOwnerData.onRefresh({routeName});
 
   useEffect(() => {
-    onRefresh()
+    businessOwnerData.onRefresh({routeName});
 
     return () => onCallAfar(callAfarResources);
   }, []);
@@ -105,7 +104,7 @@ export const UpdatePostCategories = ({
                         {
                           onAfterSuccess: () => {
                             resetForm();
-                            onRefresh();
+                            businessOwnerData.onFetch({routeName});
                           },
                         },
                       );
@@ -163,7 +162,7 @@ export const UpdatePostCategories = ({
                                   },
                                   {
                                     onAfterSuccess: () => {
-                                      onRefresh();
+                                      businessOwnerData.onFetch({routeName});
                                       onClose();
                                     },
                                   },
@@ -223,7 +222,7 @@ export const UpdatePostCategories = ({
                                   },
                                   {
                                     onAfterSuccess: () => {
-                                      onRefresh();
+                                      businessOwnerData.onFetch({routeName});
                                       onClose();
                                     },
                                   },

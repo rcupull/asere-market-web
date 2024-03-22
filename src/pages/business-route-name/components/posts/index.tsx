@@ -12,6 +12,7 @@ import { PaginationProps } from '../pagination';
 import { SearchProps } from '../search';
 
 import { LayoutPageSection } from 'pages/@common/layout-page-section';
+import { useBusinessPageData } from 'pages/@hooks/useBusinessPageData';
 import { Business } from 'types/business';
 import { StyleProps } from 'types/general';
 import { getImageEndpoint } from 'utils/api';
@@ -29,13 +30,17 @@ export const Posts = ({ business, className, getSearch, getPagination }: PostsPr
   const postsLayout = layouts?.posts;
 
   const { getAllPosts } = useGetAllPosts();
+  const businessPageData = useBusinessPageData();
 
   const refOnRefresh = useRef<() => void>();
 
-  const callAfarResources = `${routeName}_posts`;
-  useCallFromAfar(callAfarResources, () => {
+  const callAfarResourcesFetchPosts = 'src/pages/business-route-name/components/posts__fetch_posts';
+  useCallFromAfar(callAfarResourcesFetchPosts, () => {
     refOnRefresh.current?.();
   });
+
+  const callAfarResourcesRefreshBusiness = 'src/pages/business-route-name/components/posts__refreshBusiness';
+  useCallFromAfar(callAfarResourcesRefreshBusiness, () => businessPageData.onRefresh({ routeName }));
 
   if (postsLayout?.type === 'none') {
     return <></>;
@@ -52,7 +57,7 @@ export const Posts = ({ business, className, getSearch, getPagination }: PostsPr
   const renderFilterWrapper = (content: React.ReactNode) => {
     return (
       <FilterWrapper<{ search?: string; page?: number }>
-      onChange={(filters) => routeName && getAllPosts.fetch({ routeNames: [routeName], filters })}
+        onChange={(filters) => routeName && getAllPosts.fetch({ routeNames: [routeName], filters })}
       >
         {(filters) => {
           refOnRefresh.current = filters.onRefresh;
@@ -82,7 +87,7 @@ export const Posts = ({ business, className, getSearch, getPagination }: PostsPr
                 post={post}
                 href={getPostRoute({ routeName, postId: _id })}
                 getImageUrl={getImageEndpoint}
-                callAfarResources={callAfarResources}
+                callAfarResources={[callAfarResourcesFetchPosts, callAfarResourcesRefreshBusiness]}
               />
             );
           })}

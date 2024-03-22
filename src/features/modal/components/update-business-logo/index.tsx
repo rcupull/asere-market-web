@@ -7,7 +7,6 @@ import { FieldInputImages } from 'components/field-input-images';
 import { Modal } from 'components/modal';
 
 import { useAddManyUserBusinessImages } from 'features/api/useAddManyUserBusinessImages';
-import { useGetOneUserBusiness } from 'features/api/useGetOneUserBusiness';
 import { useUpdateOneUserBusiness } from 'features/api/useUpdateOneUserBusiness';
 import { useModal } from 'features/modal/useModal';
 
@@ -15,6 +14,7 @@ import { CallAfarResources, useCallFromAfar } from 'hooks/useCallFromAfar';
 import { useSubmitPortal } from 'hooks/useSubmitPortal';
 
 import { Formik } from 'formik';
+import { useBusinessOwnerData } from 'pages/@hooks/useBusinessOwnerData';
 import { Image, ImageFile } from 'types/general';
 import { getImageEndpoint } from 'utils/api';
 
@@ -29,13 +29,13 @@ export interface UpdateBusinessLogoProps {
 
 export const UpdateBusinessLogo = ({ routeName, callAfarResources }: UpdateBusinessLogoProps) => {
   const { onClose } = useModal();
-  const { getOneUserBusiness } = useGetOneUserBusiness();
+  const businessOwnerData = useBusinessOwnerData();
   const { onCallAfar } = useCallFromAfar();
 
-  const business = getOneUserBusiness.data;
+  const business = businessOwnerData.data;
 
   useEffect(() => {
-    getOneUserBusiness.fetch({ routeName });
+    businessOwnerData.onRefresh({ routeName });
 
     return () => onCallAfar(callAfarResources);
   }, []);

@@ -3,8 +3,6 @@ import { Navigate } from 'react-router-dom';
 
 import { Tabs } from 'components/tabs';
 
-import { useGetOneUserBusiness } from 'features/api/useGetOneUserBusiness';
-
 import { useRouter } from 'hooks/useRouter';
 
 import { Layouts } from './layouts';
@@ -14,14 +12,15 @@ import { Posts } from './posts';
 import { Resources } from './resources';
 
 import { LayoutSection } from 'pages/@common/layout-section';
+import { useBusinessOwnerData } from 'pages/@hooks/useBusinessOwnerData';
 
 export const RouteName = () => {
   const { params, query, onChangeQuery } = useRouter();
   const { routeName } = params;
 
-  const { getOneUserBusiness } = useGetOneUserBusiness();
+  const businessOwnerData = useBusinessOwnerData();
 
-  const onRefresh = () => routeName && getOneUserBusiness.fetch({ routeName });
+  const onRefresh = () => routeName && businessOwnerData.onRefresh({ routeName });
 
   useEffect(() => {
     if (routeName) {
@@ -29,8 +28,8 @@ export const RouteName = () => {
     }
   }, [routeName]);
 
-  const business = getOneUserBusiness.data;
-  const { isBusy, isFailed, wasCalled } = getOneUserBusiness.status;
+  const business = businessOwnerData.data;
+  const { isBusy, isFailed, wasCalled } = businessOwnerData.status;
 
   if (isBusy) {
     return <Loading />;

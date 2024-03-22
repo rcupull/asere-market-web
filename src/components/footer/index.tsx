@@ -204,7 +204,7 @@ export const Footer = ({ className, socialLinks }: FooterProps) => {
         </div> */}
       </div>
 
-      <div className="w-full p-4 text-center">© 2024 Todo los derechos reservados:</div>
+      <div className="w-full p-4 text-center">© 2024 Todo los derechos reservados</div>
     </footer>
   );
 };

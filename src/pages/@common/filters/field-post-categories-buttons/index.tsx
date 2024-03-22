@@ -7,7 +7,6 @@ import { useModal } from 'features/modal/useModal';
 
 import { useCallFromAfar } from 'hooks/useCallFromAfar';
 import { FormikFieldProps, useFormikField } from 'hooks/useFormikField';
-import { useMemoizedHash } from 'hooks/useMemoizedHash';
 
 import { PostCategoriesFilterButtons } from '../post-categories-filter-buttons';
 
@@ -32,7 +31,7 @@ export const FieldPostCategoriesButtons = (props: FieldPostCategoriesButtonsProp
 
   const businessOwnerData = useBusinessOwnerData();
 
-  const callAfarResources = useMemoizedHash();
+  const callAfarResources = 'FieldPostCategoriesButtons_businessOwnerData.onRefresh';
   useCallFromAfar(callAfarResources, () => businessOwnerData.onRefresh({ routeName }));
 
   const postCategories = businessOwnerData.data?.postCategories;

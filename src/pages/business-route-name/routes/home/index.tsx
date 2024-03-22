@@ -4,19 +4,16 @@ import { IconButtonUpdate } from 'components/icon-button-update';
 
 import { LayoutPage } from 'pages/@common/layout-page';
 import { UpdateSomethingContainer } from 'pages/@common/update-something-container';
-import { useBusinessPageData } from 'pages/@hooks/useBusinessPageData';
 import { Banner } from 'pages/business-route-name/components/banner';
 import { Pagination } from 'pages/business-route-name/components/pagination';
 import { Posts } from 'pages/business-route-name/components/posts';
 import { Search } from 'pages/business-route-name/components/search';
+import { Business } from 'types/business';
 
-export const Home = () => {
-  const { business } = useBusinessPageData();
-
-  if (!business) {
-    return <></>;
-  }
-
+interface HomeProps {
+  business: Business;
+}
+export const Home = ({ business }: HomeProps) => {
   return (
     <LayoutPage>
       <Banner business={business} />
@@ -27,7 +24,7 @@ export const Home = () => {
         getPagination={(props) => <Pagination {...props} />}
       />
 
-      <UpdateSomethingContainer position='top-right'>
+      <UpdateSomethingContainer position="top-right">
         <Link to={`/dashboard/business/${business.routeName}`}>
           <IconButtonUpdate />
         </Link>

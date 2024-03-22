@@ -8,7 +8,6 @@ import { FieldInput } from 'components/field-input';
 import { FieldToggleButton } from 'components/field-toggle-button';
 import { Modal } from 'components/modal';
 
-import { useGetOneUserBusiness } from 'features/api/useGetOneUserBusiness';
 import { useUpdateOneUserBusiness } from 'features/api/useUpdateOneUserBusiness';
 import { useModal } from 'features/modal/useModal';
 
@@ -16,6 +15,7 @@ import { CallAfarResources, useCallFromAfar } from 'hooks/useCallFromAfar';
 import { useSubmitPortal } from 'hooks/useSubmitPortal';
 
 import { Formik } from 'formik';
+import { useBusinessOwnerData } from 'pages/@hooks/useBusinessOwnerData';
 import { BusinessAboutUsPage } from 'types/business';
 
 interface State extends BusinessAboutUsPage {}
@@ -29,14 +29,13 @@ export const UpdateBusinessAboutUs = ({
   routeName,
   callAfarResources,
 }: UpdateBusinessAboutUsProps) => {
-  const { getOneUserBusiness } = useGetOneUserBusiness();
+  const businessOwnerData = useBusinessOwnerData();
   const { onCallAfar } = useCallFromAfar();
-  const business = getOneUserBusiness.data;
+  const business = businessOwnerData.data;
   const { onClose } = useModal();
-  const onRefresh = () => getOneUserBusiness.fetch({ routeName });
 
   useEffect(() => {
-    onRefresh();
+    businessOwnerData.onRefresh({ routeName });
   }, []);
 
   const submitportal = useSubmitPortal();
