@@ -7,6 +7,8 @@ import { IconButtonRemove } from 'components/icon-button-remove ';
 import { Input } from 'components/input';
 import { ProLink } from 'components/pro-link';
 
+import { useModal } from 'features/modal/useModal';
+
 import { useFormikField } from 'hooks/useFormikField';
 
 import { Image, ImageFile } from 'types/general';
@@ -35,6 +37,7 @@ export const FieldInputImages = forwardRef<HTMLInputElement, FieldInputImagesPro
       ...omittedProps
     } = props;
 
+    const { pushModal } = useModal();
     const { field, error } = useFormikField(props);
 
     const { value } = field;
@@ -88,20 +91,29 @@ export const FieldInputImages = forwardRef<HTMLInputElement, FieldInputImagesPro
       return getFlattenArray(newState, (val) => !!val?.src);
     };
 
-    const handleChange = (file: File | null | undefined, action: 'add' | 'remove' | 'change') => {
+    const handleChange = (image: File | Image | null | undefined, action: 'add' | 'remove' | 'change') => {
       let newStateToPreview = [...stateToPreview];
 
       switch (action) {
         case 'add': {
-          if (!file) return;
+          if (!image) return;
 
-          newStateToPreview = updateRow(
-            newStateToPreview,
-            {
-              src: file,
-            },
-            previewIndex,
-          );
+          if(image instanceof File){
+            newStateToPreview = updateRow(
+              newStateToPreview,
+              {
+                src: image,
+              },
+              previewIndex,
+            );
+          }else{
+            newStateToPreview = updateRow(
+              newStateToPreview,
+              image,
+              previewIndex,
+            );
+          }
+         
 
           newStateToPreview = addOneEmptyPreview(newStateToPreview);
           break;
@@ -113,16 +125,29 @@ export const FieldInputImages = forwardRef<HTMLInputElement, FieldInputImagesPro
           break;
         }
         case 'change': {
-          if (!file) return;
+          if (!image) return;
 
-          newStateToPreview = updateRow(
-            newStateToPreview,
-            {
-              ...newStateToPreview[previewIndex],
-              src: file,
-            },
-            previewIndex,
-          );
+
+
+          if(image instanceof File){
+            newStateToPreview = updateRow(
+              newStateToPreview,
+              {
+                ...newStateToPreview[previewIndex],
+                src: image,
+              },
+              previewIndex,
+            );
+          }else{
+            newStateToPreview = updateRow(
+              newStateToPreview,
+              {
+                ...newStateToPreview[previewIndex],
+                ...image
+              },
+              previewIndex,
+            );
+          }
 
           break;
         }
@@ -266,7 +291,32 @@ export const FieldInputImages = forwardRef<HTMLInputElement, FieldInputImagesPro
                       }}
                     />
                   </label>
-                  <p className="pl-1">o arrastre y suelte</p>
+                  <p className="px-1">,arrastre y suelte</p>
+                  <p
+                    className={cn(
+                      'relative cursor-pointer rounded-md bg-white font-semibold text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 hover:text-indigo-500',
+                      {
+                        '!cursor-not-allowed': isDisabledByPremium(state),
+                      },
+                    )}
+                    onClick={() => {
+                      if(isDisabledByPremium(state)) return 
+                      
+                      pushModal(
+                        'CatalogsSearchImage',
+                        {
+                          onSelected: (images)=> {
+                            handleChange(
+                              images[0],
+                              previewIndex === stateToPreview.length - 1 ? 'add' : 'change',
+                            );
+                        }},
+                        { emergent: true },
+                      );
+                    }}
+                  >
+                    o busque en nuestros catálogos
+                  </p>
                 </div>
                 <p className="text-xs leading-5 text-gray-600">PNG, JPG, GIF up to 10MB</p>
               </div>

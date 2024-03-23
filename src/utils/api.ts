@@ -63,5 +63,8 @@ export const getEndpoint: GetEndpoint = ({ path, query, urlParams }) => {
 };
 
 export const getImageEndpoint = (src: string) => {
+  if (src.startsWith('http')) {
+    return src;
+  }
   return `http://localhost:4009${src}`;
 };

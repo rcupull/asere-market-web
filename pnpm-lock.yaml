@@ -50,6 +50,9 @@ dependencies:
   react-dom:
     specifier: ^18.2.0
     version: 18.2.0(react@18.2.0)
+  react-grid-gallery:
+    specifier: 1.0.1-alpha.0
+    version: 1.0.1-alpha.0(react@18.2.0)
   react-qr-code:
     specifier: ^2.0.12
     version: 2.0.12(react@18.2.0)
@@ -8564,6 +8567,14 @@ packages:
 
   /react-fast-compare@2.0.4:
     resolution: {integrity: sha512-suNP+J1VU1MWFKcyt7RtjiSWUjvidmQSlqu+eHslq+342xCbGTYmC0mEhPCOHxlW0CywylOC1u2DFAT+bv4dBw==}
+    dev: false
+
+  /react-grid-gallery@1.0.1-alpha.0(react@18.2.0):
+    resolution: {integrity: sha512-7Qf4ZRQD/f5h2c0v0ocfMViUijUyQmWnkcL4HDHBtJWaCM+8RZjUGYE+H9kxT1/ui9Zsyc9NmyA6SSCxNu3KiQ==}
+    peerDependencies:
+      react: '>=16.14.0'
+    dependencies:
+      react: 18.2.0
     dev: false
 
   /react-is@16.13.1:
