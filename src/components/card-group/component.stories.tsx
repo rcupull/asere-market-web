@@ -36,7 +36,11 @@ const post1: Post = {
   price: 78,
   routeName: 'routeName',
   images: [
-    { src: 'https://tailwindui.com/img/ecommerce-images/category-page-04-image-card-01.jpg' },
+    {
+      src: 'https://tailwindui.com/img/ecommerce-images/category-page-04-image-card-01.jpg',
+      height: 50,
+      width: 50,
+    },
   ],
 };
 export const WithProductSimple = (): JSX.Element => (

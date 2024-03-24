@@ -12,6 +12,7 @@ import { useModal } from 'features/modal/useModal';
 import { useFormikField } from 'hooks/useFormikField';
 
 import { Image, ImageFile } from 'types/general';
+import { getFileImageSize } from 'utils/file';
 import { cn, getFlattenArray, isNumber, removeRow, updateRow } from 'utils/general';
 
 export interface FieldInputImagesProps
@@ -23,7 +24,9 @@ export interface FieldInputImagesProps
   enabledImageHref?: boolean;
 }
 
-type State = Array<Image | ImageFile | undefined | null>;
+type ImageElement = Image | ImageFile | undefined | null
+
+type State = Array<ImageElement>;
 
 export const FieldInputImages = forwardRef<HTMLInputElement, FieldInputImagesProps>(
   (props, ref) => {
@@ -55,6 +58,7 @@ export const FieldInputImages = forwardRef<HTMLInputElement, FieldInputImagesPro
       return isDisabledByPremium(s) ? s : [...s, undefined];
     };
 
+
     const getImageSrc = (image: Image | ImageFile) => {
       if (image.src instanceof File) {
         return URL.createObjectURL(image.src);
@@ -67,14 +71,14 @@ export const FieldInputImages = forwardRef<HTMLInputElement, FieldInputImagesPro
       return '';
     };
 
-    const previewImage = useMemo(() => {
+    const previewImage = useMemo<ImageElement>(() => {
       const currentImage = stateToPreview[previewIndex];
 
       if (!currentImage) {
         return undefined;
       }
 
-      return getImageSrc(currentImage);
+      return currentImage;
     }, [previewIndex, stateToPreview]);
 
     useEffect(() => {
@@ -91,29 +95,28 @@ export const FieldInputImages = forwardRef<HTMLInputElement, FieldInputImagesPro
       return getFlattenArray(newState, (val) => !!val?.src);
     };
 
-    const handleChange = (image: File | Image | null | undefined, action: 'add' | 'remove' | 'change') => {
+    const handleChange = async (
+      image: File | Image | null | undefined,
+      action: 'add' | 'remove' | 'change',
+    ) => {
       let newStateToPreview = [...stateToPreview];
 
       switch (action) {
         case 'add': {
           if (!image) return;
 
-          if(image instanceof File){
+          if (image instanceof File) {
             newStateToPreview = updateRow(
               newStateToPreview,
               {
                 src: image,
+                ...await getFileImageSize(image)
               },
               previewIndex,
             );
-          }else{
-            newStateToPreview = updateRow(
-              newStateToPreview,
-              image,
-              previewIndex,
-            );
+          } else {
+            newStateToPreview = updateRow(newStateToPreview, image, previewIndex);
           }
-         
 
           newStateToPreview = addOneEmptyPreview(newStateToPreview);
           break;
@@ -127,23 +130,23 @@ export const FieldInputImages = forwardRef<HTMLInputElement, FieldInputImagesPro
         case 'change': {
           if (!image) return;
 
+          if (image instanceof File) {
 
-
-          if(image instanceof File){
             newStateToPreview = updateRow(
               newStateToPreview,
               {
                 ...newStateToPreview[previewIndex],
                 src: image,
+                ...await getFileImageSize(image)
               },
               previewIndex,
             );
-          }else{
+          } else {
             newStateToPreview = updateRow(
               newStateToPreview,
               {
                 ...newStateToPreview[previewIndex],
-                ...image
+                ...image,
               },
               previewIndex,
             );
@@ -248,7 +251,9 @@ export const FieldInputImages = forwardRef<HTMLInputElement, FieldInputImagesPro
           {previewImage ? (
             <>
               <img
-                src={previewImage}
+                src={getImageSrc(previewImage)}
+                width={previewImage.width}
+                height={previewImage.height}
                 className="object-contain w-full h-full border-2 p-2 border-dashed border-gray-300"
               />
 
@@ -300,17 +305,18 @@ export const FieldInputImages = forwardRef<HTMLInputElement, FieldInputImagesPro
                       },
                     )}
                     onClick={() => {
-                      if(isDisabledByPremium(state)) return 
-                      
+                      if (isDisabledByPremium(state)) return;
+
                       pushModal(
                         'CatalogsSearchImage',
                         {
-                          onSelected: (images)=> {
+                          onSelected: (images) => {
                             handleChange(
                               images[0],
                               previewIndex === stateToPreview.length - 1 ? 'add' : 'change',
                             );
-                        }},
+                          },
+                        },
                         { emergent: true },
                       );
                     }}

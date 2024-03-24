@@ -62,7 +62,7 @@ export const CatalogsSearchImage = ({ onSelected, multi }: CatalogsSearchImagePr
   const handleSubmit = () => {
     const selectedImages = allImages.filter(({ isSelected }) => isSelected);
     if (selectedImages.length) {
-      onSelected?.(selectedImages.map(({ src, alt }) => ({ src, alt })));
+      onSelected?.(selectedImages.map(({ src, height, width }) => ({ src, height, width })));
     }
 
     onClose();
