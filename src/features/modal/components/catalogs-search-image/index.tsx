@@ -26,6 +26,7 @@ import { updateRow } from 'utils/general';
 
 /**
  * https://www.npmjs.com/package/react-grid-gallery
+ * https://benhowell.github.io/react-grid-gallery/examples/custom-image-component
  */
 
 export interface CatalogsSearchImageProps {
