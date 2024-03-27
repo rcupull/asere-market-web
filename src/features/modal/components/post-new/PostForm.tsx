@@ -222,7 +222,7 @@ export const PostForm = ({
                     colors,
                     details,
                     postCategoriesTags,
-                    discount
+                    discount,
                   } = values;
 
                   const handelUpdatePost = (post: Post) => {
@@ -244,7 +244,7 @@ export const PostForm = ({
                               colors,
                               details,
                               postCategoriesTags,
-                              discount
+                              discount,
                             },
                             {
                               onAfterSuccess,
@@ -266,7 +266,7 @@ export const PostForm = ({
                         details,
                         routeName,
                         images: [],
-                        discount
+                        discount,
                       },
                       {
                         onAfterSuccess: (response) => {

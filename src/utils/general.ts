@@ -1,5 +1,9 @@
 import classnames from 'classnames';
+import dlv from 'dlv';
+import { dset } from 'dset';
+import { nestie } from 'nestie';
 import { AnyRecord, EmptyObjectOf, Nullable } from 'types/general';
+import { Path } from 'types/paths';
 
 export const isNullOrUndefined = (value: unknown): value is null | undefined => {
   return value === null || value === undefined;
@@ -156,3 +160,12 @@ export const removeStringFromArray = (array: Array<string>, value: string): Arra
   const index = array.indexOf(value);
   return index < 0 ? array : removeRow(array, index);
 };
+
+export const get = <T extends AnyRecord = AnyRecord>(obj: T, path: Path<T>): any => {
+  return dlv(obj, path);
+};
+
+export const set = <T extends AnyRecord = AnyRecord>(obj: T, path: Path<T>, value: any): void => {
+  dset(obj, path, value);
+};
+export const makeObj = nestie;

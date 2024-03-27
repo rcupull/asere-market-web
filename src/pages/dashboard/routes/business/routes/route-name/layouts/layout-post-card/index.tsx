@@ -6,7 +6,6 @@ import { LayoutPostCardImages } from './layouts-post-card-images';
 import { LayoutPostCardName } from './layouts-post-card-name';
 import { LayoutPostCardPrice } from './layouts-post-card-price';
 
-
 export interface LayoutPostCardProps extends LayoutSelectProps {}
 
 export const LayoutPostCard = ({ onChange, value }: LayoutPostCardProps) => {

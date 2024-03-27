@@ -10,11 +10,16 @@ const componentRecord: Record<ModalId, LoadableReturn> = {
       default: m.UpdateUserPlan,
     })),
   ),
+  PostsSectionNew: dynamic(() =>
+    import('./components/posts-section-new').then((m) => ({
+      default: m.PostsSectionNew,
+    })),
+  ),
   CatalogsSearchImage: dynamic(() =>
-  import('./components/catalogs-search-image').then((m) => ({
-    default: m.CatalogsSearchImage,
-  })),
-),
+    import('./components/catalogs-search-image').then((m) => ({
+      default: m.CatalogsSearchImage,
+    })),
+  ),
   UpdateBusinessAboutUs: dynamic(() =>
     import('./components/update-business-about-us').then((m) => ({
       default: m.UpdateBusinessAboutUs,

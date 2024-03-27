@@ -38,9 +38,7 @@ export const LayoutPostCardDiscount = ({ onChange, value }: LayoutPostCardDiscou
               selected={value?.postCard?.discount === discount}
               onSelect={() => onChange?.(getChangedLayout(value, { postCard: { discount } }))}
             >
-              <SkeletonPostCard
-                layouts={getChangedLayout(value, { postCard: { discount } })}
-              />
+              <SkeletonPostCard layouts={getChangedLayout(value, { postCard: { discount } })} />
             </SwiperSliceSelect>
           ),
         };

@@ -24,7 +24,7 @@ export interface FieldInputImagesProps
   enabledImageHref?: boolean;
 }
 
-type ImageElement = Image | ImageFile | undefined | null
+type ImageElement = Image | ImageFile | undefined | null;
 
 type State = Array<ImageElement>;
 
@@ -57,7 +57,6 @@ export const FieldInputImages = forwardRef<HTMLInputElement, FieldInputImagesPro
     const addOneEmptyPreview = (s: State): State => {
       return isDisabledByPremium(s) ? s : [...s, undefined];
     };
-
 
     const getImageSrc = (image: Image | ImageFile) => {
       if (image.src instanceof File) {
@@ -110,7 +109,7 @@ export const FieldInputImages = forwardRef<HTMLInputElement, FieldInputImagesPro
               newStateToPreview,
               {
                 src: image,
-                ...await getFileImageSize(image)
+                ...(await getFileImageSize(image)),
               },
               previewIndex,
             );
@@ -131,13 +130,12 @@ export const FieldInputImages = forwardRef<HTMLInputElement, FieldInputImagesPro
           if (!image) return;
 
           if (image instanceof File) {
-
             newStateToPreview = updateRow(
               newStateToPreview,
               {
                 ...newStateToPreview[previewIndex],
                 src: image,
-                ...await getFileImageSize(image)
+                ...(await getFileImageSize(image)),
               },
               previewIndex,
             );

@@ -4,7 +4,7 @@ import { LayoutSelectProps } from '../types';
 import { getChangedLayout } from '../utils';
 
 import { SkeletonPostCard } from 'pages/@common/skeleton-post-card';
-import {  PostCardLayoutPrice } from 'types/business';
+import { PostCardLayoutPrice } from 'types/business';
 
 const contentMap: Array<{
   label: React.ReactNode;
@@ -42,9 +42,7 @@ export const LayoutPostCardPrice = ({ onChange, value }: LayoutPostCardPriceProp
               selected={value?.postCard?.price === price}
               onSelect={() => onChange?.(getChangedLayout(value, { postCard: { price } }))}
             >
-              <SkeletonPostCard
-                layouts={getChangedLayout(value, { postCard: { price } })}
-              />
+              <SkeletonPostCard layouts={getChangedLayout(value, { postCard: { price } })} />
             </SwiperSliceSelect>
           ),
         };

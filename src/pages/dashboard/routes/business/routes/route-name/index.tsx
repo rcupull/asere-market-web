@@ -9,6 +9,7 @@ import { Layouts } from './layouts';
 import { Loading } from './loading';
 import { OptionsMenu } from './options-menu';
 import { Posts } from './posts';
+import { PostsSections } from './posts-sections';
 import { Resources } from './resources';
 
 import { LayoutSection } from 'pages/@common/layout-section';
@@ -22,7 +23,7 @@ export const RouteName = () => {
 
   useEffect(() => {
     if (routeName) {
-      businessOwnerData.onRefresh({ routeName })
+      businessOwnerData.onRefresh({ routeName });
     }
   }, [routeName]);
 
@@ -70,6 +71,15 @@ export const RouteName = () => {
           {
             label: 'Publicaciones',
             content: <Posts business={business} />,
+          },
+          {
+            label: 'Secciones',
+            content: (
+              <PostsSections
+                business={business}
+                onRefresh={() => businessOwnerData.onFetch({ routeName })}
+              />
+            ),
           },
           {
             label: 'Recursos',

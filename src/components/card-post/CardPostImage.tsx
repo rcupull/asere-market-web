@@ -27,7 +27,7 @@ export const CardPostImage = ({ post, layout }: CardPostImageProps) => {
     if (imageLayout === 'switch' && images?.length) {
       if (images.length === 1) {
         return setSwitchImage(images[0]);
-      } 
+      }
 
       interval(
         images.map((image) => () => setSwitchImage(image)),

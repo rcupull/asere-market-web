@@ -2,7 +2,7 @@ import { BaseIdentity, Image } from './general';
 
 export type BusinessCategory = 'food' | 'tool' | 'clothing' | 'service';
 
-export type PostsLayoutType = 'none' | 'grid' | 'slicesHorizontal' | 'alternateSummary';
+export type PostsLayoutSectionType = 'grid' | 'slicesHorizontal' | 'alternateSummary';
 export type BannerLayoutType = 'none' | 'static' | 'swipableClassic';
 export type SearchLayoutType =
   | 'none'
@@ -16,8 +16,23 @@ export type SearchLayoutType =
 
 export type FooterLayoutType = 'none' | 'basic';
 
+export interface PostsLayoutSection {
+  _id: string;
+  hidden?: boolean;
+  name?: string;
+  showName?: boolean;
+  //
+  searchLayout?: SearchLayoutType;
+  showSearch?: boolean;
+  //
+  postCategories?: Array<PostCategory>;
+  showCategories?: boolean;
+  //
+  type: PostsLayoutSectionType;
+  postCardLayout?: PostCardLayout;
+}
 export interface PostsLayout {
-  type: PostsLayoutType;
+  sections: Array<PostsLayoutSection>;
 }
 
 export type PostCardLayoutImages = 'static' | 'hoverZoom' | 'slider' | 'switch';

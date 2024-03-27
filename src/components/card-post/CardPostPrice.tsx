@@ -7,7 +7,6 @@ const renderPriceCurrency = (
   currency: PostCurrency,
   layout: PostCardLayout['price'],
 ) => {
-
   const priceToRender = price.toFixed(2);
 
   if (layout === 'basic') {

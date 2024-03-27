@@ -35,19 +35,17 @@ export const SkeletonMini = ({ type }: SkeletonMiniProps) => {
 
           <div className="flex flex-wrap gap-1 justify-between mt-2">
             {range(12).map((index) => {
-              let active = false
+              let active = false;
 
-              if(type === 'posts') {
-                active = true
+              if (type === 'posts') {
+                active = true;
               }
 
-              if(type === 'postCard') {
-                active = index === 0
+              if (type === 'postCard') {
+                active = index === 0;
               }
 
-              return (
-                <Piece key={index} active={active} className="!w-2" />
-              )
+              return <Piece key={index} active={active} className="!w-2" />;
             })}
           </div>
         </div>

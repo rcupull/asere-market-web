@@ -30,15 +30,11 @@ const contentMap: Array<{
 
 export interface LayoutPostCardImagesProps extends LayoutSelectProps {}
 
-export const LayoutPostCardImages = ({
-  onChange,
-  value,
-}: LayoutPostCardImagesProps) => {
+export const LayoutPostCardImages = ({ onChange, value }: LayoutPostCardImagesProps) => {
   return (
     <SwiperLayout
       activeIndex={contentMap.findIndex(({ images }) => images === value?.postCard?.images)}
       items={contentMap.map(({ label, images }) => {
- 
         return {
           content: (
             <SwiperSliceSelect
@@ -46,9 +42,7 @@ export const LayoutPostCardImages = ({
               selected={value?.postCard?.images === images}
               onSelect={() => onChange?.(getChangedLayout(value, { postCard: { images } }))}
             >
-              <SkeletonPostCard
-                layouts={getChangedLayout(value, { postCard: { images } })}
-              />
+              <SkeletonPostCard layouts={getChangedLayout(value, { postCard: { images } })} />
             </SwiperSliceSelect>
           ),
         };

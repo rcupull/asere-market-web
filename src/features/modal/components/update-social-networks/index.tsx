@@ -38,7 +38,7 @@ export const UpdateSocialNetworks = ({
   const { onClose } = useModal();
 
   useEffect(() => {
-    businessOwnerData.onRefresh({routeName});
+    businessOwnerData.onRefresh({ routeName });
 
     return () => onCallAfar(callAfarResources);
   }, []);

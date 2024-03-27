@@ -11,7 +11,7 @@ export const CardPostName = ({ post, layout }: CardPostNameProps) => {
   const name = post.name;
 
   if (nameLayout === 'none') {
-    return <></>
+    return <></>;
   }
 
   return <h3 className="mt-4 text-lg text-gray-700">{name}</h3>;

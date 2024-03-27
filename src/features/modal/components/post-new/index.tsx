@@ -41,7 +41,6 @@ export const PostNew = ({ routeName: routeNameProp, postId, callAfarResources }:
   const post = getOneUserPost.data;
   const business = businessOwnerData.data;
 
-
   useEffect(() => {
     if (postId) {
       return getOneUserPost.fetch(
@@ -94,7 +93,7 @@ export const PostNew = ({ routeName: routeNameProp, postId, callAfarResources }:
             'details',
             'postCategoriesTags',
             'images',
-            'discount'
+            'discount',
           ]}
           validations={[
             {

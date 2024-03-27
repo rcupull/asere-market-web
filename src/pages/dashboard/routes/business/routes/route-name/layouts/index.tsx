@@ -74,7 +74,7 @@ export const Layouts = ({ business, onRefresh }: LayoutsProps) => {
     </>
   );
   return (
-    <LayoutPageSection className='-mt-4'>
+    <LayoutPageSection className="-mt-4">
       <Tabs<LayoutType>
         className="mt-4 gap-4"
         selected={query.layoutTab as number | undefined}

@@ -38,8 +38,11 @@ export const Posts = ({ business, className, getSearch, getPagination }: PostsPr
     refOnRefresh.current?.();
   });
 
-  const callAfarResourcesRefreshBusiness = 'src/pages/business-route-name/components/posts__refreshBusiness';
-  useCallFromAfar(callAfarResourcesRefreshBusiness, () => businessPageData.onRefresh({ routeName }));
+  const callAfarResourcesRefreshBusiness =
+    'src/pages/business-route-name/components/posts__refreshBusiness';
+  useCallFromAfar(callAfarResourcesRefreshBusiness, () =>
+    businessPageData.onRefresh({ routeName }),
+  );
 
   if (postsLayout?.type === 'none') {
     return <></>;

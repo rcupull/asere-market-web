@@ -42,7 +42,7 @@ export const BusinessRouteName = () => {
 
       <Route path="about-us" element={<AboutUs business={business} />} />
 
-      <Route path=":postId" element={<PostId />}/>
+      <Route path=":postId" element={<PostId />} />
     </Routes>
   );
 };
