@@ -31,7 +31,7 @@ export const CardPostImage = ({ post, layout }: CardPostImageProps) => {
 
       interval(
         images.map((image) => () => setSwitchImage(image)),
-        700,
+        1000,
       );
 
       return interval.cancel;
