@@ -20,6 +20,18 @@ export interface PostsLayout {
   type: PostsLayoutType;
 }
 
+export type PostCardLayoutImages = 'static' | 'hoverZoom' | 'slider' | 'switch';
+export type PostCardLayoutName = 'none' | 'basic';
+export type PostCardLayoutPrice = 'none' | 'basic';
+export type PostCardLayoutDiscount = 'none' | 'savedPercent' | 'savedMoney';
+
+export interface PostCardLayout {
+  images?: PostCardLayoutImages;
+  name?: PostCardLayoutName;
+  price?: PostCardLayoutPrice;
+  discount?: PostCardLayoutDiscount;
+}
+
 export interface BannerLayout {
   type: BannerLayoutType;
 }
@@ -34,6 +46,7 @@ export interface FooterLayout {
 
 export interface BusinessLayout {
   posts?: PostsLayout;
+  postCard?: PostCardLayout;
   footer?: FooterLayout;
   search?: SearchLayout;
   banner?: BannerLayout;

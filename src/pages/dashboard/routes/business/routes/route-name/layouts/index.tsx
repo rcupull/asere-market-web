@@ -8,6 +8,7 @@ import { useUpdateOneUserBusiness } from 'features/api/useUpdateOneUserBusiness'
 import { useRouter } from 'hooks/useRouter';
 
 import { LayoutBanner } from './layouts-banner';
+import { LayoutPostCard } from './layouts-post-card';
 import { LayoutPosts } from './layouts-posts';
 import { LayoutSearch } from './layouts-search';
 import { LayoutSelectProps } from './types';
@@ -22,7 +23,7 @@ export interface LayoutsProps {
   onRefresh: () => void;
 }
 
-type LayoutType = 'banner' | 'search' | 'posts';
+type LayoutType = 'banner' | 'search' | 'posts' | 'postCard';
 
 export const Layouts = ({ business, onRefresh }: LayoutsProps) => {
   const { query, onChangeQuery } = useRouter();
@@ -89,6 +90,7 @@ export const Layouts = ({ business, onRefresh }: LayoutsProps) => {
                 {label === 'banner' && 'Banner'}
                 {label === 'search' && 'Búsqueda'}
                 {label === 'posts' && 'Publicaciones'}
+                {label === 'postCard' && 'Publicación'}
               </span>
               <div
                 className={cn('hover:bg-gray-50 border-2 border-transparent rounded-sm', {
@@ -98,6 +100,7 @@ export const Layouts = ({ business, onRefresh }: LayoutsProps) => {
                 {label === 'banner' && <SkeletonMini type="banner" />}
                 {label === 'search' && <SkeletonMini type="search" />}
                 {label === 'posts' && <SkeletonMini type="posts" />}
+                {label === 'postCard' && <SkeletonMini type="postCard" />}
               </div>
             </div>
           );
@@ -114,6 +117,10 @@ export const Layouts = ({ business, onRefresh }: LayoutsProps) => {
           {
             label: 'posts',
             content: withSaveButton(<LayoutPosts {...commonProps} />),
+          },
+          {
+            label: 'postCard',
+            content: withSaveButton(<LayoutPostCard {...commonProps} />),
           },
         ]}
       />

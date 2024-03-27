@@ -4,9 +4,10 @@ import { cn } from 'utils/general';
 export interface MutedBoxProps extends StyleProps {
   active?: boolean;
   onClick?: () => void;
+  children?:React.ReactNode
 }
 
-export const MutedBox = ({ className, active, onClick }: MutedBoxProps) => {
+export const MutedBox = ({ className, active, onClick, children }: MutedBoxProps) => {
   return (
     <div
       className={cn(
@@ -17,6 +18,8 @@ export const MutedBox = ({ className, active, onClick }: MutedBoxProps) => {
         className,
       )}
       onClick={onClick}
-    />
+    >
+      {children}
+    </div>
   );
 };

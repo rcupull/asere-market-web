@@ -14,14 +14,14 @@ const contentMap: Array<{
     label: 'Rejilla',
     type: 'grid',
   },
-  {
-    label: 'Horizontal',
-    type: 'slicesHorizontal',
-  },
-  {
-    label: 'Resumen alternado',
-    type: 'alternateSummary',
-  },
+  // {
+  //   label: 'Horizontal',
+  //   type: 'slicesHorizontal',
+  // },
+  // {
+  //   label: 'Resumen alternado',
+  //   type: 'alternateSummary',
+  // },
 ];
 
 export interface LayoutPostsProps extends LayoutSelectProps {}
