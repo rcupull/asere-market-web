@@ -20,25 +20,22 @@ export const CardPostImage = ({ post, layout }: CardPostImageProps) => {
   const imageLayout = layout?.images;
   const images = post.images;
 
-  console.log('imageLayout', imageLayout);
-  const [switchIndex, setSwithcIndex] = useState(0);
+  const [switchImage, setSwitchImage] = useState<Image>();
   const interval = useInterval();
 
   useEffect(() => {
-    if (imageLayout === 'switch') {
-      return interval(
-        [
-          () => setSwithcIndex(1),
-          () => setSwithcIndex(2),
-          () => setSwithcIndex(3),
-          () => setSwithcIndex(4),
-          () => setSwithcIndex(0),
-        ],
+    if (imageLayout === 'switch' && images?.length) {
+      if (images.length === 1) {
+        return setSwitchImage(images[0]);
+      } 
+
+      interval(
+        images.map((image) => () => setSwitchImage(image)),
         700,
       );
-    }
 
-    return interval.cancel;
+      return interval.cancel;
+    }
   }, [imageLayout]);
 
   const renderImage = ({ src, alt }: Image) => (
@@ -76,8 +73,8 @@ export const CardPostImage = ({ post, layout }: CardPostImageProps) => {
       );
     }
 
-    if (imageLayout === 'switch') {
-      return renderImage(images[switchIndex]);
+    if (imageLayout === 'switch' && switchImage) {
+      return renderImage(switchImage);
     }
   };
 
