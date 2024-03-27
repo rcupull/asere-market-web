@@ -1,7 +1,7 @@
-import { SwiperSliceSelect } from './SwiperSliceSelect';
-import { SwiperLayout } from './swipper-layout';
-import { LayoutSelectProps } from './types';
-import { getChangedLayout } from './utils';
+import { SwiperSliceSelect } from '../swiper-slice-select';
+import { SwiperLayout } from '../swipper-layout';
+import { LayoutSelectProps } from '../types';
+import { getChangedLayout } from '../utils';
 
 import { SkeletonPostCard } from 'pages/@common/skeleton-post-card';
 import { PostCardLayoutImages } from 'types/business';
@@ -47,7 +47,6 @@ export const LayoutPostCardImages = ({
               onSelect={() => onChange?.(getChangedLayout(value, { postCard: { images } }))}
             >
               <SkeletonPostCard
-                active="images"
                 layouts={getChangedLayout(value, { postCard: { images } })}
               />
             </SwiperSliceSelect>

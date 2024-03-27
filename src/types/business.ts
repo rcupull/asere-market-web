@@ -22,7 +22,7 @@ export interface PostsLayout {
 
 export type PostCardLayoutImages = 'static' | 'hoverZoom' | 'slider' | 'switch';
 export type PostCardLayoutName = 'none' | 'basic';
-export type PostCardLayoutPrice = 'none' | 'basic';
+export type PostCardLayoutPrice = 'none' | 'basic' | 'smallerCurrency' | 'usdCurrencySymbol';
 export type PostCardLayoutDiscount = 'none' | 'savedPercent' | 'savedMoney';
 
 export interface PostCardLayout {
@@ -44,7 +44,7 @@ export interface FooterLayout {
   type: FooterLayoutType;
 }
 
-export interface BusinessLayout {
+export interface BusinessLayouts {
   posts?: PostsLayout;
   postCard?: PostCardLayout;
   footer?: FooterLayout;
@@ -83,7 +83,7 @@ export interface Business extends BaseIdentity {
   logo?: Image;
   postCategories?: Array<PostCategory>;
   socialLinks?: SocialLinks;
-  layouts?: BusinessLayout;
-  layoutsMobile?: BusinessLayout;
+  layouts?: BusinessLayouts;
+  layoutsMobile?: BusinessLayouts;
   aboutUsPage?: BusinessAboutUsPage;
 }

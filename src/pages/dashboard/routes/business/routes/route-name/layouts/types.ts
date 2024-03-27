@@ -1,8 +1,8 @@
 import { SwiperProps } from 'components/swiper';
 
-import { BusinessLayout } from 'types/business';
+import { BusinessLayouts } from 'types/business';
 
 export interface LayoutSelectProps extends Omit<SwiperProps, 'onChange'> {
-  value?: BusinessLayout;
-  onChange?: (value: BusinessLayout) => void;
+  value?: BusinessLayouts;
+  onChange?: (value: BusinessLayouts) => void;
 }

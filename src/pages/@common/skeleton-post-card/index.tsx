@@ -1,14 +1,7 @@
-import { useEffect, useState } from 'react';
-
-import { MutedBox } from 'components/muted-box';
-import { Swiper } from 'components/swiper';
-import { ZoomUpContainer } from 'components/zoom-up-container';
-
-import { useInterval } from 'hooks/useInterval';
+import { CardPost } from 'components/card-post';
 
 import { Business } from 'types/business';
 import { StyleProps } from 'types/general';
-import { cn } from 'utils/general';
 
 const imagesSrcs = [
   'https://i.etsystatic.com/22218968/r/il/b43c35/4139110628/il_570xN.4139110628_l9ye.jpg',
@@ -20,85 +13,32 @@ const imagesSrcs = [
 
 export interface SkeletonPostCardProps extends StyleProps {
   layouts?: Business['layouts'];
-  active?: 'images';
 }
 
-export const SkeletonPostCard = ({ active, className, layouts }: SkeletonPostCardProps) => {
+export const SkeletonPostCard = ({ layouts }: SkeletonPostCardProps) => {
   const { postCard } = layouts || {};
-  const [switchIndex, setSwithcIndex] = useState(0);
-  const interval = useInterval();
-
-  const images = postCard?.images;
-
-  useEffect(() => {
-    if (images === 'switch') {
-      return interval(
-        [
-          () => setSwithcIndex(1),
-          () => setSwithcIndex(2),
-          () => setSwithcIndex(3),
-          () => setSwithcIndex(4),
-          () => setSwithcIndex(0),
-        ],
-        700,
-      );
-    }
-
-    return interval.cancel;
-  }, [images]);
-
-  const renderImages = () => {
-    const withMutedBox = (content: React.ReactNode) => (
-      <MutedBox className="!w-full sm:!w-60 !h-64 flex items-center" active={active === 'images'}>
-        {content}
-      </MutedBox>
-    );
-
-    if (postCard?.images === 'static') {
-      return withMutedBox(<img src={imagesSrcs[0]} />);
-    }
-
-    if (postCard?.images === 'hoverZoom') {
-      return withMutedBox(
-        <ZoomUpContainer>
-          <img src={imagesSrcs[0]} />
-        </ZoomUpContainer>,
-      );
-    }
-
-    if (postCard?.images === 'slider') {
-      return withMutedBox(
-        <Swiper
-          autoplay={{
-            delay: 1000,
-          }}
-          navigation={false}
-          items={imagesSrcs.map((src) => ({
-            content: <img src={src} />,
-          }))}
-        />,
-      );
-    }
-
-    if (postCard?.images === 'switch') {
-      return withMutedBox(<img src={imagesSrcs[switchIndex]} />);
-    }
-
-    return null;
-  };
 
   return (
-    <div className={cn('flex justify-center', className)}>
-      <div>
-        {renderImages()}
-
-        <div className="flex items-center justify-between">
-          <div>
-            <h3 className="mt-4 text-sm text-gray-700">Zapatos de Mujer</h3>
-            <p className="mt-1 text-lg font-medium text-gray-900">1500 CUP</p>
-          </div>
-        </div>
-      </div>
+    <div className="flex justify-center">
+      <CardPost
+        href="/"
+        layout={postCard}
+        post={{
+          name: 'Zapatos de mujer',
+          images: imagesSrcs.map((src) => ({
+            src,
+            width: 300,
+            height: 300,
+          })),
+          description: 'Zapatos de mujer de excelente calidad',
+          _id: '_id',
+          createdAt: new Date().toISOString(),
+          currency: 'CUP',
+          price: 256.789,
+          discount: 10,
+          routeName: 'routeName',
+        }}
+      />
     </div>
   );
 };

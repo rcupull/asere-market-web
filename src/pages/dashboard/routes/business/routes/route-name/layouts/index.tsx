@@ -7,15 +7,15 @@ import { useUpdateOneUserBusiness } from 'features/api/useUpdateOneUserBusiness'
 
 import { useRouter } from 'hooks/useRouter';
 
-import { LayoutBanner } from './layouts-banner';
-import { LayoutPostCard } from './layouts-post-card';
-import { LayoutPosts } from './layouts-posts';
-import { LayoutSearch } from './layouts-search';
+import { LayoutBanner } from './layout-banner';
+import { LayoutPostCard } from './layout-post-card';
+import { LayoutPosts } from './layout-posts';
+import { LayoutSearch } from './layout-search';
 import { LayoutSelectProps } from './types';
 
 import { LayoutPageSection } from 'pages/@common/layout-page-section';
 import { SkeletonMini } from 'pages/@common/skeleton-mini';
-import { Business, BusinessLayout } from 'types/business';
+import { Business, BusinessLayouts } from 'types/business';
 import { cn, isEqualObj } from 'utils/general';
 
 export interface LayoutsProps {
@@ -30,7 +30,7 @@ export const Layouts = ({ business, onRefresh }: LayoutsProps) => {
 
   const { layouts, routeName } = business;
 
-  const [value, setValue] = useState<BusinessLayout>();
+  const [value, setValue] = useState<BusinessLayouts>();
 
   const { updateOneUserBusiness } = useUpdateOneUserBusiness();
 
@@ -74,7 +74,7 @@ export const Layouts = ({ business, onRefresh }: LayoutsProps) => {
     </>
   );
   return (
-    <LayoutPageSection>
+    <LayoutPageSection className='-mt-4'>
       <Tabs<LayoutType>
         className="mt-4 gap-4"
         selected={query.layoutTab as number | undefined}

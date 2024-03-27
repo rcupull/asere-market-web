@@ -17,6 +17,7 @@ export interface Post extends BaseIdentity {
   details?: string;
   hidden?: boolean;
   postCategoriesTags?: Array<string>;
+  discount?: number; //money to save in the same currency (not percent)
   // clothing
   clothingSizes?: Array<PostClothingSize>;
 }

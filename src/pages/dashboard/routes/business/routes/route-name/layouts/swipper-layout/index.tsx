@@ -23,7 +23,7 @@ export const SwiperLayout = ({ activeIndex, ...props }: SwiperLayoutProps) => {
             <MutedBox
               onClick={() => setActive(index)}
               key={index}
-              className={cn('h-24 !w-14 cursor-pointer flex-shrink-0', {
+              className={cn('h-14 !w-14 cursor-pointer flex-shrink-0', {
                 'ring-2 ring-gray-600': active === index,
                 'ring-2 !ring-indigo-600': activeIndex === index,
               })}

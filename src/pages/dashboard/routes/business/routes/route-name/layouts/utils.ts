@@ -1,9 +1,9 @@
-import { BusinessLayout } from 'types/business';
+import { BusinessLayouts } from 'types/business';
 import { mergeDeep } from 'utils/general';
 
 export const getChangedLayout = (
-  layout?: BusinessLayout,
-  partial?: Partial<BusinessLayout>,
-): BusinessLayout => {
+  layout?: BusinessLayouts,
+  partial?: Partial<BusinessLayouts>,
+): BusinessLayouts => {
   return mergeDeep(layout || {}, partial || {});
 };

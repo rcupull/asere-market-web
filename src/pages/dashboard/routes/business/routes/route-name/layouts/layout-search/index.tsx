@@ -1,8 +1,8 @@
-import { Skeleton } from '../../../../../../@common/skeleton';
-import { SwiperSliceSelect } from './SwiperSliceSelect';
-import { SwiperLayout } from './swipper-layout';
-import { LayoutSelectProps } from './types';
-import { getChangedLayout } from './utils';
+import { Skeleton } from '../../../../../../../@common/skeleton';
+import { SwiperSliceSelect } from '../swiper-slice-select';
+import { SwiperLayout } from '../swipper-layout';
+import { LayoutSelectProps } from '../types';
+import { getChangedLayout } from '../utils';
 
 import { SearchLayoutType } from 'types/business';
 
