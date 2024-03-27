@@ -20,11 +20,9 @@ export const RouteName = () => {
 
   const businessOwnerData = useBusinessOwnerData();
 
-  const onRefresh = () => routeName && businessOwnerData.onRefresh({ routeName });
-
   useEffect(() => {
     if (routeName) {
-      onRefresh();
+      businessOwnerData.onRefresh({ routeName })
     }
   }, [routeName]);
 
@@ -56,7 +54,10 @@ export const RouteName = () => {
             </div>
           )}
 
-          <OptionsMenu business={business} onRefresh={onRefresh} />
+          <OptionsMenu
+            business={business}
+            onRefresh={() => businessOwnerData.onFetch({ routeName })}
+          />
         </div>
       }
     >
@@ -76,7 +77,12 @@ export const RouteName = () => {
           },
           {
             label: 'Diseños',
-            content: <Layouts business={business} onRefresh={onRefresh} />,
+            content: (
+              <Layouts
+                business={business}
+                onRefresh={() => businessOwnerData.onFetch({ routeName })}
+              />
+            ),
           },
         ]}
       />
