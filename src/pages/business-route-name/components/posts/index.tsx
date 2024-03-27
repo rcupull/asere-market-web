@@ -1,8 +1,8 @@
 import { useRef } from 'react';
 
 import { CardGroup } from 'components/card-group';
+import { CardPost } from 'components/card-post';
 import { FilterWrapper } from 'components/filter-wrapper';
-import { ProductSimple } from 'components/product/product-simple';
 
 import { useGetAllPosts } from 'features/api/useGetAllPosts';
 
@@ -15,7 +15,6 @@ import { LayoutPageSection } from 'pages/@common/layout-page-section';
 import { useBusinessPageData } from 'pages/@hooks/useBusinessPageData';
 import { Business } from 'types/business';
 import { StyleProps } from 'types/general';
-import { getImageEndpoint } from 'utils/api';
 import { getPostRoute } from 'utils/business';
 
 export interface PostsProps extends StyleProps {
@@ -82,11 +81,11 @@ export const Posts = ({ business, className, getSearch, getPagination }: PostsPr
             const { _id } = post;
 
             return (
-              <ProductSimple
+              <CardPost
                 key={index}
                 post={post}
+                layout={business.layouts?.postCard}
                 href={getPostRoute({ routeName, postId: _id })}
-                getImageUrl={getImageEndpoint}
                 callAfarResources={[callAfarResourcesFetchPosts, callAfarResourcesRefreshBusiness]}
               />
             );

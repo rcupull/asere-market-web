@@ -20,6 +20,7 @@ export const CardPostImage = ({ post, layout }: CardPostImageProps) => {
   const imageLayout = layout?.images;
   const images = post.images;
 
+  console.log('imageLayout', imageLayout);
   const [switchIndex, setSwithcIndex] = useState(0);
   const interval = useInterval();
 
@@ -54,7 +55,7 @@ export const CardPostImage = ({ post, layout }: CardPostImageProps) => {
     }
 
     if (imageLayout === 'static') {
-      return <ZoomUpContainer>{renderImage(images[0])}</ZoomUpContainer>;
+      return renderImage(images[0]);
     }
 
     if (imageLayout === 'hoverZoom') {
@@ -81,7 +82,7 @@ export const CardPostImage = ({ post, layout }: CardPostImageProps) => {
   };
 
   return (
-    <div className="border border-gray-300 overflow-hidden rounded-lg bg-gray-50 flex items-center justify-center h-80 w-72">
+    <div className="border border-gray-300 overflow-hidden rounded-lg bg-gray-50 flex items-center justify-center h-80 w-full sm:max-w-72">
       {renderContent()}
     </div>
   );

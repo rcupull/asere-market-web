@@ -22,6 +22,7 @@ export const useAddOneUserPost = (): {
       | 'reviews'
       | 'images'
       | 'postCategoriesTags'
+      | 'discount'
     >,
     Post
   >;

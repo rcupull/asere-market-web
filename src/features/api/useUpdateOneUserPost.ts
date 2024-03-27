@@ -23,6 +23,7 @@ export const useUpdateOneUserPost = (): {
         | 'name'
         | 'reviews'
         | 'postCategoriesTags'
+        | 'discount'
       >
     >,
     void

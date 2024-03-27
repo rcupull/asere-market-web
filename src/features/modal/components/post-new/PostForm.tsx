@@ -34,6 +34,7 @@ type State = Pick<
   | 'price'
   | 'details'
   | 'postCategoriesTags'
+  | 'discount'
 > & { images: Array<ImageFile | Image> };
 
 export interface PostFormProps {
@@ -171,6 +172,16 @@ export const PostForm = ({
                     label="Moneda"
                     className="mt-6 w-full"
                   />
+
+                  {render.includes('discount') && (
+                    <FieldInput
+                      id="post_discount"
+                      name="discount"
+                      label="Descuento"
+                      type="number"
+                      className="mt-6 w-full"
+                    />
+                  )}
                 </div>
                 <Divider />
               </>
@@ -211,6 +222,7 @@ export const PostForm = ({
                     colors,
                     details,
                     postCategoriesTags,
+                    discount
                   } = values;
 
                   const handelUpdatePost = (post: Post) => {
@@ -232,6 +244,7 @@ export const PostForm = ({
                               colors,
                               details,
                               postCategoriesTags,
+                              discount
                             },
                             {
                               onAfterSuccess,
@@ -253,6 +266,7 @@ export const PostForm = ({
                         details,
                         routeName,
                         images: [],
+                        discount
                       },
                       {
                         onAfterSuccess: (response) => {
