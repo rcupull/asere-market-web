@@ -27,34 +27,36 @@ export const ProductSimple = ({ className, post, getImageUrl, href, callAfarReso
 
   return (
     <Link data-id="ProductSimple" className={cn('group', className)} to={href}>
-      <div className="border border-gray-300 w-full overflow-hidden rounded-lg bg-gray-50 flex items-center justify-center h-80">
-        {image ? (
-          <img
-            src={getImageUrl?.(image.src) || image.src}
-            alt={image.alt}
-            className="object-contain group-hover:opacity-75"
-          />
-        ) : (
-          <div className="flex items-center justify-center h-64 w-64">
-            <EmptyImage className="h-32 w-32" />
-          </div>
-        )}
-      </div>
-      <div className="flex items-center justify-between">
-        <div>
-          <h3 className="mt-4 text-sm text-gray-700">{name}</h3>
-          <p className="mt-1 text-lg font-medium text-gray-900">{`${price} ${currency}`}</p>
-        </div>
-
-        <UpdateSomethingContainer>
+      <UpdateSomethingContainer
+        button={
           <IconButtonUpdate
             onClick={(e) => {
               e.preventDefault();
               pushModal('PostNew', { postId: post._id, callAfarResources });
             }}
           />
-        </UpdateSomethingContainer>
-      </div>
+        }
+      >
+        <div className="border border-gray-300 w-full overflow-hidden rounded-lg bg-gray-50 flex items-center justify-center h-80">
+          {image ? (
+            <img
+              src={getImageUrl?.(image.src) || image.src}
+              alt={image.alt}
+              className="object-contain group-hover:opacity-75"
+            />
+          ) : (
+            <div className="flex items-center justify-center h-64 w-64">
+              <EmptyImage className="h-32 w-32" />
+            </div>
+          )}
+        </div>
+        <div className="flex items-center justify-between">
+          <div>
+            <h3 className="mt-4 text-sm text-gray-700">{name}</h3>
+            <p className="mt-1 text-lg font-medium text-gray-900">{`${price} ${currency}`}</p>
+          </div>
+        </div>
+      </UpdateSomethingContainer>
     </Link>
   );
 };

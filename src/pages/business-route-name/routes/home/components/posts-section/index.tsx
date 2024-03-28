@@ -1,5 +1,6 @@
 import { CardGroup } from 'components/card-group';
 import { CardPost } from 'components/card-post';
+import { IconButtonUpdate } from 'components/icon-button-update';
 
 import { GetAllPostsQuery, useGetAllPosts } from 'features/api/useGetAllPosts';
 
@@ -7,6 +8,7 @@ import { useFilters } from 'hooks/useFilters';
 
 import { PostsSectionSearch } from '../posts-section-search';
 
+import { UpdateSomethingContainer } from 'pages/@common/update-something-container';
 import { Business, PostsLayoutSection } from 'types/business';
 import { StyleProps } from 'types/general';
 import { getPostRoute } from 'utils/business';
@@ -39,30 +41,32 @@ export const PostsSection = ({ business, layout, className, index }: PostsSectio
   });
 
   return (
-    <div className={cn('mt-10', className)}>
-      {showName && (
-        <div className="flex justify-center">
-          <h2 className="text-2xl">{name}</h2>
-        </div>
-      )}
+    <UpdateSomethingContainer button={<IconButtonUpdate onClick={() => {}} />}>
+      <div className={cn('mt-10', className)}>
+        {showName && (
+          <div className="flex justify-center">
+            <h2 className="text-2xl">{name}</h2>
+          </div>
+        )}
 
-      <PostsSectionSearch layout={layout} filters={filters} business={business} />
+        <PostsSectionSearch layout={layout} filters={filters} business={business} />
 
-      <CardGroup className="mt-8">
-        {getAllPosts.data?.map((post, index) => {
-          const { _id } = post;
+        <CardGroup className="mt-8">
+          {getAllPosts.data?.map((post, index) => {
+            const { _id } = post;
 
-          return (
-            <CardPost
-              key={index}
-              post={post}
-              layout={layout.postCardLayout}
-              href={getPostRoute({ routeName, postId: _id })}
-              // callAfarResources={[callAfarResourcesFetchPosts, callAfarResourcesRefreshBusiness]}
-            />
-          );
-        })}
-      </CardGroup>
-    </div>
+            return (
+              <CardPost
+                key={index}
+                post={post}
+                layout={layout.postCardLayout}
+                href={getPostRoute({ routeName, postId: _id })}
+                // callAfarResources={[callAfarResourcesFetchPosts, callAfarResourcesRefreshBusiness]}
+              />
+            );
+          })}
+        </CardGroup>
+      </div>
+    </UpdateSomethingContainer>
   );
 };

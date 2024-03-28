@@ -43,33 +43,35 @@ export const PostId = () => {
   }
 
   return (
-    <LayoutPage title={post?.name} backButton>
-      <ClothingProductGrid1
-        onAddToCar={(value) => {
-          console.log('value', value);
-        }}
-        getImageUrl={getImageEndpoint}
-        value={post}
-        render={{
-          images: (props) => <ProductImages1 {...props} />,
-          price: (props) => <ProductPrice1 {...props} />,
-          review: (props) => <Review {...props} />,
-          colors: (props) => <FieldColorSelect {...props} />,
-          clothingSize: (props) => <FieldClothingSizeSelect {...props} />,
-          description: (props) => <ProductDescription1 {...props} />,
-          highLights: (props) => <ProductHighLights1 {...props} />,
-          details: (props) => <ProductDetails1 {...props} />,
-        }}
-      />
-
-      <UpdateSomethingContainer position="top-right">
+    <UpdateSomethingContainer
+      button={
         <IconButtonUpdate
           onClick={(e) => {
             e.preventDefault();
             pushModal('PostNew', { postId: post._id, callAfarResources: postId });
           }}
         />
-      </UpdateSomethingContainer>
-    </LayoutPage>
+      }
+    >
+      <LayoutPage title={post?.name} backButton>
+        <ClothingProductGrid1
+          onAddToCar={(value) => {
+            console.log('value', value);
+          }}
+          getImageUrl={getImageEndpoint}
+          value={post}
+          render={{
+            images: (props) => <ProductImages1 {...props} />,
+            price: (props) => <ProductPrice1 {...props} />,
+            review: (props) => <Review {...props} />,
+            colors: (props) => <FieldColorSelect {...props} />,
+            clothingSize: (props) => <FieldClothingSizeSelect {...props} />,
+            description: (props) => <ProductDescription1 {...props} />,
+            highLights: (props) => <ProductHighLights1 {...props} />,
+            details: (props) => <ProductDetails1 {...props} />,
+          }}
+        />
+      </LayoutPage>
+    </UpdateSomethingContainer>
   );
 };

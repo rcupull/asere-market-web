@@ -27,24 +27,26 @@ export const CardPost = ({ className, post, layout, href, callAfarResources }: C
   const { pushModal } = useModal();
 
   return (
-    <Link data-id="CardPost" className={cn('group', className)} to={href}>
-      <CardPostImage layout={layout} post={post} />
+    <UpdateSomethingContainer
+      button={
+        <IconButtonUpdate
+          onClick={(e) => {
+            e.preventDefault();
+            pushModal('PostNew', { postId: post._id, callAfarResources });
+          }}
+        />
+      }
+    >
+      <Link data-id="CardPost" className={cn('group', className)} to={href}>
+        <CardPostImage layout={layout} post={post} />
 
-      <div className="flex items-center justify-between">
-        <div>
-          <CardPostName layout={layout} post={post} />
-          <CardPostPrice layout={layout} post={post} />
+        <div className="flex items-center justify-between">
+          <div>
+            <CardPostName layout={layout} post={post} />
+            <CardPostPrice layout={layout} post={post} />
+          </div>
         </div>
-
-        <UpdateSomethingContainer>
-          <IconButtonUpdate
-            onClick={(e) => {
-              e.preventDefault();
-              pushModal('PostNew', { postId: post._id, callAfarResources });
-            }}
-          />
-        </UpdateSomethingContainer>
-      </div>
-    </Link>
+      </Link>
+    </UpdateSomethingContainer>
   );
 };

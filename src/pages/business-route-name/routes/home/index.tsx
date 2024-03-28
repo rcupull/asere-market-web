@@ -15,27 +15,29 @@ export const Home = ({ business }: HomeProps) => {
   const postLayoutSections = business.layouts?.posts?.sections;
 
   return (
-    <LayoutPage>
-      <Banner business={business} />
-
-      <div className="flex flex-col">
-        {postLayoutSections?.map((postLayoutSection, index) => {
-          return (
-            <PostsSection
-              key={index}
-              index={index}
-              business={business}
-              layout={postLayoutSection}
-            />
-          );
-        })}
-      </div>
-
-      <UpdateSomethingContainer position="top-right">
+    <UpdateSomethingContainer
+      button={
         <Link to={`/dashboard/business/${business.routeName}`}>
           <IconButtonUpdate />
         </Link>
-      </UpdateSomethingContainer>
-    </LayoutPage>
+      }
+    >
+      <LayoutPage>
+        <Banner business={business} />
+
+        <div className="flex flex-col">
+          {postLayoutSections?.map((postLayoutSection, index) => {
+            return (
+              <PostsSection
+                key={index}
+                index={index}
+                business={business}
+                layout={postLayoutSection}
+              />
+            );
+          })}
+        </div>
+      </LayoutPage>
+    </UpdateSomethingContainer>
   );
 };

@@ -32,12 +32,8 @@ export const AboutUs = ({ business }: AboutUsProps) => {
   }
 
   return (
-    <LayoutPage title={title}>
-      {description && (
-        <HtmlTextContainer className="w-full" dangerouslySetInnerHTML={{ __html: description }} />
-      )}
-
-      <UpdateSomethingContainer position="top-right">
+    <UpdateSomethingContainer
+      button={
         <IconButtonUpdate
           onClick={() =>
             pushModal('UpdateBusinessAboutUs', {
@@ -46,7 +42,13 @@ export const AboutUs = ({ business }: AboutUsProps) => {
             })
           }
         />
-      </UpdateSomethingContainer>
-    </LayoutPage>
+      }
+    >
+      <LayoutPage title={title}>
+        {description && (
+          <HtmlTextContainer className="w-full" dangerouslySetInnerHTML={{ __html: description }} />
+        )}
+      </LayoutPage>
+    </UpdateSomethingContainer>
   );
 };
