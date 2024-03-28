@@ -27,7 +27,7 @@ export const CardPost = ({ className, post, layout, href, callAfarResources }: C
   const { pushModal } = useModal();
 
   return (
-    <Link data-id="ProductSimple" className={cn('group', className)} to={href}>
+    <Link data-id="CardPost" className={cn('group', className)} to={href}>
       <CardPostImage layout={layout} post={post} />
 
       <div className="flex items-center justify-between">

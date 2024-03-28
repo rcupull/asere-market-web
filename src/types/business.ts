@@ -61,9 +61,7 @@ export interface FooterLayout {
 
 export interface BusinessLayouts {
   posts?: PostsLayout;
-  postCard?: PostCardLayout;
   footer?: FooterLayout;
-  search?: SearchLayout;
   banner?: BannerLayout;
 }
 
@@ -99,6 +97,5 @@ export interface Business extends BaseIdentity {
   postCategories?: Array<PostCategory>;
   socialLinks?: SocialLinks;
   layouts?: BusinessLayouts;
-  layoutsMobile?: BusinessLayouts;
   aboutUsPage?: BusinessAboutUsPage;
 }

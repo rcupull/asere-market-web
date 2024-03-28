@@ -41,10 +41,12 @@ export const useBusinessOwnerData = (): {
       getOneUserBusiness.fetch({ routeName }, { onAfterSuccess: setData });
     },
     onGetPostsLayoutSection: ({ sectionId }) => {
-      const index = data.layouts?.posts?.sections.findIndex(({ _id }) => _id === sectionId);
+      if (!data) return undefined;
+
+      const index = data.layouts?.posts?.sections?.findIndex?.(({ _id }) => _id === sectionId);
 
       if (isNumber(index) && index >= 0) {
-        const section = data.layouts?.posts?.sections[index];
+        const section = data.layouts?.posts?.sections?.[index];
 
         if (!section) return undefined;
 

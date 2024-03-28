@@ -3,6 +3,7 @@ import { useEffect } from 'react';
 import { Badge } from 'components/badge';
 import { ButtonClose } from 'components/button-close';
 import { ButtonSave } from 'components/button-save';
+import { Divider } from 'components/divider';
 import { FieldInput } from 'components/field-input';
 import { FieldSelect } from 'components/field-select';
 import { FieldToggleButton } from 'components/field-toggle-button';
@@ -12,6 +13,8 @@ import { useModal } from 'features/modal/useModal';
 
 import { CallAfarResources, useCallFromAfar } from 'hooks/useCallFromAfar';
 import { useSubmitPortal } from 'hooks/useSubmitPortal';
+
+import { FieldLayoutPostCard } from './layout-post-card';
 
 import { Formik } from 'formik';
 import { FieldPostCategoriesButtons } from 'pages/@common/filters/field-post-categories-buttons';
@@ -76,6 +79,8 @@ export const PostsSectionNew = ({
               <FieldToggleButton name="showName" className="ml-10" />
             </div>
 
+            <Divider />
+
             <div className="flex items-center justify-between mt-6">
               <FieldPostCategoriesButtons
                 label="Categorías"
@@ -84,6 +89,8 @@ export const PostsSectionNew = ({
               />
               <FieldToggleButton name="showCategories" className="ml-10" />
             </div>
+
+            <Divider />
 
             <div className="flex items-center justify-between mt-6">
               <FieldSelect<{ searchLayout: SearchLayoutType }>
@@ -123,6 +130,14 @@ export const PostsSectionNew = ({
               <FieldToggleButton name="showSearch" className="ml-10" />
             </div>
 
+            <Divider />
+
+            <FieldLayoutPostCard
+              label="Tarjeta de publicación"
+              name="postCardLayout"
+              className="mt-6 w-[50rem]"
+            />
+
             {submitPortal.getPortal(
               <ButtonSave
                 isBusy={businessOwnerUpdate.status.isBusy}
@@ -150,11 +165,10 @@ export const PostsSectionNew = ({
   return (
     <Modal
       title={sectionId ? 'Editar sección' : 'Nueva sección'}
-      content={content}
+      content={<div className="h-[calc(100vh-12rem)] overflow-auto">{content}</div>}
       badge={<Badge variant="info" />}
       primaryBtn={<div ref={submitPortal.ref} />}
       secondaryBtn={<ButtonClose />}
-      className="h-screen" //TODO
     />
   );
 };
