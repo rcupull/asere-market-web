@@ -1,6 +1,6 @@
 import { CardPost } from 'components/card-post';
 
-import {  PostCardLayout } from 'types/business';
+import { PostCardLayout } from 'types/business';
 import { StyleProps } from 'types/general';
 
 const imagesSrcs = [
@@ -12,11 +12,10 @@ const imagesSrcs = [
 ];
 
 export interface DummyPostCardProps extends StyleProps {
-  postCardLayout?: PostCardLayout
+  postCardLayout?: PostCardLayout;
 }
 
 export const DummyPostCard = ({ postCardLayout }: DummyPostCardProps) => {
-
   return (
     <div className="flex justify-center">
       <CardPost

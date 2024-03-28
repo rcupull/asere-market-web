@@ -12,9 +12,9 @@ export type PostsLayoutSectionPayload = Pick<
   PostsLayoutSection,
   | 'name'
   | 'postCardLayout'
-  | 'postCategories'
+  | 'postCategoriesTags'
   | 'searchLayout'
-  | 'showCategories'
+  //
   | 'showName'
   | 'showSearch'
   | 'hidden'

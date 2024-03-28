@@ -42,7 +42,7 @@ export const LayoutPostCardImages = ({ onChange, value }: LayoutPostCardImagesPr
               selected={value?.images === images}
               onSelect={() => onChange?.(getChangedPostCardLayout(value, { images }))}
             >
-              <DummyPostCard postCardLayout={getChangedPostCardLayout(value, { images})} />
+              <DummyPostCard postCardLayout={getChangedPostCardLayout(value, { images })} />
             </SwiperSliceSelect>
           ),
         };

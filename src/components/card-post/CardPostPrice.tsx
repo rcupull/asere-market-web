@@ -67,7 +67,7 @@ export const CardPostPrice = ({ post, layout }: CardPostPriceProps) => {
 
   if (priceLayout !== 'none') {
     return (
-      <p className="mt-1 text-lg font-medium text-gray-900 flex items-center">
+      <div className="mt-1 text-lg font-medium text-gray-900 flex items-center">
         <div
           className={cn({
             'text-red-500 font-bold': hasDiscount,
@@ -77,7 +77,7 @@ export const CardPostPrice = ({ post, layout }: CardPostPriceProps) => {
         </div>
 
         {renderDiscount()}
-      </p>
+      </div>
     );
   }
 

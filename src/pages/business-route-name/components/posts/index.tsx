@@ -59,7 +59,9 @@ export const Posts = ({ business, className, getSearch, getPagination }: PostsPr
   const renderFilterWrapper = (content: React.ReactNode) => {
     return (
       <FilterWrapper<{ search?: string; page?: number }>
-        onChange={(filters) => routeName && getAllPosts.fetch({ routeNames: [routeName], filters })}
+        onChange={(filters) =>
+          routeName && getAllPosts.fetch({ routeNames: [routeName], ...filters })
+        }
       >
         {(filters) => {
           refOnRefresh.current = filters.onRefresh;

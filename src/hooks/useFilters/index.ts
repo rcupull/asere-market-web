@@ -6,6 +6,7 @@ import { AnyRecord } from 'types/general';
 import { getFlattenJson, isEmpty, isString } from 'utils/general';
 
 export interface UseFiltersArgs<S> {
+  filterField?: string;
   onChange?: (state: S) => void;
   notCallChangeWhenMount?: boolean;
 }
@@ -19,11 +20,13 @@ export interface UseFiltersReturn<S extends AnyRecord = AnyRecord> {
 export const useFilters = <S extends AnyRecord = AnyRecord>(
   args: UseFiltersArgs<S>,
 ): UseFiltersReturn<S> => {
-  const { onChange, notCallChangeWhenMount } = args || {};
+  const { onChange, notCallChangeWhenMount, filterField = 'filters' } = args || {};
+
+  const refMounted = useRef<boolean>(false);
 
   const { query = {}, onChangeQuery } = useRouter();
 
-  const filterValue = isString(query.filters) ? JSON.parse(query.filters) : {};
+  const filterValue = isString(query[filterField]) ? JSON.parse(query[filterField]) : {};
 
   const handleChangeFilterState = (filtersValue: S) => {
     const filters = isEmpty(getFlattenJson(filtersValue))
@@ -31,7 +34,7 @@ export const useFilters = <S extends AnyRecord = AnyRecord>(
       : JSON.stringify(filtersValue);
 
     onChangeQuery({
-      filters,
+      [filterField]: filters,
     });
   };
 
@@ -39,8 +42,6 @@ export const useFilters = <S extends AnyRecord = AnyRecord>(
     const newValue = { ...(filterValue || {}), ...partialValue };
     handleChangeFilterState(newValue);
   };
-
-  const refMounted = useRef<boolean>(false);
 
   useEffect(() => {
     if (notCallChangeWhenMount && !refMounted.current) {

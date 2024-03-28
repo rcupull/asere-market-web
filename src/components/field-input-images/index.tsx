@@ -257,7 +257,8 @@ export const FieldInputImages = forwardRef<HTMLInputElement, FieldInputImagesPro
 
               <IconButtonRemove
                 className="!absolute top-1 right-0"
-                onClick={() => {
+                onClick={(e) => {
+                  e.preventDefault();
                   handleChange(null, 'remove');
                 }}
               />

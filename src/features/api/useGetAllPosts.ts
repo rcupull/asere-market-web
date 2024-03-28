@@ -1,16 +1,19 @@
 import { useFetch } from 'hooks/useFetch';
 
 import { FetchResourceWithPagination, PaginatedData } from 'types/api';
-import { AnyRecord } from 'types/general';
 import { Post } from 'types/post';
 import { getEndpoint } from 'utils/api';
 import { getPaginationResources } from 'utils/pagination';
 
+export type GetAllPostsQuery = {
+  routeNames?: Array<string>;
+  postCategoriesMethod?: 'every' | 'some';
+  postCategoriesTags?: Array<string>;
+  search?: string;
+};
+
 export const useGetAllPosts = (): {
-  getAllPosts: FetchResourceWithPagination<
-    { routeNames?: Array<string>; filters?: AnyRecord },
-    Post
-  >;
+  getAllPosts: FetchResourceWithPagination<GetAllPostsQuery, Post>;
 } => {
   const fetch = useFetch<PaginatedData<Post>>();
 
@@ -18,13 +21,13 @@ export const useGetAllPosts = (): {
     getAllPosts: {
       ...getPaginationResources(fetch[0]),
       status: fetch[1],
-      fetch: ({ routeNames = [], filters = {} }, options = {}) => {
+      fetch: (query, options = {}) => {
         fetch[2](
           {
             method: 'get',
             url: getEndpoint({
               path: '/posts',
-              query: { routeNames, ...filters },
+              query,
             }),
           },
           options,

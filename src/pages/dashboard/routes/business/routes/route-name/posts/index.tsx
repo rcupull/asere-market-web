@@ -14,6 +14,7 @@ import { useHiddenPostControl } from 'hooks/useHiddenPostsControl';
 import { RowActions } from './RowActions';
 
 import { TopActions } from 'pages/@common/top-actions';
+import { useTableCellCategoriesTags } from 'pages/@hooks/useTableCellCategoriesTags';
 import { Business } from 'types/business';
 import { getDateString } from 'utils/date';
 
@@ -41,6 +42,10 @@ export const Posts = ({ business }: PostsProps) => {
 
   useCallFromAfar(callAfarIds.dashboard_business_route_name_table_posts, onRefresh);
 
+  const tableCellCategoriesTags = useTableCellCategoriesTags({
+    business,
+  });
+
   return (
     <>
       <TopActions>
@@ -63,9 +68,17 @@ export const Posts = ({ business }: PostsProps) => {
         />
       </TopActions>
       <Table
-        heads={[null, 'Nombre', 'Descripción', 'Precio', 'Moneda', 'Fecha de Creación']}
+        heads={[
+          null,
+          'Nombre',
+          'Descripción',
+          'Categorías',
+          'Precio',
+          'Moneda',
+          'Fecha de Creación',
+        ]}
         getRowProps={(rowData) => {
-          const { name, createdAt, description, currency, price } = rowData;
+          const { name, createdAt, description, currency, price, postCategoriesTags } = rowData;
 
           return {
             className: hiddenPostControl.onGetHiddenTableRowStyles(rowData),
@@ -79,6 +92,7 @@ export const Posts = ({ business }: PostsProps) => {
               />,
               name,
               description,
+              tableCellCategoriesTags.onGetTableCellNode({ postCategoriesTags }),
               price,
               currency,
               getDateString({ date: createdAt, showTime: true }),

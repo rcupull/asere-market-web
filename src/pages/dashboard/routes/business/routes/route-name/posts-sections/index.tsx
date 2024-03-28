@@ -10,6 +10,7 @@ import { RowActions } from './RowActions';
 
 import { TopActions } from 'pages/@common/top-actions';
 import { useBusinessOwnerData } from 'pages/@hooks/useBusinessOwnerData';
+import { useTableCellCategoriesTags } from 'pages/@hooks/useTableCellCategoriesTags';
 import { Business, PostsLayoutSection } from 'types/business';
 
 export interface PostsSectionsProps {
@@ -26,6 +27,10 @@ export const PostsSections = ({ business, onRefresh }: PostsSectionsProps) => {
   useCallFromAfar(refeshId, onRefresh);
 
   const data = businessOwnerData.data?.layouts?.posts?.sections || null;
+
+  const tableCellCategoriesTags = useTableCellCategoriesTags({
+    business,
+  });
 
   return (
     <>
@@ -47,9 +52,18 @@ export const PostsSections = ({ business, onRefresh }: PostsSectionsProps) => {
         />
       </TopActions>
       <Table<PostsLayoutSection>
-        heads={[null, 'Label', 'Categorías']}
+        heads={[null, 'Nombre', 'Categorías', 'Búsqueda']}
         getRowProps={(rowData) => {
-          const { name, postCategories } = rowData;
+          const { name, postCategoriesTags, showName, showSearch, searchLayout } = rowData;
+
+          const renderHidden = (node: React.ReactNode, hidden: boolean) => {
+            return (
+              <div className="flex items-center">
+                {node}
+                {hidden && <span className="text-red-500 ml-2">(oculto)</span>}
+              </div>
+            );
+          };
 
           return {
             nodes: [
@@ -59,8 +73,9 @@ export const PostsSections = ({ business, onRefresh }: PostsSectionsProps) => {
                 routeName={routeName}
                 callAfarResources={refeshId}
               />,
-              name,
-              postCategories?.join(','),
+              renderHidden(name, !showName),
+              tableCellCategoriesTags.onGetTableCellNode({ postCategoriesTags }),
+              renderHidden(searchLayout, !showSearch),
             ],
           };
         }}

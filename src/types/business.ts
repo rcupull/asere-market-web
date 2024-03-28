@@ -25,8 +25,7 @@ export interface PostsLayoutSection {
   searchLayout?: SearchLayoutType;
   showSearch?: boolean;
   //
-  postCategories?: Array<PostCategory>;
-  showCategories?: boolean;
+  postCategoriesTags?: Array<string>;
   //
   type: PostsLayoutSectionType;
   postCardLayout?: PostCardLayout;

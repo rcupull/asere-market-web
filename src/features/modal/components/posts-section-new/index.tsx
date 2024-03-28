@@ -64,7 +64,7 @@ export const PostsSectionNew = ({
       initialValues={{
         name: '',
         postCardLayout: undefined,
-        postCategories: [],
+        postCategoriesTags: [],
         searchLayout: undefined,
         ...section,
       }}
@@ -81,14 +81,11 @@ export const PostsSectionNew = ({
 
             <Divider />
 
-            <div className="flex items-center justify-between mt-6">
-              <FieldPostCategoriesButtons
-                label="Categorías"
-                name="postCategories"
-                routeName={routeName}
-              />
-              <FieldToggleButton name="showCategories" className="ml-10" />
-            </div>
+            <FieldPostCategoriesButtons
+              label="Categorías"
+              name="postCategoriesTags"
+              routeName={routeName}
+            />
 
             <Divider />
 

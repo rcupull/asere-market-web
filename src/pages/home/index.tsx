@@ -18,7 +18,7 @@ export const Home = () => {
   const { getAllPosts } = useGetAllPosts();
 
   const filters = useFilters<{ search?: string; page?: number }>({
-    onChange: (filters) => getAllPosts.fetch({ filters }),
+    onChange: (filters) => getAllPosts.fetch(filters),
   });
 
   useCallFromAfar(callAfarIds.home_refresh_posts, filters.onRefresh);
