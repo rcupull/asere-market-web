@@ -3,7 +3,6 @@ import { useEffect } from 'react';
 import { ClothingProductGrid1 } from 'components/clothing-product-grid-1';
 import { FieldClothingSizeSelect } from 'components/field-clothing-size-select';
 import { FieldColorSelect } from 'components/field-colors-select';
-import { IconButtonUpdate } from 'components/icon-button-update';
 import { ProductDescription1 } from 'components/product/description/product-description-1';
 import { ProductDetails1 } from 'components/product/details/product-details-1';
 import { ProductHighLights1 } from 'components/product/hightlights/product-highlights-1';
@@ -44,14 +43,7 @@ export const PostId = () => {
 
   return (
     <UpdateSomethingContainer
-      button={
-        <IconButtonUpdate
-          onClick={(e) => {
-            e.preventDefault();
-            pushModal('PostNew', { postId: post._id, callAfarResources: postId });
-          }}
-        />
-      }
+      onClick={() => pushModal('PostNew', { postId: post._id, callAfarResources: postId })}
     >
       <LayoutPage title={post?.name} backButton>
         <ClothingProductGrid1

@@ -1,7 +1,6 @@
 import { Link } from 'react-router-dom';
 
 import { EmptyImage } from 'components/empty-image';
-import { IconButtonUpdate } from 'components/icon-button-update';
 
 import { useModal } from 'features/modal/useModal';
 
@@ -28,14 +27,7 @@ export const ProductSimple = ({ className, post, getImageUrl, href, callAfarReso
   return (
     <Link data-id="ProductSimple" className={cn('group', className)} to={href}>
       <UpdateSomethingContainer
-        button={
-          <IconButtonUpdate
-            onClick={(e) => {
-              e.preventDefault();
-              pushModal('PostNew', { postId: post._id, callAfarResources });
-            }}
-          />
-        }
+        onClick={() => pushModal('PostNew', { postId: post._id, callAfarResources })}
       >
         <div className="border border-gray-300 w-full overflow-hidden rounded-lg bg-gray-50 flex items-center justify-center h-80">
           {image ? (

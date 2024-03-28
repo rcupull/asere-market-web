@@ -38,7 +38,10 @@ export const BusinessRouteName = () => {
 
   return (
     <Routes>
-      <Route path="/" element={<Home business={business} />} />
+      <Route
+        path="/"
+        element={<Home business={business} onRefresh={() => onRefresh({ routeName })} />}
+      />
 
       <Route path="about-us" element={<AboutUs business={business} />} />
 

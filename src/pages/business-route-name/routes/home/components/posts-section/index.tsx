@@ -1,9 +1,12 @@
+import { useEffect } from 'react';
+
 import { CardGroup } from 'components/card-group';
 import { CardPost } from 'components/card-post';
-import { IconButtonUpdate } from 'components/icon-button-update';
 
 import { GetAllPostsQuery, useGetAllPosts } from 'features/api/useGetAllPosts';
+import { useModal } from 'features/modal/useModal';
 
+import { useCallFromAfar } from 'hooks/useCallFromAfar';
 import { useFilters } from 'hooks/useFilters';
 
 import { PostsSectionSearch } from '../posts-section-search';
@@ -17,31 +20,60 @@ import { cn } from 'utils/general';
 export interface PostsSectionProps extends StyleProps {
   index: number;
   business: Business;
+  onRefresh: () => void;
   layout: PostsLayoutSection;
 }
 
-export const PostsSection = ({ business, layout, className, index }: PostsSectionProps) => {
+export const PostsSection = ({
+  business,
+  onRefresh,
+  layout,
+  className,
+  index,
+}: PostsSectionProps) => {
   const { routeName } = business;
-  const { name, showName, postCategoriesTags } = layout;
+  const { name, showName, postCategoriesTags, _id } = layout;
 
+  const { pushModal } = useModal();
   const { getAllPosts } = useGetAllPosts();
 
-  const filters = useFilters<GetAllPostsQuery>({
-    filterField: `postsSection${index}`,
-    onChange: (filters) => {
-      const hasCategoriesTags = filters.postCategoriesTags?.length;
+  const handleFilter = (filters: GetAllPostsQuery) => {
+    const hasCategoriesTags = filters.postCategoriesTags?.length;
 
-      getAllPosts.fetch({
-        routeNames: [routeName],
-        postCategoriesTags,
-        ...filters,
-        postCategoriesMethod: hasCategoriesTags ? 'every' : 'some',
-      });
-    },
+    getAllPosts.fetch({
+      routeNames: [routeName],
+      postCategoriesTags,
+      ...filters,
+      postCategoriesMethod: hasCategoriesTags ? 'every' : 'some',
+    });
+  };
+
+  const filters = useFilters<GetAllPostsQuery>({
+    notCallChangeWhenMount: true,
+    filterField: `postsSection${index}`,
+    onChange: (filters) => handleFilter(filters),
   });
 
+  useEffect(() => {
+    handleFilter(filters.value);
+  }, [JSON.stringify(postCategoriesTags)]);
+
+  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  const postSectionRefechId = `post_section_${index}_onRefresh`;
+  useCallFromAfar(postSectionRefechId, onRefresh);
+
+  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
   return (
-    <UpdateSomethingContainer button={<IconButtonUpdate onClick={() => {}} />}>
+    <UpdateSomethingContainer
+      onClick={() =>
+        pushModal('PostsSectionNew', {
+          sectionId: _id,
+          routeName,
+          callAfarResources: postSectionRefechId,
+        })
+      }
+    >
       <div className={cn('mt-10', className)}>
         {showName && (
           <div className="flex justify-center">

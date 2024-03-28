@@ -2,6 +2,8 @@ import { useAuthSignIn } from 'features/api/useAuthSignIn';
 import { useGetOneBusiness } from 'features/api/useGetOneBusiness';
 import { useSimpleSlice } from 'features/slices/useSimpleSlice';
 
+import { FetchOptions } from 'hooks/useFetch';
+
 import { Business } from 'types/business';
 
 /**
@@ -9,7 +11,7 @@ import { Business } from 'types/business';
  */
 export const useBusinessPageData = (): {
   business: Business | null;
-  onRefresh: (args: { routeName: string }) => void;
+  onRefresh: (args: { routeName: string }, options?: FetchOptions) => void;
   onReset: () => void;
   owner: boolean;
 } => {
@@ -22,8 +24,17 @@ export const useBusinessPageData = (): {
   return {
     owner: authData?.user._id === data?.createdBy,
     business: data,
-    onRefresh: ({ routeName }) => {
-      getOneBusiness.fetch({ routeName }, { onAfterSuccess: setData });
+    onRefresh: ({ routeName }, options) => {
+      getOneBusiness.fetch(
+        { routeName },
+        {
+          ...options,
+          onAfterSuccess: (response) => {
+            setData(response);
+            options?.onAfterSuccess?.(response);
+          },
+        },
+      );
     },
     onReset: reset,
   };

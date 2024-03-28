@@ -1,17 +1,19 @@
 import { useState } from 'react';
 
+import { IconButtonUpdate } from 'components/icon-button-update';
+
 import { useBusinessPageData } from 'pages/@hooks/useBusinessPageData';
 import { StyleProps } from 'types/general';
 import { cn } from 'utils/general';
 
 export interface UpdateSomethingContainerProps extends StyleProps {
   children: React.ReactNode;
-  button: React.ReactNode;
+  onClick?: () =>void
 }
 
 export const UpdateSomethingContainer = ({
   children,
-  button,
+  onClick,
   className,
 }: UpdateSomethingContainerProps) => {
   const { owner } = useBusinessPageData();
@@ -32,12 +34,19 @@ export const UpdateSomethingContainer = ({
       )}
     >
       {children}
+     
+
       <div
         onMouseLeave={() => setOver(false)}
         onMouseEnter={() => setOver(true)}
         className={cn('absolute top-0 right-0')}
       >
-        {button}
+         <IconButtonUpdate
+          onClick={(e) => {
+            e.preventDefault();
+            onClick?.()
+          }}
+        />
       </div>
     </div>
   );

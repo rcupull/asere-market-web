@@ -1,7 +1,6 @@
 import { Navigate } from 'react-router-dom';
 
 import { HtmlTextContainer } from 'components/html-text-container';
-import { IconButtonUpdate } from 'components/icon-button-update';
 
 import { useModal } from 'features/modal/useModal';
 
@@ -33,16 +32,7 @@ export const AboutUs = ({ business }: AboutUsProps) => {
 
   return (
     <UpdateSomethingContainer
-      button={
-        <IconButtonUpdate
-          onClick={() =>
-            pushModal('UpdateBusinessAboutUs', {
-              routeName,
-              callAfarResources,
-            })
-          }
-        />
-      }
+      onClick={() => pushModal('UpdateBusinessAboutUs', { routeName, callAfarResources })}
     >
       <LayoutPage title={title}>
         {description && (

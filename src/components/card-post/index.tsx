@@ -1,7 +1,5 @@
 import { Link } from 'react-router-dom';
 
-import { IconButtonUpdate } from 'components/icon-button-update';
-
 import { useModal } from 'features/modal/useModal';
 
 import { CallAfarResources } from 'hooks/useCallFromAfar';
@@ -28,14 +26,7 @@ export const CardPost = ({ className, post, layout, href, callAfarResources }: C
 
   return (
     <UpdateSomethingContainer
-      button={
-        <IconButtonUpdate
-          onClick={(e) => {
-            e.preventDefault();
-            pushModal('PostNew', { postId: post._id, callAfarResources });
-          }}
-        />
-      }
+      onClick={() => pushModal('PostNew', { postId: post._id, callAfarResources })}
     >
       <Link data-id="CardPost" className={cn('group', className)} to={href}>
         <CardPostImage layout={layout} post={post} />

@@ -6,12 +6,13 @@ import { ButtonSave } from 'components/button-save';
 import { Divider } from 'components/divider';
 import { FieldInput } from 'components/field-input';
 import { FieldSelect } from 'components/field-select';
-import { FieldToggleButton } from 'components/field-toggle-button';
+import { FieldShowHide } from 'components/field-show-hide';
 import { Modal } from 'components/modal';
 
 import { useModal } from 'features/modal/useModal';
 
 import { CallAfarResources, useCallFromAfar } from 'hooks/useCallFromAfar';
+import { useGetFormErrors } from 'hooks/useGetFormErrors';
 import { useSubmitPortal } from 'hooks/useSubmitPortal';
 
 import { FieldLayoutPostCard } from './layout-post-card';
@@ -53,11 +54,13 @@ export const PostsSectionNew = ({
   const businessOwnerUpdate = useBusinessOwnerUpdate();
 
   useEffect(() => {
-    businessOwnerData.onRefresh({ routeName });
+    businessOwnerData.onFetch({ routeName });
   }, []);
 
   const section =
     (sectionId && businessOwnerData.onGetPostsLayoutSection({ sectionId })?.section) || {};
+
+  const getFormErrors = useGetFormErrors();
 
   const content = (
     <Formik<State>
@@ -70,14 +73,30 @@ export const PostsSectionNew = ({
       }}
       enableReinitialize
       onSubmit={() => {}}
+      validate={(values) => {
+        return getFormErrors(values, [
+          {
+            field: 'name',
+            type: 'required',
+          },
+        ]);
+      }}
     >
       {({ values, isValid }) => {
+        const renderShowHideField = (label: string, showField: string) => (
+          <div className="flex items-center">
+            <span>{label}</span>
+            <FieldShowHide name={showField} oposite/>
+          </div>
+        );
+
         return (
           <form>
-            <div className="flex justify-between">
-              <FieldInput name="name" label="Nombre de la sección" className="w-full" />
-              <FieldToggleButton name="showName" className="ml-10" />
-            </div>
+            <FieldInput
+              name="name"
+              label={renderShowHideField('Nombre', 'showName')}
+              className="w-full"
+            />
 
             <Divider />
 
@@ -89,43 +108,40 @@ export const PostsSectionNew = ({
 
             <Divider />
 
-            <div className="flex items-center justify-between mt-6">
-              <FieldSelect<{ searchLayout: SearchLayoutType }>
-                items={[
-                  {
-                    searchLayout: 'none',
-                  },
-                  {
-                    searchLayout: 'left',
-                  },
-                  {
-                    searchLayout: 'center',
-                  },
-                  {
-                    searchLayout: 'right',
-                  },
-                  {
-                    searchLayout: 'postCategories',
-                  },
-                  {
-                    searchLayout: 'postCategoriesScrollable',
-                  },
-                  {
-                    searchLayout: 'postCategoriesExcluded',
-                  },
-                  {
-                    searchLayout: 'postCategoriesExcludedScrollable',
-                  },
-                ]}
-                renderOption={({ searchLayout }) => searchLayout}
-                renderValue={({ searchLayout }) => searchLayout}
-                optionToValue={({ searchLayout }) => searchLayout}
-                name="searchLayout"
-                label="Diseño de búsqueda"
-                className="w-full"
-              />
-              <FieldToggleButton name="showSearch" className="ml-10" />
-            </div>
+            <FieldSelect<{ searchLayout: SearchLayoutType }>
+              items={[
+                {
+                  searchLayout: 'none',
+                },
+                {
+                  searchLayout: 'left',
+                },
+                {
+                  searchLayout: 'center',
+                },
+                {
+                  searchLayout: 'right',
+                },
+                {
+                  searchLayout: 'postCategories',
+                },
+                {
+                  searchLayout: 'postCategoriesScrollable',
+                },
+                {
+                  searchLayout: 'postCategoriesExcluded',
+                },
+                {
+                  searchLayout: 'postCategoriesExcludedScrollable',
+                },
+              ]}
+              renderOption={({ searchLayout }) => searchLayout}
+              renderValue={({ searchLayout }) => searchLayout}
+              optionToValue={({ searchLayout }) => searchLayout}
+              name="searchLayout"
+              label={renderShowHideField('Diseño de búsqueda', 'showSearch')}
+              className="w-full"
+            />
 
             <Divider />
 

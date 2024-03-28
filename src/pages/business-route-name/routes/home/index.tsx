@@ -1,6 +1,4 @@
-import { Link } from 'react-router-dom';
-
-import { IconButtonUpdate } from 'components/icon-button-update';
+import { useRouter } from 'hooks/useRouter';
 
 import { LayoutPage } from 'pages/@common/layout-page';
 import { UpdateSomethingContainer } from 'pages/@common/update-something-container';
@@ -10,29 +8,28 @@ import { Business } from 'types/business';
 
 interface HomeProps {
   business: Business;
+  onRefresh: () => void;
 }
-export const Home = ({ business }: HomeProps) => {
+export const Home = ({ business, onRefresh }: HomeProps) => {
   const postLayoutSections = business.layouts?.posts?.sections;
+  const { pushRoute } = useRouter();
 
   return (
     <UpdateSomethingContainer
-      button={
-        <Link to={`/dashboard/business/${business.routeName}`}>
-          <IconButtonUpdate />
-        </Link>
-      }
+      onClick={() => pushRoute(`/dashboard/business/${business.routeName}`)}
     >
       <LayoutPage>
         <Banner business={business} />
 
         <div className="flex flex-col">
-          {postLayoutSections?.map((postLayoutSection, index) => {
+          {postLayoutSections?.map((layout, index) => {
             return (
               <PostsSection
                 key={index}
                 index={index}
                 business={business}
-                layout={postLayoutSection}
+                onRefresh={onRefresh}
+                layout={layout}
               />
             );
           })}

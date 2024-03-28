@@ -74,7 +74,6 @@ export const Posts = ({ business }: PostsProps) => {
           'Descripción',
           'Categorías',
           'Precio',
-          'Moneda',
           'Fecha de Creación',
         ]}
         getRowProps={(rowData) => {
@@ -93,8 +92,7 @@ export const Posts = ({ business }: PostsProps) => {
               name,
               description,
               tableCellCategoriesTags.onGetTableCellNode({ postCategoriesTags }),
-              price,
-              currency,
+              <span key="price" className='text-nowrap'>{`${price} ${currency}`}</span>,
               getDateString({ date: createdAt, showTime: true }),
             ],
           };
