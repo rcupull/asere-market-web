@@ -54,16 +54,7 @@ export const PostsSections = ({ business, onRefresh }: PostsSectionsProps) => {
       <Table<PostsLayoutSection>
         heads={[null, 'Nombre', 'Categorías', 'Búsqueda']}
         getRowProps={(rowData) => {
-          const { name, postCategoriesTags, showName, showSearch, searchLayout } = rowData;
-
-          const renderHidden = (node: React.ReactNode, hidden: boolean) => {
-            return (
-              <div className="flex items-center">
-                {node}
-                {hidden && <span className="text-red-500 ml-2">(oculto)</span>}
-              </div>
-            );
-          };
+          const { name, postCategoriesTags, hiddenName, searchLayout } = rowData;
 
           return {
             nodes: [
@@ -73,9 +64,12 @@ export const PostsSections = ({ business, onRefresh }: PostsSectionsProps) => {
                 routeName={routeName}
                 callAfarResources={refeshId}
               />,
-              renderHidden(name, !showName),
+              <div key={name} className="flex items-center">
+                {name}
+                {hiddenName && <span className="text-red-500 ml-2">(oculto)</span>}
+              </div>,
               tableCellCategoriesTags.onGetTableCellNode({ postCategoriesTags }),
-              renderHidden(searchLayout, !showSearch),
+              searchLayout,
             ],
           };
         }}

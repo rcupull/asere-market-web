@@ -23,7 +23,7 @@ export const RouteName = () => {
 
   useEffect(() => {
     if (routeName) {
-      businessOwnerData.onRefresh({ routeName });
+      businessOwnerData.onFetch({ routeName });
     }
   }, [routeName]);
 

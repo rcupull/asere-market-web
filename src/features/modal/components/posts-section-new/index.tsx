@@ -83,18 +83,16 @@ export const PostsSectionNew = ({
       }}
     >
       {({ values, isValid }) => {
-        const renderShowHideField = (label: string, showField: string) => (
-          <div className="flex items-center">
-            <span>{label}</span>
-            <FieldShowHide name={showField} oposite/>
-          </div>
-        );
-
         return (
           <form>
             <FieldInput
               name="name"
-              label={renderShowHideField('Nombre', 'showName')}
+              label={
+                <div className="flex items-center">
+                  <span>Nombre</span>
+                  <FieldShowHide name="hiddenName" />
+                </div>
+              }
               className="w-full"
             />
 
@@ -139,7 +137,7 @@ export const PostsSectionNew = ({
               renderValue={({ searchLayout }) => searchLayout}
               optionToValue={({ searchLayout }) => searchLayout}
               name="searchLayout"
-              label={renderShowHideField('Diseño de búsqueda', 'showSearch')}
+              label="Diseño de búsqueda"
               className="w-full"
             />
 

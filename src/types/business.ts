@@ -19,11 +19,11 @@ export type FooterLayoutType = 'none' | 'basic';
 export interface PostsLayoutSection {
   _id: string;
   hidden?: boolean;
+  //
   name?: string;
-  showName?: boolean;
+  hiddenName?: boolean;
   //
   searchLayout?: SearchLayoutType;
-  showSearch?: boolean;
   //
   postCategoriesTags?: Array<string>;
   //

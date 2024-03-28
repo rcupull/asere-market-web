@@ -32,7 +32,7 @@ export const PostsSection = ({
   index,
 }: PostsSectionProps) => {
   const { routeName } = business;
-  const { name, showName, postCategoriesTags, _id } = layout;
+  const { name, hiddenName, postCategoriesTags, _id } = layout;
 
   const { pushModal } = useModal();
   const { getAllPosts } = useGetAllPosts();
@@ -75,9 +75,9 @@ export const PostsSection = ({
       }
     >
       <div className={cn('mt-10', className)}>
-        {showName && (
+        {!hiddenName && (
           <div className="flex justify-center">
-            <h2 className="text-2xl">{name}</h2>
+            <h2 className="text-3xl font-bold">{name}</h2>
           </div>
         )}
 

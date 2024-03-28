@@ -18,11 +18,7 @@ export const PostsSectionSearch = ({
   filters,
   business,
 }: PostsSectionSearchProps) => {
-  const { searchLayout, postCategoriesTags, showSearch } = layout;
-
-  if (!showSearch) {
-    return <></>;
-  }
+  const { searchLayout, postCategoriesTags } = layout;
 
   const { postCategories } = business;
 
