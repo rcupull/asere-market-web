@@ -8,7 +8,7 @@ import { cn } from 'utils/general';
 
 export interface UpdateSomethingContainerProps extends StyleProps {
   children: React.ReactNode;
-  onClick?: () =>void
+  onClick?: () => void;
 }
 
 export const UpdateSomethingContainer = ({
@@ -34,17 +34,16 @@ export const UpdateSomethingContainer = ({
       )}
     >
       {children}
-     
 
       <div
         onMouseLeave={() => setOver(false)}
         onMouseEnter={() => setOver(true)}
         className={cn('absolute top-0 right-0')}
       >
-         <IconButtonUpdate
+        <IconButtonUpdate
           onClick={(e) => {
             e.preventDefault();
-            onClick?.()
+            onClick?.();
           }}
         />
       </div>

@@ -12,6 +12,7 @@ import { TopActions } from 'pages/@common/top-actions';
 import { useBusinessOwnerData } from 'pages/@hooks/useBusinessOwnerData';
 import { useTableCellCategoriesTags } from 'pages/@hooks/useTableCellCategoriesTags';
 import { Business, PostsLayoutSection } from 'types/business';
+import { getSearchLayoutLabel } from 'utils/business';
 
 export interface PostsSectionsProps {
   business: Business;
@@ -69,7 +70,7 @@ export const PostsSections = ({ business, onRefresh }: PostsSectionsProps) => {
                 {hiddenName && <span className="text-red-500 ml-2">(oculto)</span>}
               </div>,
               tableCellCategoriesTags.onGetTableCellNode({ postCategoriesTags }),
-              searchLayout,
+              searchLayout && getSearchLayoutLabel(searchLayout),
             ],
           };
         }}

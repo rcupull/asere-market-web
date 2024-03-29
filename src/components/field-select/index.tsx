@@ -28,7 +28,7 @@ export const FieldSelect = <Value extends AnyRecord = AnyRecord>(
   const [state, setState] = useState<Value>();
 
   const { field, error } = useFormikField(props);
-  const { value } = field;
+  const { value = null } = field;
 
   useEffect(() => {
     setState(optionToValue ? items.find((item) => optionToValue(item) === value) : value);

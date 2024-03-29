@@ -5,7 +5,7 @@ import { ButtonClose } from 'components/button-close';
 import { ButtonSave } from 'components/button-save';
 import { Divider } from 'components/divider';
 import { FieldInput } from 'components/field-input';
-import { FieldSelect } from 'components/field-select';
+import { FieldSearchLayout } from 'components/field-search-layout';
 import { FieldShowHide } from 'components/field-show-hide';
 import { Modal } from 'components/modal';
 
@@ -24,7 +24,6 @@ import {
   PostsLayoutSectionPayload,
   useBusinessOwnerUpdate,
 } from 'pages/@hooks/useBusinessOwnerUpdate';
-import { SearchLayoutType } from 'types/business';
 
 type State = PostsLayoutSectionPayload;
 
@@ -106,40 +105,7 @@ export const PostsSectionNew = ({
 
             <Divider />
 
-            <FieldSelect<{ searchLayout: SearchLayoutType }>
-              items={[
-                {
-                  searchLayout: 'none',
-                },
-                {
-                  searchLayout: 'left',
-                },
-                {
-                  searchLayout: 'center',
-                },
-                {
-                  searchLayout: 'right',
-                },
-                {
-                  searchLayout: 'postCategories',
-                },
-                {
-                  searchLayout: 'postCategoriesScrollable',
-                },
-                {
-                  searchLayout: 'postCategoriesExcluded',
-                },
-                {
-                  searchLayout: 'postCategoriesExcludedScrollable',
-                },
-              ]}
-              renderOption={({ searchLayout }) => searchLayout}
-              renderValue={({ searchLayout }) => searchLayout}
-              optionToValue={({ searchLayout }) => searchLayout}
-              name="searchLayout"
-              label="Diseño de búsqueda"
-              className="w-full"
-            />
+            <FieldSearchLayout name="searchLayout" label="Diseño de búsqueda" className="w-full" />
 
             <Divider />
 

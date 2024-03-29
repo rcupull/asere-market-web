@@ -1,6 +1,6 @@
 import { replaceAll } from './general';
 
-import { BusinessCategory } from 'types/business';
+import { BusinessCategory, SearchLayoutType } from 'types/business';
 
 export const getRouteName = (name: string): string => {
   let out = name.trim().toLowerCase();
@@ -43,4 +43,27 @@ export const getPostRoute = (args: { routeName: string; postId: string }) => {
 
 export const getBusinessRoute = (args: { routeName: string }) => {
   return `/${args.routeName}`;
+};
+
+export const getSearchLayoutLabel = (type: SearchLayoutType): string => {
+  switch (type) {
+    case 'none':
+      return 'Ninguno';
+    case 'left':
+      return 'Isquierda';
+    case 'center':
+      return 'Centrado';
+    case 'right':
+      return 'Derecha';
+    case 'postCategories':
+      return 'Categorías(seleccion múltiple)';
+    case 'postCategoriesScrollable':
+      return 'Categorías(seleccion múltiple y deslizables)';
+    case 'postCategoriesExcluded':
+      return 'Categorías(seleccion simple)';
+    case 'postCategoriesExcludedScrollable':
+      return 'Categorías(selección simple y deslizable)';
+    default:
+      return 'unknown category';
+  }
 };
