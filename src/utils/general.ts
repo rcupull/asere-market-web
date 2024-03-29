@@ -169,3 +169,7 @@ export const set = <T extends AnyRecord = AnyRecord>(obj: T, path: Path<T>, valu
   dset(obj, path, value);
 };
 export const makeObj = nestie;
+
+export const getRandomNumber = (min: number, max: number) => {
+  return Math.floor(Math.random() * (max - min + 1) + min);
+};

@@ -5,6 +5,7 @@ import { ButtonClose } from 'components/button-close';
 import { ButtonSave } from 'components/button-save';
 import { Divider } from 'components/divider';
 import { FieldInput } from 'components/field-input';
+import { FieldPostCardLayout } from 'components/field-post-card-layout';
 import { FieldSearchLayout } from 'components/field-search-layout';
 import { FieldShowHide } from 'components/field-show-hide';
 import { Modal } from 'components/modal';
@@ -109,10 +110,10 @@ export const PostsSectionNew = ({
 
             <Divider />
 
-            <FieldLayoutPostCard
+            <FieldPostCardLayout
               label="Tarjeta de publicación"
               name="postCardLayout"
-              className="mt-6 w-[50rem]"
+              className="w-full"
             />
 
             {submitPortal.getPortal(

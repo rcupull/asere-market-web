@@ -10,6 +10,7 @@ import { PostCardLayout } from 'types/business';
 import { Image } from 'types/general';
 import { Post } from 'types/post';
 import { getImageEndpoint } from 'utils/api';
+import { getRandomNumber } from 'utils/general';
 
 export interface CardPostImageProps {
   post: Post;
@@ -31,7 +32,7 @@ export const CardPostImage = ({ post, layout }: CardPostImageProps) => {
 
       interval(
         images.map((image) => () => setSwitchImage(image)),
-        1000,
+        getRandomNumber(900, 1100),
       );
 
       return interval.cancel;
