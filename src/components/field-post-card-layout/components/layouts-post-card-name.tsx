@@ -1,6 +1,6 @@
-import { DummyPostCard } from './dummy-post-card';
 import { CommonProps } from '../type';
 import { getChangedPostCardLayout } from '../utils';
+import { DummyPostCard } from './dummy-post-card';
 import { SwiperSliceSelect } from './swiper-slice-select';
 import { SwiperLayout } from './swipper-layout';
 

@@ -20,7 +20,6 @@ export const useUpdateOneUserBusiness = (): {
           | 'routeName'
           | 'logo'
           | 'layouts'
-          | 'layoutsMobile'
           | 'aboutUsPage'
         >
       >;

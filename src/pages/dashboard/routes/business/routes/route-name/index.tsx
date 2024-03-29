@@ -5,7 +5,6 @@ import { Tabs } from 'components/tabs';
 
 import { useRouter } from 'hooks/useRouter';
 
-import { Layouts } from './layouts';
 import { Loading } from './loading';
 import { OptionsMenu } from './options-menu';
 import { Posts } from './posts';
@@ -84,15 +83,6 @@ export const RouteName = () => {
           {
             label: 'Recursos',
             content: <Resources business={business} />,
-          },
-          {
-            label: 'Diseños',
-            content: (
-              <Layouts
-                business={business}
-                onRefresh={() => businessOwnerData.onFetch({ routeName })}
-              />
-            ),
           },
         ]}
       />

@@ -16,8 +16,6 @@ import { CallAfarResources, useCallFromAfar } from 'hooks/useCallFromAfar';
 import { useGetFormErrors } from 'hooks/useGetFormErrors';
 import { useSubmitPortal } from 'hooks/useSubmitPortal';
 
-import { FieldLayoutPostCard } from './layout-post-card';
-
 import { Formik } from 'formik';
 import { FieldPostCategoriesButtons } from 'pages/@common/filters/field-post-categories-buttons';
 import { useBusinessOwnerData } from 'pages/@hooks/useBusinessOwnerData';
