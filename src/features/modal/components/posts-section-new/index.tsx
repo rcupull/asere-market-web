@@ -6,6 +6,7 @@ import { ButtonSave } from 'components/button-save';
 import { Divider } from 'components/divider';
 import { FieldInput } from 'components/field-input';
 import { FieldPostCardLayout } from 'components/field-post-card-layout';
+import { FieldPostsSectionLayout } from 'components/field-posts-section-layout';
 import { FieldSearchLayout } from 'components/field-search-layout';
 import { FieldShowHide } from 'components/field-show-hide';
 import { FieldToggleButton } from 'components/field-toggle-button';
@@ -69,6 +70,7 @@ export const PostsSectionNew = ({
         postCardLayout: undefined,
         postCategoriesTags: [],
         searchLayout: undefined,
+        type: 'grid',
         ...(section || {}),
       }}
       enableReinitialize
@@ -98,6 +100,10 @@ export const PostsSectionNew = ({
               }
               className="w-full"
             />
+
+            <Divider />
+
+            <FieldPostsSectionLayout name="type" label="Diseño de la sección" className="w-full" />
 
             <Divider />
 

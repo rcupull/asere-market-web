@@ -2,7 +2,7 @@ import { BaseIdentity, Image } from './general';
 
 export type BusinessCategory = 'food' | 'tool' | 'clothing' | 'service';
 
-export type PostsLayoutSectionType = 'grid' | 'slicesHorizontal' | 'alternateSummary'; //
+export type PostsLayoutSectionType = 'grid' | 'oneRowSlider';
 export type BannerLayoutType = 'none' | 'static' | 'swipableClassic';
 export type SearchLayoutType =
   | 'none'

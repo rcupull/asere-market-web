@@ -6,7 +6,6 @@ import { ZoomUpContainer } from 'components/zoom-up-container';
 
 import { useInterval } from 'hooks/useInterval';
 
-import classNames from 'classnames';
 import { PostCardLayout } from 'types/business';
 import { Image, StyleProps } from 'types/general';
 import { Post } from 'types/post';

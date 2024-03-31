@@ -10,7 +10,13 @@ import { deepJsonCopy, removeRow, set } from 'utils/general';
 
 export type PostsLayoutSectionPayload = Pick<
   PostsLayoutSection,
-  'name' | 'postCardLayout' | 'postCategoriesTags' | 'searchLayout' | 'hiddenName' | 'hidden'
+  | 'name'
+  | 'postCardLayout'
+  | 'postCategoriesTags'
+  | 'searchLayout'
+  | 'hiddenName'
+  | 'hidden'
+  | 'type'
 >;
 
 export const useBusinessOwnerUpdate = (): {

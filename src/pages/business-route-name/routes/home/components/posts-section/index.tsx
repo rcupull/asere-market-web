@@ -1,21 +1,18 @@
 import { useEffect } from 'react';
 
-import { CardGroup } from 'components/card-group';
-import { CardPost } from 'components/card-post';
-
 import { GetAllPostsQuery, useGetAllPosts } from 'features/api/useGetAllPosts';
 import { useModal } from 'features/modal/useModal';
 
 import { useCallFromAfar } from 'hooks/useCallFromAfar';
 import { useFilters } from 'hooks/useFilters';
 
+import { PostsSectionCards } from '../posts-section-cards';
 import { PostsSectionSearch } from '../posts-section-search';
 
 import { UpdateSomethingContainer } from 'pages/@common/update-something-container';
 import { useBusinessPageData } from 'pages/@hooks/useBusinessPageData';
 import { Business, PostsLayoutSection } from 'types/business';
 import { StyleProps } from 'types/general';
-import { getPostRoute } from 'utils/business';
 import { cn } from 'utils/general';
 
 export interface PostsSectionProps extends StyleProps {
@@ -103,21 +100,7 @@ export const PostsSection = ({
 
         <PostsSectionSearch layout={layout} filters={filters} business={business} />
 
-        <CardGroup className="mt-8">
-          {getAllPosts.data?.map((post, index) => {
-            const { _id } = post;
-
-            return (
-              <CardPost
-                key={index}
-                post={post}
-                layout={layout.postCardLayout}
-                href={getPostRoute({ routeName, postId: _id })}
-                // callAfarResources={[callAfarResourcesFetchPosts, callAfarResourcesRefreshBusiness]}
-              />
-            );
-          })}
-        </CardGroup>
+        <PostsSectionCards layout={layout} posts={getAllPosts.data} business={business} />
       </div>
     </UpdateSomethingContainer>
   );
