@@ -1,11 +1,11 @@
 import { Dialog, Transition } from '@headlessui/react';
-import { cloneElement, Fragment } from 'react';
+import React, { cloneElement, Fragment } from 'react';
 
 import { StyleProps } from 'types/general';
 import { cn } from 'utils/general';
 
 export interface ModalProps extends StyleProps {
-  title: string;
+  title: React.ReactNode;
   content: React.ReactNode;
   badge?: React.ReactNode;
   primaryBtn: React.ReactElement;

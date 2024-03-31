@@ -2,7 +2,7 @@ import { BaseIdentity, Image } from './general';
 
 export type BusinessCategory = 'food' | 'tool' | 'clothing' | 'service';
 
-export type PostsLayoutSectionType = 'grid' | 'slicesHorizontal' | 'alternateSummary';
+export type PostsLayoutSectionType = 'grid' | 'slicesHorizontal' | 'alternateSummary'; //
 export type BannerLayoutType = 'none' | 'static' | 'swipableClassic';
 export type SearchLayoutType =
   | 'none'
@@ -29,18 +29,21 @@ export interface PostsLayoutSection {
   //
   type: PostsLayoutSectionType;
   postCardLayout?: PostCardLayout;
+  //
 }
 export interface PostsLayout {
   sections: Array<PostsLayoutSection>;
 }
 
 export type PostCardLayoutImages = 'static' | 'hoverZoom' | 'slider' | 'switch';
+export type PostCardSize = 'small' | 'medium' | 'long';
 export type PostCardLayoutName = 'none' | 'basic';
 export type PostCardLayoutPrice = 'none' | 'basic' | 'smallerCurrency' | 'usdCurrencySymbol';
 export type PostCardLayoutDiscount = 'none' | 'savedPercent' | 'savedMoney';
 
 export interface PostCardLayout {
   images?: PostCardLayoutImages;
+  size?: PostCardSize;
   name?: PostCardLayoutName;
   price?: PostCardLayoutPrice;
   discount?: PostCardLayoutDiscount;

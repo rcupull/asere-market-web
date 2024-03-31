@@ -10,10 +10,11 @@ export interface FieldShowHideProps
     FormFieldWrapperProps,
     FormikFieldProps<boolean> {
   oposite?: boolean;
+  title?: string;
 }
 
 export const FieldShowHide = (props: FieldShowHideProps) => {
-  const { label, className, oposite } = props;
+  const { label, className, oposite, title } = props;
 
   const { field, error } = useFormikField(props);
   const { value } = field;
@@ -22,6 +23,7 @@ export const FieldShowHide = (props: FieldShowHideProps) => {
     <FormFieldWrapper label={label} error={error} className={className}>
       <IconButtonShowHide
         hidden={oposite ? !value : value}
+        title={title}
         onClick={(e) => {
           e.preventDefault();
           field.onChange({

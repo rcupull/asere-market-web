@@ -8,6 +8,7 @@ import { FieldInput } from 'components/field-input';
 import { FieldPostCardLayout } from 'components/field-post-card-layout';
 import { FieldSearchLayout } from 'components/field-search-layout';
 import { FieldShowHide } from 'components/field-show-hide';
+import { FieldToggleButton } from 'components/field-toggle-button';
 import { Modal } from 'components/modal';
 
 import { useModal } from 'features/modal/useModal';
@@ -38,6 +39,8 @@ export const PostsSectionNew = ({
   callAfarResources,
 }: PostsSectionNewProps) => {
   const submitPortal = useSubmitPortal();
+  const hiddenButtonPortal = useSubmitPortal();
+
   const { onClose } = useModal();
 
   const { onCallAfar } = useCallFromAfar();
@@ -55,8 +58,7 @@ export const PostsSectionNew = ({
     businessOwnerData.onFetch({ routeName });
   }, []);
 
-  const section =
-    (sectionId && businessOwnerData.onGetPostsLayoutSection({ sectionId })?.section) || {};
+  const section = sectionId && businessOwnerData.onGetPostsLayoutSection({ sectionId })?.section;
 
   const getFormErrors = useGetFormErrors();
 
@@ -67,7 +69,7 @@ export const PostsSectionNew = ({
         postCardLayout: undefined,
         postCategoriesTags: [],
         searchLayout: undefined,
-        ...section,
+        ...(section || {}),
       }}
       enableReinitialize
       onSubmit={() => {}}
@@ -88,7 +90,10 @@ export const PostsSectionNew = ({
               label={
                 <div className="flex items-center">
                   <span>Nombre</span>
-                  <FieldShowHide name="hiddenName" />
+                  <FieldShowHide
+                    name="hiddenName"
+                    title={`${values.hiddenName ? 'Mostrar' : 'Ocultar'} el nombre de la sección en la página del negocio`}
+                  />
                 </div>
               }
               className="w-full"
@@ -133,6 +138,13 @@ export const PostsSectionNew = ({
                 className="w-full"
               />,
             )}
+
+            {hiddenButtonPortal.getPortal(
+              <div className="flex items-center">
+                <span className="mb-1">Ocultar sección</span>
+                <FieldToggleButton name="hidden" className="ml-2" />
+              </div>,
+            )}
           </form>
         );
       }}
@@ -140,7 +152,12 @@ export const PostsSectionNew = ({
   );
   return (
     <Modal
-      title={sectionId ? 'Editar sección' : 'Nueva sección'}
+      title={
+        <div className="flex">
+          {sectionId ? 'Editar sección' : 'Nueva sección'}
+          <div className="ml-auto" ref={hiddenButtonPortal.ref} />
+        </div>
+      }
       content={<div className="h-[calc(100vh-12rem)] overflow-auto">{content}</div>}
       badge={<Badge variant="info" />}
       primaryBtn={<div ref={submitPortal.ref} />}

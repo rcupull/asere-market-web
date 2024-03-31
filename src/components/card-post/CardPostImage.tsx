@@ -6,18 +6,19 @@ import { ZoomUpContainer } from 'components/zoom-up-container';
 
 import { useInterval } from 'hooks/useInterval';
 
+import classNames from 'classnames';
 import { PostCardLayout } from 'types/business';
-import { Image } from 'types/general';
+import { Image, StyleProps } from 'types/general';
 import { Post } from 'types/post';
 import { getImageEndpoint } from 'utils/api';
-import { getRandomNumber } from 'utils/general';
+import { cn, getRandomNumber } from 'utils/general';
 
-export interface CardPostImageProps {
+export interface CardPostImageProps extends StyleProps {
   post: Post;
   layout?: PostCardLayout;
 }
 
-export const CardPostImage = ({ post, layout }: CardPostImageProps) => {
+export const CardPostImage = ({ post, layout, className }: CardPostImageProps) => {
   const imageLayout = layout?.images;
   const images = post.images;
 
@@ -80,7 +81,12 @@ export const CardPostImage = ({ post, layout }: CardPostImageProps) => {
   };
 
   return (
-    <div className="border border-gray-300 overflow-hidden rounded-lg bg-gray-50 flex items-center justify-center h-80 w-full sm:max-w-72">
+    <div
+      className={cn(
+        'border border-gray-300 overflow-hidden rounded-lg bg-gray-50 flex items-center justify-center',
+        className,
+      )}
+    >
       {renderContent()}
     </div>
   );

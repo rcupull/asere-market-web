@@ -14,6 +14,7 @@ import {
   PostCardLayoutImages,
   PostCardLayoutName,
   PostCardLayoutPrice,
+  PostCardSize,
 } from 'types/business';
 import { AnyRecord } from 'types/general';
 import { cn } from 'utils/general';
@@ -67,9 +68,11 @@ export const FieldPostCardLayout = ({ className, label, ...props }: FieldPostCar
           <Formik<PostCardLayout>
             initialValues={{
               images: 'static',
+              size: 'medium',
               discount: 'none',
               name: 'basic',
               price: 'smallerCurrency',
+              ...(value || {}),
             }}
             enableReinitialize
             onSubmit={() => {}}
@@ -104,6 +107,27 @@ export const FieldPostCardLayout = ({ className, label, ...props }: FieldPostCar
                     ]}
                     className="w-full"
                   />
+
+                  <FieldSelect<{ value: PostCardSize }>
+                    label="Tamaño"
+                    name="size"
+                    renderOption={({ value }) => value}
+                    renderValue={({ value }) => value}
+                    optionToValue={({ value }) => value}
+                    items={[
+                      {
+                        value: 'small',
+                      },
+                      {
+                        value: 'medium',
+                      },
+                      {
+                        value: 'long',
+                      },
+                    ]}
+                    className="w-full"
+                  />
+
                   <FieldSelect<{ value: PostCardLayoutName }>
                     label="Nombre"
                     name="name"
@@ -167,8 +191,10 @@ export const FieldPostCardLayout = ({ className, label, ...props }: FieldPostCar
           </Formik>
         </div>
         {showPreview && (
-          <div className="w-96 flex-shrink-0 h-[25rem]">
-            <DummyPostCard postCardLayout={state} />
+          <div className="flex justify-center items-center w-96 flex-shrink-0 h-[25rem]">
+            <div className="border border-dashed border-gray-400 w-fit h-fit">
+              <DummyPostCard postCardLayout={state}  />
+            </div>
           </div>
         )}
       </div>

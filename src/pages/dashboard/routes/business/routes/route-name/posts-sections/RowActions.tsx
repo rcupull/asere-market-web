@@ -1,6 +1,5 @@
 import { Badge } from 'components/badge';
 import { ButtonRemove } from 'components/button-remove';
-import { ButtonSave } from 'components/button-save';
 import { IconButtonRemove } from 'components/icon-button-remove ';
 import { IconButtonShowHide } from 'components/icon-button-show-hide';
 import { IconButtonUpdate } from 'components/icon-button-update';
@@ -11,6 +10,7 @@ import { CallAfarResources, useCallFromAfar } from 'hooks/useCallFromAfar';
 
 import { RowActionsContainer } from 'pages/@common/row-actions-container';
 import { useBusinessOwnerUpdate } from 'pages/@hooks/useBusinessOwnerUpdate';
+import { useBusinessOwnerUpdateViews } from 'pages/@hooks/useBusinessOwnerUpdateViews';
 import { PostsLayoutSection } from 'types/business';
 
 export interface RowActionsProps {
@@ -73,48 +73,18 @@ export const RowActions = ({ rowData, callAfarResources, routeName }: RowActions
     });
   };
 
-  const handleShowHide = (hidden: boolean) => {
-    pushModal(
-      'Confirmation',
-      {
-        useProps: () => {
-          const businessOwnerUpdate = useBusinessOwnerUpdate();
+  const { showHidePostsSection } = useBusinessOwnerUpdateViews();
 
-          const { onClose } = useModal();
-          const { onCallAfar } = useCallFromAfar();
-          return {
-            content: (
-              <div>
-                <span>
-                  Al <span className="font-bold">{`${hidden ? 'ocultar' : 'mostrar'}`}</span> esta
-                  sección {`${hidden ? 'no' : ''}`}será visible para los usuario en la página de su
-                  negocio. Las publicaciones, configuraciones y demás no sufrirán ningun cambio.
-                  Seguro que desea {`${hidden ? 'ocultar' : 'mostrar'} `}
-                  esta sección?
-                </span>
-              </div>
-            ),
-            badge: <Badge variant="error" />,
-            primaryBtn: (
-              <ButtonSave
-                isBusy={businessOwnerUpdate.status.isBusy}
-                onClick={() => {
-                  businessOwnerUpdate.updatePostsLayoutSection(
-                    { routeName, sectionId: rowData._id, value: { hidden } },
-                    {
-                      onAfterSuccess: () => {
-                        onClose();
-                        onCallAfar(callAfarResources);
-                      },
-                    },
-                  );
-                }}
-              />
-            ),
-          };
+  const { onCallAfar } = useCallFromAfar();
+
+  const handleShowHide = (hidden: boolean) => {
+    showHidePostsSection(
+      { hidden, routeName, section: rowData },
+      {
+        onAfterSuccess: () => {
+          onCallAfar(callAfarResources);
         },
       },
-      { emergent: true },
     );
   };
 

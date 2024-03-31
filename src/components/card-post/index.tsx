@@ -19,25 +19,50 @@ export interface CardPostProps {
   layout?: PostCardLayout;
   href: string;
   callAfarResources?: CallAfarResources;
+  neverUpdate?: boolean;
 }
 
-export const CardPost = ({ className, post, layout, href, callAfarResources }: CardPostProps) => {
+export const CardPost = ({
+  className,
+  neverUpdate,
+  post,
+  layout,
+  href,
+  callAfarResources,
+}: CardPostProps) => {
   const { pushModal } = useModal();
+  const { size } = layout || {};
 
-  return (
-    <UpdateSomethingContainer
-      onClick={() => pushModal('PostNew', { postId: post._id, callAfarResources })}
-    >
-      <Link data-id="CardPost" className={cn('group', className)} to={href}>
-        <CardPostImage layout={layout} post={post} />
+  const content = (
+    <Link data-id="CardPost" className={cn('group', className)} to={href}>
+      <div
+        className={cn('flex flex-col p-1 w-[90vw] overflow-hidden', {
+          'sm:w-52 h-60': size === 'small',
+          'sm:w-72 h-80': size === 'medium',
+          'sm:w-80 h-96': size === 'long',
+        })}
+      >
+        <CardPostImage layout={layout} post={post} className='flex-grow'/>
 
-        <div className="flex items-center justify-between">
+        <div className="flex items-center justify-between flex-shrink-0 mt-auto">
           <div>
             <CardPostName layout={layout} post={post} />
             <CardPostPrice layout={layout} post={post} />
           </div>
         </div>
-      </Link>
+      </div>
+    </Link>
+  );
+
+  if (neverUpdate) {
+    return content;
+  }
+
+  return (
+    <UpdateSomethingContainer
+      onClick={() => pushModal('PostNew', { postId: post._id, callAfarResources })}
+    >
+      {content}
     </UpdateSomethingContainer>
   );
 };

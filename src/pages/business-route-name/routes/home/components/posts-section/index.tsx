@@ -12,6 +12,7 @@ import { useFilters } from 'hooks/useFilters';
 import { PostsSectionSearch } from '../posts-section-search';
 
 import { UpdateSomethingContainer } from 'pages/@common/update-something-container';
+import { useBusinessPageData } from 'pages/@hooks/useBusinessPageData';
 import { Business, PostsLayoutSection } from 'types/business';
 import { StyleProps } from 'types/general';
 import { getPostRoute } from 'utils/business';
@@ -32,10 +33,14 @@ export const PostsSection = ({
   index,
 }: PostsSectionProps) => {
   const { routeName } = business;
-  const { name, hiddenName, postCategoriesTags, _id } = layout;
+  const { name, hiddenName, postCategoriesTags, _id, hidden } = layout;
 
   const { pushModal } = useModal();
   const { getAllPosts } = useGetAllPosts();
+  const { owner } = useBusinessPageData();
+
+  const notRender = hidden && !owner;
+  const renderHiddenSection = hidden && owner;
 
   const handleFilter = (filters: GetAllPostsQuery) => {
     const hasCategoriesTags = filters.postCategoriesTags?.length;
@@ -55,6 +60,8 @@ export const PostsSection = ({
   });
 
   useEffect(() => {
+    if (notRender) return;
+
     handleFilter(filters.value);
   }, [JSON.stringify(postCategoriesTags)]);
 
@@ -63,6 +70,10 @@ export const PostsSection = ({
   useCallFromAfar(postSectionRefechId, onRefresh);
 
   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+  if (notRender) {
+    return <></>;
+  }
 
   return (
     <UpdateSomethingContainer
@@ -74,10 +85,19 @@ export const PostsSection = ({
         })
       }
     >
-      <div className={cn('mt-10', className)}>
+      <div
+        className={cn(
+          'mt-10 p-4',
+          {
+            'bg-gray-200 rounded-md': renderHiddenSection,
+          },
+          className,
+        )}
+      >
         {!hiddenName && (
-          <div className="flex justify-center">
+          <div className="flex justify-center items-center">
             <h2 className="text-3xl font-bold">{name}</h2>
+            {renderHiddenSection && <span className="text-lg ml-3">(Sección oculta)</span>}
           </div>
         )}
 

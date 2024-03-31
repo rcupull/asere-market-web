@@ -1,7 +1,7 @@
 import { CardPost } from 'components/card-post';
 
 import { PostCardLayout } from 'types/business';
-import { StyleProps } from 'types/general';
+import { Post } from 'types/post';
 
 const imagesSrcs = [
   'https://i.etsystatic.com/22218968/r/il/b43c35/4139110628/il_570xN.4139110628_l9ye.jpg',
@@ -11,32 +11,25 @@ const imagesSrcs = [
   'https://c8.alamy.com/compes/2ay61fg/zapatos-negros-para-mujer-tacon-alto-sobre-fondo-blanco-2ay61fg.jpg',
 ];
 
-export interface DummyPostCardProps extends StyleProps {
+const dummyPost: Post = {
+  name: 'Zapatos de mujer',
+  images: imagesSrcs.map((src) => ({
+    src,
+    width: 300,
+    height: 300,
+  })),
+  description: 'Zapatos de mujer de excelente calidad',
+  _id: '_id',
+  createdAt: new Date().toISOString(),
+  currency: 'CUP',
+  price: 256.789,
+  discount: 10,
+  routeName: 'routeName',
+};
+export interface DummyPostCardProps {
   postCardLayout?: PostCardLayout;
 }
 
 export const DummyPostCard = ({ postCardLayout }: DummyPostCardProps) => {
-  return (
-    <div className="flex justify-center">
-      <CardPost
-        href="/"
-        layout={postCardLayout}
-        post={{
-          name: 'Zapatos de mujer',
-          images: imagesSrcs.map((src) => ({
-            src,
-            width: 300,
-            height: 300,
-          })),
-          description: 'Zapatos de mujer de excelente calidad',
-          _id: '_id',
-          createdAt: new Date().toISOString(),
-          currency: 'CUP',
-          price: 256.789,
-          discount: 10,
-          routeName: 'routeName',
-        }}
-      />
-    </div>
-  );
+  return <CardPost neverUpdate href="/" layout={postCardLayout} post={dummyPost} />;
 };
