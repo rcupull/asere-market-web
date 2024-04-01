@@ -39,10 +39,17 @@ export const Swiper = ({ items, className, activeIndex, ...omittedProps }: Swipe
       {...omittedProps}
     >
       {items?.map(({ content }, index) => {
-        return <SwiperSlide key={index} className={cn({
-          //fixing soome bugs in the slide's width when slidesPerView=auto
-          '!w-auto': omittedProps.slidesPerView == 'auto'
-        })}>{content}</SwiperSlide>;
+        return (
+          <SwiperSlide
+            key={index}
+            className={cn({
+              //fixing soome bugs in the slide's width when slidesPerView=auto
+              '!w-auto': omittedProps.slidesPerView == 'auto',
+            })}
+          >
+            {content}
+          </SwiperSlide>
+        );
       })}
     </SwiperBase>
   );

@@ -7,7 +7,7 @@ import { FormFieldWrapper, FormFieldWrapperProps } from 'components/form-field-w
 import { useFormikField } from 'hooks/useFormikField';
 
 import { AnyRecord, StyleProps } from 'types/general';
-import { cn } from 'utils/general';
+import { cn, getFlattenArray, isArray, isEqualObj, removeRow } from 'utils/general';
 
 export interface FieldSelectProps<Option extends AnyRecord = AnyRecord, Value = any>
   extends StyleProps,
@@ -19,40 +19,59 @@ export interface FieldSelectProps<Option extends AnyRecord = AnyRecord, Value = 
   renderOption: (option: Option) => React.ReactNode;
   renderValue: (option: Option) => React.ReactNode;
   name: string;
+  multi?: boolean;
 }
 
-export const FieldSelect = <Value extends AnyRecord = AnyRecord>(
-  props: FieldSelectProps<Value>,
+export const FieldSelect = <Option extends AnyRecord = AnyRecord>(
+  props: FieldSelectProps<Option>,
 ) => {
-  const { items, renderOption, renderValue, label, className, optionToValue } = props;
-  const [state, setState] = useState<Value>();
+  const { items, renderOption, renderValue, label, className, optionToValue, multi } = props;
+
+  const [state, setState] = useState<Option | Array<Option>>();
 
   const { field, error } = useFormikField(props);
-  const { value = null } = field;
+  const { value = multi ? [] : null } = field;
 
   useEffect(() => {
-    setState(optionToValue ? items.find((item) => optionToValue(item) === value) : value);
-  }, [value]);
+    let newState = value;
 
+    if (optionToValue) {
+      if (isArray(value)) {
+        newState = value.map((v) => items.find((item) => optionToValue(item) === v));
+      } else {
+        newState = items.find((item) => optionToValue(item) === value);
+      }
+    }
+
+    setState(newState);
+  }, [JSON.stringify([value])]);
+
+  const handleChange = (newSelectedOptionT: any) => {
+    if (isArray(newSelectedOptionT)) {
+      const newSelectedOption = getFlattenArray(newSelectedOptionT);
+      setState(newSelectedOption);
+
+      field.onChange({
+        target: {
+          name: field.name,
+          value: optionToValue ? newSelectedOption.map(optionToValue) : newSelectedOption,
+        },
+      });
+    } else {
+      const newSelectedOption = newSelectedOptionT;
+      setState(newSelectedOption);
+
+      field.onChange({
+        target: {
+          name: field.name,
+          value: optionToValue ? optionToValue(newSelectedOption) : newSelectedOption,
+        },
+      });
+    }
+  };
   return (
     <FormFieldWrapper label={label} error={error} className={className}>
-      <Listbox
-        value={value}
-        onChange={(newSelectedOption) => {
-          setState(newSelectedOption);
-
-          const newSelectedValue = optionToValue
-            ? optionToValue(newSelectedOption)
-            : newSelectedOption;
-
-          field.onChange({
-            target: {
-              name: field.name,
-              value: newSelectedValue,
-            },
-          });
-        }}
-      >
+      <Listbox>
         {({ open }) => (
           <div className={cn('relative')}>
             <Listbox.Button
@@ -65,7 +84,9 @@ export const FieldSelect = <Value extends AnyRecord = AnyRecord>(
                 },
               )}
             >
-              <div className="flex items-center h-6">{state && renderValue(state)}</div>
+              <div className="flex items-center h-6">
+                {state && (isArray(state) ? state.map(renderValue) : renderValue(state))}
+              </div>
               <span className="pointer-events-none absolute inset-y-0 right-0 ml-3 flex items-center pr-2">
                 <ChevronUpDownIcon className="h-5 w-5 text-gray-400" aria-hidden="true" />
               </span>
@@ -80,6 +101,10 @@ export const FieldSelect = <Value extends AnyRecord = AnyRecord>(
             >
               <Listbox.Options className="absolute z-10 mt-1 max-h-56 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
                 {items.map((item, index) => {
+                  const selected = isArray(state)
+                    ? state.find((s) => isEqualObj(s, item))
+                    : isEqualObj(state, item);
+
                   return (
                     <Listbox.Option
                       key={index}
@@ -88,9 +113,24 @@ export const FieldSelect = <Value extends AnyRecord = AnyRecord>(
                           ['bg-indigo-600 text-white']: active,
                         });
                       }}
-                      value={item}
+                      onClick={(e) => {
+                        if (isArray(state)) {
+                          e.preventDefault(); // no close
+                          handleChange(
+                            selected
+                              ? removeRow(
+                                  state,
+                                  state.findIndex((i) => isEqualObj(i, item)),
+                                )
+                              : [...state, item],
+                          );
+                        } else {
+                          handleChange(selected ? undefined : item);
+                        }
+                      }}
+                      value={null}
                     >
-                      {({ selected }) => (
+                      {() => (
                         <div
                           className={cn('p-2', {
                             ['bg-gray-200']: selected,

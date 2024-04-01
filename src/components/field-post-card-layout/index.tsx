@@ -193,7 +193,7 @@ export const FieldPostCardLayout = ({ className, label, ...props }: FieldPostCar
         {showPreview && (
           <div className="flex justify-center items-center w-96 flex-shrink-0 h-[25rem]">
             <div className="border border-dashed border-gray-400 w-fit h-fit">
-              <DummyPostCard postCardLayout={state}  />
+              <DummyPostCard postCardLayout={state} />
             </div>
           </div>
         )}

@@ -27,7 +27,7 @@ export const PostsSectionCards = ({ business, posts, layout }: PostsSectionCards
 
           return {
             content: (
-               <CardPost
+              <CardPost
                 key={index}
                 post={post}
                 layout={layout.postCardLayout}

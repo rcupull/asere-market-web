@@ -23,6 +23,7 @@ export const useAddOneUserPost = (): {
       | 'images'
       | 'postCategoriesTags'
       | 'discount'
+      | 'postsSectionsBelowIds'
     >,
     Post
   >;

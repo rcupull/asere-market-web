@@ -1,4 +1,4 @@
-import { FieldSelect } from '.';
+import { FieldSelect, FieldSelectProps } from '.';
 
 import { FormikWrapper } from 'utils/storybook';
 
@@ -207,39 +207,113 @@ export const Error = (): JSX.Element => (
 //   );
 // };
 
-// export const ControlledComponent = (): JSX.Element => {
-//   const [value, setValue] = useState<Person>();
+export const ControlledComponent = (): JSX.Element => {
+  const selectProps: FieldSelectProps<Person> = {
+    items: people,
+    name: 'fieldSimple',
+    renderOption: ({ avatar, name }) => (
+      <>
+        <img src={avatar} alt="" className="h-5 w-5 flex-shrink-0 rounded-full" />
+        <span className="ml-3">{name}</span>
+      </>
+    ),
+    renderValue: ({ avatar, name }) => (
+      <>
+        <img src={avatar} alt="" className="h-5 w-5 flex-shrink-0 rounded-full" />
+        <span className="ml-3">{name}</span>
+      </>
+    ),
+  };
 
-//   const selectProps: SelectProps<Person> = {
-//     items: people,
-//     value,
-//     onChange: setValue,
-//     renderOption: ({ avatar, name }) => (
-//       <>
-//         <img
-//           src={avatar}
-//           alt=""
-//           className="h-5 w-5 flex-shrink-0 rounded-full"
-//         />
-//         <span className="ml-3">{name}</span>
-//       </>
-//     ),
-//     renderValue: ({ avatar, name }) => (
-//       <>
-//         <img
-//           src={avatar}
-//           alt=""
-//           className="h-5 w-5 flex-shrink-0 rounded-full"
-//         />
-//         <span className="ml-3">{name}</span>
-//       </>
-//     ),
-//   };
+  return (
+    <FormikWrapper>
+      <div className="flex w-screen">
+        <FieldSelect<Person> {...selectProps} className="w-96" label="Simple" />
+        <FieldSelect<Person> {...selectProps} className="w-96" label="Simple" />
+      </div>
 
-//   return (
-//     <div className="flex w-screen">
-//       <Select<Person> {...selectProps} />
-//       <Select<Person> {...selectProps} />
-//     </div>
-//   );
-// };
+      <div className="flex w-screen mt-7">
+        <FieldSelect<Person>
+          {...selectProps}
+          name="fieldMulti"
+          className="w-96"
+          label="Multi"
+          multi
+          renderValue={({ avatar }) => (
+            <>
+              <img src={avatar} alt="" className="h-5 w-5 flex-shrink-0 rounded-full" />
+            </>
+          )}
+        />
+        <FieldSelect<Person>
+          {...selectProps}
+          name="fieldMulti"
+          className="w-96"
+          label="Multi"
+          multi
+          renderValue={({ avatar }) => (
+            <>
+              <img src={avatar} alt="" className="h-5 w-5 flex-shrink-0 rounded-full" />
+            </>
+          )}
+        />
+      </div>
+    </FormikWrapper>
+  );
+};
+
+export const ControlledComponentWithOptionValue = (): JSX.Element => {
+  const selectProps: FieldSelectProps<Person> = {
+    items: people,
+    name: 'fieldSimple',
+    renderOption: ({ avatar, name }) => (
+      <>
+        <img src={avatar} alt="" className="h-5 w-5 flex-shrink-0 rounded-full" />
+        <span className="ml-3">{name}</span>
+      </>
+    ),
+    renderValue: ({ avatar, name }) => (
+      <>
+        <img src={avatar} alt="" className="h-5 w-5 flex-shrink-0 rounded-full" />
+        <span className="ml-3">{name}</span>
+      </>
+    ),
+    optionToValue: ({ id }) => id,
+  };
+
+  return (
+    <FormikWrapper>
+      <div className="flex w-screen">
+        <FieldSelect<Person> {...selectProps} className="w-96" label="Simple" />
+        <FieldSelect<Person> {...selectProps} className="w-96" label="Simple" />
+      </div>
+
+      <div className="flex w-screen mt-7">
+        <FieldSelect<Person>
+          {...selectProps}
+          name="fieldMulti"
+          className="w-96"
+          label="Multi"
+          multi
+          renderValue={({ avatar }) => (
+            <>
+              <img src={avatar} alt="" className="h-5 w-5 flex-shrink-0 rounded-full" />
+            </>
+          )}
+        />
+        <FieldSelect<Person>
+          {...selectProps}
+          name="fieldMulti"
+          className="w-96"
+          label="Multi"
+          multi
+          renderValue={({ avatar }) => (
+            <>
+              <img src={avatar} alt="" className="h-5 w-5 flex-shrink-0 rounded-full" />
+            </>
+          )}
+        />
+      </div>
+    </FormikWrapper>
+  );
+};

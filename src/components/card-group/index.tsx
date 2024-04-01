@@ -10,9 +10,7 @@ export const CardGroup = ({ className, children, title }: CardGroupProps) => {
     <div data-id="CardGroup" className={cn(className)}>
       {title && <h2 className="not-sr-only">{title}</h2>}
 
-      <div className="flex flex-wrap justify-around gap-4">
-        {children}
-      </div>
+      <div className="flex flex-wrap justify-around gap-4">{children}</div>
     </div>
   );
 };

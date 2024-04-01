@@ -6,6 +6,7 @@ import { FieldClothingSizeSelect } from 'components/field-clothing-size-select';
 import { FieldColorSelect } from 'components/field-colors-select';
 import { FieldInput } from 'components/field-input';
 import { FieldInputImages } from 'components/field-input-images';
+import { FieldPostsSectionSelect } from 'components/field-posts-section-select';
 import { FieldSelect } from 'components/field-select';
 import { FieldTextArea } from 'components/field-text-area';
 
@@ -35,6 +36,7 @@ type State = Pick<
   | 'details'
   | 'postCategoriesTags'
   | 'discount'
+  | 'postsSectionsBelowIds'
 > & { images: Array<ImageFile | Image> };
 
 export interface PostFormProps {
@@ -79,6 +81,7 @@ export const PostForm = ({
         clothingSizes: [],
         images: [],
         postCategoriesTags: [],
+        postsSectionsBelowIds: [],
         ...(post || {}),
       }}
       enableReinitialize
@@ -206,6 +209,18 @@ export const PostForm = ({
               </>
             )}
 
+            {render.includes('postsSectionsBelowIds') && (
+              <>
+                <FieldPostsSectionSelect
+                  label="Secciones de publicaciones asociadas"
+                  name="postsSectionsBelowIds"
+                  className="mt-6"
+                  routeName={routeName}
+                />
+                <Divider />
+              </>
+            )}
+
             {submitPortal.getPortal(
               <Button
                 label="Guardar"
@@ -223,6 +238,7 @@ export const PostForm = ({
                     details,
                     postCategoriesTags,
                     discount,
+                    postsSectionsBelowIds,
                   } = values;
 
                   const handelUpdatePost = (post: Post) => {
@@ -245,6 +261,7 @@ export const PostForm = ({
                               details,
                               postCategoriesTags,
                               discount,
+                              postsSectionsBelowIds,
                             },
                             {
                               onAfterSuccess,
@@ -267,6 +284,7 @@ export const PostForm = ({
                         routeName,
                         images: [],
                         discount,
+                        postsSectionsBelowIds,
                       },
                       {
                         onAfterSuccess: (response) => {

@@ -42,7 +42,7 @@ export const CardPost = ({
           'sm:w-80 h-96': size === 'long',
         })}
       >
-        <CardPostImage layout={layout} post={post} className='flex-grow'/>
+        <CardPostImage layout={layout} post={post} className="flex-grow" />
 
         <div className="flex items-center justify-between flex-shrink-0 mt-auto">
           <div>

@@ -20,7 +20,7 @@ export interface PostsLayoutSection {
   _id: string;
   hidden?: boolean;
   //
-  name?: string;
+  name: string;
   hiddenName?: boolean;
   //
   searchLayout?: SearchLayoutType;

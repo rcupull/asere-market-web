@@ -17,6 +17,10 @@ export const isString = (value: unknown): value is string => {
   return typeof value === 'string';
 };
 
+export const isArray = (value: unknown): value is Array<any> => {
+  return Array.isArray(value);
+};
+
 export const isNullOrUndefinedOrEmptyString = (value: unknown): value is null | undefined | '' => {
   return isNullOrUndefined(value) || value === '';
 };
