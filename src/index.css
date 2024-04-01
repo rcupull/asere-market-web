@@ -16,3 +16,19 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.swiper-button-next:after,
+.swiper-button-prev:after {
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 1rem !important;
+  font-weight: 900;
+  padding: 8px 12px;
+  background-color: rgba(255, 255, 255, 0.4);
+  color: gray;
+  border-radius: 100%;
+}
+
+.swiper-button-next:hover:after,
+.swiper-button-prev:hover:after{
+  background-color: white;
+}

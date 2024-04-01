@@ -20,7 +20,7 @@ export const PostsSectionCards = ({ business, posts, layout }: PostsSectionCards
   if (type === 'oneRowSlider') {
     return (
       <Swiper
-        className="w-[90vw] sm:w-[80vw]"
+        className="!w-[90vw] !sm:w-[80vw]"
         slidesPerView="auto"
         items={posts?.map((post, index) => {
           const { _id } = post;
