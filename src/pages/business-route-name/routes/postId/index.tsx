@@ -1,8 +1,9 @@
-import { useEffect } from 'react';
+import { useEffect, useMemo } from 'react';
 
 import { ClothingProductGrid1 } from 'components/clothing-product-grid-1';
 import { FieldClothingSizeSelect } from 'components/field-clothing-size-select';
 import { FieldColorSelect } from 'components/field-colors-select';
+import { PostsSectionsView } from 'components/posts-sections-view';
 import { ProductDescription1 } from 'components/product/description/product-description-1';
 import { ProductDetails1 } from 'components/product/details/product-details-1';
 import { ProductHighLights1 } from 'components/product/hightlights/product-highlights-1';
@@ -18,6 +19,8 @@ import { useRouter } from 'hooks/useRouter';
 
 import { LayoutPage } from 'pages/@common/layout-page';
 import { UpdateSomethingContainer } from 'pages/@common/update-something-container';
+import { useBusinessPageData } from 'pages/@hooks/useBusinessPageData';
+import { PostsLayoutSection } from 'types/business';
 import { getImageEndpoint } from 'utils/api';
 
 export const PostId = () => {
@@ -27,6 +30,8 @@ export const PostId = () => {
 
   const { getOnePost } = useGetOnePost();
   const onRefresh = () => postId && getOnePost.fetch({ id: postId });
+  const businessPageData = useBusinessPageData();
+
   useCallFromAfar(postId, onRefresh);
 
   useEffect(() => {
@@ -37,7 +42,17 @@ export const PostId = () => {
 
   const post = getOnePost.data;
 
-  if (!post) {
+  const business = businessPageData.business;
+
+  const { postsSectionsBelowIds } = post || {};
+
+  const sectionsBelow = useMemo<Array<PostsLayoutSection>>(() => {
+    return (business?.layouts?.posts?.sections || []).filter(({ _id }) => {
+      return postsSectionsBelowIds?.includes(_id);
+    });
+  }, [postsSectionsBelowIds, business]);
+
+  if (!post || !business) {
     return <></>;
   }
 
@@ -62,6 +77,12 @@ export const PostId = () => {
             highLights: (props) => <ProductHighLights1 {...props} />,
             details: (props) => <ProductDetails1 {...props} />,
           }}
+        />
+
+        <PostsSectionsView
+          business={business}
+          onRefresh={() => businessPageData.onRefresh({ routeName: business.routeName })}
+          layouts={sectionsBelow}
         />
       </LayoutPage>
     </UpdateSomethingContainer>
