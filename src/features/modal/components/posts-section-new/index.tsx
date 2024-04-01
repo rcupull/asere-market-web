@@ -8,8 +8,8 @@ import { FieldInput } from 'components/field-input';
 import { FieldPostCardLayout } from 'components/field-post-card-layout';
 import { FieldPostsSectionLayout } from 'components/field-posts-section-layout';
 import { FieldSearchLayout } from 'components/field-search-layout';
+import { FieldSelect } from 'components/field-select';
 import { FieldShowHide } from 'components/field-show-hide';
-import { FieldToggleButton } from 'components/field-toggle-button';
 import { Modal } from 'components/modal';
 
 import { useModal } from 'features/modal/useModal';
@@ -25,6 +25,7 @@ import {
   PostsLayoutSectionPayload,
   useBusinessOwnerUpdate,
 } from 'pages/@hooks/useBusinessOwnerUpdate';
+import { PostsLayoutSectionVisibility } from 'types/business';
 
 type State = PostsLayoutSectionPayload;
 
@@ -40,7 +41,6 @@ export const PostsSectionNew = ({
   callAfarResources,
 }: PostsSectionNewProps) => {
   const submitPortal = useSubmitPortal();
-  const hiddenButtonPortal = useSubmitPortal();
 
   const { onClose } = useModal();
 
@@ -71,6 +71,7 @@ export const PostsSectionNew = ({
         postCategoriesTags: [],
         searchLayout: undefined,
         type: 'grid',
+        showIn: [],
         ...(section || {}),
       }}
       enableReinitialize
@@ -87,6 +88,28 @@ export const PostsSectionNew = ({
       {({ values, isValid }) => {
         return (
           <form>
+            <FieldSelect<{ value: PostsLayoutSectionVisibility }>
+              label="Mostrar sección en"
+              renderOption={({ value }) => value}
+              renderValue={({ value }) => (
+                <div className="rounded-2xl px-2 border border-gray-400">{value}</div>
+              )}
+              optionToValue={({ value }) => value}
+              items={[
+                {
+                  value: 'businessPage',
+                },
+                {
+                  value: 'postPage',
+                },
+              ]}
+              multi
+              name="showIn"
+              className="w-full"
+            />
+
+            <Divider />
+
             <FieldInput
               name="name"
               label={
@@ -144,13 +167,6 @@ export const PostsSectionNew = ({
                 className="w-full"
               />,
             )}
-
-            {hiddenButtonPortal.getPortal(
-              <div className="flex items-center">
-                <span className="mb-1">Ocultar sección</span>
-                <FieldToggleButton name="hidden" className="ml-2" />
-              </div>,
-            )}
           </form>
         );
       }}
@@ -158,12 +174,7 @@ export const PostsSectionNew = ({
   );
   return (
     <Modal
-      title={
-        <div className="flex">
-          {sectionId ? 'Editar sección' : 'Nueva sección'}
-          <div className="ml-auto" ref={hiddenButtonPortal.ref} />
-        </div>
-      }
+      title={sectionId ? 'Editar sección' : 'Nueva sección'}
       content={<div className="h-[calc(100vh-12rem)] overflow-auto">{content}</div>}
       badge={<Badge variant="info" />}
       primaryBtn={<div ref={submitPortal.ref} />}

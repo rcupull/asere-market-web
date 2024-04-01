@@ -1,6 +1,7 @@
 import { useMemo } from 'react';
 
 import { Business } from 'types/business';
+import { viewUtils } from 'utils/view';
 
 export const useTableCellCategoriesTags = ({
   business,
@@ -26,15 +27,11 @@ export const useTableCellCategoriesTags = ({
   return {
     onGetTableCellNode: ({ postCategoriesTags }) => {
       return (
-        <div key="categories" className="flex flex-col gap-1">
-          {postCategoriesTags?.map((tag, index) => (
-            <span
-              key={index}
-              className="text-nowrap border border-gray-500 rounded-md px-1 text-center w-fit"
-            >
-              {tagsRecord[tag]}
-            </span>
-          ))}
+        <div key="categories" className="flex flex-col">
+          {viewUtils.mapToOutlinedBox({
+            value: postCategoriesTags,
+            preMap: (tag)=>tagsRecord[tag]
+          })}
         </div>
       );
     },

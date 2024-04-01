@@ -15,7 +15,7 @@ export type PostsLayoutSectionPayload = Pick<
   | 'postCategoriesTags'
   | 'searchLayout'
   | 'hiddenName'
-  | 'hidden'
+  | 'showIn'
   | 'type'
 >;
 

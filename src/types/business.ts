@@ -3,6 +3,7 @@ import { BaseIdentity, Image } from './general';
 export type BusinessCategory = 'food' | 'tool' | 'clothing' | 'service';
 
 export type PostsLayoutSectionType = 'grid' | 'oneRowSlider';
+export type PostsLayoutSectionVisibility = 'businessPage' | 'postPage';
 export type BannerLayoutType = 'none' | 'static' | 'swipableClassic';
 export type SearchLayoutType =
   | 'none'
@@ -18,7 +19,7 @@ export type FooterLayoutType = 'none' | 'basic';
 
 export interface PostsLayoutSection {
   _id: string;
-  hidden?: boolean;
+  showIn?: Array<PostsLayoutSectionVisibility>;
   //
   name: string;
   hiddenName?: boolean;

@@ -25,6 +25,7 @@ export const Home = ({ business, onRefresh }: HomeProps) => {
           business={business}
           onRefresh={onRefresh}
           layouts={business.layouts?.posts?.sections || []}
+          visibility="businessPage"
         />
       </LayoutPage>
     </UpdateSomethingContainer>

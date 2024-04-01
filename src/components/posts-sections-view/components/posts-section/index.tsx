@@ -11,7 +11,7 @@ import { PostsSectionSearch } from '../posts-section-search';
 
 import { UpdateSomethingContainer } from 'pages/@common/update-something-container';
 import { useBusinessPageData } from 'pages/@hooks/useBusinessPageData';
-import { Business, PostsLayoutSection } from 'types/business';
+import { Business, PostsLayoutSection, PostsLayoutSectionVisibility } from 'types/business';
 import { StyleProps } from 'types/general';
 import { cn } from 'utils/general';
 
@@ -20,6 +20,7 @@ export interface PostsSectionProps extends StyleProps {
   business: Business;
   onRefresh: () => void;
   layout: PostsLayoutSection;
+  visibility: PostsLayoutSectionVisibility;
 }
 
 export const PostsSection = ({
@@ -28,14 +29,16 @@ export const PostsSection = ({
   layout,
   className,
   index,
+  visibility,
 }: PostsSectionProps) => {
   const { routeName } = business;
-  const { name, hiddenName, postCategoriesTags, _id, hidden } = layout;
+  const { name, hiddenName, postCategoriesTags, _id, showIn } = layout;
 
   const { pushModal } = useModal();
   const { getAllPosts } = useGetAllPosts();
   const { owner } = useBusinessPageData();
 
+  const hidden = !showIn?.includes(visibility);
   const notRender = hidden && !owner;
   const renderHiddenSection = hidden && owner;
 

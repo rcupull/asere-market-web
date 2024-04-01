@@ -83,6 +83,7 @@ export const PostId = () => {
           business={business}
           onRefresh={() => businessPageData.onRefresh({ routeName: business.routeName })}
           layouts={sectionsBelow}
+          visibility="postPage"
         />
       </LayoutPage>
     </UpdateSomethingContainer>

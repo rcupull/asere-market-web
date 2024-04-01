@@ -13,6 +13,7 @@ import { useBusinessOwnerData } from 'pages/@hooks/useBusinessOwnerData';
 import { useTableCellCategoriesTags } from 'pages/@hooks/useTableCellCategoriesTags';
 import { Business, PostsLayoutSection } from 'types/business';
 import { getSearchLayoutLabel } from 'utils/business';
+import { viewUtils } from 'utils/view';
 
 export interface PostsSectionsProps {
   business: Business;
@@ -53,9 +54,9 @@ export const PostsSections = ({ business, onRefresh }: PostsSectionsProps) => {
         />
       </TopActions>
       <Table<PostsLayoutSection>
-        heads={[null, 'Nombre', 'Categorías', 'Búsqueda']}
+        heads={[null, 'Nombre', 'Categorías', 'Visible en', 'Búsqueda']}
         getRowProps={(rowData) => {
-          const { name, postCategoriesTags, hiddenName, searchLayout } = rowData;
+          const { name, postCategoriesTags, hiddenName, searchLayout, showIn } = rowData;
 
           return {
             nodes: [
@@ -70,6 +71,7 @@ export const PostsSections = ({ business, onRefresh }: PostsSectionsProps) => {
                 {hiddenName && <span className="text-red-500 ml-2">(oculto)</span>}
               </div>,
               tableCellCategoriesTags.onGetTableCellNode({ postCategoriesTags }),
+              viewUtils.mapToOutlinedBox({ value: showIn }),
               searchLayout && getSearchLayoutLabel(searchLayout),
             ],
           };

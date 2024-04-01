@@ -1,7 +1,6 @@
 import { Badge } from 'components/badge';
 import { ButtonRemove } from 'components/button-remove';
 import { IconButtonRemove } from 'components/icon-button-remove ';
-import { IconButtonShowHide } from 'components/icon-button-show-hide';
 import { IconButtonUpdate } from 'components/icon-button-update';
 
 import { useModal } from 'features/modal/useModal';
@@ -10,7 +9,6 @@ import { CallAfarResources, useCallFromAfar } from 'hooks/useCallFromAfar';
 
 import { RowActionsContainer } from 'pages/@common/row-actions-container';
 import { useBusinessOwnerUpdate } from 'pages/@hooks/useBusinessOwnerUpdate';
-import { useBusinessOwnerUpdateViews } from 'pages/@hooks/useBusinessOwnerUpdateViews';
 import { PostsLayoutSection } from 'types/business';
 
 export interface RowActionsProps {
@@ -73,25 +71,9 @@ export const RowActions = ({ rowData, callAfarResources, routeName }: RowActions
     });
   };
 
-  const { showHidePostsSection } = useBusinessOwnerUpdateViews();
-
-  const { onCallAfar } = useCallFromAfar();
-
-  const handleShowHide = (hidden: boolean) => {
-    showHidePostsSection(
-      { hidden, routeName, section: rowData },
-      {
-        onAfterSuccess: () => {
-          onCallAfar(callAfarResources);
-        },
-      },
-    );
-  };
-
   return (
     <RowActionsContainer>
       <IconButtonRemove onClick={handleDelete} />
-      <IconButtonShowHide hidden={rowData.hidden} onClick={() => handleShowHide(!rowData.hidden)} />
       <IconButtonUpdate onClick={handleUpdate} />
     </RowActionsContainer>
   );
