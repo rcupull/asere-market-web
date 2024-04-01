@@ -6,6 +6,7 @@ import { FieldClothingSizeSelect } from 'components/field-clothing-size-select';
 import { FieldColorSelect } from 'components/field-colors-select';
 import { FieldInput } from 'components/field-input';
 import { FieldInputImages } from 'components/field-input-images';
+import { FieldPostCategoriesButtons } from 'components/field-post-categories-buttons';
 import { FieldPostsSectionSelect } from 'components/field-posts-section-select';
 import { FieldSelect } from 'components/field-select';
 import { FieldTextArea } from 'components/field-text-area';
@@ -19,7 +20,6 @@ import { GetFormErrors, useGetFormErrors } from 'hooks/useGetFormErrors';
 import { SubmitPortal } from 'hooks/useSubmitPortal';
 
 import { Formik } from 'formik';
-import { FieldPostCategoriesButtons } from 'pages/@common/filters/field-post-categories-buttons';
 import { OnAfterSuccess } from 'types/api';
 import { Image, ImageFile } from 'types/general';
 import { Post, PostCurrency } from 'types/post';

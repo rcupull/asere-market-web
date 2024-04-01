@@ -1,6 +1,7 @@
+import { PostCategoriesFilterButtons } from 'components/post-categories-filter-buttons';
+
 import { UseFiltersReturn } from 'hooks/useFilters';
 
-import { PostCategoriesFilterButtons } from 'pages/@common/filters/post-categories-filter-buttons';
 import { SearchFilter } from 'pages/@common/filters/search-filter';
 import { Business, PostsLayoutSection } from 'types/business';
 import { StyleProps } from 'types/general';

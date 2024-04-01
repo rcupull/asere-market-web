@@ -30,7 +30,7 @@ export const useTableCellCategoriesTags = ({
         <div key="categories" className="flex flex-col">
           {viewUtils.mapToOutlinedBox({
             value: postCategoriesTags,
-            preMap: (tag)=>tagsRecord[tag]
+            preMap: (tag) => tagsRecord[tag],
           })}
         </div>
       );

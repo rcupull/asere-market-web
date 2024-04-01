@@ -16,6 +16,8 @@ export const FieldInput = forwardRef<HTMLInputElement, FieldInputProps>((props, 
 
   const { field, error } = useFormikField(props);
 
+  const { value = '', ...restField } = field;
+
   return (
     <FormFieldWrapper label={label} error={error} className={className}>
       <Input
@@ -24,7 +26,8 @@ export const FieldInput = forwardRef<HTMLInputElement, FieldInputProps>((props, 
           'ring-1 rounded-md ring-red-500 focus:ring-red-500': !!error,
         })}
         {...omittedProps}
-        {...field}
+        value={value}
+        {...restField}
       />
     </FormFieldWrapper>
   );

@@ -95,9 +95,13 @@ export const PostsSection = ({
         )}
       >
         {!hiddenName && (
-          <div className="flex justify-center items-center">
+          <div className="flex flex-col items-center">
             <h2 className="text-3xl font-bold">{name}</h2>
-            {renderHiddenSection && <span className="text-lg ml-3">(Sección oculta)</span>}
+            {renderHiddenSection && (
+              <span className="text-sm sm:text-lg ml-3 text-yellow-600">
+                (Solo visible para el administrador del negocio)
+              </span>
+            )}
           </div>
         )}
 

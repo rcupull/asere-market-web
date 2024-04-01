@@ -6,6 +6,7 @@ import { ButtonSave } from 'components/button-save';
 import { Divider } from 'components/divider';
 import { FieldInput } from 'components/field-input';
 import { FieldPostCardLayout } from 'components/field-post-card-layout';
+import { FieldPostCategoriesButtons } from 'components/field-post-categories-buttons';
 import { FieldPostsSectionLayout } from 'components/field-posts-section-layout';
 import { FieldSearchLayout } from 'components/field-search-layout';
 import { FieldSelect } from 'components/field-select';
@@ -19,7 +20,6 @@ import { useGetFormErrors } from 'hooks/useGetFormErrors';
 import { useSubmitPortal } from 'hooks/useSubmitPortal';
 
 import { Formik } from 'formik';
-import { FieldPostCategoriesButtons } from 'pages/@common/filters/field-post-categories-buttons';
 import { useBusinessOwnerData } from 'pages/@hooks/useBusinessOwnerData';
 import {
   PostsLayoutSectionPayload,
