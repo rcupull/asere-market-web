@@ -7,7 +7,7 @@ import { PostsSectionsView } from 'components/posts-sections-view';
 import { ProductDescription1 } from 'components/product/description/product-description-1';
 import { ProductDetails1 } from 'components/product/details/product-details-1';
 import { ProductHighLights1 } from 'components/product/hightlights/product-highlights-1';
-import { ProductImages1 } from 'components/product/images/product-images-1';
+import { ProductImages2 } from 'components/product/images/product-images-2';
 import { ProductPrice1 } from 'components/product/price/product-price-1';
 import { Review } from 'components/review';
 
@@ -68,7 +68,7 @@ export const PostId = () => {
           getImageUrl={getImageEndpoint}
           value={post}
           render={{
-            images: (props) => <ProductImages1 {...props} />,
+            images: (props) => <ProductImages2 {...props} />,
             price: (props) => <ProductPrice1 {...props} />,
             review: (props) => <Review {...props} />,
             colors: (props) => <FieldColorSelect {...props} />,
