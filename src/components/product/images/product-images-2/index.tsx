@@ -20,7 +20,10 @@ export const ProductImages2 = ({ value, className }: ProductImages2Props) => {
 
   return (
     <div
-      className={cn('flex flex-col-reverse sm:flex-row justify-center gap-2 w-full min-h-[20rem] lg:min-h-[30rem]', className)}
+      className={cn(
+        'flex flex-col-reverse sm:flex-row justify-center gap-2 w-full min-h-[20rem] lg:min-h-[30rem]',
+        className,
+      )}
     >
       <div className="flex flex-row sm:flex-col gap-2 overflow-auto flex-shrink-0">
         {value?.map((image, index) => {
@@ -40,7 +43,7 @@ export const ProductImages2 = ({ value, className }: ProductImages2Props) => {
           );
         })}
       </div>
-      <div className='flex-1 flex items-center justify-center border-2 border-gray-200 rounded-md'>
+      <div className="flex-1 flex items-center justify-center border-2 border-gray-200 rounded-md">
         {selectedImage ? (
           <img
             src={getImageEndpoint(selectedImage.src)}

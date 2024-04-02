@@ -14,6 +14,7 @@ import {
   PostCardLayoutImages,
   PostCardLayoutName,
   PostCardLayoutPrice,
+  PostCardLayoutWhatsAppContact,
   PostCardSize,
 } from 'types/business';
 import { AnyRecord } from 'types/general';
@@ -72,6 +73,7 @@ export const FieldPostCardLayout = ({ className, label, ...props }: FieldPostCar
               discount: 'none',
               name: 'basic',
               price: 'smallerCurrency',
+              whatsAppContact: 'none',
               ...(value || {}),
             }}
             enableReinitialize
@@ -181,6 +183,23 @@ export const FieldPostCardLayout = ({ className, label, ...props }: FieldPostCar
                       },
                       {
                         value: 'savedPercent',
+                      },
+                    ]}
+                    className="w-full"
+                  />
+
+                  <FieldSelect<{ value: PostCardLayoutWhatsAppContact }>
+                    label="WhatsApp"
+                    name="whatsAppContact"
+                    renderOption={({ value }) => value}
+                    renderValue={({ value }) => value}
+                    optionToValue={({ value }) => value}
+                    items={[
+                      {
+                        value: 'none',
+                      },
+                      {
+                        value: 'xsLink_lgQR',
                       },
                     ]}
                     className="w-full"

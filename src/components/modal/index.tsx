@@ -10,6 +10,7 @@ export interface ModalProps extends StyleProps {
   badge?: React.ReactNode;
   primaryBtn: React.ReactElement;
   secondaryBtn?: React.ReactElement;
+  customBtn?: React.ReactElement;
 }
 
 export const Modal = ({
@@ -17,6 +18,7 @@ export const Modal = ({
   content,
   primaryBtn,
   secondaryBtn,
+  customBtn,
   badge,
   className,
 }: ModalProps) => {
@@ -77,6 +79,8 @@ export const Modal = ({
                   </div>
                 </div>
                 <div className="bg-gray-50 px-4 py-3 sm:flex sm:flex-row sm:px-6">
+                  {customBtn}
+
                   {primaryBtn &&
                     cloneElement(primaryBtn, {
                       className: 'w-full sm:w-auto ml-auto',

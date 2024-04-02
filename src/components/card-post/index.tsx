@@ -7,6 +7,7 @@ import { CallAfarResources } from 'hooks/useCallFromAfar';
 import { CardPostImage } from './CardPostImage';
 import { CardPostName } from './CardPostName';
 import { CardPostPrice } from './CardPostPrice';
+import { CardPostWhatsApp } from './CardPostWhatsApp';
 
 import { UpdateSomethingContainer } from 'pages/@common/update-something-container';
 import { PostCardLayout } from 'types/business';
@@ -20,6 +21,7 @@ export interface CardPostProps {
   href: string;
   callAfarResources?: CallAfarResources;
   neverUpdate?: boolean;
+  whatsAppPhoneNumber?: string;
 }
 
 export const CardPost = ({
@@ -29,6 +31,7 @@ export const CardPost = ({
   layout,
   href,
   callAfarResources,
+  whatsAppPhoneNumber,
 }: CardPostProps) => {
   const { pushModal } = useModal();
   const { size } = layout || {};
@@ -44,10 +47,17 @@ export const CardPost = ({
       >
         <CardPostImage layout={layout} post={post} className="flex-grow" />
 
-        <div className="flex items-center justify-between flex-shrink-0 mt-auto">
+        <div className="flex items-center flex-shrink-0 mt-auto">
           <div>
             <CardPostName layout={layout} post={post} />
             <CardPostPrice layout={layout} post={post} />
+          </div>
+          <div className="ml-auto">
+            <CardPostWhatsApp
+              layout={layout}
+              post={post}
+              whatsAppPhoneNumber={whatsAppPhoneNumber}
+            />
           </div>
         </div>
       </div>

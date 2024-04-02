@@ -29,6 +29,7 @@ export interface PostsLayoutSection {
   postCategoriesTags?: Array<string>;
   //
   type: PostsLayoutSectionType;
+  //
   postCardLayout?: PostCardLayout;
   //
 }
@@ -41,6 +42,7 @@ export type PostCardSize = 'small' | 'medium' | 'long';
 export type PostCardLayoutName = 'none' | 'basic';
 export type PostCardLayoutPrice = 'none' | 'basic' | 'smallerCurrency' | 'usdCurrencySymbol';
 export type PostCardLayoutDiscount = 'none' | 'savedPercent' | 'savedMoney';
+export type PostCardLayoutWhatsAppContact = 'none' | 'xsLink_lgQR';
 
 export interface PostCardLayout {
   images?: PostCardLayoutImages;
@@ -48,6 +50,7 @@ export interface PostCardLayout {
   name?: PostCardLayoutName;
   price?: PostCardLayoutPrice;
   discount?: PostCardLayoutDiscount;
+  whatsAppContact?: PostCardLayoutWhatsAppContact;
 }
 
 export interface BannerLayout {
@@ -101,4 +104,5 @@ export interface Business extends BaseIdentity {
   socialLinks?: SocialLinks;
   layouts?: BusinessLayouts;
   aboutUsPage?: BusinessAboutUsPage;
+  whatsAppPhoneNumber?: string;
 }
