@@ -24,6 +24,7 @@ export const useAddOneUserPost = (): {
       | 'postCategoriesTags'
       | 'discount'
       | 'postsSectionsBelowIds'
+      | 'postPageLayout'
     >,
     Post
   >;

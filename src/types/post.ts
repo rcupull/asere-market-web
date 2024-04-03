@@ -1,3 +1,4 @@
+import { PostPageLayout } from './business';
 import { BaseIdentity, Image } from './general';
 
 export type PostCurrency = 'CUP' | 'USD' | 'MLC';
@@ -21,6 +22,8 @@ export interface Post extends BaseIdentity {
   // clothing
   clothingSizes?: Array<PostClothingSize>;
   postsSectionsBelowIds?: Array<string>;
+  //
+  postPageLayout?: PostPageLayout;
 }
 
 export type PostColor = 'white' | 'gray' | 'black';

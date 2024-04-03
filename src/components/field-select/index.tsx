@@ -20,12 +20,14 @@ export interface FieldSelectProps<Option extends AnyRecord = AnyRecord, Value = 
   renderValue: (option: Option) => React.ReactNode;
   name: string;
   multi?: boolean;
+  disabled?: boolean;
 }
 
 export const FieldSelect = <Option extends AnyRecord = AnyRecord>(
   props: FieldSelectProps<Option>,
 ) => {
-  const { items, renderOption, renderValue, label, className, optionToValue, multi } = props;
+  const { items, renderOption, renderValue, label, className, optionToValue, multi, disabled } =
+    props;
 
   const [state, setState] = useState<Option | Array<Option>>();
 
@@ -71,7 +73,7 @@ export const FieldSelect = <Option extends AnyRecord = AnyRecord>(
   };
   return (
     <FormFieldWrapper label={label} error={error} className={className}>
-      <Listbox>
+      <Listbox disabled={disabled}>
         {({ open }) => (
           <div className={cn('relative')}>
             <Listbox.Button
@@ -81,6 +83,7 @@ export const FieldSelect = <Option extends AnyRecord = AnyRecord>(
                 'relative w-full cursor-pointer rounded-md bg-white py-1.5 pl-3 pr-10 text-left text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 sm:text-sm sm:leading-6',
                 {
                   'ring-1 rounded-md ring-red-500 focus:ring-red-500': !!error,
+                  '!cursor-not-allowed !bg-gray-200': disabled,
                 },
               )}
             >

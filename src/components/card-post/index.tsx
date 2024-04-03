@@ -1,5 +1,7 @@
 import { Link } from 'react-router-dom';
 
+import { PostContact } from 'components/post-contact';
+
 import { useModal } from 'features/modal/useModal';
 
 import { CallAfarResources } from 'hooks/useCallFromAfar';
@@ -7,7 +9,6 @@ import { CallAfarResources } from 'hooks/useCallFromAfar';
 import { CardPostImage } from './CardPostImage';
 import { CardPostName } from './CardPostName';
 import { CardPostPrice } from './CardPostPrice';
-import { CardPostWhatsApp } from './CardPostWhatsApp';
 
 import { UpdateSomethingContainer } from 'pages/@common/update-something-container';
 import { PostCardLayout } from 'types/business';
@@ -52,13 +53,13 @@ export const CardPost = ({
             <CardPostName layout={layout} post={post} />
             <CardPostPrice layout={layout} post={post} />
           </div>
-          <div className="ml-auto">
-            <CardPostWhatsApp
-              layout={layout}
-              post={post}
-              whatsAppPhoneNumber={whatsAppPhoneNumber}
-            />
-          </div>
+
+          <PostContact
+            layout={layout?.contact}
+            post={post}
+            whatsAppPhoneNumber={whatsAppPhoneNumber}
+            className="ml-auto"
+          />
         </div>
       </div>
     </Link>

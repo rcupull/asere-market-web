@@ -4,7 +4,7 @@ import { ChildrenProp } from 'types/general';
 import { cn } from 'utils/general';
 
 export interface LayoutPageProps extends ChildrenProp {
-  title?: string;
+  title?: React.ReactNode;
   backButton?: boolean;
 }
 
@@ -15,7 +15,7 @@ export const LayoutPage = ({ children, title, backButton }: LayoutPageProps) => 
         {backButton && <BackButton />}
 
         <h1
-          className={cn('text-3xl font-semibold', {
+          className={cn('text-3xl font-semibold w-full', {
             'ml-3': backButton,
           })}
         >

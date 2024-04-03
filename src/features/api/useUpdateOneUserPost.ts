@@ -25,6 +25,7 @@ export const useUpdateOneUserPost = (): {
         | 'postCategoriesTags'
         | 'discount'
         | 'postsSectionsBelowIds'
+        | 'postPageLayout'
       >
     >,
     void

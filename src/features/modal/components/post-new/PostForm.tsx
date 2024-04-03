@@ -7,6 +7,7 @@ import { FieldColorSelect } from 'components/field-colors-select';
 import { FieldInput } from 'components/field-input';
 import { FieldInputImages } from 'components/field-input-images';
 import { FieldPostCategoriesButtons } from 'components/field-post-categories-buttons';
+import { FieldPostPageLayout } from 'components/field-post-page-layout';
 import { FieldPostsSectionSelect } from 'components/field-posts-section-select';
 import { FieldSelect } from 'components/field-select';
 import { FieldTextArea } from 'components/field-text-area';
@@ -37,6 +38,7 @@ type State = Pick<
   | 'postCategoriesTags'
   | 'discount'
   | 'postsSectionsBelowIds'
+  | 'postPageLayout'
 > & { images: Array<ImageFile | Image> };
 
 export interface PostFormProps {
@@ -82,6 +84,7 @@ export const PostForm = ({
         images: [],
         postCategoriesTags: [],
         postsSectionsBelowIds: [],
+        postPageLayout: undefined,
         ...(post || {}),
       }}
       enableReinitialize
@@ -221,6 +224,17 @@ export const PostForm = ({
               </>
             )}
 
+            {render.includes('postPageLayout') && (
+              <>
+                <FieldPostPageLayout
+                  label="Diseño de la página de la publicación"
+                  name="postPageLayout"
+                  className="w-full"
+                />
+                <Divider />
+              </>
+            )}
+
             {submitPortal.getPortal(
               <Button
                 label="Guardar"
@@ -239,6 +253,7 @@ export const PostForm = ({
                     postCategoriesTags,
                     discount,
                     postsSectionsBelowIds,
+                    postPageLayout,
                   } = values;
 
                   const handelUpdatePost = (post: Post) => {
@@ -262,6 +277,7 @@ export const PostForm = ({
                               postCategoriesTags,
                               discount,
                               postsSectionsBelowIds,
+                              postPageLayout,
                             },
                             {
                               onAfterSuccess,
@@ -285,6 +301,7 @@ export const PostForm = ({
                         images: [],
                         discount,
                         postsSectionsBelowIds,
+                        postPageLayout,
                       },
                       {
                         onAfterSuccess: (response) => {

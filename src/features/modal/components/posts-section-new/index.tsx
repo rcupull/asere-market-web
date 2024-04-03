@@ -143,10 +143,12 @@ export const PostsSectionNew = ({
             <Divider />
 
             <FieldPostCardLayout
-              label="Tarjeta de publicación"
+              label="Diseño de la tarjeta de publicación"
               name="postCardLayout"
               className="w-full"
             />
+
+            <Divider />
 
             {submitPortal.getPortal(
               <ButtonSave

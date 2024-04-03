@@ -13,14 +13,16 @@ import { Nullable } from 'types/general';
 
 export type FormikFieldProps<Val = any> = Omit<FieldHookConfig<Val>, 'name'> & { name?: string };
 
-export const useFormikField = <Val = any>(
-  propsOrFieldName: FormikFieldProps<Val>,
-): {
+export type FormikFieldReturn<Val = any> = {
   field: FieldInputProps<Val>;
   meta: FieldMetaProps<Val>;
   helpers: FieldHelperProps<Val>;
   error: Nullable<string>;
-} => {
+};
+
+export const useFormikField = <Val = any>(
+  propsOrFieldName: FormikFieldProps<Val>,
+): FormikFieldReturn<Val> => {
   //@ts-expect-error some error with tha name type
   const [field, meta, helpers] = useField(propsOrFieldName);
 
