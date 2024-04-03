@@ -40,7 +40,7 @@ export const FieldPostsSectionSelect = ({
         <div className="flex items-center">
           {label}
           <IconButtonAdd
-            title="Agregar sección"
+            title="Agregar nuevo grupo de publicaciones"
             className="text-green-600 font-bold ml-2"
             onClick={(e) => {
               e.preventDefault();

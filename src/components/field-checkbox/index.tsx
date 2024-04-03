@@ -12,8 +12,8 @@ export interface FieldCheckboxProps
   value?: boolean;
 }
 
-export const FieldCheckbox = forwardRef<HTMLInputElement, FieldCheckboxProps>((props, ref) => {
-  const { noUseFormik } = props;
+export const FieldCheckbox = forwardRef<HTMLInputElement, FieldCheckboxProps>((allProps, ref) => {
+  const { noUseFormik , ...props } = allProps;
 
   if (noUseFormik) {
     const { className, label, value, ...omittedProps } = props;

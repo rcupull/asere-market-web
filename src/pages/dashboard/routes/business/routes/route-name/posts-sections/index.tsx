@@ -38,7 +38,7 @@ export const PostsSections = ({ business, onRefresh }: PostsSectionsProps) => {
     <>
       <TopActions>
         <ButtonNew
-          label="Nueva sección"
+          label="Nuevo grupo"
           onClick={() =>
             pushModal('PostsSectionNew', {
               routeName,

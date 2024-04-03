@@ -28,7 +28,7 @@ const clasicItemRender: ItemRender = ({ selected, label }) => {
   return (
     <div
       className={cn(
-        'w-full max-w-28 text-center p-2 bg-gray-50 rounded-sm hover:bg-gray-100 border-b-2 border-transparent',
+        'w-full text-center p-2 bg-gray-50 rounded-sm hover:bg-gray-100 border-b-2 border-transparent text-nowrap',
         {
           '!border-indigo-600': selected,
         },

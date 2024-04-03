@@ -32,10 +32,10 @@ export const RowActions = ({ rowData, callAfarResources, routeName }: RowActions
             content: (
               <div>
                 <span>
-                  Al eliminar esta sección solo serán borrados los datos asociados a la misma de
-                  manera <span className="font-bold">permanente</span>. Las publicaciones{' '}
+                  Al eliminar este grupo solo serán borrados los datos asociados al mismo de
+                  forma <span className="font-bold">permanente</span>. Las publicaciones{' '}
                   <span className="font-bold">no</span> serán eliminadas. Seguro que desea eliminar
-                  esta sección?
+                  este grupo?
                 </span>
               </div>
             ),

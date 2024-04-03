@@ -215,7 +215,7 @@ export const PostForm = ({
             {render.includes('postsSectionsBelowIds') && (
               <>
                 <FieldPostsSectionSelect
-                  label="Secciones de publicaciones asociadas"
+                  label="Grupos de publicaciones similares"
                   name="postsSectionsBelowIds"
                   className="mt-6"
                   routeName={routeName}

@@ -72,7 +72,7 @@ export const RouteName = () => {
             content: <Posts business={business} />,
           },
           {
-            label: 'Secciones',
+            label: 'Grupos de publicaciones',
             content: (
               <PostsSections
                 business={business}

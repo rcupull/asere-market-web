@@ -1,4 +1,5 @@
 import { Listbox, Transition } from '@headlessui/react';
+import { Float } from '@headlessui-float/react';
 import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid';
 import { Fragment, useEffect, useState } from 'react';
 
@@ -74,93 +75,107 @@ export const FieldSelect = <Option extends AnyRecord = AnyRecord>(
   return (
     <FormFieldWrapper label={label} error={error} className={className}>
       <Listbox disabled={disabled}>
-        {({ open }) => (
-          <div className={cn('relative')}>
-            <Listbox.Button
-              name={field.name}
-              onBlur={field.onBlur}
-              className={cn(
-                'relative w-full cursor-pointer rounded-md bg-white py-1.5 pl-3 pr-10 text-left text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 sm:text-sm sm:leading-6',
-                {
-                  'ring-1 rounded-md ring-red-500 focus:ring-red-500': !!error,
-                  '!cursor-not-allowed !bg-gray-200': disabled,
-                },
-              )}
-            >
-              <div className="flex items-center h-6">
-                {state && (isArray(state) ? state.map(renderValue) : renderValue(state))}
-              </div>
-              <span className="pointer-events-none absolute inset-y-0 right-0 ml-3 flex items-center pr-2">
-                <ChevronUpDownIcon className="h-5 w-5 text-gray-400" aria-hidden="true" />
-              </span>
-            </Listbox.Button>
+        {({ open }) => {
+          return (
+            <div className={cn('relative')}>
+              <Float
+                as="div"
+                className="relative"
+                offset={4}
+                floatingAs={Fragment}
+                portal
+                adaptiveWidth
+                autoPlacement={{
+                  allowedPlacements: ['bottom', 'top'],
+                }}
+              >
+                <Listbox.Button
+                  name={field.name}
+                  onBlur={field.onBlur}
+                  className={cn(
+                    'relative w-full cursor-pointer rounded-md bg-white py-1.5 pl-3 pr-10 text-left text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 sm:text-sm sm:leading-6',
+                    {
+                      'ring-1 rounded-md ring-red-500 focus:ring-red-500': !!error,
+                      '!cursor-not-allowed !bg-gray-200': disabled,
+                    },
+                  )}
+                >
+                  <div className="flex items-center h-6">
+                    {state && (isArray(state) ? state.map(renderValue) : renderValue(state))}
+                  </div>
+                  <span className="pointer-events-none absolute inset-y-0 right-0 ml-3 flex items-center pr-2">
+                    <ChevronUpDownIcon className="h-5 w-5 text-gray-400" aria-hidden="true" />
+                  </span>
+                </Listbox.Button>
 
-            <Transition
-              show={open}
-              as={Fragment}
-              leave="transition ease-in duration-100"
-              leaveFrom="opacity-100"
-              leaveTo="opacity-0"
-            >
-              <Listbox.Options className="absolute z-10 mt-1 max-h-56 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
-                {items.map((item, index) => {
-                  const selected = isArray(state)
-                    ? state.find((s) => isEqualObj(s, item))
-                    : isEqualObj(state, item);
+                <Transition
+                  show={open}
+                  as={Fragment}
+                  leave="transition ease-in duration-100"
+                  leaveFrom="opacity-100"
+                  leaveTo="opacity-0"
+                >
+                  <Listbox.Options className="absolute z-10 mt-1 max-h-56 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
+                    {items.map((item, index) => {
+                      const selected = isArray(state)
+                        ? state.find((s) => isEqualObj(s, item))
+                        : isEqualObj(state, item);
 
-                  return (
-                    <Listbox.Option
-                      key={index}
-                      className={({ active }) => {
-                        return cn('text-gray-900 relative select-none cursor-pointer', {
-                          ['bg-indigo-600 text-white']: active,
-                        });
-                      }}
-                      onClick={(e) => {
-                        if (isArray(state)) {
-                          e.preventDefault(); // no close
-                          handleChange(
-                            selected
-                              ? removeRow(
-                                  state,
-                                  state.findIndex((i) => isEqualObj(i, item)),
-                                )
-                              : [...state, item],
-                          );
-                        } else {
-                          handleChange(selected ? undefined : item);
-                        }
-                      }}
-                      value={null}
-                    >
-                      {() => (
-                        <div
-                          className={cn('p-2', {
-                            ['bg-gray-200']: selected,
-                          })}
+                      return (
+                        <Listbox.Option
+                          key={index}
+                          className={({ active }) => {
+                            return cn('text-gray-900 relative select-none cursor-pointer', {
+                              ['bg-indigo-600 text-white']: active,
+                            });
+                          }}
+                          onClick={(e) => {
+                            if (isArray(state)) {
+                              e.preventDefault(); // no close
+                              handleChange(
+                                selected
+                                  ? removeRow(
+                                      state,
+                                      state.findIndex((i) => isEqualObj(i, item)),
+                                    )
+                                  : [...state, item],
+                              );
+                            } else {
+                              handleChange(selected ? undefined : item);
+                            }
+                          }}
+                          value={null}
                         >
-                          <div className="flex items-center ml-3 truncate">
-                            {renderOption(item)}
-                          </div>
-
-                          {selected && (
-                            <span
-                              className={cn(
-                                'bg-inherit absolute inset-y-0 right-0 flex items-center pr-4 text-indigo-600',
-                              )}
+                          {() => (
+                            <div
+                              className={cn('p-2', {
+                                ['bg-gray-200']: selected,
+                              })}
                             >
-                              <CheckIcon className="h-5 w-5" aria-hidden="true" />
-                            </span>
+                              <div className="flex items-center ml-3 truncate">
+                                {renderOption(item)}
+                              </div>
+
+                              {selected && (
+                                <span
+                                  className={cn(
+                                    'bg-inherit absolute inset-y-0 right-0 flex items-center pr-4 text-indigo-600',
+                                  )}
+                                >
+                                  <CheckIcon className="h-5 w-5" aria-hidden="true" />
+                                </span>
+                              )}
+                            </div>
                           )}
-                        </div>
-                      )}
-                    </Listbox.Option>
-                  );
-                })}
-              </Listbox.Options>
-            </Transition>
-          </div>
-        )}
+                        </Listbox.Option>
+                      );
+                    })}
+                  </Listbox.Options>
+                </Transition>
+              </Float>
+            </div>
+          );
+        }}
       </Listbox>
     </FormFieldWrapper>
   );

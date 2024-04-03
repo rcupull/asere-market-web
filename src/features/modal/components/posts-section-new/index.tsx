@@ -89,7 +89,7 @@ export const PostsSectionNew = ({
         return (
           <form>
             <FieldSelect<{ value: PostsLayoutSectionVisibility }>
-              label="Mostrar sección en"
+              label="Mostrar grupo en"
               renderOption={({ value }) => value}
               renderValue={({ value }) => (
                 <div className="rounded-2xl px-2 border border-gray-400">{value}</div>
@@ -117,7 +117,7 @@ export const PostsSectionNew = ({
                   <span>Nombre</span>
                   <FieldShowHide
                     name="hiddenName"
-                    title={`${values.hiddenName ? 'Mostrar' : 'Ocultar'} el nombre de la sección en la página del negocio`}
+                    title={`${values.hiddenName ? 'Mostrar' : 'Ocultar'} el nombre del grupo.`}
                   />
                 </div>
               }
@@ -126,7 +126,7 @@ export const PostsSectionNew = ({
 
             <Divider />
 
-            <FieldPostsSectionLayout name="type" label="Diseño de la sección" className="w-full" />
+            <FieldPostsSectionLayout name="type" label="Diseño" className="w-full" />
 
             <Divider />
 
@@ -143,7 +143,7 @@ export const PostsSectionNew = ({
             <Divider />
 
             <FieldPostCardLayout
-              label="Diseño de la tarjeta de publicación"
+              label="Diseño de las tarjetas de publicaciones"
               name="postCardLayout"
               className="w-full"
             />
@@ -176,7 +176,7 @@ export const PostsSectionNew = ({
   );
   return (
     <Modal
-      title={sectionId ? 'Editar sección' : 'Nueva sección'}
+      title={sectionId ? 'Editar grupo de publicaciones' : 'Nuevo grupo de publicaciones'}
       content={<div className="h-[calc(100vh-12rem)] overflow-auto">{content}</div>}
       badge={<Badge variant="info" />}
       primaryBtn={<div ref={submitPortal.ref} />}
