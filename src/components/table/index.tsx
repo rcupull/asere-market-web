@@ -1,3 +1,9 @@
+import { useRef } from 'react';
+
+import { SpinnerEllipsis } from 'components/spinner-ellipsis';
+
+import { useScrollBottom } from 'hooks/useScrollBottom';
+
 import { TableRow, TableRowProps } from './table-row';
 
 import { AnyRecord, StyleProps } from 'types/general';
@@ -7,6 +13,8 @@ export interface TableProps<RowData extends AnyRecord = AnyRecord> extends Style
   heads: Array<React.ReactNode>;
   getRowProps: (rowData: RowData, rowIndex: number) => TableRowProps;
   data: Array<RowData> | null;
+  onScrollBottom?: () => void;
+  isBusyBottom?: boolean;
 }
 
 export const Table = <RowData extends AnyRecord = AnyRecord>({
@@ -14,9 +22,15 @@ export const Table = <RowData extends AnyRecord = AnyRecord>({
   getRowProps,
   data,
   className,
+  onScrollBottom,
+  isBusyBottom,
 }: TableProps<RowData>) => {
+  const ref = useRef<HTMLDivElement>(null);
+
+  const { onScroll } = useScrollBottom(ref, onScrollBottom);
+
   return (
-    <div className={cn('overflow-auto max-h-screen', className)}>
+    <div ref={ref} onScroll={onScroll} className={cn('overflow-auto max-h-screen', className)}>
       <table className="min-w-full table-auto">
         <thead>
           <tr>
@@ -40,6 +54,11 @@ export const Table = <RowData extends AnyRecord = AnyRecord>({
           })}
         </tbody>
       </table>
+      {isBusyBottom && (
+        <div className="flex justify-center">
+          <SpinnerEllipsis />
+        </div>
+      )}
     </div>
   );
 };

@@ -1,7 +1,8 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 import { ButtonNew } from 'components/button-new';
 import { ButtonRefresh } from 'components/button-refresh';
+import { PostCategoriesFilterButtons } from 'components/post-categories-filter-buttons';
 import { Table } from 'components/table';
 
 import { useGetAllUserPosts } from 'features/api/useGetAllUserPosts';
@@ -9,13 +10,16 @@ import { useGetUserPaymentPlan } from 'features/api/useGetUserPaymentPlan';
 import { useModal } from 'features/modal/useModal';
 
 import { callAfarIds, useCallFromAfar } from 'hooks/useCallFromAfar';
-import { useHiddenPostControl } from 'hooks/useHiddenPostsControl';
+import { useFiltersVolatile } from 'hooks/useFiltersVolatile';
 
 import { RowActions } from './RowActions';
 
 import { TopActions } from 'pages/@common/top-actions';
+import { useBusinessOwnerData } from 'pages/@hooks/useBusinessOwnerData';
 import { useTableCellCategoriesTags } from 'pages/@hooks/useTableCellCategoriesTags';
+import { GetAllPostsQuery } from 'types/api';
 import { Business } from 'types/business';
+import { Post } from 'types/post';
 import { getDateString } from 'utils/date';
 
 export interface PostsProps {
@@ -27,29 +31,43 @@ export const Posts = ({ business }: PostsProps) => {
   const { pushModal } = useModal();
   const { routeName } = business;
 
+  const [data, setData] = useState<Array<Post>>([]);
+
+  const businessOwnerData = useBusinessOwnerData();
+
   useEffect(() => {
-    onRefresh();
-  }, [routeName]);
+    if (getAllUserPosts.paginator && getAllUserPosts.data) {
+      const { page } = getAllUserPosts.paginator;
 
-  const onRefresh = () => getAllUserPosts.fetch({ routeNames: [routeName] });
+      if (page === 1) {
+        setData([...getAllUserPosts.data]);
+      } else {
+        setData([...data, ...getAllUserPosts.data]);
+      }
+    }
+  }, [getAllUserPosts.data]);
 
-  const hiddenPostControl = useHiddenPostControl({
-    onRefresh,
-    fetchStatus: getAllUserPosts.status,
+  const filters = useFiltersVolatile<GetAllPostsQuery>({
+    onChange: (filters) => getAllUserPosts.fetch({ routeNames: [routeName], ...filters }),
   });
+
+  useEffect(() => {
+    filters.onRefresh();
+  }, []);
 
   const { isNotValidPostsCountByBussines } = useGetUserPaymentPlan();
 
-  useCallFromAfar(callAfarIds.dashboard_business_route_name_table_posts, onRefresh);
+  useCallFromAfar(callAfarIds.dashboard_business_route_name_table_posts, () => {
+    filters.onMergeFilters({ page: 1 });
+  });
 
   const tableCellCategoriesTags = useTableCellCategoriesTags({
     business,
   });
 
   return (
-    <>
+    <div className="h-full flex flex-col">
       <TopActions>
-        {hiddenPostControl.submitBtn}
         <ButtonNew
           label="Nueva publicación"
           needPremium={isNotValidPostsCountByBussines(getAllUserPosts.data?.length)}
@@ -62,24 +80,27 @@ export const Posts = ({ business }: PostsProps) => {
           className="ml-auto"
         />
 
-        <ButtonRefresh
-          onClick={hiddenPostControl.onRefresh}
-          isBusy={getAllUserPosts.status.isBusy}
-        />
+        <ButtonRefresh onClick={filters.onRefresh} isBusy={getAllUserPosts.status.isBusy} />
       </TopActions>
+
+      <PostCategoriesFilterButtons
+        postCategories={businessOwnerData.data?.postCategories}
+        onChange={(postCategoriesTags) => filters.onMergeFilters({ page: 1, postCategoriesTags })}
+        value={filters.value.postCategoriesTags}
+        type="wrapped"
+      />
+
       <Table
         heads={[null, 'Nombre', 'Descripción', 'Categorías', 'Precio', 'Fecha de Creación']}
         getRowProps={(rowData) => {
           const { name, createdAt, description, currency, price, postCategoriesTags } = rowData;
 
           return {
-            className: hiddenPostControl.onGetHiddenTableRowStyles(rowData),
             nodes: [
               <RowActions
                 key="RowActions"
                 rowData={rowData}
                 routeName={routeName}
-                hiddenPostControl={hiddenPostControl}
                 callAfarResources={callAfarIds.dashboard_business_route_name_table_posts}
               />,
               name,
@@ -90,8 +111,18 @@ export const Posts = ({ business }: PostsProps) => {
             ],
           };
         }}
-        data={getAllUserPosts.data}
+        data={data}
+        onScrollBottom={() => {
+          if (getAllUserPosts.paginator) {
+            const { page, hasNextPage } = getAllUserPosts.paginator;
+
+            if (hasNextPage) {
+              filters.onMergeFilters({ page: page + 1 });
+            }
+          }
+        }}
+        isBusyBottom={getAllUserPosts.status.isBusy}
       />
-    </>
+    </div>
   );
 };

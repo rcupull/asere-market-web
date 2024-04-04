@@ -4,7 +4,7 @@ import { ThumbnailImageProps } from 'react-grid-gallery';
 
 import { EmptyImage } from 'components/empty-image';
 
-import useOnScreen from 'hooks/useOnScreen';
+import { useOnScreen } from 'hooks/useOnScreen';
 
 export const ThumbnailImageComponent = ({ imageProps }: ThumbnailImageProps) => {
   const { style } = imageProps;

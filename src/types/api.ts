@@ -80,3 +80,13 @@ export type FetchStatus = {
 };
 
 export type FetchData<Data = unknown> = Data | null;
+
+export type GetAllPostsQuery = {
+  routeNames?: Array<string>;
+  postCategoriesMethod?: 'every' | 'some';
+  postCategoriesTags?: Array<string>;
+  search?: string;
+  //
+  pageSize?: number;
+  page?: number;
+};

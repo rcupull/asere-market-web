@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 
-import { GetAllPostsQuery, useGetAllPosts } from 'features/api/useGetAllPosts';
+import { useGetAllPosts } from 'features/api/useGetAllPosts';
 import { useModal } from 'features/modal/useModal';
 
 import { useCallFromAfar } from 'hooks/useCallFromAfar';
@@ -11,6 +11,7 @@ import { PostsSectionSearch } from '../posts-section-search';
 
 import { UpdateSomethingContainer } from 'pages/@common/update-something-container';
 import { useBusinessPageData } from 'pages/@hooks/useBusinessPageData';
+import { GetAllPostsQuery } from 'types/api';
 import { Business, PostsLayoutSection, PostsLayoutSectionVisibility } from 'types/business';
 import { StyleProps } from 'types/general';
 import { cn } from 'utils/general';

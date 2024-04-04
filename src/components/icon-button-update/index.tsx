@@ -4,5 +4,5 @@ import { IconUpdate } from 'components/icon-update';
 export interface IconButtonUpdateProps extends IconButtonProps {}
 
 export const IconButtonUpdate = (props: IconButtonUpdateProps) => (
-  <IconButton svg={IconUpdate} {...props} />
+  <IconButton svg={IconUpdate} title="Editar" {...props} />
 );

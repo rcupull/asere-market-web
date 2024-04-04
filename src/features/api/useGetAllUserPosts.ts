@@ -2,17 +2,14 @@ import { useFetch } from 'hooks/useFetch';
 
 import { useAuthSignIn } from './useAuthSignIn';
 
-import { FetchResourceWithPagination, PaginatedData } from 'types/api';
-import { AnyRecord } from 'types/general';
+import { defaultPageSize } from 'constants/api';
+import { FetchResourceWithPagination, GetAllPostsQuery, PaginatedData } from 'types/api';
 import { Post } from 'types/post';
 import { getEndpoint } from 'utils/api';
 import { getPaginationResources } from 'utils/pagination';
 
 export const useGetAllUserPosts = (): {
-  getAllUserPosts: FetchResourceWithPagination<
-    { routeNames?: Array<string>; filters?: AnyRecord },
-    Post
-  >;
+  getAllUserPosts: FetchResourceWithPagination<GetAllPostsQuery, Post>;
 } => {
   const fetch = useFetch<PaginatedData<Post>>();
 
@@ -24,14 +21,14 @@ export const useGetAllUserPosts = (): {
     getAllUserPosts: {
       ...getPaginationResources(fetch[0]),
       status: fetch[1],
-      fetch: ({ routeNames = [], filters = {} }, options = {}) => {
+      fetch: (query, options = {}) => {
         fetch[2](
           {
             method: 'get',
             url: getEndpoint({
               path: '/user/:userId/posts',
               urlParams: { userId },
-              query: { routeNames, ...filters },
+              query: { pageSize: defaultPageSize, ...query },
             }),
           },
           options,

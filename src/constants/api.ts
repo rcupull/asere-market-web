@@ -15,3 +15,5 @@ export const dummyFetchResource: FetchResource<any> = {
   status: dummyStatus,
   reset: () => {},
 };
+
+export const defaultPageSize = 10;

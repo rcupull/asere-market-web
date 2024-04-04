@@ -99,19 +99,7 @@ export const PostNew = ({ routeName: routeNameProp, postId, callAfarResources }:
           ]}
           validations={[
             {
-              field: 'description',
-              type: 'required',
-            },
-            {
               field: 'name',
-              type: 'required',
-            },
-            {
-              field: 'currency',
-              type: 'required',
-            },
-            {
-              field: 'price',
               type: 'required',
             },
           ]}
@@ -125,19 +113,7 @@ export const PostNew = ({ routeName: routeNameProp, postId, callAfarResources }:
         render={['name', 'description', 'price', 'currency', 'details', 'images']}
         validations={[
           {
-            field: 'description',
-            type: 'required',
-          },
-          {
             field: 'name',
-            type: 'required',
-          },
-          {
-            field: 'currency',
-            type: 'required',
-          },
-          {
-            field: 'price',
             type: 'required',
           },
         ]}

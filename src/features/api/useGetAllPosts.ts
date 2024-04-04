@@ -1,16 +1,9 @@
 import { useFetch } from 'hooks/useFetch';
 
-import { FetchResourceWithPagination, PaginatedData } from 'types/api';
+import { FetchResourceWithPagination, GetAllPostsQuery, PaginatedData } from 'types/api';
 import { Post } from 'types/post';
 import { getEndpoint } from 'utils/api';
 import { getPaginationResources } from 'utils/pagination';
-
-export type GetAllPostsQuery = {
-  routeNames?: Array<string>;
-  postCategoriesMethod?: 'every' | 'some';
-  postCategoriesTags?: Array<string>;
-  search?: string;
-};
 
 export const useGetAllPosts = (): {
   getAllPosts: FetchResourceWithPagination<GetAllPostsQuery, Post>;
