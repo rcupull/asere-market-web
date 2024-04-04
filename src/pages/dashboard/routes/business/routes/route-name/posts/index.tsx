@@ -91,6 +91,7 @@ export const Posts = ({ business }: PostsProps) => {
       />
 
       <Table
+        className="mt-4"
         heads={[null, 'Nombre', 'Descripción', 'Categorías', 'Precio', 'Fecha de Creación']}
         getRowProps={(rowData) => {
           const { name, createdAt, description, currency, price, postCategoriesTags } = rowData;
