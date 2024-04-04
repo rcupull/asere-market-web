@@ -2,16 +2,17 @@ import { useEffect, useState } from 'react';
 
 import { ButtonNew } from 'components/button-new';
 import { ButtonRefresh } from 'components/button-refresh';
-import { PostCategoriesFilterButtons } from 'components/post-categories-filter-buttons';
+import { Divider } from 'components/divider';
 import { Table } from 'components/table';
 
 import { useGetAllUserPosts } from 'features/api/useGetAllUserPosts';
 import { useGetUserPaymentPlan } from 'features/api/useGetUserPaymentPlan';
 import { useModal } from 'features/modal/useModal';
 
-import { callAfarIds, useCallFromAfar } from 'hooks/useCallFromAfar';
+import { useCallFromAfar } from 'hooks/useCallFromAfar';
 import { useFiltersVolatile } from 'hooks/useFiltersVolatile';
 
+import { Filters } from './Filters';
 import { RowActions } from './RowActions';
 
 import { TopActions } from 'pages/@common/top-actions';
@@ -57,8 +58,9 @@ export const Posts = ({ business }: PostsProps) => {
 
   const { isNotValidPostsCountByBussines } = useGetUserPaymentPlan();
 
-  useCallFromAfar(callAfarIds.dashboard_business_route_name_table_posts, () => {
-    filters.onMergeFilters({ page: 1 });
+  const callAfarResources = 'dashboard_business_route-name_posts_onRefresh';
+  useCallFromAfar(callAfarResources, () => {
+    filters.onMergeFilters({ page: 1 }, { forceFetch: true });
   });
 
   const tableCellCategoriesTags = useTableCellCategoriesTags({
@@ -74,7 +76,7 @@ export const Posts = ({ business }: PostsProps) => {
           onClick={() =>
             pushModal('PostNew', {
               routeName,
-              callAfarResources: callAfarIds.dashboard_business_route_name_table_posts,
+              callAfarResources,
             })
           }
           className="ml-auto"
@@ -83,15 +85,17 @@ export const Posts = ({ business }: PostsProps) => {
         <ButtonRefresh onClick={filters.onRefresh} isBusy={getAllUserPosts.status.isBusy} />
       </TopActions>
 
-      <PostCategoriesFilterButtons
-        postCategories={businessOwnerData.data?.postCategories}
-        onChange={(postCategoriesTags) => filters.onMergeFilters({ page: 1, postCategoriesTags })}
-        value={filters.value.postCategoriesTags}
-        type="wrapped"
+      <Divider className="!my-3" />
+
+      <Filters
+        business={businessOwnerData.data}
+        onChange={(filtersValue) => filters.onMergeFilters(filtersValue)}
+        value={filters.value}
       />
 
+      <Divider className="!my-3" />
+
       <Table
-        className="mt-4"
         heads={[null, 'Nombre', 'Descripción', 'Categorías', 'Precio', 'Fecha de Creación']}
         getRowProps={(rowData) => {
           const { name, createdAt, description, currency, price, postCategoriesTags } = rowData;
@@ -102,7 +106,7 @@ export const Posts = ({ business }: PostsProps) => {
                 key="RowActions"
                 rowData={rowData}
                 routeName={routeName}
-                callAfarResources={callAfarIds.dashboard_business_route_name_table_posts}
+                callAfarResources={callAfarResources}
               />,
               name,
               description,

@@ -78,19 +78,19 @@ export const addRow = <T = any>(
   rowData: T,
   position: 'start' | 'end' = 'end',
 ): Array<T> => {
-  const newData = deepJsonCopy(data);
+  const newData = [...data];
 
   return position === 'start' ? [rowData, ...newData] : [...newData, rowData];
 };
 
 export const removeRow = <T = any>(data: Array<T>, index: number): Array<T> => {
-  const newData = deepJsonCopy(data);
+  const newData = [...data];
   newData.splice(index, 1);
   return newData;
 };
 
 export const updateRow = <T = any>(data: Array<T>, rowData: T, index: number): Array<T> => {
-  const newData = deepJsonCopy(data);
+  const newData = [...data];
   newData[index] = rowData;
   return newData;
 };

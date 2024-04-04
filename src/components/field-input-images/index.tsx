@@ -118,11 +118,12 @@ export const FieldInputImages = forwardRef<HTMLInputElement, FieldInputImagesPro
           }
 
           newStateToPreview = addOneEmptyPreview(newStateToPreview);
+          setPreviewIndex(newStateToPreview.length - 1);
           break;
         }
         case 'remove': {
-          setPreviewIndex(0);
           newStateToPreview = removeRow(newStateToPreview, previewIndex);
+          setPreviewIndex(previewIndex ? previewIndex - 1 : 0);
 
           break;
         }
@@ -155,6 +156,52 @@ export const FieldInputImages = forwardRef<HTMLInputElement, FieldInputImagesPro
         default:
           break;
       }
+
+      setStateToPreview(newStateToPreview);
+
+      const newState = getFlattenState(newStateToPreview);
+
+      setState(newState);
+
+      field.onChange({
+        target: {
+          name: field.name,
+          value: newState,
+        },
+      });
+    };
+
+    const handleAddManyImages = async (images: Array<Image | File>) => {
+      let newStateToPreview = [...stateToPreview];
+
+      newStateToPreview.pop(); //remove the empty preview
+
+      //add images recursively
+      const addImages = async (
+        images: Array<ImageElement>,
+        imagesToAdd: Array<Image | File>,
+        index: number,
+      ): Promise<void> => {
+        const image = imagesToAdd[index];
+
+        if (image instanceof File) {
+          images.push({
+            src: image,
+            ...(await getFileImageSize(image)),
+          });
+        } else {
+          images.push(image);
+        }
+
+        if (index < imagesToAdd.length - 1) {
+          await addImages(images, imagesToAdd, index + 1);
+        }
+      };
+
+      await addImages(newStateToPreview, images, 0);
+
+      newStateToPreview = addOneEmptyPreview(newStateToPreview); // add empty preview
+      setPreviewIndex(newStateToPreview.length - 1); //set the last preview
 
       setStateToPreview(newStateToPreview);
 
@@ -203,11 +250,9 @@ export const FieldInputImages = forwardRef<HTMLInputElement, FieldInputImagesPro
                 <div
                   key={index}
                   className={cn('h-8 w-10 cursor-pointer', {
-                    'border-gray-700 border-2 rounded-sm': selected,
+                    'border-gray-700 border-2 rounded-md p-0.5': selected,
                   })}
-                  onClick={() => {
-                    setPreviewIndex(index);
-                  }}
+                  onClick={() => setPreviewIndex(index)}
                 >
                   {image ? (
                     <img src={getImageSrc(image)} className="h-full w-full" />
@@ -240,10 +285,9 @@ export const FieldInputImages = forwardRef<HTMLInputElement, FieldInputImagesPro
 
             if (isDisabledByPremium(state)) return;
 
-            handleChange(
-              event.dataTransfer.files?.[0],
-              previewIndex === stateToPreview.length - 1 ? 'add' : 'change',
-            );
+            const fileArray: Array<File> = Array.from(event.dataTransfer.files);
+
+            handleAddManyImages(fileArray);
           }}
         >
           {previewImage ? (
@@ -309,12 +353,8 @@ export const FieldInputImages = forwardRef<HTMLInputElement, FieldInputImagesPro
                       pushModal(
                         'CatalogsSearchImage',
                         {
-                          onSelected: (images) => {
-                            handleChange(
-                              images[0],
-                              previewIndex === stateToPreview.length - 1 ? 'add' : 'change',
-                            );
-                          },
+                          onSelected: (images) => handleAddManyImages(images),
+                          multi: true,
                         },
                         { emergent: true },
                       );
