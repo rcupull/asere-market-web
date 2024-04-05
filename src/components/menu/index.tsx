@@ -22,12 +22,7 @@ export const Menu = ({ className, buttonElement, items, headerElement }: MenuPro
   return (
     <MenuBase data-id="Menu" as="div" className={cn('relative', className)}>
       <div>
-        <MenuBase.Button
-          as="div"
-          className="relative flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
-        >
-          {buttonElement}
-        </MenuBase.Button>
+        <MenuBase.Button as="div">{buttonElement}</MenuBase.Button>
       </div>
       <Transition
         as={Fragment}

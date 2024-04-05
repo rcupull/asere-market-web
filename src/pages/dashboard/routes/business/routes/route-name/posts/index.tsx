@@ -12,6 +12,7 @@ import { useModal } from 'features/modal/useModal';
 import { useCallFromAfar } from 'hooks/useCallFromAfar';
 import { useFiltersVolatile } from 'hooks/useFiltersVolatile';
 
+import { BulkActions } from './BulkActions';
 import { Filters } from './Filters';
 import { RowActions } from './RowActions';
 
@@ -69,65 +70,84 @@ export const Posts = ({ business }: PostsProps) => {
 
   return (
     <div className="h-full flex flex-col">
-      <TopActions>
-        <ButtonNew
-          label="Nueva publicación"
-          needPremium={isNotValidPostsCountByBussines(getAllUserPosts.data?.length)}
-          onClick={() =>
-            pushModal('PostNew', {
-              routeName,
-              callAfarResources,
-            })
-          }
-          className="ml-auto"
-        />
-
-        <ButtonRefresh onClick={filters.onRefresh} isBusy={getAllUserPosts.status.isBusy} />
-      </TopActions>
-
-      <Divider className="!my-3" />
-
-      <Filters
+      <BulkActions
         business={businessOwnerData.data}
-        onChange={(filtersValue) => filters.onMergeFilters(filtersValue)}
-        value={filters.value}
-      />
+        onRefresh={() => filters.onMergeFilters({ page: 1 }, { forceFetch: true })}
+      >
+        {({ getBulkHeaderNodes, getBulkRowNodes, getBulkTopActionsNode }) => (
+          <>
+            {getBulkTopActionsNode(
+              <TopActions>
+                <ButtonNew
+                  label="Nueva publicación"
+                  needPremium={isNotValidPostsCountByBussines(getAllUserPosts.data?.length)}
+                  onClick={() =>
+                    pushModal('PostNew', {
+                      routeName,
+                      callAfarResources,
+                    })
+                  }
+                  className="ml-auto"
+                />
 
-      <Divider className="!my-3" />
+                <ButtonRefresh onClick={filters.onRefresh} isBusy={getAllUserPosts.status.isBusy} />
+              </TopActions>,
+            )}
 
-      <Table
-        heads={[null, 'Nombre', 'Descripción', 'Categorías', 'Precio', 'Fecha de Creación']}
-        getRowProps={(rowData) => {
-          const { name, createdAt, description, currency, price, postCategoriesTags } = rowData;
+            <Divider className="!my-3" />
 
-          return {
-            nodes: [
-              <RowActions
-                key="RowActions"
-                rowData={rowData}
-                routeName={routeName}
-                callAfarResources={callAfarResources}
-              />,
-              name,
-              description,
-              tableCellCategoriesTags.onGetTableCellNode({ postCategoriesTags }),
-              <span key="price" className="text-nowrap">{`${price} ${currency}`}</span>,
-              getDateString({ date: createdAt, showTime: true }),
-            ],
-          };
-        }}
-        data={data}
-        onScrollBottom={() => {
-          if (getAllUserPosts.paginator) {
-            const { page, hasNextPage } = getAllUserPosts.paginator;
+            <Filters
+              business={businessOwnerData.data}
+              onChange={(filtersValue) => filters.onMergeFilters(filtersValue)}
+              value={filters.value}
+            />
 
-            if (hasNextPage) {
-              filters.onMergeFilters({ page: page + 1 });
-            }
-          }
-        }}
-        isBusyBottom={getAllUserPosts.status.isBusy}
-      />
+            <Divider className="!my-3" />
+
+            <Table
+              heads={getBulkHeaderNodes([
+                null,
+                'Nombre',
+                'Descripción',
+                'Categorías',
+                'Precio',
+                'Fecha de Creación',
+              ])}
+              getRowProps={(rowData) => {
+                const { name, createdAt, description, currency, price, postCategoriesTags } =
+                  rowData;
+
+                return {
+                  nodes: getBulkRowNodes({ rowData }, [
+                    <RowActions
+                      key="RowActions"
+                      rowData={rowData}
+                      routeName={routeName}
+                      callAfarResources={callAfarResources}
+                    />,
+                    name,
+                    description,
+                    tableCellCategoriesTags.onGetTableCellNode({ postCategoriesTags }),
+                    <span key="price" className="text-nowrap">{`${price} ${currency}`}</span>,
+                    getDateString({ date: createdAt, showTime: true }),
+                  ]),
+                };
+              }}
+              data={data}
+              onScrollBottom={() => {
+                if (getAllUserPosts.paginator) {
+                  const { page, hasNextPage } = getAllUserPosts.paginator;
+
+                  if (hasNextPage) {
+                    filters.onMergeFilters({ page: page + 1 });
+                  }
+                }
+              }}
+              isBusyBottom={getAllUserPosts.status.isBusy}
+            />
+          </>
+        )}
+      </BulkActions>
     </div>
   );
 };

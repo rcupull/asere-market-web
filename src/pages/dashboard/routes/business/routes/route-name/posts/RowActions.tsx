@@ -1,13 +1,15 @@
 import { Badge } from 'components/badge';
 import { ButtonRemove } from 'components/button-remove';
+import { ButtonSave } from 'components/button-save';
 import { IconButtonDuplicate } from 'components/icon-button-duplicate';
 import { IconButtonRemove } from 'components/icon-button-remove ';
-// import { IconButtonShowHide } from 'components/icon-button-show-hide';
+import { IconButtonShowHide } from 'components/icon-button-show-hide';
 import { IconButtonUpdate } from 'components/icon-button-update';
 import { IconButtonView } from 'components/icon-button-view';
 
 import { useDuplicateOneUserPost } from 'features/api/useDuplicateOneUserPost';
 import { useRemoveOneUserPost } from 'features/api/useRemoveOneUserPost';
+import { useUpdateOneUserPost } from 'features/api/useUpdateOneUserPost';
 import { useModal } from 'features/modal/useModal';
 
 import { CallAfarResources, useCallFromAfar } from 'hooks/useCallFromAfar';
@@ -46,7 +48,7 @@ export const RowActions = ({ rowData, callAfarResources, routeName }: RowActions
                 </span>
               </div>
             ),
-            badge: <Badge variant="error" />,
+            badge: <Badge variant="warning" />,
             primaryBtn: (
               <ButtonRemove
                 isBusy={removeOneUserPost.status.isBusy}
@@ -57,6 +59,49 @@ export const RowActions = ({ rowData, callAfarResources, routeName }: RowActions
                       onAfterSuccess: () => {
                         onClose();
 
+                        onCallAfar(callAfarResources);
+                      },
+                    },
+                  )
+                }
+              />
+            ),
+          };
+        },
+      },
+      { emergent: true },
+    );
+  };
+
+  const handleShowHide = (hidden: boolean) => {
+    pushModal(
+      'Confirmation',
+      {
+        useProps: () => {
+          const { updateOneUserPost } = useUpdateOneUserPost();
+          const { onClose } = useModal();
+          const { onCallAfar } = useCallFromAfar();
+          return {
+            content: (
+              <div>
+                <span>
+                  Al {`${hidden ? 'ocultar' : 'mostrar'}`} esta publicación no serán perdidos los
+                  datos de la misma. Solo se controla la visibilidad en la página de su negocio.
+                  Seguro que desea {`${hidden ? 'ocultar' : 'mostrar'}`} esta publicación?
+                </span>
+              </div>
+            ),
+            badge: <Badge variant="warning" />,
+            primaryBtn: (
+              <ButtonSave
+                isBusy={updateOneUserPost.status.isBusy}
+                label={hidden ? 'Ocultar' : 'Mostrar'}
+                onClick={() =>
+                  updateOneUserPost.fetch(
+                    { postId: rowData._id, hidden },
+                    {
+                      onAfterSuccess: () => {
+                        onClose();
                         onCallAfar(callAfarResources);
                       },
                     },
@@ -101,7 +146,7 @@ export const RowActions = ({ rowData, callAfarResources, routeName }: RowActions
         stopPropagation
         onClick={() => pushRoute(getPostRoute({ routeName, postId: rowData._id }))}
       />
-      {/* <IconButtonShowHide {...hiddenPostControl.onGetHiddenButtonProp(rowData)} /> */}
+      <IconButtonShowHide hidden={rowData.hidden} onClick={() => handleShowHide(!rowData.hidden)} />
       <IconButtonUpdate onClick={handleUpdate} />
       <IconButtonDuplicate onClick={handleDuplicate} />
     </RowActionsContainer>

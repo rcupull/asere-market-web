@@ -9,10 +9,11 @@ import { cn } from 'utils/general';
 const primaryStyles =
   'bg-indigo-600 text-white  hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600';
 const errorStyles = 'bg-red-600 text-white  hover:bg-red-500';
+const linkStyles = 'text-indigo-600  hover:text-indigo-500 shadow-none';
 const outlinedStyles = 'bg-white text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50';
 
 export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: 'primary' | 'outlined' | 'error';
+  variant?: 'primary' | 'outlined' | 'error' | 'link';
   label?: string;
   isBusy?: boolean;
   svg?: React.FunctionComponent<StyleProps>;
@@ -45,6 +46,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>((props, ref) =>
           [primaryStyles]: variant === 'primary',
           [outlinedStyles]: variant === 'outlined',
           [errorStyles]: variant === 'error',
+          [linkStyles]: variant === 'link',
           ['cursor-not-allowed']: disabled,
           ['!bg-indigo-300']: variant === 'primary' && disabled,
           ['!bg-gray-300']: variant === 'outlined' && disabled,

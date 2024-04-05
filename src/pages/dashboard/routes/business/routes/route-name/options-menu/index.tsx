@@ -1,9 +1,7 @@
-import { Bars3Icon } from '@heroicons/react/24/outline';
-
 import { Badge } from 'components/badge';
 import { Button } from 'components/button';
 import { ButtonRemove } from 'components/button-remove';
-import { IconButton } from 'components/icon-button';
+import { IconButtonOptionsBars } from 'components/icon-button-options-bars';
 import { IconButtonRemove } from 'components/icon-button-remove ';
 import { IconButtonShowHide } from 'components/icon-button-show-hide';
 import { IconButtonUpdate } from 'components/icon-button-update';
@@ -127,7 +125,7 @@ export const OptionsMenu = ({ business, onRefresh }: OptionsMenuProps) => {
   const xsContent = (
     <Menu
       className="sm:hidden"
-      buttonElement={<IconButton svg={Bars3Icon} />}
+      buttonElement={<IconButtonOptionsBars />}
       items={[
         {
           label: `${hidden ? 'Mostrar' : 'Ocultar'} este negocio`,

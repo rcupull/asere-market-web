@@ -1,5 +1,6 @@
 import { useState } from 'react';
 
+import { Accordion } from 'components/accordion';
 import { Button } from 'components/button';
 import { FieldCheckbox } from 'components/field-checkbox';
 import { PostCategoriesFilterButtons } from 'components/post-categories-filter-buttons';
@@ -26,7 +27,7 @@ export const Filters = ({ business, onChange, value, className }: FiltersProps) 
   const sections = layouts?.posts?.sections || [];
 
   return (
-    <div className={className}>
+    <Accordion className={className} header="Filtros">
       <div>
         <RadioGroup<{ label: string; value: FilterType }>
           onChange={(newFilterType) => {
@@ -77,6 +78,6 @@ export const Filters = ({ business, onChange, value, className }: FiltersProps) 
           className="flex items-center gap-2"
         />
       )}
-    </div>
+    </Accordion>
   );
 };
