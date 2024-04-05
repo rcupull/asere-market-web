@@ -32,6 +32,7 @@ export const AboutUs = ({ business }: AboutUsProps) => {
 
   return (
     <UpdateSomethingContainer
+      title="Editar la descripción de mi negocio"
       onClick={() => pushModal('UpdateBusinessAboutUs', { routeName, callAfarResources })}
     >
       <LayoutPage title={title}>

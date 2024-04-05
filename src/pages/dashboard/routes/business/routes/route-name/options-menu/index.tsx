@@ -161,6 +161,8 @@ export const OptionsMenu = ({ business, onRefresh }: OptionsMenuProps) => {
 
   const smContent = (
     <div className="items-center hidden sm:flex">
+      <IconButtonRemove title="Eliminar el negocio" onClick={handleDelete} />
+
       <IconButtonShowHide
         hidden={hidden}
         title={`${hidden ? 'Mostrar' : 'Ocultar'} este negocio`}
@@ -186,8 +188,6 @@ export const OptionsMenu = ({ business, onRefresh }: OptionsMenuProps) => {
           pushRoute(`/${routeName}`);
         }}
       />
-
-      <IconButtonRemove title="Eliminar el negocio" onClick={handleDelete} />
     </div>
   );
 

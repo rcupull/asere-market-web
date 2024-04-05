@@ -27,6 +27,7 @@ export const ProductSimple = ({ className, post, getImageUrl, href, callAfarReso
   return (
     <Link data-id="ProductSimple" className={cn('group', className)} to={href}>
       <UpdateSomethingContainer
+        title="Editar esta publicación"
         onClick={() => pushModal('PostNew', { postId: post._id, callAfarResources })}
       >
         <div className="border border-gray-300 w-full overflow-hidden rounded-lg bg-gray-50 flex items-center justify-center h-80">

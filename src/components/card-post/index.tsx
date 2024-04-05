@@ -71,6 +71,7 @@ export const CardPost = ({
 
   return (
     <UpdateSomethingContainer
+      title="Editar esta publicación"
       onClick={() => pushModal('PostNew', { postId: post._id, callAfarResources })}
     >
       {content}

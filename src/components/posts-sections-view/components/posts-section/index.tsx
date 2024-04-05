@@ -78,6 +78,7 @@ export const PostsSection = ({
 
   return (
     <UpdateSomethingContainer
+      title="Editar este grupo de publicaciones"
       onClick={() =>
         pushModal('PostsSectionNew', {
           sectionId: _id,

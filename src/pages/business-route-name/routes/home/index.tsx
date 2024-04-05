@@ -16,6 +16,7 @@ export const Home = ({ business, onRefresh }: HomeProps) => {
 
   return (
     <UpdateSomethingContainer
+      title="Editar este negocio"
       onClick={() => pushRoute(`/dashboard/business/${business.routeName}`)}
     >
       <LayoutPage>

@@ -8,12 +8,14 @@ import { cn } from 'utils/general';
 
 export interface UpdateSomethingContainerProps extends StyleProps {
   children: React.ReactNode;
+  title: string;
   onClick?: () => void;
 }
 
 export const UpdateSomethingContainer = ({
   children,
   onClick,
+  title,
   className,
 }: UpdateSomethingContainerProps) => {
   const { owner } = useBusinessPageData();
@@ -41,6 +43,7 @@ export const UpdateSomethingContainer = ({
         className={cn('absolute top-0 right-0')}
       >
         <IconButtonUpdate
+          title={title}
           onClick={(e) => {
             e.preventDefault();
             onClick?.();
