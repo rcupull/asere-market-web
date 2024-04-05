@@ -55,6 +55,7 @@ export interface PostCardLayout {
 
 export interface PostPageLayout {
   contact?: PostLayoutContact;
+  postsSectionsBelowIds?: Array<string>;
 }
 
 export interface BannerLayout {

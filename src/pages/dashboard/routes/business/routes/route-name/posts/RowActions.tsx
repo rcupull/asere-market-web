@@ -142,13 +142,14 @@ export const RowActions = ({ rowData, callAfarResources, routeName }: RowActions
   return (
     <RowActionsContainer>
       <IconButtonRemove onClick={handleDelete} />
+      <IconButtonShowHide hidden={rowData.hidden} onClick={() => handleShowHide(!rowData.hidden)} />
+      <IconButtonUpdate onClick={handleUpdate} />
+      <IconButtonDuplicate onClick={handleDuplicate} />
+
       <IconButtonView
         stopPropagation
         onClick={() => pushRoute(getPostRoute({ routeName, postId: rowData._id }))}
       />
-      <IconButtonShowHide hidden={rowData.hidden} onClick={() => handleShowHide(!rowData.hidden)} />
-      <IconButtonUpdate onClick={handleUpdate} />
-      <IconButtonDuplicate onClick={handleDuplicate} />
     </RowActionsContainer>
   );
 };

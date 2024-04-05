@@ -21,7 +21,6 @@ export interface Post extends BaseIdentity {
   discount?: number; //money to save in the same currency (not percent)
   // clothing
   clothingSizes?: Array<PostClothingSize>;
-  postsSectionsBelowIds?: Array<string>;
   //
   postPageLayout?: PostPageLayout;
 }

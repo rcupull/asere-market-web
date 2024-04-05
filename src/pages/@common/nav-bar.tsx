@@ -22,6 +22,7 @@ import { BusinessName } from './business-name';
 
 import { useBusinessPageData } from 'pages/@hooks/useBusinessPageData';
 import { StyleProps } from 'types/general';
+import { getDashboardBusinessRoute } from 'utils/business';
 
 export interface NavbarProps extends StyleProps {}
 export const Navbar = ({ className }: NavbarProps) => {
@@ -57,7 +58,11 @@ export const Navbar = ({ className }: NavbarProps) => {
         !isBusinessPage && { name: '¿Que es Asere Market?', href: '/about-us' },
         ////////////////////////////////////////////////////////////////////////////////////////////////
         isAdmin && { name: 'Admin', href: '/admin', className: '!ml-auto' },
-        isUser && { name: 'Panel de Control', href: '/dashboard', className: '!ml-auto' },
+        isUser && {
+          name: 'Panel de Control',
+          href: getDashboardBusinessRoute({ routeName }),
+          className: '!ml-auto',
+        },
       ]}
       postContent={
         <>

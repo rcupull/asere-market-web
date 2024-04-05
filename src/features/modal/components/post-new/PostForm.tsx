@@ -8,7 +8,6 @@ import { FieldInput } from 'components/field-input';
 import { FieldInputImages } from 'components/field-input-images';
 import { FieldPostCategoriesButtons } from 'components/field-post-categories-buttons';
 import { FieldPostPageLayout } from 'components/field-post-page-layout';
-import { FieldPostsSectionSelect } from 'components/field-posts-section-select';
 import { FieldSelect } from 'components/field-select';
 import { FieldTextArea } from 'components/field-text-area';
 
@@ -37,7 +36,6 @@ type State = Pick<
   | 'details'
   | 'postCategoriesTags'
   | 'discount'
-  | 'postsSectionsBelowIds'
   | 'postPageLayout'
 > & { images: Array<ImageFile | Image> };
 
@@ -83,7 +81,6 @@ export const PostForm = ({
         clothingSizes: [],
         images: [],
         postCategoriesTags: [],
-        postsSectionsBelowIds: [],
         postPageLayout: undefined,
         ...(post || {}),
       }}
@@ -212,24 +209,13 @@ export const PostForm = ({
               </>
             )}
 
-            {render.includes('postsSectionsBelowIds') && (
-              <>
-                <FieldPostsSectionSelect
-                  label="Grupos de publicaciones similares"
-                  name="postsSectionsBelowIds"
-                  className="mt-6"
-                  routeName={routeName}
-                />
-                <Divider />
-              </>
-            )}
-
             {render.includes('postPageLayout') && (
               <>
                 <FieldPostPageLayout
                   label="Diseño de la página de la publicación"
                   name="postPageLayout"
                   className="w-full"
+                  routeName={routeName}
                 />
                 <Divider />
               </>
@@ -252,7 +238,6 @@ export const PostForm = ({
                     details,
                     postCategoriesTags,
                     discount,
-                    postsSectionsBelowIds,
                     postPageLayout,
                   } = values;
 
@@ -276,7 +261,6 @@ export const PostForm = ({
                               details,
                               postCategoriesTags,
                               discount,
-                              postsSectionsBelowIds,
                               postPageLayout,
                             },
                             {
@@ -300,7 +284,6 @@ export const PostForm = ({
                         routeName,
                         images: [],
                         discount,
-                        postsSectionsBelowIds,
                         postPageLayout,
                       },
                       {

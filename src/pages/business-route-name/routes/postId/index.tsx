@@ -45,13 +45,13 @@ export const PostId = () => {
 
   const business = businessPageData.business;
 
-  const { postsSectionsBelowIds } = post || {};
-
   if (!post || !business) {
     return <></>;
   }
 
   const getSectionsBelow = (): Array<PostsLayoutSection> => {
+    const postsSectionsBelowIds = post.postPageLayout?.postsSectionsBelowIds;
+
     const allBusinessSections = business?.layouts?.posts?.sections || [];
     return allBusinessSections.filter(({ _id }) => postsSectionsBelowIds?.includes(_id));
   };

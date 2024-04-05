@@ -24,7 +24,6 @@ export const useUpdateOneUserPost = (): {
         | 'reviews'
         | 'postCategoriesTags'
         | 'discount'
-        | 'postsSectionsBelowIds'
         | 'postPageLayout'
       >
     >,

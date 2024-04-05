@@ -45,6 +45,10 @@ export const getBusinessRoute = (args: { routeName: string }) => {
   return `/${args.routeName}`;
 };
 
+export const getDashboardBusinessRoute = (args: { routeName?: string }) => {
+  return `/dashboard/business/${args.routeName}`;
+};
+
 export const getSearchLayoutLabel = (type: SearchLayoutType): string => {
   switch (type) {
     case 'none':
