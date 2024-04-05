@@ -73,6 +73,7 @@ export const Posts = ({ business }: PostsProps) => {
       <BulkActions
         business={businessOwnerData.data}
         onRefresh={() => filters.onMergeFilters({ page: 1 }, { forceFetch: true })}
+        filters={filters.value}
       >
         {({ getBulkHeaderNodes, getBulkRowNodes, getBulkTopActionsNode }) => (
           <>

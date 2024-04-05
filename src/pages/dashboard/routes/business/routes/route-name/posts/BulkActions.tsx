@@ -12,6 +12,7 @@ import { useDeleteManyBusinessPosts } from 'features/api/useDeleteManyBusinessPo
 import { useUpdateManyBusinessPosts } from 'features/api/useUpdateManyBusinessPosts';
 import { useModal } from 'features/modal/useModal';
 
+import { GetAllPostsQuery } from 'types/api';
 import { Business } from 'types/business';
 import { StyleProps } from 'types/general';
 import { Post } from 'types/post';
@@ -21,6 +22,7 @@ type Action = 'delete' | 'hide' | 'show';
 
 export interface BulkActionsProps extends StyleProps {
   business: Business | null;
+  filters: GetAllPostsQuery;
   onRefresh: () => void;
   children: (args: {
     getBulkRowNodes: (
@@ -34,7 +36,7 @@ export interface BulkActionsProps extends StyleProps {
   }) => React.ReactNode;
 }
 
-export const BulkActions = ({ business, children, onRefresh }: BulkActionsProps) => {
+export const BulkActions = ({ business, children, onRefresh, filters }: BulkActionsProps) => {
   const [action, setAction] = useState<Action>();
   const [selectedPosts, setSelectedPosts] = useState<Array<Post>>([]);
   const [selectedAll, setSelectedAll] = useState<boolean>(false);
@@ -91,17 +93,25 @@ export const BulkActions = ({ business, children, onRefresh }: BulkActionsProps)
                     onClose();
                     onAfterSuccessMain();
                   };
+                  const { postCategoriesMethod, postCategoriesTags, search } = filters;
 
                   if (selectedAll) {
                     return deleteManyBusinessPosts.fetch(
-                      { routeName, all: true },
+                      {
+                        routeName,
+                        query: { postCategoriesMethod, postCategoriesTags, search },
+                      },
                       { onAfterSuccess },
                     );
                   }
 
                   if (selectedPosts.length > 0) {
                     return deleteManyBusinessPosts.fetch(
-                      { routeName, ids: selectedPosts.map((p) => p._id) },
+                      {
+                        routeName,
+                        query: { postCategoriesMethod, postCategoriesTags, search },
+                        ids: selectedPosts.map((p) => p._id),
+                      },
                       { onAfterSuccess },
                     );
                   }
@@ -142,17 +152,35 @@ export const BulkActions = ({ business, children, onRefresh }: BulkActionsProps)
                     onClose();
                     onAfterSuccessMain();
                   };
+                  const { postCategoriesMethod, postCategoriesTags, search } = filters;
 
                   if (selectedAll) {
                     return updateManyBusinessPosts.fetch(
-                      { routeName, all: true, update: { hidden } },
+                      {
+                        routeName,
+                        update: { hidden },
+                        query: {
+                          postCategoriesMethod,
+                          postCategoriesTags,
+                          search,
+                        },
+                      },
                       { onAfterSuccess },
                     );
                   }
 
                   if (selectedPosts.length > 0) {
                     return updateManyBusinessPosts.fetch(
-                      { routeName, ids: selectedPosts.map((p) => p._id), update: { hidden } },
+                      {
+                        routeName,
+                        update: { hidden },
+                        query: {
+                          postCategoriesMethod,
+                          postCategoriesTags,
+                          search,
+                        },
+                        ids: selectedPosts.map((p) => p._id),
+                      },
                       { onAfterSuccess },
                     );
                   }

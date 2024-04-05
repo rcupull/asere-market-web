@@ -2,12 +2,16 @@ import { useFetch } from 'hooks/useFetch';
 
 import { useAuthSignIn } from './useAuthSignIn';
 
-import { FetchResource } from 'types/api';
+import { FetchResource, GetAllPostsQuery } from 'types/api';
 import { getEndpoint } from 'utils/api';
 
 export const useDeleteManyBusinessPosts = (): {
   deleteManyBusinessPosts: FetchResource<
-    { routeName: string; ids?: Array<string>; all?: boolean },
+    {
+      routeName: string;
+      ids?: Array<string>;
+      query?: Pick<GetAllPostsQuery, 'postCategoriesMethod' | 'postCategoriesTags' | 'search'>;
+    },
     void
   >;
 } => {
@@ -20,7 +24,7 @@ export const useDeleteManyBusinessPosts = (): {
     deleteManyBusinessPosts: {
       data: fetch[0],
       status: fetch[1],
-      fetch: ({ routeName, all, ids }, options = {}) => {
+      fetch: ({ routeName, query, ids }, options = {}) => {
         fetch[2](
           {
             method: 'delete',
@@ -30,7 +34,7 @@ export const useDeleteManyBusinessPosts = (): {
             }),
             data: {
               ids,
-              all,
+              query,
             },
           },
           options,
