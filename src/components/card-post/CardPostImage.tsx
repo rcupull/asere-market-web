@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 import { EmptyImage } from 'components/empty-image';
 import { Swiper } from 'components/swiper';
@@ -19,9 +19,13 @@ export interface CardPostImageProps extends StyleProps {
 
 export const CardPostImage = ({ post, layout, className }: CardPostImageProps) => {
   const imageLayout = layout?.images;
+  const postCardSize = layout?.size;
   const images = post.images;
 
   const [switchImage, setSwitchImage] = useState<Image>();
+  const [style, setStyle] = useState<React.CSSProperties>({});
+  const ref = useRef<HTMLDivElement>(null);
+
   const interval = useInterval();
 
   useEffect(() => {
@@ -38,6 +42,16 @@ export const CardPostImage = ({ post, layout, className }: CardPostImageProps) =
       return interval.cancel;
     }
   }, [imageLayout]);
+
+  useEffect(() => {
+    if (imageLayout === 'rounded') {
+      setStyle({
+        width: ref.current?.getBoundingClientRect()?.height,
+      });
+    } else {
+      setStyle({});
+    }
+  }, [imageLayout, postCardSize]);
 
   const renderImage = ({ src, alt }: Image) => (
     <img src={getImageEndpoint(src)} alt={alt} className="object-contain group-hover:opacity-75" />
@@ -77,12 +91,21 @@ export const CardPostImage = ({ post, layout, className }: CardPostImageProps) =
     if (imageLayout === 'switch' && switchImage) {
       return renderImage(switchImage);
     }
+
+    if (imageLayout === 'rounded') {
+      return renderImage(images[0]);
+    }
   };
 
   return (
     <div
+      ref={ref}
+      style={style}
       className={cn(
-        'border border-gray-300 overflow-hidden rounded-lg bg-gray-50 flex items-center justify-center',
+        'border border-gray-300 overflow-hidden rounded-lg bg-gray-50 flex items-center justify-center mx-auto',
+        {
+          '!rounded-full': imageLayout === 'rounded',
+        },
         className,
       )}
     >

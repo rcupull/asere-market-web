@@ -38,7 +38,7 @@ export const FieldPostCardLayout = ({
   const { getFieldName, value } = useNestedForm<PostCardLayout>({
     field,
     initialValues: {
-      images: 'switch',
+      images: 'static',
       size: 'medium',
       discount: 'none',
       name: 'basic',
@@ -71,6 +71,9 @@ export const FieldPostCardLayout = ({
               },
               {
                 value: 'switch',
+              },
+              {
+                value: 'rounded',
               },
             ]}
             className="w-full"

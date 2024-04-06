@@ -101,7 +101,12 @@ export const FieldSelect = <Option extends AnyRecord = AnyRecord>(
                   )}
                 >
                   <div className="flex items-center h-6">
-                    {state && (isArray(state) ? state.map(renderValue) : renderValue(state))}
+                    {state &&
+                      (isArray(state)
+                        ? state.map((option, index) => (
+                            <Fragment key={index}>{renderValue(option)}</Fragment>
+                          ))
+                        : renderValue(state))}
                   </div>
                   <span className="pointer-events-none absolute inset-y-0 right-0 ml-3 flex items-center pr-2">
                     <ChevronUpDownIcon className="h-5 w-5 text-gray-400" aria-hidden="true" />

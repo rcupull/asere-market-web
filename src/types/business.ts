@@ -37,7 +37,7 @@ export interface PostsLayout {
   sections: Array<PostsLayoutSection>;
 }
 
-export type PostCardLayoutImages = 'static' | 'hoverZoom' | 'slider' | 'switch';
+export type PostCardLayoutImages = 'static' | 'hoverZoom' | 'slider' | 'switch' | 'rounded';
 export type PostCardSize = 'small' | 'medium' | 'long';
 export type PostCardLayoutName = 'none' | 'basic';
 export type PostCardLayoutPrice = 'none' | 'basic' | 'smallerCurrency' | 'usdCurrencySymbol';
