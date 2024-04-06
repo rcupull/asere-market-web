@@ -14,6 +14,7 @@ import {
   PostCardLayout,
   PostCardLayoutDiscount,
   PostCardLayoutImages,
+  PostCardLayoutMetaLayout,
   PostCardLayoutName,
   PostCardLayoutPrice,
   PostCardSize,
@@ -40,6 +41,7 @@ export const FieldPostCardLayout = ({
     initialValues: {
       images: 'static',
       size: 'medium',
+      metaLayout: 'basic',
       discount: 'none',
       name: 'basic',
       price: 'smallerCurrency',
@@ -94,6 +96,23 @@ export const FieldPostCardLayout = ({
               },
               {
                 value: 'long',
+              },
+            ]}
+            className="w-full"
+          />
+
+          <FieldSelect<{ value: PostCardLayoutMetaLayout }>
+            label="Diseño de los metadatos"
+            name={getFieldName('metaLayout')}
+            renderOption={({ value }) => value}
+            renderValue={({ value }) => value}
+            optionToValue={({ value }) => value}
+            items={[
+              {
+                value: 'basic',
+              },
+              {
+                value: 'verticalCentered',
               },
             ]}
             className="w-full"

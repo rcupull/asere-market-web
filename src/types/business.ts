@@ -42,10 +42,17 @@ export type PostCardSize = 'small' | 'medium' | 'long';
 export type PostCardLayoutName = 'none' | 'basic';
 export type PostCardLayoutPrice = 'none' | 'basic' | 'smallerCurrency' | 'usdCurrencySymbol';
 export type PostCardLayoutDiscount = 'none' | 'savedPercent' | 'savedMoney';
+export type PostCardLayoutMetaLayout = 'basic' | 'verticalCentered';
 export type PostLayoutContact = 'none' | 'whatsApp_xsLink_lgQR';
 
 export interface PostCardLayout {
   images?: PostCardLayoutImages;
+  //
+  /**
+   * indica la forma en que se representan los metadatos de la tarjeta
+   */
+  metaLayout?: PostCardLayoutMetaLayout;
+  //
   size?: PostCardSize;
   name?: PostCardLayoutName;
   price?: PostCardLayoutPrice;

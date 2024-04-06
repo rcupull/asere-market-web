@@ -35,19 +35,11 @@ export const CardPost = ({
   whatsAppPhoneNumber,
 }: CardPostProps) => {
   const { pushModal } = useModal();
-  const { size } = layout || {};
+  const { size, metaLayout } = layout || {};
 
-  const content = (
-    <Link data-id="CardPost" className={cn('group', className)} to={href}>
-      <div
-        className={cn('flex flex-col p-1 w-[90vw] overflow-hidden', {
-          'sm:w-52 h-60': size === 'small',
-          'sm:w-72 h-80': size === 'medium',
-          'sm:w-80 h-96': size === 'long',
-        })}
-      >
-        <CardPostImage layout={layout} post={post} className="flex-grow" />
-
+  const renderMeta = () => {
+    if (metaLayout === 'basic') {
+      return (
         <div className="flex items-center flex-shrink-0 mt-auto">
           <div>
             <CardPostName layout={layout} post={post} />
@@ -61,6 +53,39 @@ export const CardPost = ({
             className="ml-auto"
           />
         </div>
+      );
+    }
+
+    if (metaLayout === 'verticalCentered') {
+      return (
+        <div className="flex flex-col items-center flex-shrink-0 mt-auto">
+          <CardPostName layout={layout} post={post} />
+          <CardPostPrice layout={layout} post={post} />
+
+          <PostContact
+            layout={layout?.contact}
+            post={post}
+            whatsAppPhoneNumber={whatsAppPhoneNumber}
+          />
+        </div>
+      );
+    }
+
+    return <></>;
+  };
+
+  const content = (
+    <Link data-id="CardPost" className={cn('group', className)} to={href}>
+      <div
+        className={cn('flex flex-col p-1 w-[90vw] overflow-hidden', {
+          'sm:w-52 h-60': size === 'small',
+          'sm:w-72 h-80': size === 'medium',
+          'sm:w-80 h-96': size === 'long',
+        })}
+      >
+        <CardPostImage layout={layout} post={post} className="flex-grow" />
+
+        {renderMeta()}
       </div>
     </Link>
   );

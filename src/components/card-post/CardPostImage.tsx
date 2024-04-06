@@ -19,7 +19,6 @@ export interface CardPostImageProps extends StyleProps {
 
 export const CardPostImage = ({ post, layout, className }: CardPostImageProps) => {
   const imageLayout = layout?.images;
-  const postCardSize = layout?.size;
   const images = post.images;
 
   const [switchImage, setSwitchImage] = useState<Image>();
@@ -51,7 +50,7 @@ export const CardPostImage = ({ post, layout, className }: CardPostImageProps) =
     } else {
       setStyle({});
     }
-  }, [imageLayout, postCardSize]);
+  }, [layout]);
 
   const renderImage = ({ src, alt }: Image) => (
     <img src={getImageEndpoint(src)} alt={alt} className="object-contain group-hover:opacity-75" />

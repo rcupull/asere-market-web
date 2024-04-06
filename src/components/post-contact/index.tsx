@@ -1,5 +1,3 @@
-import { Link } from 'react-router-dom';
-
 import { ButtonClose } from 'components/button-close';
 import SvgWhatsapp from 'components/icons/Whatsapp';
 import { QrCode } from 'components/qr-code';
@@ -45,9 +43,9 @@ export const PostContact = ({ layout, whatsAppPhoneNumber, post, className }: Po
   if (layout === 'whatsApp_xsLink_lgQR') {
     return (
       <div className={className}>
-        <Link className="md:hidden" to={whatsappLink}>
+        <div className="md:hidden" onClick={() => window.open(whatsappLink, '_blank')}>
           <SvgWhatsapp className="w-8 h-8 stroke-green-300" />
-        </Link>
+        </div>
         <QrCode
           className="hidden md:block w-8 h-8 cursor-pointer"
           onClick={(e) => {
