@@ -4,7 +4,7 @@ import { useGetAllPosts } from 'features/api/useGetAllPosts';
 import { useModal } from 'features/modal/useModal';
 
 import { useCallFromAfar } from 'hooks/useCallFromAfar';
-import { useFilters } from 'hooks/useFilters';
+import { useFiltersVolatile } from 'hooks/useFiltersVolatile';
 
 import { PostsSectionCards } from '../posts-section-cards';
 import { PostsSectionSearch } from '../posts-section-search';
@@ -54,9 +54,7 @@ export const PostsSection = ({
     });
   };
 
-  const filters = useFilters<GetAllPostsQuery>({
-    notCallChangeWhenMount: true,
-    filterField: `postsSection${index}`,
+  const filters = useFiltersVolatile<GetAllPostsQuery>({
     onChange: (filters) => handleFilter(filters),
   });
 
@@ -67,8 +65,13 @@ export const PostsSection = ({
   }, [JSON.stringify(postCategoriesTags)]);
 
   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-  const postSectionRefechId = `post_section_${index}_onRefresh`;
-  useCallFromAfar(postSectionRefechId, onRefresh);
+  const callAfarResourcesRefreshBusiness = `post_section_${index}_business_onRefresh`;
+  useCallFromAfar(callAfarResourcesRefreshBusiness, onRefresh);
+
+  const callAfarResourcesFetchPosts = `post_section_${index}_posts_onRefresh`;
+  useCallFromAfar(callAfarResourcesFetchPosts, () => {
+    filters.onMergeFilters({ page: 1 }, { forceFetch: true });
+  });
 
   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -83,7 +86,7 @@ export const PostsSection = ({
         pushModal('PostsSectionNew', {
           sectionId: _id,
           routeName,
-          callAfarResources: postSectionRefechId,
+          callAfarResources: callAfarResourcesFetchPosts,
         })
       }
     >
@@ -109,7 +112,12 @@ export const PostsSection = ({
 
         <PostsSectionSearch layout={layout} filters={filters} business={business} />
 
-        <PostsSectionCards layout={layout} posts={getAllPosts.data} business={business} />
+        <PostsSectionCards
+          layout={layout}
+          posts={getAllPosts.data}
+          business={business}
+          callAfarResources={[callAfarResourcesRefreshBusiness]}
+        />
       </div>
     </UpdateSomethingContainer>
   );

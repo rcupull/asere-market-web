@@ -9,6 +9,7 @@ import { CallAfarResources } from 'hooks/useCallFromAfar';
 import { CardPostImage } from './CardPostImage';
 import { CardPostName } from './CardPostName';
 import { CardPostPrice } from './CardPostPrice';
+import { getCardPostSizes } from './utils';
 
 import { UpdateSomethingContainer } from 'pages/@common/update-something-container';
 import { PostCardLayout } from 'types/business';
@@ -40,7 +41,7 @@ export const CardPost = ({
   const renderMeta = () => {
     if (metaLayout === 'basic') {
       return (
-        <div className="flex items-center flex-shrink-0 mt-auto">
+        <div className="flex items-center flex-shrink-0">
           <div>
             <CardPostName layout={layout} post={post} />
             <CardPostPrice layout={layout} post={post} />
@@ -58,7 +59,7 @@ export const CardPost = ({
 
     if (metaLayout === 'verticalCentered') {
       return (
-        <div className="flex flex-col items-center flex-shrink-0 mt-auto">
+        <div className="flex flex-col items-center flex-shrink-0">
           <CardPostName layout={layout} post={post} />
           <CardPostPrice layout={layout} post={post} />
 
@@ -77,13 +78,9 @@ export const CardPost = ({
   const content = (
     <Link data-id="CardPost" className={cn('group', className)} to={href}>
       <div
-        className={cn('flex flex-col p-1 w-[90vw] overflow-hidden', {
-          'sm:w-52 h-60': size === 'small',
-          'sm:w-72 h-80': size === 'medium',
-          'sm:w-80 h-96': size === 'long',
-        })}
+        className={cn('flex flex-col p-1 w-[90vw] overflow-hidden', getCardPostSizes({size}))}
       >
-        <CardPostImage layout={layout} post={post} className="flex-grow" />
+        <CardPostImage layout={layout} post={post} />
 
         {renderMeta()}
       </div>
