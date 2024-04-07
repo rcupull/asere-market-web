@@ -22,7 +22,15 @@ export interface MenuProps extends StyleProps {
 export const Menu = ({ className, buttonElement, items, headerElement }: MenuProps) => {
   return (
     <MenuBase data-id="Menu" as="div" className={cn('relative', className)}>
-      <Float as="div" className="relative" offset={4} floatingAs={Fragment}>
+      <Float
+        as="div"
+        className="relative"
+        offset={4}
+        floatingAs={Fragment}
+        autoPlacement={{
+          allowedPlacements: ['bottom-start' , 'bottom-end'],
+        }}
+      >
         <MenuBase.Button as="div" className="cursor-pointer">
           {buttonElement}
         </MenuBase.Button>
