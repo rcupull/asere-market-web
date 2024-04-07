@@ -11,7 +11,6 @@ import { withPageProviders } from 'pages/@common/with-page-providers';
 import { PaymentPlansPurchase } from 'pages/payment-plans-purchase';
 import { dynamic } from 'utils/makeLazy';
 
-const Business = dynamic(() => import('pages/business').then((m) => ({ default: m.Business })));
 const Dashboard = dynamic(() => import('pages/dashboard').then((m) => ({ default: m.Dashboard })));
 
 const Admin = dynamic(() => import('pages/admin').then((m) => ({ default: m.Admin })));
@@ -55,8 +54,6 @@ export const App = (): JSX.Element => {
         path="/dashboard/*"
         element={withPageProviders(<Dashboard />, AuthenticatedUser, LayoutMain)}
       />
-
-      <Route path="/business" element={withPageProviders(<Business />, LayoutMain)} />
 
       <Route path="/:routeName/*" element={withPageProviders(<BusinessRouteName />, LayoutMain)} />
     </Routes>

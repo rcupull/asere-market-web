@@ -13,6 +13,8 @@ export interface TableProps<RowData extends AnyRecord = AnyRecord> extends Style
   heads: Array<React.ReactNode>;
   getRowProps: (rowData: RowData, rowIndex: number) => TableRowProps;
   data: Array<RowData> | null;
+  isBusy?: boolean;
+  //
   onScrollBottom?: () => void;
   isBusyBottom?: boolean;
 }
@@ -22,17 +24,20 @@ export const Table = <RowData extends AnyRecord = AnyRecord>({
   getRowProps,
   data,
   className,
+  //
+  isBusy,
+  //
   onScrollBottom,
   isBusyBottom,
 }: TableProps<RowData>) => {
   const ref = useRef<HTMLDivElement>(null);
 
-  const { onScroll } = useScrollBottom(ref, onScrollBottom);
+  const { onScroll } = useScrollBottom(ref, () => onScrollBottom?.());
 
   return (
-    <div ref={ref} onScroll={onScroll} className={cn('overflow-auto max-h-screen', className)}>
-      <table className="min-w-full table-auto">
-        <thead>
+    <div ref={ref} onScroll={onScroll} className={cn('relative max-h-screen', className)}>
+      <table className="min-w-full overflow-auto block max-h-full">
+        <thead className="sticky top-0 z-10">
           <tr>
             {heads.map((head, index) => {
               return (
@@ -56,6 +61,11 @@ export const Table = <RowData extends AnyRecord = AnyRecord>({
       </table>
       {isBusyBottom && (
         <div className="flex justify-center">
+          <SpinnerEllipsis />
+        </div>
+      )}
+      {isBusy && (
+        <div className="absolute inset-0 flex justify-center items-center bg-white opacity-70">
           <SpinnerEllipsis />
         </div>
       )}

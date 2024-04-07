@@ -87,6 +87,14 @@ export type GetAllPostsQuery = {
   postCategoriesTags?: Array<string>;
   search?: string;
   //
-  pageSize?: number;
+  limit?: number;
+  page?: number;
+};
+
+export type GetAllBusinessQuery = {
+  routeNames?: Array<string>;
+  search?: string;
+  //
+  limit?: number;
   page?: number;
 };

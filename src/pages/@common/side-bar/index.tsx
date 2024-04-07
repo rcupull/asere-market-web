@@ -2,7 +2,6 @@ import {
   ArrowRightEndOnRectangleIcon,
   ArrowRightStartOnRectangleIcon,
   BookmarkIcon,
-  BuildingLibraryIcon,
   Cog8ToothIcon,
   CurrencyDollarIcon,
   HomeIcon,
@@ -57,12 +56,6 @@ export const SideBar = ({ className }: SideBarProps) => {
         },
         isBusinessPage && { label: 'Publicaciones', href: `/${routeName}`, svg: HomeIcon },
         !isBusinessPage && { label: 'Inicio', href: '/', svg: HomeIcon, className: 'sm:hidden' },
-        !isBusinessPage && {
-          label: 'Tiendas',
-          href: '/business',
-          svg: BuildingLibraryIcon,
-          className: 'sm:hidden',
-        },
         !isBusinessPage && {
           label: 'Precios',
           href: '/payment-plans',

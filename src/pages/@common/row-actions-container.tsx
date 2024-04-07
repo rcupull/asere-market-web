@@ -1,7 +1,8 @@
-import { ChildrenProp } from 'types/general';
+import { ChildrenProp, StyleProps } from 'types/general';
+import { cn } from 'utils/general';
 
-export interface RowActionsContainerProps extends ChildrenProp {}
+export interface RowActionsContainerProps extends ChildrenProp, StyleProps {}
 
-export const RowActionsContainer = ({ children }: RowActionsContainerProps) => {
-  return <div className="flex items-center w-fit">{children}</div>;
+export const RowActionsContainer = ({ children, className }: RowActionsContainerProps) => {
+  return <div className={cn("flex items-center w-fit", className)}>{children}</div>;
 };

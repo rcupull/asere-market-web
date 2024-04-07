@@ -2,18 +2,22 @@ import { RefObject, useState } from 'react';
 
 export const useScrollBottom = (
   ref: RefObject<HTMLElement>,
-  onScrollBottom?: () => void,
+  onScrollBottom: () => void,
+  options?: {
+    backWayDiff?: number; // in px
+  },
 ): {
   onScroll: () => void;
 } => {
   const [fromUp, setFromUp] = useState(false);
+  const { backWayDiff = 100 } = options || {};
 
   return {
     onScroll: () => {
       if (ref?.current) {
         const { scrollTop, clientHeight, scrollHeight } = ref.current;
 
-        if (Math.abs(scrollTop + clientHeight - scrollHeight) > 100) {
+        if (Math.abs(scrollTop + clientHeight - scrollHeight) > backWayDiff) {
           setFromUp(true);
         }
 

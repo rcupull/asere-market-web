@@ -2,10 +2,12 @@ import { Badge } from 'components/badge';
 import { ButtonRemove } from 'components/button-remove';
 import { ButtonSave } from 'components/button-save';
 import { IconButtonDuplicate } from 'components/icon-button-duplicate';
+import { IconButtonOptionsBars } from 'components/icon-button-options-bars';
 import { IconButtonRemove } from 'components/icon-button-remove ';
 import { IconButtonShowHide } from 'components/icon-button-show-hide';
 import { IconButtonUpdate } from 'components/icon-button-update';
 import { IconButtonView } from 'components/icon-button-view';
+import { Menu } from 'components/menu';
 
 import { useDuplicateOneUserPost } from 'features/api/useDuplicateOneUserPost';
 import { useRemoveOneUserPost } from 'features/api/useRemoveOneUserPost';
@@ -140,16 +142,39 @@ export const RowActions = ({ rowData, callAfarResources, routeName }: RowActions
   };
 
   return (
-    <RowActionsContainer>
-      <IconButtonRemove onClick={handleDelete} />
-      <IconButtonShowHide hidden={rowData.hidden} onClick={() => handleShowHide(!rowData.hidden)} />
-      <IconButtonUpdate onClick={handleUpdate} />
-      <IconButtonDuplicate onClick={handleDuplicate} />
-
-      <IconButtonView
-        stopPropagation
-        onClick={() => pushRoute(getPostRoute({ routeName, postId: rowData._id }))}
+    <>
+      <Menu
+        buttonElement={<IconButtonOptionsBars />}
+        items={[
+          { label: 'Eliminar', onClick: handleDelete },
+          {
+            label: rowData.hidden ? 'Mostrar' : 'Ocultar',
+            onClick: () => handleShowHide(!rowData.hidden),
+          },
+          { label: 'Editar', onClick: handleUpdate },
+          { label: 'Duplicar', onClick: handleDuplicate },
+          {
+            label: 'Ver',
+            onClick: () => pushRoute(getPostRoute({ routeName, postId: rowData._id })),
+          },
+        ]}
+        className="sm:hidden"
       />
-    </RowActionsContainer>
+
+      <RowActionsContainer className="hidden sm:flex">
+        <IconButtonRemove onClick={handleDelete} />
+        <IconButtonShowHide
+          hidden={rowData.hidden}
+          onClick={() => handleShowHide(!rowData.hidden)}
+        />
+        <IconButtonUpdate onClick={handleUpdate} />
+        <IconButtonDuplicate onClick={handleDuplicate} />
+
+        <IconButtonView
+          stopPropagation
+          onClick={() => pushRoute(getPostRoute({ routeName, postId: rowData._id }))}
+        />
+      </RowActionsContainer>
+    </>
   );
 };

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 
 import { ButtonNew } from 'components/button-new';
 import { ButtonRefresh } from 'components/button-refresh';
@@ -15,14 +15,15 @@ import { useFiltersVolatile } from 'hooks/useFiltersVolatile';
 import { BulkActions } from './BulkActions';
 import { Filters } from './Filters';
 import { RowActions } from './RowActions';
+import { useInfinityScrolling } from './useInfinityScrolling';
 
 import { TopActions } from 'pages/@common/top-actions';
 import { useBusinessOwnerData } from 'pages/@hooks/useBusinessOwnerData';
 import { useTableCellCategoriesTags } from 'pages/@hooks/useTableCellCategoriesTags';
 import { GetAllPostsQuery } from 'types/api';
 import { Business } from 'types/business';
-import { Post } from 'types/post';
 import { getDateString } from 'utils/date';
+import { viewUtils } from 'utils/view';
 
 export interface PostsProps {
   business: Business;
@@ -33,21 +34,12 @@ export const Posts = ({ business }: PostsProps) => {
   const { pushModal } = useModal();
   const { routeName } = business;
 
-  const [data, setData] = useState<Array<Post>>([]);
-
   const businessOwnerData = useBusinessOwnerData();
 
-  useEffect(() => {
-    if (getAllUserPosts.paginator && getAllUserPosts.data) {
-      const { page } = getAllUserPosts.paginator;
-
-      if (page === 1) {
-        setData([...getAllUserPosts.data]);
-      } else {
-        setData([...data, ...getAllUserPosts.data]);
-      }
-    }
-  }, [getAllUserPosts.data]);
+  const infinityScrolling = useInfinityScrolling({
+    fetchPaginatedResources: getAllUserPosts,
+    onFetch: ({ page }) => filters.onMergeFilters({ page }),
+  });
 
   const filters = useFiltersVolatile<GetAllPostsQuery>({
     onChange: (filters) => getAllUserPosts.fetch({ routeNames: [routeName], ...filters }),
@@ -106,16 +98,16 @@ export const Posts = ({ business }: PostsProps) => {
             <Divider className="!my-3" />
 
             <Table
+              className="!max-h-[calc(100vh-25rem)]"
               heads={getBulkHeaderNodes([
                 null,
                 'Nombre',
-                'Descripción',
                 'Categorías',
-                'Precio',
                 'Fecha de Creación',
+                'Detalles',
               ])}
               getRowProps={(rowData) => {
-                const { name, createdAt, description, currency, price, postCategoriesTags } =
+                const { name, createdAt, currency, price, postCategoriesTags, hidden } =
                   rowData;
 
                 return {
@@ -127,24 +119,24 @@ export const Posts = ({ business }: PostsProps) => {
                       callAfarResources={callAfarResources}
                     />,
                     name,
-                    description,
                     tableCellCategoriesTags.onGetTableCellNode({ postCategoriesTags }),
-                    <span key="price" className="text-nowrap">{`${price} ${currency}`}</span>,
                     getDateString({ date: createdAt, showTime: true }),
+                    viewUtils.keyValueList([
+                      {
+                          label: 'Visible',
+                          value: hidden ? 'Si' : 'No'
+                      },
+                      {
+                        label: 'Precio',
+                        value: `${price} ${currency}`
+                      }
+                    ])
                   ]),
                 };
               }}
-              data={data}
-              onScrollBottom={() => {
-                if (getAllUserPosts.paginator) {
-                  const { page, hasNextPage } = getAllUserPosts.paginator;
-
-                  if (hasNextPage) {
-                    filters.onMergeFilters({ page: page + 1 });
-                  }
-                }
-              }}
-              isBusyBottom={getAllUserPosts.status.isBusy}
+              data={infinityScrolling.tableData}
+              onScrollBottom={infinityScrolling.onScrollBottom}
+              isBusy={getAllUserPosts.status.isBusy}
             />
           </>
         )}

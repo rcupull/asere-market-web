@@ -53,7 +53,6 @@ export const Navbar = ({ className }: NavbarProps) => {
           },
         ////////////////////////////////////////////////////////////////////////////////////////////////
         !isBusinessPage && { name: 'Home', href: '/' },
-        !isBusinessPage && { name: 'Tiendas', href: '/business' },
         !isBusinessPage && { name: 'Precios', href: '/payment-plans' },
         !isBusinessPage && { name: '¿Que es Asere Market?', href: '/about-us' },
         ////////////////////////////////////////////////////////////////////////////////////////////////

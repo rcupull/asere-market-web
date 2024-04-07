@@ -2,7 +2,7 @@ import { useFetch } from 'hooks/useFetch';
 
 import { useAuthSignIn } from './useAuthSignIn';
 
-import { defaultPageSize } from 'constants/api';
+import { defaultLimit } from 'constants/api';
 import { FetchResourceWithPagination, GetAllPostsQuery, PaginatedData } from 'types/api';
 import { Post } from 'types/post';
 import { getEndpoint } from 'utils/api';
@@ -28,7 +28,7 @@ export const useGetAllUserPosts = (): {
             url: getEndpoint({
               path: '/user/:userId/posts',
               urlParams: { userId },
-              query: { pageSize: defaultPageSize, ...query },
+              query: { limit: defaultLimit, ...query },
             }),
           },
           options,
