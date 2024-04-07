@@ -83,7 +83,7 @@ export const BusinessNew = ({ callAfarResources, routeName }: BusinessNewProps) 
               return new Promise((resolve) => {
                 debouncer(() => {
                   getAllBusiness.fetch(
-                    { routeName },
+                    { routeNames: [routeName] },
                     {
                       onAfterSuccess: (response) => {
                         const { data } = response;

@@ -4,17 +4,13 @@ import { useFetch } from 'hooks/useFetch';
 
 import { useAuthSignIn } from './useAuthSignIn';
 
-import { FetchResourceWithPagination, PaginatedData } from 'types/api';
+import { FetchResourceWithPagination, GetAllBusinessQuery, PaginatedData } from 'types/api';
 import { Business } from 'types/business';
-import { AnyRecord } from 'types/general';
 import { getEndpoint } from 'utils/api';
 import { getPaginationResources } from 'utils/pagination';
 
 export const useGetAllUserBusiness = (): {
-  getAllUserBussiness: FetchResourceWithPagination<
-    { routeName?: string; filters?: AnyRecord },
-    Business
-  >;
+  getAllUserBussiness: FetchResourceWithPagination<GetAllBusinessQuery, Business>;
 } => {
   const fetchBase = useFetch<PaginatedData<Business>>();
 
@@ -28,7 +24,7 @@ export const useGetAllUserBusiness = (): {
     getAllUserBussiness: {
       ...getPaginationResources(fetch[0]),
       status: fetch[1],
-      fetch: ({ routeName, filters }, options = {}) => {
+      fetch: (query, options = {}) => {
         fetch[2](
           {
             method: 'get',
@@ -36,7 +32,7 @@ export const useGetAllUserBusiness = (): {
               path: '/user/:userId/business',
               urlParams: { userId },
               //(pagination: false) fetch all business by default
-              query: { pagination: false, routeName, ...filters },
+              query: { pagination: false, ...query },
             }),
           },
           options,
