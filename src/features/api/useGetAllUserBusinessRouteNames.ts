@@ -1,5 +1,3 @@
-import { useApiSlice } from 'features/slices/useApiSlice';
-
 import { useFetch } from 'hooks/useFetch';
 
 import { useAuthSignIn } from './useAuthSignIn';
@@ -10,8 +8,7 @@ import { getEndpoint } from 'utils/api';
 export const useGetAllUserBusinessRouteNames = (): {
   getAllUserBusinessRouteNames: FetchResource<undefined, Array<string>>;
 } => {
-  const fetcBase = useFetch<Array<string>>();
-  const fetch = useApiSlice(fetcBase, 'useGetAllUserBusinessRouteNames');
+  const fetch = useFetch<Array<string>>();
 
   const { authData } = useAuthSignIn();
 

@@ -1,5 +1,3 @@
-import { useApiSlice } from 'features/slices/useApiSlice';
-
 import { useFetch } from 'hooks/useFetch';
 
 import { useAuthSignIn } from './useAuthSignIn';
@@ -12,9 +10,7 @@ import { getPaginationResources } from 'utils/pagination';
 export const useGetAllUserBusiness = (): {
   getAllUserBussiness: FetchResourceWithPagination<GetAllBusinessQuery, Business>;
 } => {
-  const fetchBase = useFetch<PaginatedData<Business>>();
-
-  const fetch = useApiSlice(fetchBase, 'useGetAllUserBusiness');
+  const fetch = useFetch<PaginatedData<Business>>();
 
   const { authData } = useAuthSignIn();
 

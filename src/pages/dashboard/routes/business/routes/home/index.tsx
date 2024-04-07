@@ -2,14 +2,14 @@ import { Navigate } from 'react-router-dom';
 
 import { ButtonNew } from 'components/button-new';
 
-import { useGetAllUserBusiness } from 'features/api/useGetAllUserBusiness';
+import { useAllUserBusiness } from 'features/api-slices/useGetAllUserBusinessPersistent';
 import { useModal } from 'features/modal/useModal';
 
 import { callAfarIds } from 'hooks/useCallFromAfar';
 import { useRouter } from 'hooks/useRouter';
 
 export const Home = () => {
-  const { getAllUserBussiness } = useGetAllUserBusiness();
+  const { getAllUserBussiness } = useAllUserBusiness();
 
   const { pushModal } = useModal();
   const { pathname } = useRouter();

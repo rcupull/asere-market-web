@@ -1,9 +1,8 @@
 import { useEffect } from 'react';
 
 import { useAuthSignIn } from 'features/api/useAuthSignIn';
-import { useGetAllUserBusiness } from 'features/api/useGetAllUserBusiness';
-import { useGetAllUserBusinessRouteNames } from 'features/api/useGetAllUserBusinessRouteNames';
 import { useGetUserPaymentPlan } from 'features/api/useGetUserPaymentPlan';
+import { useAllUserBusiness } from 'features/api-slices/useGetAllUserBusinessPersistent';
 
 import { callAfarIds, useCallFromAfar } from 'hooks/useCallFromAfar';
 import { useDebouncer } from 'hooks/useDebouncer';
@@ -14,18 +13,15 @@ export const useInit = () => {
   const { pushRoute } = useRouter();
   //
   const { getUserPaymentPlan } = useGetUserPaymentPlan();
-  const { getAllUserBusinessRouteNames } = useGetAllUserBusinessRouteNames();
-  const { getAllUserBussiness } = useGetAllUserBusiness();
+  const { getAllUserBussiness } = useAllUserBusiness();
   const { onRefreshAuthUser } = useAuthSignIn();
 
   const debouncer = useDebouncer();
 
   const getUserPaymentPlanRefresh = () => getUserPaymentPlan.fetch(undefined);
-  const getAllUserBusinessRouteNamesRefresh = () => getAllUserBusinessRouteNames.fetch(undefined);
   const getAllUserBussinessRefresh = () => getAllUserBussiness.fetch({});
 
   useCallFromAfar(callAfarIds.getUserPaymentPlan, getUserPaymentPlanRefresh);
-  useCallFromAfar(callAfarIds.getAllUserBusinessRouteNames, getAllUserBusinessRouteNamesRefresh);
   useCallFromAfar(callAfarIds.getAllUserBussiness, getAllUserBussinessRefresh);
 
   useCallFromAfar(callAfarIds.redirect_to_dashboard_business_routename, ({ routeName }) => {
@@ -40,14 +36,12 @@ export const useInit = () => {
 
   const init = () => {
     getUserPaymentPlanRefresh();
-    getAllUserBusinessRouteNamesRefresh();
     getAllUserBussinessRefresh();
     onRefreshAuthUser();
   };
 
   const reset = () => {
     getUserPaymentPlan.reset();
-    getAllUserBusinessRouteNames.reset();
     getAllUserBussiness.reset();
   };
 

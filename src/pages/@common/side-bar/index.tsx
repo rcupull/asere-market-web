@@ -16,8 +16,8 @@ import { SideBar as SideBarBase } from 'components/side-bar';
 
 import { useAuthSignIn } from 'features/api/useAuthSignIn';
 import { useAuthSignOut } from 'features/api/useAuthSignOut';
-import { useGetAllUserBusiness } from 'features/api/useGetAllUserBusiness';
 import { useGetUserPaymentPlan } from 'features/api/useGetUserPaymentPlan';
+import { useAllUserBusiness } from 'features/api-slices/useGetAllUserBusinessPersistent';
 
 import { useRouter } from 'hooks/useRouter';
 
@@ -29,7 +29,7 @@ import { StyleProps } from 'types/general';
 export interface SideBarProps extends StyleProps {}
 
 export const SideBar = ({ className }: SideBarProps) => {
-  const { getAllUserBussiness } = useGetAllUserBusiness();
+  const { getAllUserBussiness } = useAllUserBusiness();
   const { isBusinessPage, isDashboardPage, params } = useRouter();
   const { routeName } = params;
   const { isAdmin, isAuthenticated } = useAuthSignIn();
@@ -37,6 +37,7 @@ export const SideBar = ({ className }: SideBarProps) => {
   const isDashboardOrAdminPage = isDashboardPage || isAdmin;
 
   const { authSignOut } = useAuthSignOut();
+
   const business = getAllUserBussiness.data || [];
 
   const { isNotValidBussinessCountByUser } = useGetUserPaymentPlan();
