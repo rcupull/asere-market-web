@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 
 import { Button } from 'components/button';
+import { FieldCheckbox } from 'components/field-checkbox';
 import { FieldInput } from 'components/field-input';
 
 import { useAuthSignUp } from 'features/api/useAuthSignUp';
@@ -35,6 +36,7 @@ export const SignUp = () => {
             password: '',
             confirmPassword: '',
             name: '',
+            canCreateBusiness: false,
           }}
           validate={(values) => {
             return getFormErrors(values, [
@@ -62,10 +64,10 @@ export const SignUp = () => {
             ]);
           }}
           onSubmit={(values, { setSubmitting }) => {
-            const { email, password, name } = values;
+            const { email, password, name, canCreateBusiness } = values;
 
             authSignUp.fetch(
-              { email, password, name },
+              { email, password, name, canCreateBusiness },
               {
                 onAfterSuccess: () => {
                   setSubmitting(false);
@@ -114,6 +116,12 @@ export const SignUp = () => {
                   name="confirmPassword"
                   type="password"
                   label="Confirmar contraseña"
+                  className="mt-6"
+                />
+
+                <FieldCheckbox
+                  name="canCreateBusiness"
+                  label="Propietario de negocios"
                   className="mt-6"
                 />
 

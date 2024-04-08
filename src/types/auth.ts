@@ -18,6 +18,7 @@ export interface User extends BaseIdentity {
   role: UserRole;
   validated: boolean;
   profileImage?: Image;
+  canCreateBusiness: boolean;
   payment: {
     planHistory: Array<UserPurchasedPlan>;
   };

@@ -24,7 +24,7 @@ export const FieldCheckbox = forwardRef<HTMLInputElement, FieldCheckboxProps>((a
           ref={ref}
           type="checkbox"
           checked={!!value}
-          className={cn('block w-5 h-5 rounded-md', className)}
+          className={cn('block w-5 h-5 rounded-md')}
           {...omittedProps}
         />
       </FormFieldWrapper>
@@ -47,7 +47,7 @@ export const FieldCheckbox = forwardRef<HTMLInputElement, FieldCheckboxProps>((a
             <input
               ref={ref}
               type="checkbox"
-              className={cn('block w-5 h-5 rounded-md', className)}
+              className={cn('block w-5 h-5 rounded-md')}
               {...omittedProps}
               value={value}
               {...restField}
