@@ -1,7 +1,7 @@
 import { IconButtonUpdate } from 'components/icon-button-update';
 import { UserAvatar } from 'components/user-avatar';
 
-import { useAuthSignIn } from 'features/api/useAuthSignIn';
+import { useAuth } from 'features/api-slices/useAuth';
 import { useModal } from 'features/modal/useModal';
 
 import { callAfarIds } from 'hooks/useCallFromAfar';
@@ -13,7 +13,7 @@ export interface SideBarUserHeaderProps extends StyleProps {}
 
 export const SideBarUserHeader = ({ className }: SideBarUserHeaderProps) => {
   const { pushModal } = useModal();
-  const { authData } = useAuthSignIn();
+  const { authData } = useAuth();
 
   const { name, _id: userId } = authData?.user || {};
 

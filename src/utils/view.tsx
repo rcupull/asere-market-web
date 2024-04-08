@@ -37,5 +37,5 @@ const keyValueList = (list: Array<{ label: React.ReactNode; value: React.ReactNo
 
 export const viewUtils = {
   mapToOutlinedBox,
-  keyValueList
+  keyValueList,
 };

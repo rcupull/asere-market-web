@@ -14,9 +14,9 @@ import { IconShowHide } from 'components/icon-show-hide';
 import { ProLink } from 'components/pro-link';
 import { SideBar as SideBarBase } from 'components/side-bar';
 
-import { useAuthSignIn } from 'features/api/useAuthSignIn';
 import { useAuthSignOut } from 'features/api/useAuthSignOut';
 import { useGetUserPaymentPlan } from 'features/api/useGetUserPaymentPlan';
+import { useAuth } from 'features/api-slices/useAuth';
 import { useAllUserBusiness } from 'features/api-slices/useGetAllUserBusinessPersistent';
 
 import { useRouter } from 'hooks/useRouter';
@@ -32,7 +32,7 @@ export const SideBar = ({ className }: SideBarProps) => {
   const { getAllUserBussiness } = useAllUserBusiness();
   const { isBusinessPage, isDashboardPage, params } = useRouter();
   const { routeName } = params;
-  const { isAdmin, isAuthenticated } = useAuthSignIn();
+  const { isAdmin, isAuthenticated } = useAuth();
 
   const isDashboardOrAdminPage = isDashboardPage || isAdmin;
 

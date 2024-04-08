@@ -107,8 +107,7 @@ export const Posts = ({ business }: PostsProps) => {
                 'Detalles',
               ])}
               getRowProps={(rowData) => {
-                const { name, createdAt, currency, price, postCategoriesTags, hidden } =
-                  rowData;
+                const { name, createdAt, currency, price, postCategoriesTags, hidden } = rowData;
 
                 return {
                   nodes: getBulkRowNodes({ rowData }, [
@@ -123,14 +122,14 @@ export const Posts = ({ business }: PostsProps) => {
                     getDateString({ date: createdAt, showTime: true }),
                     viewUtils.keyValueList([
                       {
-                          label: 'Visible',
-                          value: hidden ? 'Si' : 'No'
+                        label: 'Visible',
+                        value: hidden ? 'Si' : 'No',
                       },
                       {
                         label: 'Precio',
-                        value: `${price} ${currency}`
-                      }
-                    ])
+                        value: `${price} ${currency}`,
+                      },
+                    ]),
                   ]),
                 };
               }}

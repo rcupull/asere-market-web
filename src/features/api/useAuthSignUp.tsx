@@ -4,7 +4,12 @@ import { FetchResource } from 'types/api';
 import { getEndpoint } from 'utils/api';
 
 export const useAuthSignUp = (): {
-  authSignUp: FetchResource<{ email: string; password: string; name: string; canCreateBusiness:boolean }>;
+  authSignUp: FetchResource<{
+    email: string;
+    password: string;
+    name: string;
+    canCreateBusiness: boolean;
+  }>;
 } => {
   const fetch = useFetch();
 

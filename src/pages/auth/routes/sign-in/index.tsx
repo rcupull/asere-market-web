@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { Button } from 'components/button';
 import { FieldInput } from 'components/field-input';
 
-import { useAuthSignIn } from 'features/api/useAuthSignIn';
+import { useAuth } from 'features/api-slices/useAuth';
 
 import { useGetFormErrors } from 'hooks/useGetFormErrors';
 import { useRouter } from 'hooks/useRouter';
@@ -11,7 +11,7 @@ import { useRouter } from 'hooks/useRouter';
 import { Formik } from 'formik';
 
 export const SignIn = () => {
-  const { authSignIn } = useAuthSignIn();
+  const { authSignIn } = useAuth();
 
   const { pushRoute, search, query } = useRouter();
   const getFormErrors = useGetFormErrors();

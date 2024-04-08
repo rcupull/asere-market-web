@@ -1,6 +1,6 @@
-import { useFetch } from 'hooks/useFetch';
+import { useAuth } from 'features/api-slices/useAuth';
 
-import { useAuthSignIn } from './useAuthSignIn';
+import { useFetch } from 'hooks/useFetch';
 
 import { FetchResource } from 'types/api';
 import { PostCategory } from 'types/business';
@@ -10,7 +10,7 @@ export const useGetBusinessPostCategories = (): {
   getBusinessPostCategories: FetchResource<{ routeName: string }, Array<PostCategory>>;
 } => {
   const fetch = useFetch<Array<PostCategory>>();
-  const { authData } = useAuthSignIn();
+  const { authData } = useAuth();
 
   const userId = authData?.user._id || '<unknow user>';
 

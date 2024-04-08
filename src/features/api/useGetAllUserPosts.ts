@@ -1,6 +1,6 @@
-import { useFetch } from 'hooks/useFetch';
+import { useAuth } from 'features/api-slices/useAuth';
 
-import { useAuthSignIn } from './useAuthSignIn';
+import { useFetch } from 'hooks/useFetch';
 
 import { defaultLimit } from 'constants/api';
 import { FetchResourceWithPagination, GetAllPostsQuery, PaginatedData } from 'types/api';
@@ -13,7 +13,7 @@ export const useGetAllUserPosts = (): {
 } => {
   const fetch = useFetch<PaginatedData<Post>>();
 
-  const { authData } = useAuthSignIn();
+  const { authData } = useAuth();
 
   const userId = authData?.user._id || '<unknow user>';
 

@@ -1,0 +1,82 @@
+import { useAuthSignIn } from 'features/api/useAuthSignIn';
+import { useGetOneUser } from 'features/api/useGetOneUser';
+import { useCookies } from 'features/cookies/useCookies';
+import { useApiPersistent } from 'features/slices/useApiPersistent';
+
+import { FetchResource } from 'types/api';
+import { AuthData } from 'types/auth';
+
+export const useAuth = (): ReturnType<typeof useAuthSignIn> & {
+  authData: AuthData | null;
+  authSignIn: FetchResource<{ email: string; password: string }, AuthData>;
+  isAdmin: boolean;
+  isUser: boolean;
+  isAuthenticated: boolean;
+  onRefreshAuthUser: () => void;
+} => {
+  const { authSignIn } = useAuthSignIn();
+
+  const { resources, setDataRedux } = useApiPersistent('useAuth', authSignIn);
+
+  const { data } = resources;
+  const { removeCookie, setCookie } = useCookies();
+
+  const { getOneUser } = useGetOneUser();
+
+  const authData = data;
+  return {
+    onRefreshAuthUser: () => {
+      if (!authData) return;
+
+      const userId = authData.user._id;
+
+      getOneUser.fetch(
+        {
+          userId,
+        },
+        {
+          onAfterSuccess: (user) => {
+            const { token } = authData || {};
+
+            setCookie('user', user);
+
+            setDataRedux({
+              token,
+              user,
+            });
+          },
+        },
+      );
+    },
+    isAuthenticated: !!authData,
+    isAdmin: authData?.user?.role === 'admin',
+    isUser: authData?.user?.role === 'user',
+    authData,
+    authSignIn: {
+      data: authData,
+      status: resources.status,
+      fetch: ({ email, password }, options = {}) => {
+        resources.fetch(
+          {
+            email,
+            password,
+          },
+          {
+            ...options,
+            onAfterSuccess: (response) => {
+              const { token, user } = response;
+              setCookie('token', token);
+              setCookie('user', user);
+              options?.onAfterSuccess?.(response);
+            },
+          },
+        );
+      },
+      reset: () => {
+        removeCookie('token');
+        removeCookie('user');
+        resources.reset();
+      },
+    },
+  };
+};

@@ -77,9 +77,7 @@ export const CardPost = ({
 
   const content = (
     <Link data-id="CardPost" className={cn('group', className)} to={href}>
-      <div
-        className={cn('flex flex-col p-1 w-[90vw] overflow-hidden', getCardPostSizes({size}))}
-      >
+      <div className={cn('flex flex-col p-1 w-[90vw] overflow-hidden', getCardPostSizes({ size }))}>
         <CardPostImage layout={layout} post={post} />
 
         {renderMeta()}

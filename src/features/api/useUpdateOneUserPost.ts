@@ -1,6 +1,6 @@
-import { useFetch } from 'hooks/useFetch';
+import { useAuth } from 'features/api-slices/useAuth';
 
-import { useAuthSignIn } from './useAuthSignIn';
+import { useFetch } from 'hooks/useFetch';
 
 import { FetchResource } from 'types/api';
 import { Post } from 'types/post';
@@ -32,7 +32,7 @@ export const useUpdateOneUserPost = (): {
 } => {
   const fetch = useFetch();
 
-  const { authData } = useAuthSignIn();
+  const { authData } = useAuth();
 
   const userId = authData?.user._id || '<unknow user>';
 

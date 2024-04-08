@@ -1,8 +1,7 @@
+import { useAuth } from 'features/api-slices/useAuth';
 import { useApiSlice } from 'features/slices/useApiSlice';
 
 import { useFetch } from 'hooks/useFetch';
-
-import { useAuthSignIn } from './useAuthSignIn';
 
 import { FetchResource } from 'types/api';
 import { PaymentPlan } from 'types/payment';
@@ -18,7 +17,7 @@ export const useGetUserPaymentPlan = (): {
   const fetchBase = useFetch<PaymentPlan>();
   const fetch = useApiSlice<PaymentPlan>(fetchBase, 'useGetUserPaymentPlan');
 
-  const { authData } = useAuthSignIn();
+  const { authData } = useAuth();
 
   const userId = authData?.user._id || '<unknow user>';
 

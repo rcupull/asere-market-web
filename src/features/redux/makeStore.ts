@@ -31,7 +31,7 @@ export const makerStore = (preloadedState: Partial<AnyRecord> = {}) => {
       token,
       user,
     };
-    store.dispatch(slices.useAuthSignIn.actions.setState(authData));
+    store.dispatch(slices.useAuth.actions.setState(authData));
   }
 
   return { store };

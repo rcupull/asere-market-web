@@ -11,8 +11,8 @@ import { Menu } from 'components/menu';
 import { NavBar as NavBarBase } from 'components/nav-bar';
 import { UserAvatar } from 'components/user-avatar';
 
-import { useAuthSignIn } from 'features/api/useAuthSignIn';
 import { useAuthSignOut } from 'features/api/useAuthSignOut';
+import { useAuth } from 'features/api-slices/useAuth';
 
 import { useRouter } from 'hooks/useRouter';
 
@@ -26,7 +26,7 @@ import { getDashboardBusinessRoute } from 'utils/business';
 
 export interface NavbarProps extends StyleProps {}
 export const Navbar = ({ className }: NavbarProps) => {
-  const { isAdmin, isUser, isAuthenticated, authData } = useAuthSignIn();
+  const { isAdmin, isUser, isAuthenticated, authData } = useAuth();
   const { authSignOut } = useAuthSignOut();
   const { user } = authData || {};
   const { isBusinessPage, params } = useRouter();

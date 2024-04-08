@@ -1,6 +1,6 @@
-import { useFetch } from 'hooks/useFetch';
+import { useAuth } from 'features/api-slices/useAuth';
 
-import { useAuthSignIn } from './useAuthSignIn';
+import { useFetch } from 'hooks/useFetch';
 
 import { FetchResourceWithPagination, GetAllBusinessQuery, PaginatedData } from 'types/api';
 import { Business } from 'types/business';
@@ -12,7 +12,7 @@ export const useGetAllUserBusiness = (): {
 } => {
   const fetch = useFetch<PaginatedData<Business>>();
 
-  const { authData } = useAuthSignIn();
+  const { authData } = useAuth();
 
   const userId = authData?.user._id || '<unknow user>';
 

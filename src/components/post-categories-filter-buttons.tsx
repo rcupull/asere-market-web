@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { Badge } from 'components/badge';
 import { Button } from 'components/button';
 
-import { useAuthSignIn } from 'features/api/useAuthSignIn';
+import { useAuth } from 'features/api-slices/useAuth';
 
 import { useDebouncer } from 'hooks/useDebouncer';
 
@@ -32,7 +32,7 @@ export const PostCategoriesFilterButtons = ({
 }: PostCategoriesFilterButtonsProps) => {
   const debouncer = useDebouncer();
   const [state, setState] = useState<Array<string>>();
-  const { authData } = useAuthSignIn();
+  const { authData } = useAuth();
 
   const { business } = useBusinessPageData();
 

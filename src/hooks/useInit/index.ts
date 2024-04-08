@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 
-import { useAuthSignIn } from 'features/api/useAuthSignIn';
 import { useGetUserPaymentPlan } from 'features/api/useGetUserPaymentPlan';
+import { useAuth } from 'features/api-slices/useAuth';
 import { useAllUserBusiness } from 'features/api-slices/useGetAllUserBusinessPersistent';
 
 import { callAfarIds, useCallFromAfar } from 'hooks/useCallFromAfar';
@@ -9,12 +9,11 @@ import { useDebouncer } from 'hooks/useDebouncer';
 import { useRouter } from 'hooks/useRouter';
 
 export const useInit = () => {
-  const { isAuthenticated } = useAuthSignIn();
+  const { isAuthenticated, onRefreshAuthUser } = useAuth();
   const { pushRoute } = useRouter();
   //
   const { getUserPaymentPlan } = useGetUserPaymentPlan();
   const { getAllUserBussiness } = useAllUserBusiness();
-  const { onRefreshAuthUser } = useAuthSignIn();
 
   const debouncer = useDebouncer();
 

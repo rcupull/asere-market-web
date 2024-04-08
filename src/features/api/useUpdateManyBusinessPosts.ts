@@ -1,6 +1,6 @@
-import { useFetch } from 'hooks/useFetch';
+import { useAuth } from 'features/api-slices/useAuth';
 
-import { useAuthSignIn } from './useAuthSignIn';
+import { useFetch } from 'hooks/useFetch';
 
 import { FetchResource, GetAllPostsQuery } from 'types/api';
 import { Post } from 'types/post';
@@ -18,7 +18,7 @@ export const useUpdateManyBusinessPosts = (): {
   >;
 } => {
   const fetch = useFetch();
-  const { authData } = useAuthSignIn();
+  const { authData } = useAuth();
 
   const userId = authData?.user._id || '<unknow user>';
 

@@ -28,7 +28,7 @@ export const Menu = ({ className, buttonElement, items, headerElement }: MenuPro
         offset={4}
         floatingAs={Fragment}
         autoPlacement={{
-          allowedPlacements: ['bottom-start' , 'bottom-end'],
+          allowedPlacements: ['bottom-start', 'bottom-end'],
         }}
       >
         <MenuBase.Button as="div" className="cursor-pointer">

@@ -13,13 +13,17 @@ export interface PostsSectionCardsProps extends StyleProps {
   posts: Array<Post> | null;
   business: Business;
   layout: PostsLayoutSection;
-  callAfarResources?: CallAfarResources
+  callAfarResources?: CallAfarResources;
 }
 
-export const PostsSectionCards = ({ business, posts, layout, callAfarResources }: PostsSectionCardsProps) => {
+export const PostsSectionCards = ({
+  business,
+  posts,
+  layout,
+  callAfarResources,
+}: PostsSectionCardsProps) => {
   const { routeName, whatsAppPhoneNumber } = business;
   const { type } = layout;
-
 
   if (type === 'oneRowSlider') {
     return (
@@ -59,7 +63,7 @@ export const PostsSectionCards = ({ business, posts, layout, callAfarResources }
             href={getPostRoute({ routeName, postId: _id })}
             whatsAppPhoneNumber={whatsAppPhoneNumber}
             callAfarResources={callAfarResources}
-            />
+          />
         );
       })}
     </CardGroup>

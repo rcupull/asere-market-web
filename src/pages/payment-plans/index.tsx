@@ -1,4 +1,4 @@
-import { useAuthSignIn } from 'features/api/useAuthSignIn';
+import { useAuth } from 'features/api-slices/useAuth';
 
 import { useRouter } from 'hooks/useRouter';
 
@@ -11,7 +11,7 @@ import { LayoutPage } from 'pages/@common/layout-page';
 import { PaymentPlanType } from 'types/payment';
 
 export const PaymentPlans = () => {
-  const { isAuthenticated } = useAuthSignIn();
+  const { isAuthenticated } = useAuth();
   const { pushRoute, queryToSearch } = useRouter();
 
   const handleClick = (type: PaymentPlanType) => {

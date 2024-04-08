@@ -55,7 +55,11 @@ export const CardPostImage = ({ post, layout, className }: CardPostImageProps) =
   }, [layout]);
 
   const renderImage = ({ src, alt }: Image) => (
-    <img src={getImageEndpoint(src)} alt={alt} className="object-contain group-hover:opacity-75 max-h-full" />
+    <img
+      src={getImageEndpoint(src)}
+      alt={alt}
+      className="object-contain group-hover:opacity-75 max-h-full"
+    />
   );
 
   const renderContent = () => {

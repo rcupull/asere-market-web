@@ -1,4 +1,4 @@
-import { useAuthSignIn } from 'features/api/useAuthSignIn';
+import { useAuth } from 'features/api-slices/useAuth';
 
 import { StyleProps } from 'types/general';
 import { getImageEndpoint } from 'utils/api';
@@ -8,7 +8,7 @@ import { cn } from 'utils/general';
 export interface UserAvatarProps extends StyleProps {}
 
 export const UserAvatar = ({ className }: UserAvatarProps) => {
-  const { authData } = useAuthSignIn();
+  const { authData } = useAuth();
 
   let profileImageSrc = authData?.user?.profileImage?.src;
   const profileName = authData?.user?.name;

@@ -1,5 +1,5 @@
-import { useAuthSignIn } from 'features/api/useAuthSignIn';
 import { useGetOneBusiness } from 'features/api/useGetOneBusiness';
+import { useAuth } from 'features/api-slices/useAuth';
 import { useSimpleSlice } from 'features/slices/useSimpleSlice';
 
 import { FetchOptions } from 'hooks/useFetch';
@@ -15,7 +15,7 @@ export const useBusinessPageData = (): {
   onReset: () => void;
   owner: boolean;
 } => {
-  const { authData } = useAuthSignIn();
+  const { authData } = useAuth();
 
   const { getOneBusiness } = useGetOneBusiness();
 
