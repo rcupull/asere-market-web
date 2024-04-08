@@ -31,8 +31,6 @@ export const useInit = () => {
     pushRoute(`/${routeName}`, undefined, { timeout: 100 });
   });
 
-  useCallFromAfar(callAfarIds.refresh_auth_user, onRefreshAuthUser);
-
   const init = () => {
     getUserPaymentPlanRefresh();
     getAllUserBussinessRefresh();

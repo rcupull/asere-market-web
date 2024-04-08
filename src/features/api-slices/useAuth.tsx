@@ -11,6 +11,7 @@ export const useAuth = (): ReturnType<typeof useAuthSignIn> & {
   authSignIn: FetchResource<{ email: string; password: string }, AuthData>;
   isAdmin: boolean;
   isUser: boolean;
+  isBasicUser: boolean;
   isAuthenticated: boolean;
   onRefreshAuthUser: () => void;
 } => {
@@ -39,7 +40,6 @@ export const useAuth = (): ReturnType<typeof useAuthSignIn> & {
             const { token } = authData || {};
 
             setCookie('user', user);
-
             setDataRedux({
               token,
               user,
@@ -50,7 +50,8 @@ export const useAuth = (): ReturnType<typeof useAuthSignIn> & {
     },
     isAuthenticated: !!authData,
     isAdmin: authData?.user?.role === 'admin',
-    isUser: authData?.user?.role === 'user',
+    isUser: authData?.user?.role === 'user' && authData?.user?.canCreateBusiness,
+    isBasicUser: authData?.user?.role === 'user' && !authData?.user?.canCreateBusiness,
     authData,
     authSignIn: {
       data: authData,

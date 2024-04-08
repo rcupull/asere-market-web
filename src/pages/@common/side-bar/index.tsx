@@ -32,7 +32,7 @@ export const SideBar = ({ className }: SideBarProps) => {
   const { getAllUserBussiness } = useAllUserBusiness();
   const { isBusinessPage, isDashboardPage, params } = useRouter();
   const { routeName } = params;
-  const { isAdmin, isAuthenticated } = useAuth();
+  const { isAdmin, isAuthenticated, isUser } = useAuth();
 
   const isDashboardOrAdminPage = isDashboardPage || isAdmin;
 
@@ -90,7 +90,7 @@ export const SideBar = ({ className }: SideBarProps) => {
             className: 'pl-10',
           },
         isAuthenticated &&
-          !isAdmin && {
+          isUser && {
             // BUSINESS
             label: 'Mis negocios',
             href: '/dashboard/business',
@@ -106,7 +106,7 @@ export const SideBar = ({ className }: SideBarProps) => {
 
           return (
             isAuthenticated &&
-            !isAdmin && {
+            isUser && {
               label: name,
               href: `/dashboard/business/${routeName}`,
               endElement: <IconShowHide className="h-4 ml-auto" hidden={hidden} />,
@@ -115,9 +115,10 @@ export const SideBar = ({ className }: SideBarProps) => {
           );
         }),
         /////////////////////////////////////////////////////////////////////////////////////////////////////////
-        isAuthenticated && {
-          divider: true,
-        },
+        isAuthenticated &&
+          isUser && {
+            divider: true,
+          },
         isDashboardPage && {
           label: 'Configuración',
           href: '/dashboard/settings',

@@ -7,13 +7,16 @@ import {
 } from '@heroicons/react/24/outline';
 import { Link } from 'react-router-dom';
 
+import { IconUpdate } from 'components/icon-update';
 import { Menu } from 'components/menu';
 import { NavBar as NavBarBase } from 'components/nav-bar';
 import { UserAvatar } from 'components/user-avatar';
 
 import { useAuthSignOut } from 'features/api/useAuthSignOut';
 import { useAuth } from 'features/api-slices/useAuth';
+import { useModal } from 'features/modal/useModal';
 
+import { useCallFromAfar } from 'hooks/useCallFromAfar';
 import { useRouter } from 'hooks/useRouter';
 
 import { BusinessLogo } from './business-logo';
@@ -26,13 +29,18 @@ import { getDashboardBusinessRoute } from 'utils/business';
 
 export interface NavbarProps extends StyleProps {}
 export const Navbar = ({ className }: NavbarProps) => {
-  const { isAdmin, isUser, isAuthenticated, authData } = useAuth();
+  const { isAdmin, isUser, isAuthenticated, authData, onRefreshAuthUser } = useAuth();
   const { authSignOut } = useAuthSignOut();
   const { user } = authData || {};
   const { isBusinessPage, params } = useRouter();
   const { routeName } = params;
   const { business } = useBusinessPageData();
   const aboutUsPage = business?.aboutUsPage || {};
+  const { pushModal } = useModal();
+  const { pushRoute } = useRouter();
+
+  const callAfarResourcesRefreshUser = 'callAfarResourcesRefreshUser';
+  useCallFromAfar(callAfarResourcesRefreshUser, onRefreshAuthUser);
 
   return (
     <NavBarBase
@@ -101,8 +109,23 @@ export const Navbar = ({ className }: NavbarProps) => {
               }
               items={[
                 {
+                  label: 'Editar perfil',
+                  onClick: () => {
+                    pushModal('ProfileUpdate', {
+                      userId: user._id,
+                      callAfarResources: callAfarResourcesRefreshUser,
+                    });
+                  },
+                  svg: IconUpdate,
+                },
+                {
                   label: 'Cerrar sesión',
-                  onClick: () => authSignOut.fetch(undefined),
+                  onClick: () =>
+                    authSignOut.fetch(undefined, {
+                      onAfterSuccess: () => {
+                        pushRoute('/auth/sign-in');
+                      },
+                    }),
                   svg: ArrowRightStartOnRectangleIcon,
                 },
               ]}

@@ -1,5 +1,7 @@
 import { Navigate, Route, Routes } from 'react-router-dom';
 
+import { useAuth } from 'features/api-slices/useAuth';
+
 import { dynamic } from 'utils/makeLazy';
 
 const Business = dynamic(() =>
@@ -15,6 +17,12 @@ const Settings = dynamic(() =>
 );
 
 export const Dashboard = () => {
+  const { isUser } = useAuth();
+
+  if (!isUser) {
+    return <Navigate to="/" />;
+  }
+
   return (
     <Routes>
       <Route path="/" element={<Navigate to="/dashboard/business" />} />

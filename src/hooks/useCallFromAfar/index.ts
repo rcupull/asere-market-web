@@ -9,7 +9,6 @@ export const callAfarIds = {
   getAllUserBussiness: 'getAllUserBussiness',
   redirect_to_dashboard_business_routename: 'redirect_to_dashboard_business_routename',
   redirect_to_routename: 'redirect_to_routename',
-  refresh_auth_user: 'refresh_auth_user',
   getAllAdminUsers: 'getAllAdminUsers',
 };
 

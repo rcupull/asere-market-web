@@ -51,9 +51,7 @@ export const LayoutMain = ({ children }: LayoutMainProps): JSX.Element => {
     <div className="flex flex-col h-screen">
       <Navbar className="flex-shrink-0" />
 
-      <div className="flex">
-        {xsSideBar}
-        {smSideBar}
+      <div className="flex flex-row-reverse">
         <div
           className={cn('w-full p-3', {
             'sm:w-[calc(100%-16rem)]': isDashboardPage || isAdminPage,
@@ -61,6 +59,9 @@ export const LayoutMain = ({ children }: LayoutMainProps): JSX.Element => {
         >
           {children}
         </div>
+
+        {xsSideBar}
+        {smSideBar}
       </div>
 
       <Footer className="mt-auto flex-shrink-0" />

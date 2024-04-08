@@ -55,7 +55,7 @@ export const SignIn = () => {
               { email, password },
               {
                 onAfterSuccess: (response) => {
-                  const role = response.user.role;
+                  const { role, canCreateBusiness } = response.user;
 
                   setSubmitting(false);
 
@@ -64,8 +64,13 @@ export const SignIn = () => {
                   if (redirect) {
                     return pushRoute(`${redirect}`);
                   }
+                  if (role === 'admin') {
+                    return pushRoute('/admin');
+                  }
 
-                  pushRoute(role === 'admin' ? `/admin` : '/dashboard');
+                  if (role === 'user') {
+                    return pushRoute(canCreateBusiness ? '/dashboard' : '/');
+                  }
                 },
                 onAfterFailed: () => {
                   setSubmitting(false);
