@@ -20,14 +20,19 @@ const mapToOutlinedBox = <T extends React.ReactNode = React.ReactNode>(args: {
   ));
 };
 
-const keyValueList = (list: Array<{ label: React.ReactNode; value: React.ReactNode }>) => {
+const keyValueList = (list: Array<{ label: React.ReactNode; value?: React.ReactNode }>) => {
   return (
     <div>
       {list.map(({ label, value }, index) => {
         return (
           <div key={index} className="flex justify-between">
-            <div className="font-bold text-nowrap">{label}:</div>
-            <div className="ml-2 text-nowrap">{value}</div>
+            <div className="font-bold text-nowrap">{label}</div>
+            {value && (
+              <>
+              :
+              <div className="ml-2 text-nowrap">{value}</div>
+              </>
+            )}
           </div>
         );
       })}

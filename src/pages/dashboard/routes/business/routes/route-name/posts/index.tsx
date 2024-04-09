@@ -23,6 +23,7 @@ import { useTableCellCategoriesTags } from 'pages/@hooks/useTableCellCategoriesT
 import { GetAllPostsQuery } from 'types/api';
 import { Business } from 'types/business';
 import { getDateString } from 'utils/date';
+import { cn } from 'utils/general';
 import { viewUtils } from 'utils/view';
 
 export interface PostsProps {
@@ -110,6 +111,9 @@ export const Posts = ({ business }: PostsProps) => {
                 const { name, createdAt, currency, price, postCategoriesTags, hidden } = rowData;
 
                 return {
+                  className: cn({
+                    'bg-gray-100': hidden,
+                  }),
                   nodes: getBulkRowNodes({ rowData }, [
                     <RowActions
                       key="RowActions"
@@ -122,8 +126,15 @@ export const Posts = ({ business }: PostsProps) => {
                     getDateString({ date: createdAt, showTime: true }),
                     viewUtils.keyValueList([
                       {
-                        label: 'Visible',
-                        value: hidden ? 'Si' : 'No',
+                        label: (
+                          <span
+                            className={cn({
+                              'text-red-500': hidden,
+                              'text-indigo-600': !hidden,
+                            })}
+                          >{`${hidden ? 'Oculta' : 'Visible'}`}</span>
+                        ),
+                        value: null,
                       },
                       {
                         label: 'Precio',
