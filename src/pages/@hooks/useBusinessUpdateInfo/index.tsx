@@ -21,7 +21,7 @@ interface State {
   whatsAppPhoneNumber: string;
 }
 
-export const useBusinessInfoUpdate = () => {
+export const useBusinessUpdateInfo = () => {
   const { pushModal } = useModal();
 
   return {

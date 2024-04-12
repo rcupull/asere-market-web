@@ -25,19 +25,9 @@ const componentRecord: Record<ModalId, LoadableReturn> = {
       default: m.CatalogsSearchImage,
     })),
   ),
-  UpdateBusinessAboutUs: dynamic(() =>
-    import('./components/update-business-about-us').then((m) => ({
-      default: m.UpdateBusinessAboutUs,
-    })),
-  ),
   PostNew: dynamic(() => import('./components/post-new').then((m) => ({ default: m.PostNew }))),
   UpdateBusinessLogo: dynamic(() =>
     import('./components/update-business-logo').then((m) => ({ default: m.UpdateBusinessLogo })),
-  ),
-  UpdateBusinessBanner: dynamic(() =>
-    import('./components/update-business-banner').then((m) => ({
-      default: m.UpdateBusinessBanner,
-    })),
   ),
   UpdatePostCategories: dynamic(() =>
     import('./components/update-post-categories').then((m) => ({

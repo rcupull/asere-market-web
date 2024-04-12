@@ -4,7 +4,9 @@ import { useModal } from 'features/modal/useModal';
 
 import { SettingsLayout } from './SettingsLayout';
 
-import { useBusinessInfoUpdate } from 'pages/@hooks/useBusinessInfoUpdate';
+import { useBusinessUpdateAboutUs } from 'pages/@hooks/useBusinessUpdateAboutUs';
+import { useBusinessUpdateBanner } from 'pages/@hooks/useBusinessUpdateBanner';
+import { useBusinessUpdateInfo } from 'pages/@hooks/useBusinessUpdateInfo';
 import { Business } from 'types/business';
 
 export interface SettingsProps {
@@ -16,7 +18,9 @@ export const Settings = ({ business, onRefresh }: SettingsProps) => {
   const { routeName } = business;
   const { pushModal } = useModal();
 
-  const businessInfoUpdate = useBusinessInfoUpdate();
+  const businessUpdateInfo = useBusinessUpdateInfo();
+  const businessUpdateBanner = useBusinessUpdateBanner();
+  const businessUpdateAboutUs = useBusinessUpdateAboutUs();
 
   return (
     <>
@@ -24,7 +28,7 @@ export const Settings = ({ business, onRefresh }: SettingsProps) => {
         title="Informaciones básicas"
         description="Configure los link de las redes sociales de su negocio, contacto de whatsapp y demás."
         action={
-          <Button label="Editar" onClick={() => businessInfoUpdate.open({ business, onRefresh })} />
+          <Button label="Editar" onClick={() => businessUpdateInfo.open({ business, onRefresh })} />
         }
       />
 
@@ -47,7 +51,10 @@ export const Settings = ({ business, onRefresh }: SettingsProps) => {
           </div>
         }
         action={
-          <Button label="Editar" onClick={() => pushModal('UpdateBusinessBanner', { routeName })} />
+          <Button
+            label="Editar"
+            onClick={() => businessUpdateBanner.open({ business, onRefresh })}
+          />
         }
       />
 
@@ -73,11 +80,7 @@ export const Settings = ({ business, onRefresh }: SettingsProps) => {
         action={
           <Button
             label="Editar"
-            onClick={() =>
-              pushModal('UpdateBusinessAboutUs', {
-                routeName,
-              })
-            }
+            onClick={() => businessUpdateAboutUs.open({ business, onRefresh })}
           />
         }
       />
