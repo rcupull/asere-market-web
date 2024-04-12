@@ -1,13 +1,12 @@
 import { Button } from 'components/button';
 
-import { useModal } from 'features/modal/useModal';
-
 import { SettingsLayout } from './SettingsLayout';
 
 import { useBusinessUpdateAboutUs } from 'pages/@hooks/useBusinessUpdateAboutUs';
 import { useBusinessUpdateBanner } from 'pages/@hooks/useBusinessUpdateBanner';
 import { useBusinessUpdateInfo } from 'pages/@hooks/useBusinessUpdateInfo';
 import { useBusinessUpdateLogo } from 'pages/@hooks/useBusinessUpdateLogo';
+import { useBusinessUpdatePostCategories } from 'pages/@hooks/useBusinessUpdatePostCategories';
 import { Business } from 'types/business';
 
 export interface SettingsProps {
@@ -16,13 +15,11 @@ export interface SettingsProps {
 }
 
 export const Settings = ({ business, onRefresh }: SettingsProps) => {
-  const { routeName } = business;
-  const { pushModal } = useModal();
-
   const businessUpdateInfo = useBusinessUpdateInfo();
   const businessUpdateBanner = useBusinessUpdateBanner();
   const businessUpdateAboutUs = useBusinessUpdateAboutUs();
   const businessUpdateLogo = useBusinessUpdateLogo();
+  const businessUpdatePostCategories = useBusinessUpdatePostCategories();
 
   return (
     <>
@@ -72,7 +69,10 @@ export const Settings = ({ business, onRefresh }: SettingsProps) => {
         title="Categorías"
         description="Las categorías permiten clasificar fácilmente las publicaciones por grupos predefinidos. Puedes crear, editar o eliminar categorías. Cada publicacion puede estar asociada a una o varias categorías. En la página de tu negocio, se podrá filtrar tus publicaciones por categorías muy facilmente."
         action={
-          <Button label="Editar" onClick={() => pushModal('UpdatePostCategories', { routeName })} />
+          <Button
+            label="Editar"
+            onClick={() => businessUpdatePostCategories.open({ routeName: business.routeName, onRefresh })}
+          />
         }
       />
 

@@ -3,14 +3,12 @@ import { useEffect, useState } from 'react';
 import { FormFieldWrapper, FormFieldWrapperProps } from 'components/form-field-wrapper';
 import { IconButtonAdd } from 'components/icon-button-add';
 
-import { useModal } from 'features/modal/useModal';
-
-import { useCallFromAfar } from 'hooks/useCallFromAfar';
 import { FormikFieldProps, useFormikField } from 'hooks/useFormikField';
 
 import { PostCategoriesFilterButtons } from '../post-categories-filter-buttons';
 
 import { useBusinessOwnerData } from 'pages/@hooks/useBusinessOwnerData';
+import { useBusinessUpdatePostCategories } from 'pages/@hooks/useBusinessUpdatePostCategories';
 
 type State = Array<string>;
 
@@ -24,21 +22,25 @@ export const FieldPostCategoriesButtons = (props: FieldPostCategoriesButtonsProp
   const { className, label, routeName } = props;
   const [state, setState] = useState<State>();
 
-  const { pushModal } = useModal();
   const { field, error } = useFormikField(props);
 
   const { value, onChange, name, onBlur } = field;
 
   const businessOwnerData = useBusinessOwnerData();
 
-  const callAfarResources = 'FieldPostCategoriesButtons_businessOwnerData.onRefresh';
-  useCallFromAfar(callAfarResources, () => businessOwnerData.onRefresh({ routeName }));
-
-  const postCategories = businessOwnerData.data?.postCategories;
+  const businessUpdatePostCategories = useBusinessUpdatePostCategories();
 
   useEffect(() => {
     setState(value);
   }, [value]);
+
+  const business = businessOwnerData.data;
+
+  if (!business) {
+    return <></>;
+  }
+
+  const postCategories = business.postCategories;
 
   const iconAdd = (
     <IconButtonAdd
@@ -47,7 +49,10 @@ export const FieldPostCategoriesButtons = (props: FieldPostCategoriesButtonsProp
       onClick={(e) => {
         e.preventDefault();
         e.stopPropagation();
-        pushModal('UpdatePostCategories', { routeName, callAfarResources }, { emergent: true });
+        businessUpdatePostCategories.open({
+          routeName: business.routeName,
+          onRefresh: () => businessOwnerData.onFetch({ routeName }),
+        });
       }}
     />
   );
