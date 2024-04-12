@@ -65,8 +65,8 @@ export const CardPostImage = ({ post, layout, className }: CardPostImageProps) =
   const renderContent = () => {
     if (!images?.length) {
       return (
-        <div className="flex items-center justify-center h-64 w-64">
-          <EmptyImage className="h-32 w-32" />
+        <div className="flex items-center justify-center size-full">
+          <EmptyImage className="size-full" />
         </div>
       );
     }

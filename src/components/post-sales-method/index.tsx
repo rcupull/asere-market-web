@@ -1,8 +1,8 @@
 import { ShoppingCartIcon } from '@heroicons/react/24/outline';
 
 import { ButtonClose } from 'components/button-close';
+import { HtmlTextContainer } from 'components/html-text-container';
 import { IconButton } from 'components/icon-button';
-import SvgWhatsapp from 'components/icons/Whatsapp';
 import { QrCode } from 'components/qr-code';
 
 import { useAddOnePostToCar } from 'features/api/useAddOnePostToCar';
@@ -45,7 +45,6 @@ export const PostSalesMethod = ({
   const { addOnePostToCar } = useAddOnePostToCar();
 
   if (layout === 'whatsApp_xsLink_lgQR') {
-
     if (!whatsAppPhoneNumber) {
       return <></>;
     }
@@ -54,26 +53,26 @@ export const PostSalesMethod = ({
 
     return (
       <div className={className}>
-        <div className="md:hidden" onClick={() => window.open(whatsappLink, '_blank')}>
-          <SvgWhatsapp className="w-8 h-8 stroke-green-300" />
-        </div>
         <QrCode
-          className="hidden md:block w-8 h-8 cursor-pointer"
+          className="w-8 h-8 cursor-pointer"
           onClick={(e) => {
             e.preventDefault();
             pushModal(
-              'Confirmation',
+              'Emergent',
               {
                 useProps: () => {
                   return {
                     content: (
-                      <div className="flex justify-center px-20">
-                        <QrCode value={whatsappLink} className="w-60 h-60" />
+                      <div className="flex flex-col items-center px-20">
+                        <HtmlTextContainer className='w-80'>
+                          <a href={whatsappLink} target="_blank" rel="noreferrer">
+                            Click en este link
+                          </a> o use el código desde su teléfono para contactar con nosotros
+                        </HtmlTextContainer>
+                        <QrCode value={whatsappLink} className="w-60 h-60 mt-2" />
                       </div>
                     ),
-                    title: 'Contácteme por WhatsApp',
-                    primaryBtn: undefined,
-                    secondaryBtn: undefined,
+                    title: 'WhatsApp',
                     className: '!w-fit',
                     customBtn: <ButtonClose className="ml-auto" />,
                   };

@@ -20,7 +20,7 @@ export const Home = ({ business, onRefresh }: HomeProps) => {
       onClick={() => pushRoute(`/dashboard/business/${business.routeName}`)}
     >
       <LayoutPage>
-        <Banner business={business} />
+        <Banner business={business} onRefresh={onRefresh}/>
 
         <PostsSectionsView
           business={business}

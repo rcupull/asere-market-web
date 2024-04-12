@@ -1,6 +1,8 @@
 import { EmptyImage } from 'components/empty-image';
 import { Swiper } from 'components/swiper';
 
+import { UpdateSomethingContainer } from 'pages/@common/update-something-container';
+import { useBusinessUpdateBanner } from 'pages/@hooks/useBusinessUpdateBanner';
 import { Business } from 'types/business';
 import { StyleProps } from 'types/general';
 import { getImageEndpoint } from 'utils/api';
@@ -8,9 +10,11 @@ import { cn } from 'utils/general';
 
 export interface BannerProps extends StyleProps {
   business: Business;
+  onRefresh: () => void;
 }
 
-export const Banner = ({ business, className }: BannerProps) => {
+export const Banner = ({ business, className, onRefresh }: BannerProps) => {
+  const businessUpdateBanner = useBusinessUpdateBanner();
   const { bannerImages, layouts } = business;
 
   const bannerLayout = layouts?.banner;
@@ -18,6 +22,15 @@ export const Banner = ({ business, className }: BannerProps) => {
   if (bannerLayout?.type === 'none') {
     return <></>;
   }
+
+  const renderContainer = (content: React.ReactNode) => (
+    <UpdateSomethingContainer
+      title="Editar el banner"
+      onClick={() => businessUpdateBanner.open({ business, onRefresh })}
+    >
+      {content}
+    </UpdateSomethingContainer>
+  )
 
   const renderContent = (args: { content?: React.ReactNode; href?: string }) => {
     const { content, href } = args;
@@ -45,14 +58,18 @@ export const Banner = ({ business, className }: BannerProps) => {
   if (bannerLayout?.type === 'static') {
     const { src, href } = bannerImages?.[0] || {};
 
-    return renderContent({
-      content: <img src={src && getImageEndpoint(src)} className="object-contain w-full h-full" />,
-      href,
-    });
+    return renderContainer(
+      renderContent({
+        content: (
+          <img src={src && getImageEndpoint(src)} className="object-contain w-full h-full" />
+        ),
+        href,
+      }),
+    );
   }
 
   if (bannerLayout?.type === 'swipableClassic') {
-    return (
+    return renderContainer(
       bannerImages?.length && (
         <Swiper
           autoplay={{
@@ -72,7 +89,7 @@ export const Banner = ({ business, className }: BannerProps) => {
             };
           })}
         />
-      )
+      ),
     );
   }
 

@@ -223,8 +223,14 @@ export const FieldInputImages = forwardRef<HTMLInputElement, FieldInputImagesPro
       const current = newStateToPreview[previewIndex];
 
       if (current) {
-        current.href = href;
-        newStateToPreview = updateRow(newStateToPreview, current, previewIndex);
+        newStateToPreview = updateRow(
+          newStateToPreview,
+          {
+            ...current,
+            href,
+          },
+          previewIndex,
+        );
 
         setStateToPreview(newStateToPreview);
         const newState = getFlattenState(newStateToPreview);
