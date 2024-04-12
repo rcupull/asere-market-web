@@ -1,12 +1,16 @@
+import { ShoppingCartIcon } from '@heroicons/react/24/outline';
+
 import { ButtonClose } from 'components/button-close';
+import { IconButton } from 'components/icon-button';
 import SvgWhatsapp from 'components/icons/Whatsapp';
 import { QrCode } from 'components/qr-code';
 
+import { useAddOnePostToCar } from 'features/api/useAddOnePostToCar';
 import { useModal } from 'features/modal/useModal';
 
 import { queryToSearch } from 'hooks/useRouter/utils';
 
-import { PostLayoutContact } from 'types/business';
+import { PostLayoutSalesMethod } from 'types/business';
 import { StyleProps } from 'types/general';
 import { Post } from 'types/post';
 import { getPostRoute } from 'utils/business';
@@ -25,22 +29,29 @@ const getWhatsAppLink = (phoneNumber: string, post: Post) => {
   return `https://wa.me/${phoneNumber}?${search}`;
 };
 
-export interface PostContactProps extends StyleProps {
+export interface PostSalesMethodProps extends StyleProps {
   post: Post;
-  layout?: PostLayoutContact;
+  layout?: PostLayoutSalesMethod;
   whatsAppPhoneNumber?: string;
 }
 
-export const PostContact = ({ layout, whatsAppPhoneNumber, post, className }: PostContactProps) => {
+export const PostSalesMethod = ({
+  layout,
+  whatsAppPhoneNumber,
+  post,
+  className,
+}: PostSalesMethodProps) => {
   const { pushModal } = useModal();
-
-  if (!whatsAppPhoneNumber) {
-    return <></>;
-  }
-
-  const whatsappLink = getWhatsAppLink(whatsAppPhoneNumber, post);
+  const { addOnePostToCar } = useAddOnePostToCar();
 
   if (layout === 'whatsApp_xsLink_lgQR') {
+
+    if (!whatsAppPhoneNumber) {
+      return <></>;
+    }
+
+    const whatsappLink = getWhatsAppLink(whatsAppPhoneNumber, post);
+
     return (
       <div className={className}>
         <div className="md:hidden" onClick={() => window.open(whatsappLink, '_blank')}>
@@ -74,6 +85,21 @@ export const PostContact = ({ layout, whatsAppPhoneNumber, post, className }: Po
           value="some dummy data"
         />
       </div>
+    );
+  }
+
+  if (layout === 'salesCart') {
+    return (
+      <IconButton
+        title="Adicionar el carrito"
+        svg={() => <ShoppingCartIcon className="size-8" />}
+        isBusy={addOnePostToCar.status.isBusy}
+        onClick={(e) => {
+          e.preventDefault();
+          addOnePostToCar.fetch({ postId: post._id });
+        }}
+        className={className}
+      />
     );
   }
 

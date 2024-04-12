@@ -43,7 +43,7 @@ export type PostCardLayoutName = 'none' | 'basic';
 export type PostCardLayoutPrice = 'none' | 'basic' | 'smallerCurrency' | 'usdCurrencySymbol';
 export type PostCardLayoutDiscount = 'none' | 'savedPercent' | 'savedMoney';
 export type PostCardLayoutMetaLayout = 'basic' | 'verticalCentered';
-export type PostLayoutContact = 'none' | 'whatsApp_xsLink_lgQR';
+export type PostLayoutSalesMethod = 'none' | 'whatsApp_xsLink_lgQR' | 'salesCart';
 
 export interface PostCardLayout {
   images?: PostCardLayoutImages;
@@ -57,11 +57,11 @@ export interface PostCardLayout {
   name?: PostCardLayoutName;
   price?: PostCardLayoutPrice;
   discount?: PostCardLayoutDiscount;
-  contact?: PostLayoutContact;
+  salesMethod?: PostLayoutSalesMethod;
 }
 
 export interface PostPageLayout {
-  contact?: PostLayoutContact;
+  salesMethod?: PostLayoutSalesMethod;
   postsSectionsBelowIds?: Array<string>;
 }
 

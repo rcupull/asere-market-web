@@ -1,5 +1,5 @@
 import { Accordion } from 'components/accordion';
-import { FieldPostContactSelect } from 'components/field-post-contact-select';
+import { FieldPostSalesMethodSelect } from 'components/field-post-sales-method-select';
 import { FieldPostsSectionSelect } from 'components/field-posts-section-select';
 import { FormFieldWrapper, FormFieldWrapperProps } from 'components/form-field-wrapper';
 
@@ -29,13 +29,13 @@ export const FieldPostPageLayout = ({
   const { getFieldName } = useNestedForm<PostPageLayout>({
     field,
     initialValues: {
-      contact: undefined,
+      salesMethod: undefined,
     },
   });
 
   const content = (
     <div className="flex flex-col justify-around h-full px-6 gap-2">
-      <FieldPostContactSelect label="Contacto" name={getFieldName('contact')} />
+      <FieldPostSalesMethodSelect label="Contacto" name={getFieldName('salesMethod')} />
 
       <FieldPostsSectionSelect
         label="Grupos de publicaciones similares"

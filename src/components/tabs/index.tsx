@@ -49,7 +49,7 @@ export const Tabs = <L extends string = string>({
 }: TabsProps<L>) => {
   return (
     <Tab.Group selectedIndex={selected} onChange={onSelect}>
-      <Tab.List className={cn('flex gap-1', className)}>
+      <Tab.List className={cn('flex gap-1 overflow-auto', className)}>
         {items.map(({ label, className }, index) => {
           return (
             <Tab key={index} as={Fragment}>

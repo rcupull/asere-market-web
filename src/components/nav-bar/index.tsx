@@ -52,7 +52,7 @@ export const NavBar = ({ items, preContent, postContent, className }: NavbarProp
         })}
       </div>
 
-      {postContent}
+      {postContent && <div className="flex items-center gap-0">{postContent}</div>}
     </div>
   );
 };

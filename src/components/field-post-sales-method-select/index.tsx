@@ -6,15 +6,15 @@ import { FormFieldWrapperProps } from 'components/form-field-wrapper';
 
 import { FormikFieldProps, useFormikField } from 'hooks/useFormikField';
 
-import { PostLayoutContact } from 'types/business';
+import { PostLayoutSalesMethod } from 'types/business';
 import { AnyRecord } from 'types/general';
 import { isNullOrUndefined } from 'utils/general';
 
-export interface FieldPostContactSelectProps
+export interface FieldPostSalesMethodSelectProps
   extends FormFieldWrapperProps,
     FormikFieldProps<AnyRecord> {}
 
-export const FieldPostContactSelect = ({ label, ...props }: FieldPostContactSelectProps) => {
+export const FieldPostSalesMethodSelect = ({ label, ...props }: FieldPostSalesMethodSelectProps) => {
   const { field } = useFormikField(props);
 
   const { value } = field;
@@ -26,13 +26,13 @@ export const FieldPostContactSelect = ({ label, ...props }: FieldPostContactSele
   }, [value]);
 
   return (
-    <FieldSelect<{ value: PostLayoutContact }>
+    <FieldSelect<{ value: PostLayoutSalesMethod }>
       label={
         <div className="flex items-center">
           {label}
           <FieldCheckbox
             className="ml-4"
-            label="Mantener la misma configuración del negocio"
+            label="Usar la configuración del negocio"
             noUseFormik
             value={disabled}
             onChange={(e) => {
@@ -61,6 +61,9 @@ export const FieldPostContactSelect = ({ label, ...props }: FieldPostContactSele
         },
         {
           value: 'whatsApp_xsLink_lgQR',
+        },
+        {
+          value: 'salesCart',
         },
       ]}
       {...props}

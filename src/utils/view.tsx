@@ -29,8 +29,7 @@ const keyValueList = (list: Array<{ label: React.ReactNode; value?: React.ReactN
             <div className="font-bold text-nowrap">{label}</div>
             {value && (
               <>
-              :
-              <div className="ml-2 text-nowrap">{value}</div>
+                :<div className="ml-2 text-nowrap">{value}</div>
               </>
             )}
           </div>

@@ -8,7 +8,7 @@ export interface ModalProps extends StyleProps {
   title: React.ReactNode;
   content: React.ReactNode;
   badge?: React.ReactNode;
-  primaryBtn: React.ReactElement;
+  primaryBtn?: React.ReactElement;
   secondaryBtn?: React.ReactElement;
   customBtn?: React.ReactElement;
 }

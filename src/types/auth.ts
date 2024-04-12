@@ -11,6 +11,14 @@ export interface UserPurchasedPlan extends BaseIdentity {
   validationPurchaseCode?: string;
 }
 
+export interface UserShoppingCart {
+  added: Array<{
+    postId: string;
+    count: number;
+    lastUpdatedDate: Date;
+  }>;
+}
+
 export interface User extends BaseIdentity {
   name: string;
   email: string;
@@ -22,6 +30,7 @@ export interface User extends BaseIdentity {
   payment: {
     planHistory: Array<UserPurchasedPlan>;
   };
+  shoppingCart?: UserShoppingCart;
 }
 
 export type UserData = User | null;

@@ -10,6 +10,11 @@ const componentRecord: Record<ModalId, LoadableReturn> = {
       default: m.UpdateUserPlan,
     })),
   ),
+  Emergent: dynamic(() =>
+    import('./components/emergent').then((m) => ({
+      default: m.Emergent,
+    })),
+  ),
   PostsSectionNew: dynamic(() =>
     import('./components/posts-section-new').then((m) => ({
       default: m.PostsSectionNew,
@@ -23,11 +28,6 @@ const componentRecord: Record<ModalId, LoadableReturn> = {
   UpdateBusinessAboutUs: dynamic(() =>
     import('./components/update-business-about-us').then((m) => ({
       default: m.UpdateBusinessAboutUs,
-    })),
-  ),
-  UpdateSocialNetworks: dynamic(() =>
-    import('./components/update-social-networks').then((m) => ({
-      default: m.UpdateSocialNetworks,
     })),
   ),
   PostNew: dynamic(() => import('./components/post-new').then((m) => ({ default: m.PostNew }))),

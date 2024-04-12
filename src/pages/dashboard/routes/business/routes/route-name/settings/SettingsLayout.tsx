@@ -1,18 +1,18 @@
 import { StyleProps } from 'types/general';
 import { cn } from 'utils/general';
 
-export interface ResourceLayoutProps extends StyleProps {
+export interface SettingsLayoutProps extends StyleProps {
   title: React.ReactNode;
   description: React.ReactNode;
   action: React.ReactNode;
 }
 
-export const ResourceLayout = ({
+export const SettingsLayout = ({
   title,
   action,
   className,
   description,
-}: ResourceLayoutProps): JSX.Element => {
+}: SettingsLayoutProps): JSX.Element => {
   return (
     <div className={cn('mt-4 w-full', className)}>
       <h2 className="text-xl bg-gray-200 mt-3 mb-2 p-2 rounded-sm">{title}</h2>

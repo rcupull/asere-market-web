@@ -1,12 +1,14 @@
 import {
   ArrowRightEndOnRectangleIcon,
   ArrowRightStartOnRectangleIcon,
+  Cog8ToothIcon,
   HomeIcon,
   UserGroupIcon,
   UserPlusIcon,
 } from '@heroicons/react/24/outline';
 import { Link } from 'react-router-dom';
 
+import { IconButton } from 'components/icon-button';
 import { IconUpdate } from 'components/icon-update';
 import { Menu } from 'components/menu';
 import { NavBar as NavBarBase } from 'components/nav-bar';
@@ -22,10 +24,11 @@ import { useRouter } from 'hooks/useRouter';
 import { BusinessLogo } from './business-logo';
 import { BusinessMarketLogo } from './business-market-logo';
 import { BusinessName } from './business-name';
+import { ShoppingCartMenu } from './shopping-cart-menu';
 
 import { useBusinessPageData } from 'pages/@hooks/useBusinessPageData';
 import { StyleProps } from 'types/general';
-import { getDashboardBusinessRoute } from 'utils/business';
+import { getDashboardBusinessRoute, getDashboardRoute } from 'utils/business';
 
 export interface NavbarProps extends StyleProps {}
 export const Navbar = ({ className }: NavbarProps) => {
@@ -65,14 +68,36 @@ export const Navbar = ({ className }: NavbarProps) => {
         !isBusinessPage && { name: '¿Que es Asere Market?', href: '/about-us' },
         ////////////////////////////////////////////////////////////////////////////////////////////////
         isAdmin && { name: 'Admin', href: '/admin', className: '!ml-auto' },
-        isUser && {
-          name: 'Panel de Control',
-          href: getDashboardBusinessRoute({ routeName }),
-          className: '!ml-auto',
-        },
       ]}
       postContent={
         <>
+          {isBusinessPage && (
+            <IconButton
+              title="Página inicial"
+              svg={() => <HomeIcon className="size-7" />}
+              dark
+              onClick={() => pushRoute('/')}
+            />
+          )}
+
+          {isAuthenticated && <ShoppingCartMenu />}
+
+          {isUser && (
+            <IconButton
+              title="Panel de Control"
+              svg={() => <Cog8ToothIcon className="size-7" />}
+              dark
+              onClick={() => {
+                if (routeName) {
+                  pushRoute(getDashboardBusinessRoute({ routeName }));
+                } else {
+                  pushRoute(getDashboardRoute());
+                }
+              }}
+              className="hidden sm:block"
+            />
+          )}
+
           {!isAuthenticated && isBusinessPage && (
             <Menu
               buttonElement={<BusinessMarketLogo />}

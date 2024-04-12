@@ -2,21 +2,33 @@ import { Button } from 'components/button';
 
 import { useModal } from 'features/modal/useModal';
 
-import { ResourceLayout } from './ResourceLayout';
+import { SettingsLayout } from './SettingsLayout';
 
+import { useBusinessInfoUpdate } from 'pages/@hooks/useBusinessInfoUpdate';
 import { Business } from 'types/business';
 
-export interface ResourcesProps {
+export interface SettingsProps {
   business: Business;
+  onRefresh: () => void;
 }
 
-export const Resources = ({ business }: ResourcesProps) => {
+export const Settings = ({ business, onRefresh }: SettingsProps) => {
   const { routeName } = business;
   const { pushModal } = useModal();
 
+  const businessInfoUpdate = useBusinessInfoUpdate();
+
   return (
     <>
-      <ResourceLayout
+      <SettingsLayout
+        title="Informaciones básicas"
+        description="Configure los link de las redes sociales de su negocio, contacto de whatsapp y demás."
+        action={
+          <Button label="Editar" onClick={() => businessInfoUpdate.open({ business, onRefresh })} />
+        }
+      />
+
+      <SettingsLayout
         title="Banner"
         description={
           <div>
@@ -39,7 +51,7 @@ export const Resources = ({ business }: ResourcesProps) => {
         }
       />
 
-      <ResourceLayout
+      <SettingsLayout
         title="Logo"
         description="El logo o logotipo un punto de identificación para tu negocio y es el símbolo utilizado para reconocerla. Te separa de la competencia y es el medio para transmitir tus valores y mostrar a los consumidores por qué no eres como tus competidores."
         action={
@@ -47,7 +59,7 @@ export const Resources = ({ business }: ResourcesProps) => {
         }
       />
 
-      <ResourceLayout
+      <SettingsLayout
         title="Categorías"
         description="Las categorías permiten clasificar fácilmente las publicaciones por grupos predefinidos. Puedes crear, editar o eliminar categorías. Cada publicacion puede estar asociada a una o varias categorías. En la página de tu negocio, se podrá filtrar tus publicaciones por categorías muy facilmente."
         action={
@@ -55,15 +67,7 @@ export const Resources = ({ business }: ResourcesProps) => {
         }
       />
 
-      <ResourceLayout
-        title="Redes sociales"
-        description="Configure los link de las redes sociales de su negocio."
-        action={
-          <Button label="Editar" onClick={() => pushModal('UpdateSocialNetworks', { routeName })} />
-        }
-      />
-
-      <ResourceLayout
+      <SettingsLayout
         title="Sobre mi negocio"
         description="Mediante su página de presentación usted puede indentificar su tienda para que sus clientes conozcan sobre sus ventas y demás(TODO)"
         action={

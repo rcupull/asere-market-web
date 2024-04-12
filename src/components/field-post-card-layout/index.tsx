@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
 import { Accordion } from 'components/accordion';
-import { FieldPostContactSelect } from 'components/field-post-contact-select';
+import { FieldPostSalesMethodSelect } from 'components/field-post-sales-method-select';
 import { FieldSelect } from 'components/field-select';
 import { FormFieldWrapper, FormFieldWrapperProps } from 'components/form-field-wrapper';
 
@@ -45,7 +45,7 @@ export const FieldPostCardLayout = ({
       discount: 'none',
       name: 'basic',
       price: 'smallerCurrency',
-      contact: undefined,
+      salesMethod: undefined,
     },
   });
 
@@ -176,9 +176,9 @@ export const FieldPostCardLayout = ({
             className="w-full"
           />
 
-          <FieldPostContactSelect
-            label="Contacto"
-            name={getFieldName('contact')}
+          <FieldPostSalesMethodSelect //TODO hide this fiels if has not business resources
+            label="Método de venta"
+            name={getFieldName('salesMethod')}
             className="w-full"
           />
         </div>

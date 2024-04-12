@@ -21,6 +21,7 @@ export const useUpdateOneUserBusiness = (): {
           | 'logo'
           | 'layouts'
           | 'aboutUsPage'
+          | 'whatsAppPhoneNumber'
         >
       >;
     },

@@ -9,7 +9,7 @@ import { Loading } from './loading';
 import { OptionsMenu } from './options-menu';
 import { Posts } from './posts';
 import { PostsSections } from './posts-sections';
-import { Resources } from './resources';
+import { Settings } from './settings';
 
 import { LayoutSection } from 'pages/@common/layout-section';
 import { useBusinessOwnerData } from 'pages/@hooks/useBusinessOwnerData';
@@ -29,7 +29,7 @@ export const RouteName = () => {
   const business = businessOwnerData.data;
   const { isBusy, isFailed, wasCalled } = businessOwnerData.status;
 
-  if (isBusy) {
+  if (!business && isBusy) {
     return <Loading />;
   }
 
@@ -81,8 +81,13 @@ export const RouteName = () => {
             ),
           },
           {
-            label: 'Recursos',
-            content: <Resources business={business} />,
+            label: 'Configuración',
+            content: (
+              <Settings
+                business={business}
+                onRefresh={() => businessOwnerData.onFetch({ routeName })}
+              />
+            ),
           },
         ]}
       />

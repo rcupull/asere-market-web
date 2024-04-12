@@ -129,6 +129,7 @@ export const SideBar = ({ className }: SideBarProps) => {
           label: 'Cerrar sesión',
           svg: ArrowRightStartOnRectangleIcon,
           onClick: () => authSignOut.fetch(undefined),
+          className: 'sm:hidden',
         },
         !isAuthenticated && {
           // AUTH
