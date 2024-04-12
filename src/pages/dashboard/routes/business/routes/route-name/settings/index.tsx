@@ -7,6 +7,7 @@ import { SettingsLayout } from './SettingsLayout';
 import { useBusinessUpdateAboutUs } from 'pages/@hooks/useBusinessUpdateAboutUs';
 import { useBusinessUpdateBanner } from 'pages/@hooks/useBusinessUpdateBanner';
 import { useBusinessUpdateInfo } from 'pages/@hooks/useBusinessUpdateInfo';
+import { useBusinessUpdateLogo } from 'pages/@hooks/useBusinessUpdateLogo';
 import { Business } from 'types/business';
 
 export interface SettingsProps {
@@ -21,6 +22,7 @@ export const Settings = ({ business, onRefresh }: SettingsProps) => {
   const businessUpdateInfo = useBusinessUpdateInfo();
   const businessUpdateBanner = useBusinessUpdateBanner();
   const businessUpdateAboutUs = useBusinessUpdateAboutUs();
+  const businessUpdateLogo = useBusinessUpdateLogo();
 
   return (
     <>
@@ -62,7 +64,7 @@ export const Settings = ({ business, onRefresh }: SettingsProps) => {
         title="Logo"
         description="El logo o logotipo un punto de identificación para tu negocio y es el símbolo utilizado para reconocerla. Te separa de la competencia y es el medio para transmitir tus valores y mostrar a los consumidores por qué no eres como tus competidores."
         action={
-          <Button label="Editar" onClick={() => pushModal('UpdateBusinessLogo', { routeName })} />
+          <Button label="Editar" onClick={() => businessUpdateLogo.open({ business, onRefresh })} />
         }
       />
 

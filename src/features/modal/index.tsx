@@ -26,9 +26,6 @@ const componentRecord: Record<ModalId, LoadableReturn> = {
     })),
   ),
   PostNew: dynamic(() => import('./components/post-new').then((m) => ({ default: m.PostNew }))),
-  UpdateBusinessLogo: dynamic(() =>
-    import('./components/update-business-logo').then((m) => ({ default: m.UpdateBusinessLogo })),
-  ),
   UpdatePostCategories: dynamic(() =>
     import('./components/update-post-categories').then((m) => ({
       default: m.UpdatePostCategories,
