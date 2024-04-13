@@ -7,7 +7,7 @@ import { FieldInputImages } from 'components/field-input-images';
 import { Modal } from 'components/modal';
 
 import { useAddManyUserImages } from 'features/api/useAddManyUserImages';
-import { useAddOneUserBusiness } from 'features/api/useAddOneUserBusiness';
+import { useAddOneBusiness } from 'features/api/business/useAddOneBusiness';
 import { useGetOneUser } from 'features/api/useGetOneUser';
 import { useUpdateOneUser } from 'features/api/useUpdateOneUser';
 import { useModal } from 'features/modal/useModal';
@@ -35,7 +35,7 @@ export const ProfileUpdate = ({ userId, callAfarResources }: ProfileUpdateProps)
     getOneUser.fetch({ userId });
   }, []);
 
-  const { addOneUserBusiness } = useAddOneUserBusiness();
+  const { addOneBusiness } = useAddOneBusiness();
   const { updateOneUser } = useUpdateOneUser();
   const { addManyUserImages } = useAddManyUserImages();
 
@@ -65,7 +65,7 @@ export const ProfileUpdate = ({ userId, callAfarResources }: ProfileUpdateProps)
             {submitPortal.getPortal(
               <Button
                 label="Guardar"
-                isBusy={addOneUserBusiness.status.isBusy}
+                isBusy={addOneBusiness.status.isBusy}
                 disabled={!isValid}
                 onClick={() => {
                   const { profileImages } = values;

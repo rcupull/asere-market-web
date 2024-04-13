@@ -6,8 +6,8 @@ import { FetchResource } from 'types/api';
 import { Business } from 'types/business';
 import { getEndpoint } from 'utils/api';
 
-export const useUpdateOneUserBusiness = (): {
-  updateOneUserBusiness: FetchResource<
+export const useUpdateOneBusiness = (): {
+  updateOneBusiness: FetchResource<
     {
       routeName: string;
       update: Partial<
@@ -35,7 +35,7 @@ export const useUpdateOneUserBusiness = (): {
   const userId = authData?.user._id || '<unknow user>';
 
   return {
-    updateOneUserBusiness: {
+    updateOneBusiness: {
       data: fetch[0],
       status: fetch[1],
       fetch: ({ routeName, update }, options = {}) => {
@@ -43,7 +43,7 @@ export const useUpdateOneUserBusiness = (): {
           {
             method: 'put',
             url: getEndpoint({
-              path: '/user/:userId/business/:routeName',
+              path: '/business/:routeName',
               urlParams: { routeName, userId },
             }),
             data: update,

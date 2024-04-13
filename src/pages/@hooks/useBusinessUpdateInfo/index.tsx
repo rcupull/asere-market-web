@@ -4,7 +4,7 @@ import { Button } from 'components/button';
 import { ButtonClose } from 'components/button-close';
 import { FieldInput } from 'components/field-input';
 
-import { useUpdateOneUserBusiness } from 'features/api/useUpdateOneUserBusiness';
+import { useUpdateOneBusiness } from 'features/api/business/useUpdateOneBusiness';
 import { useModal } from 'features/modal/useModal';
 
 import { useSubmitPortal } from 'hooks/useSubmitPortal';
@@ -37,7 +37,7 @@ export const useBusinessUpdateInfo = () => {
             const { onClose } = useModal();
 
             const submitportal = useSubmitPortal();
-            const { updateOneUserBusiness } = useUpdateOneUserBusiness();
+            const { updateOneBusiness } = useUpdateOneBusiness();
 
             const initialValues = useMemo<State>(
               () => ({
@@ -97,7 +97,7 @@ export const useBusinessUpdateInfo = () => {
                       {submitportal.getPortal(
                         <Button
                           label="Guardar"
-                          isBusy={updateOneUserBusiness.status.isBusy}
+                          isBusy={updateOneBusiness.status.isBusy}
                           disabled={!isValid}
                           onClick={() => {
                             const {
@@ -109,7 +109,7 @@ export const useBusinessUpdateInfo = () => {
                               whatsAppPhoneNumber,
                             } = values;
 
-                            updateOneUserBusiness.fetch(
+                            updateOneBusiness.fetch(
                               {
                                 update: {
                                   whatsAppPhoneNumber,

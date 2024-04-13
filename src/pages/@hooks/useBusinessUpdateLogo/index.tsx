@@ -4,8 +4,8 @@ import { Button } from 'components/button';
 import { ButtonClose } from 'components/button-close';
 import { FieldInputImages } from 'components/field-input-images';
 
+import { useUpdateOneBusiness } from 'features/api/business/useUpdateOneBusiness';
 import { useAddManyUserBusinessImages } from 'features/api/useAddManyUserBusinessImages';
-import { useUpdateOneUserBusiness } from 'features/api/useUpdateOneUserBusiness';
 import { useModal } from 'features/modal/useModal';
 
 import { useSubmitPortal } from 'hooks/useSubmitPortal';
@@ -37,7 +37,7 @@ export const useBusinessUpdateLogo = () => {
             const { logo } = business || {};
 
             const submitportal = useSubmitPortal();
-            const { updateOneUserBusiness } = useUpdateOneUserBusiness();
+            const { updateOneBusiness } = useUpdateOneBusiness();
             const { addManyUserBusinessImages } = useAddManyUserBusinessImages();
 
             const initialValues = useMemo<State>(
@@ -63,7 +63,7 @@ export const useBusinessUpdateLogo = () => {
                         <Button
                           label="Guardar"
                           isBusy={
-                            updateOneUserBusiness.status.isBusy ||
+                            updateOneBusiness.status.isBusy ||
                             addManyUserBusinessImages.status.isBusy
                           }
                           disabled={!isValid || initialValues.logoField === values.logoField}
@@ -77,7 +77,7 @@ export const useBusinessUpdateLogo = () => {
                                 { images: [logo], routeName },
                                 {
                                   onAfterSuccess: ([logo]) => {
-                                    updateOneUserBusiness.fetch(
+                                    updateOneBusiness.fetch(
                                       {
                                         update: {
                                           logo,

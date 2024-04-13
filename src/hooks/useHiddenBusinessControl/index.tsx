@@ -5,7 +5,7 @@ import { Button } from 'components/button';
 import { ButtonRemove } from 'components/button-remove';
 import { IconButtonShowHideProps } from 'components/icon-button-show-hide';
 
-import { useUpdateManyUserBusiness } from 'features/api/useUpdateManyUserBusiness';
+import { useUpdateManyBusiness } from 'features/api/business/useUpdateManyBusiness';
 import { useModal } from 'features/modal/useModal';
 
 import { FetchStatus, OnRefresh } from 'types/api';
@@ -31,7 +31,7 @@ export const useHiddenBusinessControl = ({
   const { pushModal } = useModal();
   const hasChange = !isEmpty(state);
 
-  const { updateManyUserBussiness } = useUpdateManyUserBusiness();
+  const { updateManyBussiness } = useUpdateManyBusiness();
 
   useEffect(() => {
     setState({});
@@ -70,7 +70,7 @@ export const useHiddenBusinessControl = ({
   };
 
   const handleSubmitCall = () => {
-    updateManyUserBussiness.fetch(
+    updateManyBussiness.fetch(
       Object.entries(state).map(([key, value]) => ({
         routeName: key,
         hidden: value,
@@ -131,7 +131,7 @@ export const useHiddenBusinessControl = ({
       <Button
         label="Guardar"
         onClick={handleSubmit}
-        isBusy={updateManyUserBussiness.status.isBusy}
+        isBusy={updateManyBussiness.status.isBusy}
       />
     ),
     hasChange,

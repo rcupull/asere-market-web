@@ -12,8 +12,8 @@ import { IconUpdate } from 'components/icon-update';
 import { IconView } from 'components/icon-view';
 import { Menu } from 'components/menu';
 
-import { useRemoveOneUserBusiness } from 'features/api/useRemoveOneUserBusiness';
-import { useUpdateOneUserBusiness } from 'features/api/useUpdateOneUserBusiness';
+import { useRemoveOneBusiness } from 'features/api/business/useRemoveOneBusiness';
+import { useUpdateOneBusiness } from 'features/api/business/useUpdateOneBusiness';
 import { useModal } from 'features/modal/useModal';
 
 import { callAfarIds, useCallFromAfar } from 'hooks/useCallFromAfar';
@@ -39,7 +39,7 @@ export const OptionsMenu = ({ business, onRefresh }: OptionsMenuProps) => {
       {
         useProps: () => {
           const { onClose } = useModal();
-          const { updateOneUserBusiness } = useUpdateOneUserBusiness();
+          const { updateOneBusiness } = useUpdateOneBusiness();
 
           return {
             className: 'max-w-lg',
@@ -52,7 +52,7 @@ export const OptionsMenu = ({ business, onRefresh }: OptionsMenuProps) => {
                 label={hidden ? 'Mostrar' : 'Ocultar'}
                 variant={hidden ? 'primary' : 'error'}
                 onClick={() => {
-                  updateOneUserBusiness.fetch(
+                  updateOneBusiness.fetch(
                     {
                       routeName,
                       update: {
@@ -82,7 +82,7 @@ export const OptionsMenu = ({ business, onRefresh }: OptionsMenuProps) => {
       'Confirmation',
       {
         useProps: () => {
-          const { removeOneUserBusiness } = useRemoveOneUserBusiness();
+          const { removeOneBusiness } = useRemoveOneBusiness();
           const { onClose } = useModal();
 
           return {
@@ -98,9 +98,9 @@ export const OptionsMenu = ({ business, onRefresh }: OptionsMenuProps) => {
             badge: <Badge variant="error" />,
             primaryBtn: (
               <ButtonRemove
-                isBusy={removeOneUserBusiness.status.isBusy}
+                isBusy={removeOneBusiness.status.isBusy}
                 onClick={() =>
-                  removeOneUserBusiness.fetch(
+                  removeOneBusiness.fetch(
                     { routeName },
                     {
                       onAfterSuccess: () => {

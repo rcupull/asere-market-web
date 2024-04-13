@@ -4,9 +4,9 @@ import { Button } from 'components/button';
 import { ButtonClose } from 'components/button-close';
 import { FieldInputImages } from 'components/field-input-images';
 
+import { useUpdateOneBusiness } from 'features/api/business/useUpdateOneBusiness';
 import { useAddManyUserBusinessImages } from 'features/api/useAddManyUserBusinessImages';
 import { useGetUserPaymentPlan } from 'features/api/useGetUserPaymentPlan';
-import { useUpdateOneUserBusiness } from 'features/api/useUpdateOneUserBusiness';
 import { useModal } from 'features/modal/useModal';
 
 import { useSubmitPortal } from 'hooks/useSubmitPortal';
@@ -40,7 +40,7 @@ export const useBusinessUpdateBanner = () => {
             const { bannerImages } = business || {};
 
             const submitportal = useSubmitPortal();
-            const { updateOneUserBusiness } = useUpdateOneUserBusiness();
+            const { updateOneBusiness } = useUpdateOneBusiness();
             const { addManyUserBusinessImages } = useAddManyUserBusinessImages();
 
             const initialValues = useMemo<State>(
@@ -75,7 +75,7 @@ export const useBusinessUpdateBanner = () => {
                         <Button
                           label="Guardar"
                           isBusy={
-                            updateOneUserBusiness.status.isBusy ||
+                            updateOneBusiness.status.isBusy ||
                             addManyUserBusinessImages.status.isBusy
                           }
                           disabled={!isValid || initialValues.bannerImages === values.bannerImages}
@@ -87,7 +87,7 @@ export const useBusinessUpdateBanner = () => {
                                 { images: bannerImages, routeName },
                                 {
                                   onAfterSuccess: (bannerImages) => {
-                                    updateOneUserBusiness.fetch(
+                                    updateOneBusiness.fetch(
                                       {
                                         update: {
                                           bannerImages,

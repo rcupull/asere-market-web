@@ -1,4 +1,4 @@
-import { useUpdateOneUserBusiness } from 'features/api/useUpdateOneUserBusiness';
+import { useUpdateOneBusiness } from 'features/api/business/useUpdateOneBusiness';
 
 import { FetchOptions } from 'hooks/useFetch';
 
@@ -36,7 +36,7 @@ export const useBusinessOwnerUpdate = (
     options?: FetchOptions,
   ) => void;
 } => {
-  const { updateOneUserBusiness } = useUpdateOneUserBusiness();
+  const { updateOneBusiness } = useUpdateOneBusiness();
 
   return {
     addPostsLayoutSection: ({ value }, options) => {
@@ -48,7 +48,7 @@ export const useBusinessOwnerUpdate = (
 
       set(layouts, `posts.sections.${sectionCount}`, value);
 
-      updateOneUserBusiness.fetch(
+      updateOneBusiness.fetch(
         {
           routeName,
           update: {
@@ -73,7 +73,7 @@ export const useBusinessOwnerUpdate = (
         ...value,
       });
 
-      updateOneUserBusiness.fetch(
+      updateOneBusiness.fetch(
         {
           routeName,
           update: {
@@ -96,7 +96,7 @@ export const useBusinessOwnerUpdate = (
       const layouts = getLayoutsFromBusiness(business);
       set(layouts, `posts.sections.${index}`, { ...section, hidden });
 
-      updateOneUserBusiness.fetch(
+      updateOneBusiness.fetch(
         {
           routeName,
           update: {
@@ -120,7 +120,7 @@ export const useBusinessOwnerUpdate = (
 
       set(layouts, `posts.sections`, removeRow(sections, index));
 
-      updateOneUserBusiness.fetch(
+      updateOneBusiness.fetch(
         {
           routeName,
           update: {
@@ -130,6 +130,6 @@ export const useBusinessOwnerUpdate = (
         options,
       );
     },
-    status: updateOneUserBusiness.status,
+    status: updateOneBusiness.status,
   };
 };

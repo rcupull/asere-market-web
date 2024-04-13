@@ -1,4 +1,4 @@
-import { useGetOneBusiness } from 'features/api/useGetOneBusiness';
+import { useGetOneBusiness } from 'features/api/business/useGetOneBusiness';
 import { useSimpleSlice } from 'features/slices/useSimpleSlice';
 
 import { FetchStatus } from 'types/api';

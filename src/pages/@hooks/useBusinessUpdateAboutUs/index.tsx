@@ -4,7 +4,7 @@ import { FieldCheckEditor } from 'components/field-check-editor';
 import { FieldInput } from 'components/field-input';
 import { FieldToggleButton } from 'components/field-toggle-button';
 
-import { useUpdateOneUserBusiness } from 'features/api/useUpdateOneUserBusiness';
+import { useUpdateOneBusiness } from 'features/api/business/useUpdateOneBusiness';
 import { useModal } from 'features/modal/useModal';
 
 import { useSubmitPortal } from 'hooks/useSubmitPortal';
@@ -30,7 +30,7 @@ export const useBusinessUpdateAboutUs = () => {
             const { onClose } = useModal();
 
             const submitportal = useSubmitPortal();
-            const { updateOneUserBusiness } = useUpdateOneUserBusiness();
+            const { updateOneBusiness } = useUpdateOneBusiness();
 
             const content = (
               <>
@@ -60,10 +60,10 @@ export const useBusinessUpdateAboutUs = () => {
                         {submitportal.getPortal(
                           <Button
                             label="Guardar"
-                            isBusy={updateOneUserBusiness.status.isBusy}
+                            isBusy={updateOneBusiness.status.isBusy}
                             disabled={!isValid}
                             onClick={() => {
-                              updateOneUserBusiness.fetch(
+                              updateOneBusiness.fetch(
                                 {
                                   update: {
                                     aboutUsPage: values,

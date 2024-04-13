@@ -1,25 +1,16 @@
-import { useAuth } from 'features/api-slices/useAuth';
-
 import { useFetch } from 'hooks/useFetch';
 
 import { FetchResource } from 'types/api';
 import { Business } from 'types/business';
 import { getEndpoint } from 'utils/api';
 
-export const useAddOneUserBusiness = (): {
-  addOneUserBusiness: FetchResource<
-    { name: string; routeName: string; category: string },
-    Business
-  >;
+export const useAddOneBusiness = (): {
+  addOneBusiness: FetchResource<{ name: string; routeName: string; category: string }, Business>;
 } => {
   const fetch = useFetch<Business>();
 
-  const { authData } = useAuth();
-
-  const userId = authData?.user._id || '<unknow user>';
-
   return {
-    addOneUserBusiness: {
+    addOneBusiness: {
       data: fetch[0],
       status: fetch[1],
       fetch: ({ name, category, routeName }, options = {}) => {
@@ -27,8 +18,7 @@ export const useAddOneUserBusiness = (): {
           {
             method: 'post',
             url: getEndpoint({
-              path: '/user/:userId/business',
-              urlParams: { userId },
+              path: '/business',
             }),
             data: { name, category, routeName },
           },

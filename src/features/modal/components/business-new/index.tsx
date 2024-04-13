@@ -7,10 +7,10 @@ import { FieldInput } from 'components/field-input';
 import { FieldSelect } from 'components/field-select';
 import { Modal } from 'components/modal';
 
-import { useAddOneUserBusiness } from 'features/api/useAddOneUserBusiness';
+import { useAddOneBusiness } from 'features/api/business/useAddOneBusiness';
+import { useGetOneBusiness } from 'features/api/business/useGetOneBusiness';
+import { useUpdateOneBusiness } from 'features/api/business/useUpdateOneBusiness';
 import { useGetAllBusiness } from 'features/api/useGetAllBusiness';
-import { useGetOneBusiness } from 'features/api/useGetOneBusiness';
-import { useUpdateOneUserBusiness } from 'features/api/useUpdateOneUserBusiness';
 import { useModal } from 'features/modal/useModal';
 
 import { CallAfarResources, useCallFromAfar } from 'hooks/useCallFromAfar';
@@ -35,8 +35,8 @@ export const BusinessNew = ({ callAfarResources, routeName }: BusinessNewProps) 
 
   const { getAllBusiness } = useGetAllBusiness();
 
-  const { addOneUserBusiness } = useAddOneUserBusiness();
-  const { updateOneUserBusiness } = useUpdateOneUserBusiness();
+  const { addOneBusiness } = useAddOneBusiness();
+  const { updateOneBusiness } = useUpdateOneBusiness();
 
   const { getOneBusiness } = useGetOneBusiness();
 
@@ -148,13 +148,13 @@ export const BusinessNew = ({ callAfarResources, routeName }: BusinessNewProps) 
             {submitPortal.getPortal(
               <Button
                 label="Guardar"
-                isBusy={addOneUserBusiness.status.isBusy}
+                isBusy={addOneBusiness.status.isBusy}
                 disabled={!isValid}
                 onClick={() => {
                   if (business) {
                     const { name } = values;
 
-                    updateOneUserBusiness.fetch(
+                    updateOneBusiness.fetch(
                       {
                         routeName: business.routeName,
                         update: {
@@ -177,7 +177,7 @@ export const BusinessNew = ({ callAfarResources, routeName }: BusinessNewProps) 
                   } else {
                     const { category, name } = values;
 
-                    addOneUserBusiness.fetch(
+                    addOneBusiness.fetch(
                       {
                         category,
                         name,

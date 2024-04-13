@@ -1,21 +1,15 @@
-import { useAuth } from 'features/api-slices/useAuth';
-
 import { useFetch } from 'hooks/useFetch';
 
 import { FetchResource } from 'types/api';
 import { getEndpoint } from 'utils/api';
 
-export const useRemoveOneUserBusiness = (): {
-  removeOneUserBusiness: FetchResource<{ routeName: string }, void>;
+export const useRemoveOneBusiness = (): {
+  removeOneBusiness: FetchResource<{ routeName: string }, void>;
 } => {
   const fetch = useFetch();
 
-  const { authData } = useAuth();
-
-  const userId = authData?.user._id || '<unknow user>';
-
   return {
-    removeOneUserBusiness: {
+    removeOneBusiness: {
       data: fetch[0],
       status: fetch[1],
       fetch: ({ routeName }, options = {}) => {
@@ -23,8 +17,8 @@ export const useRemoveOneUserBusiness = (): {
           {
             method: 'delete',
             url: getEndpoint({
-              path: '/user/:userId/business/:routeName',
-              urlParams: { routeName, userId },
+              path: '/business/:routeName',
+              urlParams: { routeName },
             }),
           },
           options,
