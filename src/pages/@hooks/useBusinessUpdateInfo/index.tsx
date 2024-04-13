@@ -9,8 +9,9 @@ import { useModal } from 'features/modal/useModal';
 
 import { useSubmitPortal } from 'hooks/useSubmitPortal';
 
+import { useBusinessOwnerData } from '../useBusinessOwnerData';
+
 import { Formik } from 'formik';
-import { Business } from 'types/business';
 
 interface State {
   face: string;
@@ -25,14 +26,15 @@ export const useBusinessUpdateInfo = () => {
   const { pushModal } = useModal();
 
   return {
-    open: (args: { business: Business; onRefresh: () => void }) => {
+    open: (args: { routeName: string }) => {
       pushModal(
         'Emergent',
         {
           useProps: () => {
-            const { business, onRefresh } = args;
+            const { routeName } = args;
+
+            const { business, onFetch } = useBusinessOwnerData();
             const { onClose } = useModal();
-            const { routeName } = business;
 
             const submitportal = useSubmitPortal();
             const { updateOneUserBusiness } = useUpdateOneUserBusiness();
@@ -123,7 +125,7 @@ export const useBusinessUpdateInfo = () => {
                               },
                               {
                                 onAfterSuccess: () => {
-                                  onRefresh();
+                                  onFetch({ routeName });
                                   onClose();
                                 },
                               },

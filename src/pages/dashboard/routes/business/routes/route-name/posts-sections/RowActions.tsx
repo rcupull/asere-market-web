@@ -5,29 +5,28 @@ import { IconButtonUpdate } from 'components/icon-button-update';
 
 import { useModal } from 'features/modal/useModal';
 
-import { CallAfarResources, useCallFromAfar } from 'hooks/useCallFromAfar';
-
 import { RowActionsContainer } from 'pages/@common/row-actions-container';
+import { useBusinessNewUpdateSection } from 'pages/@hooks/useBusinessNewUpdateSection';
+import { useBusinessOwnerData } from 'pages/@hooks/useBusinessOwnerData';
 import { useBusinessOwnerUpdate } from 'pages/@hooks/useBusinessOwnerUpdate';
 import { PostsLayoutSection } from 'types/business';
 
 export interface RowActionsProps {
   rowData: PostsLayoutSection;
   routeName: string;
-  callAfarResources?: CallAfarResources;
 }
-export const RowActions = ({ rowData, callAfarResources, routeName }: RowActionsProps) => {
+export const RowActions = ({ rowData, routeName }: RowActionsProps) => {
   const { pushModal } = useModal();
+  const { business, onFetch } = useBusinessOwnerData();
 
   const handleDelete = () => {
     pushModal(
       'Confirmation',
       {
         useProps: () => {
-          const businessOwnerUpdate = useBusinessOwnerUpdate();
+          const businessOwnerUpdate = useBusinessOwnerUpdate(business);
 
           const { onClose } = useModal();
-          const { onCallAfar } = useCallFromAfar();
           return {
             content: (
               <div>
@@ -45,11 +44,11 @@ export const RowActions = ({ rowData, callAfarResources, routeName }: RowActions
                 isBusy={businessOwnerUpdate.status.isBusy}
                 onClick={() => {
                   businessOwnerUpdate.removePostsLayoutSection(
-                    { routeName, sectionId: rowData._id },
+                    { sectionId: rowData._id },
                     {
                       onAfterSuccess: () => {
+                        onFetch({ routeName });
                         onClose();
-                        onCallAfar(callAfarResources);
                       },
                     },
                   );
@@ -63,12 +62,9 @@ export const RowActions = ({ rowData, callAfarResources, routeName }: RowActions
     );
   };
 
+  const businessNewUpdateSection = useBusinessNewUpdateSection();
   const handleUpdate = () => {
-    pushModal('PostsSectionNew', {
-      routeName,
-      sectionId: rowData._id,
-      callAfarResources,
-    });
+    businessNewUpdateSection.open({ routeName, sectionId: rowData._id });
   };
 
   return (

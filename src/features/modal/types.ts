@@ -3,7 +3,6 @@ import type { CatalogsSearchImageProps } from './components/catalogs-search-imag
 import type { ConfirmationProps } from './components/confirmation';
 import type { EmergentProps } from './components/emergent';
 import type { PostNewProps } from './components/post-new';
-import type { PostsSectionNewProps } from './components/posts-section-new';
 import type { ProfileUpdateProps } from './components/profile-update';
 import type { UpdateUserPlanProps } from './components/update-user-plan';
 
@@ -14,7 +13,6 @@ export type ModalId =
   | 'ProfileUpdate'
   | 'UpdateUserPlan'
   | 'CatalogsSearchImage'
-  | 'PostsSectionNew'
   | 'Emergent';
 
 export type ModalWindowProps<Id extends ModalId> = Id extends 'PostNew'
@@ -29,11 +27,9 @@ export type ModalWindowProps<Id extends ModalId> = Id extends 'PostNew'
           ? UpdateUserPlanProps
           : Id extends 'CatalogsSearchImage'
             ? CatalogsSearchImageProps
-            : Id extends 'PostsSectionNew'
-              ? PostsSectionNewProps
-              : Id extends 'Emergent'
-                ? EmergentProps
-                : undefined;
+            : Id extends 'Emergent'
+              ? EmergentProps
+              : undefined;
 
 export interface ModalWindowOptions {
   timeout?: number;

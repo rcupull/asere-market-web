@@ -68,26 +68,16 @@ export const RouteName = () => {
         selected={query.businessTab as number | undefined}
         items={[
           {
+            label: 'Configuración',
+            content: <Settings routeName={routeName} />,
+          },
+          {
             label: 'Publicaciones',
-            content: <Posts business={business} />,
+            content: <Posts routeName={routeName} />,
           },
           {
             label: 'Grupos de publicaciones',
-            content: (
-              <PostsSections
-                business={business}
-                onRefresh={() => businessOwnerData.onFetch({ routeName })}
-              />
-            ),
-          },
-          {
-            label: 'Configuración',
-            content: (
-              <Settings
-                business={business}
-                onRefresh={() => businessOwnerData.onFetch({ routeName })}
-              />
-            ),
+            content: <PostsSections routeName={routeName} />,
           },
         ]}
       />

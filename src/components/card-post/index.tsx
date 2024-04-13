@@ -68,7 +68,6 @@ export const CardPost = ({
             post={post}
             whatsAppPhoneNumber={whatsAppPhoneNumber}
           />
-
         </div>
       );
     }

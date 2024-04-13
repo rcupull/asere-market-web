@@ -3,6 +3,7 @@ import { useEffect } from 'react';
 import { Badge } from 'components/badge';
 import { ButtonClose } from 'components/button-close';
 import { Modal } from 'components/modal';
+import { SpinnerEllipsis } from 'components/spinner-ellipsis';
 
 import { useGetOneUserPost } from 'features/api/useGetOneUserPost';
 import { useModal } from 'features/modal/useModal';
@@ -47,14 +48,14 @@ export const PostNew = ({ routeName: routeNameProp, postId, callAfarResources }:
         { id: postId },
         {
           onAfterSuccess: ({ routeName }) => {
-            businessOwnerData.onRefresh({ routeName });
+            businessOwnerData.onFetch({ routeName });
           },
         },
       );
     }
 
     if (routeNameProp) {
-      businessOwnerData.onRefresh({ routeName: routeNameProp });
+      businessOwnerData.onFetch({ routeName: routeNameProp });
     }
   }, []);
 
@@ -63,15 +64,24 @@ export const PostNew = ({ routeName: routeNameProp, postId, callAfarResources }:
    */
   const routeName = routeNameProp || post?.routeName;
 
-  if (!routeName || !business) {
-    return <></>;
-  }
-
-  const businessCategory = business.category;
-
   const getContent = () => {
+    if (getOneUserPost.status.isBusy) {
+      return (
+        <div className="h-40 flex justify-center items-center">
+          <SpinnerEllipsis />
+        </div>
+      );
+    }
+
+    if (!routeName || !business) {
+      return <></>;
+    }
+
+    const businessCategory = business.category;
+
     const commonProps: PostFormProps = {
       routeName,
+      //
       submitPortal,
       onAfterSuccess,
       post,

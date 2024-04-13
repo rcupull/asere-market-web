@@ -1,7 +1,6 @@
 import { useEffect } from 'react';
 
 import { useGetAllPosts } from 'features/api/useGetAllPosts';
-import { useModal } from 'features/modal/useModal';
 
 import { useCallFromAfar } from 'hooks/useCallFromAfar';
 import { useFiltersVolatile } from 'hooks/useFiltersVolatile';
@@ -10,32 +9,31 @@ import { PostsSectionCards } from '../posts-section-cards';
 import { PostsSectionSearch } from '../posts-section-search';
 
 import { UpdateSomethingContainer } from 'pages/@common/update-something-container';
+import { useBusinessNewUpdateSection } from 'pages/@hooks/useBusinessNewUpdateSection';
+import { useBusinessOwnerData } from 'pages/@hooks/useBusinessOwnerData';
 import { useBusinessPageData } from 'pages/@hooks/useBusinessPageData';
 import { GetAllPostsQuery } from 'types/api';
-import { Business, PostsLayoutSection, PostsLayoutSectionVisibility } from 'types/business';
+import { PostsLayoutSection, PostsLayoutSectionVisibility } from 'types/business';
 import { StyleProps } from 'types/general';
 import { cn } from 'utils/general';
 
 export interface PostsSectionProps extends StyleProps {
   index: number;
-  business: Business;
-  onRefresh: () => void;
+  routeName: string;
   layout: PostsLayoutSection;
   visibility: PostsLayoutSectionVisibility;
 }
 
 export const PostsSection = ({
-  business,
-  onRefresh,
+  routeName,
   layout,
   className,
   index,
   visibility,
 }: PostsSectionProps) => {
-  const { routeName } = business;
+  const { business, onFetch } = useBusinessOwnerData();
   const { name, hiddenName, postCategoriesTags, _id, showIn } = layout;
 
-  const { pushModal } = useModal();
   const { getAllPosts } = useGetAllPosts();
   const { owner } = useBusinessPageData();
 
@@ -66,29 +64,25 @@ export const PostsSection = ({
 
   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   const callAfarResourcesRefreshBusiness = `post_section_${index}_business_onRefresh`;
-  useCallFromAfar(callAfarResourcesRefreshBusiness, onRefresh);
-
-  const callAfarResourcesFetchPosts = `post_section_${index}_posts_onRefresh`;
-  useCallFromAfar(callAfarResourcesFetchPosts, () => {
-    filters.onMergeFilters({ page: 1 }, { forceFetch: true });
-  });
+  useCallFromAfar(callAfarResourcesRefreshBusiness, () => onFetch({ routeName }));
 
   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-  if (notRender) {
+  const businessNewUpdateSection = useBusinessNewUpdateSection();
+
+  if (notRender || !business) {
     return <></>;
   }
 
   return (
     <UpdateSomethingContainer
       title="Editar este grupo de publicaciones"
-      onClick={() =>
-        pushModal('PostsSectionNew', {
-          sectionId: _id,
+      onClick={() => {
+        businessNewUpdateSection.open({
           routeName,
-          callAfarResources: callAfarResourcesFetchPosts,
-        })
-      }
+          sectionId: _id,
+        });
+      }}
     >
       <div
         className={cn(

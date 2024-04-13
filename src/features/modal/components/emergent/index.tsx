@@ -7,11 +7,5 @@ export interface EmergentProps {
 export const Emergent = ({ useProps }: EmergentProps) => {
   const props = useProps();
 
-  return (
-    <Modal
-      title='<Some title>'
-      content="<Some message>"
-      {...props}
-    />
-  );
+  return <Modal title="<Some title>" content="<Some message>" {...props} />;
 };

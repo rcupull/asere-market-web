@@ -21,19 +21,17 @@ import { TopActions } from 'pages/@common/top-actions';
 import { useBusinessOwnerData } from 'pages/@hooks/useBusinessOwnerData';
 import { useTableCellCategoriesTags } from 'pages/@hooks/useTableCellCategoriesTags';
 import { GetAllPostsQuery } from 'types/api';
-import { Business } from 'types/business';
 import { getDateString } from 'utils/date';
 import { cn } from 'utils/general';
 import { viewUtils } from 'utils/view';
 
 export interface PostsProps {
-  business: Business;
+  routeName: string;
 }
 
-export const Posts = ({ business }: PostsProps) => {
+export const Posts = ({ routeName }: PostsProps) => {
   const { getAllUserPosts } = useGetAllUserPosts();
   const { pushModal } = useModal();
-  const { routeName } = business;
 
   const businessOwnerData = useBusinessOwnerData();
 
@@ -58,7 +56,7 @@ export const Posts = ({ business }: PostsProps) => {
   });
 
   const tableCellCategoriesTags = useTableCellCategoriesTags({
-    business,
+    business: businessOwnerData.data,
   });
 
   return (

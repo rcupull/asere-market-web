@@ -2,20 +2,20 @@ import { EmptyImage } from 'components/empty-image';
 import { Swiper } from 'components/swiper';
 
 import { UpdateSomethingContainer } from 'pages/@common/update-something-container';
+import { useBusinessOwnerData } from 'pages/@hooks/useBusinessOwnerData';
 import { useBusinessUpdateBanner } from 'pages/@hooks/useBusinessUpdateBanner';
-import { Business } from 'types/business';
 import { StyleProps } from 'types/general';
 import { getImageEndpoint } from 'utils/api';
 import { cn } from 'utils/general';
 
 export interface BannerProps extends StyleProps {
-  business: Business;
-  onRefresh: () => void;
+  routeName: string;
 }
 
-export const Banner = ({ business, className, onRefresh }: BannerProps) => {
+export const Banner = ({ routeName, className }: BannerProps) => {
   const businessUpdateBanner = useBusinessUpdateBanner();
-  const { bannerImages, layouts } = business;
+  const { business } = useBusinessOwnerData();
+  const { bannerImages, layouts } = business || {};
 
   const bannerLayout = layouts?.banner;
 
@@ -26,11 +26,11 @@ export const Banner = ({ business, className, onRefresh }: BannerProps) => {
   const renderContainer = (content: React.ReactNode) => (
     <UpdateSomethingContainer
       title="Editar el banner"
-      onClick={() => businessUpdateBanner.open({ business, onRefresh })}
+      onClick={() => businessUpdateBanner.open({ routeName })}
     >
       {content}
     </UpdateSomethingContainer>
-  )
+  );
 
   const renderContent = (args: { content?: React.ReactNode; href?: string }) => {
     const { content, href } = args;

@@ -14,7 +14,10 @@ export interface FieldPostSalesMethodSelectProps
   extends FormFieldWrapperProps,
     FormikFieldProps<AnyRecord> {}
 
-export const FieldPostSalesMethodSelect = ({ label, ...props }: FieldPostSalesMethodSelectProps) => {
+export const FieldPostSalesMethodSelect = ({
+  label,
+  ...props
+}: FieldPostSalesMethodSelectProps) => {
   const { field } = useFormikField(props);
 
   const { value } = field;

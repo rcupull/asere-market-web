@@ -4,19 +4,18 @@ import { HtmlTextContainer } from 'components/html-text-container';
 
 import { LayoutPage } from 'pages/@common/layout-page';
 import { UpdateSomethingContainer } from 'pages/@common/update-something-container';
-import { useBusinessPageData } from 'pages/@hooks/useBusinessPageData';
+import { useBusinessOwnerData } from 'pages/@hooks/useBusinessOwnerData';
 import { useBusinessUpdateAboutUs } from 'pages/@hooks/useBusinessUpdateAboutUs';
-import { Business } from 'types/business';
 
-interface AboutUsProps {
-  business: Business;
+export interface AboutUsProps {
+  routeName: string;
 }
 
-export const AboutUs = ({ business }: AboutUsProps) => {
-  const { routeName, aboutUsPage } = business;
-  const { description, title, visible } = aboutUsPage || {};
+export const AboutUs = ({ routeName }: AboutUsProps) => {
+  const { business } = useBusinessOwnerData();
+  const { aboutUsPage } = business || {};
 
-  const { onRefresh } = useBusinessPageData();
+  const { description, title, visible } = aboutUsPage || {};
 
   const businessUpdateAboutUs = useBusinessUpdateAboutUs();
 
@@ -27,9 +26,7 @@ export const AboutUs = ({ business }: AboutUsProps) => {
   return (
     <UpdateSomethingContainer
       title="Editar la descripción de mi negocio"
-      onClick={() =>
-        businessUpdateAboutUs.open({ business, onRefresh: () => onRefresh({ routeName }) })
-      }
+      onClick={() => businessUpdateAboutUs.open({ routeName })}
     >
       <LayoutPage title={title}>
         {description && (

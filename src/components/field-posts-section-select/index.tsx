@@ -1,12 +1,7 @@
-import { useEffect } from 'react';
-
 import { FieldSelect, FieldSelectProps } from 'components/field-select';
 import { IconButtonAdd } from 'components/icon-button-add';
 
-import { useModal } from 'features/modal/useModal';
-
-import { useCallFromAfar } from 'hooks/useCallFromAfar';
-
+import { useBusinessNewUpdateSection } from 'pages/@hooks/useBusinessNewUpdateSection';
 import { useBusinessOwnerData } from 'pages/@hooks/useBusinessOwnerData';
 
 export interface FieldPostsSectionLayoutProps
@@ -22,17 +17,9 @@ export const FieldPostsSectionSelect = ({
   label,
   ...props
 }: FieldPostsSectionLayoutProps) => {
-  const businessOwnerData = useBusinessOwnerData();
-  const { pushModal } = useModal();
-
-  const callAfarResources = 'FieldPostsSectionSelect_businessOwnerData.onRefresh';
-  useCallFromAfar(callAfarResources, () => businessOwnerData.onFetch({ routeName }));
-
-  useEffect(() => {
-    businessOwnerData.onFetch({ routeName });
-  }, []);
-
-  const sections = businessOwnerData.data?.layouts?.posts?.sections || [];
+  const { business } = useBusinessOwnerData();
+  const sections = business?.layouts?.posts?.sections || [];
+  const businessNewUpdateSection = useBusinessNewUpdateSection();
 
   return (
     <FieldSelect<{ id: string; name: string }>
@@ -45,7 +32,7 @@ export const FieldPostsSectionSelect = ({
             onClick={(e) => {
               e.preventDefault();
               e.stopPropagation();
-              pushModal('PostsSectionNew', { routeName, callAfarResources }, { emergent: true });
+              businessNewUpdateSection.open({ routeName });
             }}
           />
         </div>

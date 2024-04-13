@@ -11,8 +11,9 @@ import { useModal } from 'features/modal/useModal';
 
 import { useSubmitPortal } from 'hooks/useSubmitPortal';
 
+import { useBusinessOwnerData } from '../useBusinessOwnerData';
+
 import { Formik } from 'formik';
-import { Business } from 'types/business';
 import { Image, ImageFile } from 'types/general';
 import { getImageEndpoint } from 'utils/api';
 
@@ -24,13 +25,14 @@ export const useBusinessUpdateBanner = () => {
   const { pushModal } = useModal();
 
   return {
-    open: (args: { business: Business; onRefresh: () => void }) => {
+    open: (args: { routeName: string }) => {
       pushModal(
         'Emergent',
         {
           useProps: () => {
-            const { business, onRefresh } = args;
-            const { routeName } = business;
+            const { routeName } = args;
+
+            const { business, onFetch } = useBusinessOwnerData();
 
             const { onClose } = useModal();
             const { userPlan } = useGetUserPaymentPlan();
@@ -94,7 +96,7 @@ export const useBusinessUpdateBanner = () => {
                                       },
                                       {
                                         onAfterSuccess: () => {
-                                          onRefresh();
+                                          onFetch({ routeName });
                                           onClose();
                                         },
                                       },

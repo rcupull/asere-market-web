@@ -24,7 +24,10 @@ import { useBusinessPageData } from 'pages/@hooks/useBusinessPageData';
 import { PostsLayoutSection } from 'types/business';
 import { getImageEndpoint } from 'utils/api';
 
-export const PostId = () => {
+export interface PostIdProps {
+  routeName: string;
+}
+export const PostId = ({ routeName }: PostIdProps) => {
   const { params } = useRouter();
   const { postId } = params;
   const { pushModal } = useModal();
@@ -94,8 +97,7 @@ export const PostId = () => {
         />
 
         <PostsSectionsView
-          business={business}
-          onRefresh={() => businessPageData.onRefresh({ routeName: business.routeName })}
+          routeName={routeName}
           layouts={getSectionsBelow()}
           visibility="postPage"
         />

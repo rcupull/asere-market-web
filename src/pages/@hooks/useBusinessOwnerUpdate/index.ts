@@ -2,11 +2,10 @@ import { useUpdateOneUserBusiness } from 'features/api/useUpdateOneUserBusiness'
 
 import { FetchOptions } from 'hooks/useFetch';
 
-import { useBusinessOwnerData } from '../useBusinessOwnerData';
-
 import { FetchStatus } from 'types/api';
-import { PostsLayoutSection } from 'types/business';
-import { deepJsonCopy, removeRow, set } from 'utils/general';
+import { Business, PostsLayoutSection } from 'types/business';
+import { getLayoutsFromBusiness, getSectionFromBusiness } from 'utils/business';
+import { removeRow, set } from 'utils/general';
 
 export type PostsLayoutSectionPayload = Pick<
   PostsLayoutSection,
@@ -19,32 +18,32 @@ export type PostsLayoutSectionPayload = Pick<
   | 'type'
 >;
 
-export const useBusinessOwnerUpdate = (): {
+export const useBusinessOwnerUpdate = (
+  business: Business | undefined | null,
+): {
   status: FetchStatus;
   addPostsLayoutSection: (
-    args: { routeName: string; value: PostsLayoutSectionPayload },
+    args: { value: PostsLayoutSectionPayload },
     options?: FetchOptions,
   ) => void;
   updatePostsLayoutSection: (
-    args: { routeName: string; value: PostsLayoutSectionPayload; sectionId: string },
+    args: { value: PostsLayoutSectionPayload; sectionId: string },
     options?: FetchOptions,
   ) => void;
-  removePostsLayoutSection: (
-    args: { routeName: string; sectionId: string },
-    options?: FetchOptions,
-  ) => void;
+  removePostsLayoutSection: (args: { sectionId: string }, options?: FetchOptions) => void;
   showHidePostsLayoutSection: (
-    args: { routeName: string; sectionId: string; hidden: boolean },
+    args: { sectionId: string; hidden: boolean },
     options?: FetchOptions,
   ) => void;
 } => {
   const { updateOneUserBusiness } = useUpdateOneUserBusiness();
 
-  const businessOwnerData = useBusinessOwnerData();
-
   return {
-    addPostsLayoutSection: ({ routeName, value }, options) => {
-      const layouts = deepJsonCopy(businessOwnerData.data?.layouts || {});
+    addPostsLayoutSection: ({ value }, options) => {
+      if (!business) return;
+      const { routeName } = business;
+
+      const layouts = getLayoutsFromBusiness(business);
       const sectionCount = layouts.posts?.sections.length || 0;
 
       set(layouts, `posts.sections.${sectionCount}`, value);
@@ -59,14 +58,16 @@ export const useBusinessOwnerUpdate = (): {
         options,
       );
     },
-    updatePostsLayoutSection: ({ routeName, sectionId, value }, options) => {
-      const sectionData = businessOwnerData.onGetPostsLayoutSection({ sectionId });
+    updatePostsLayoutSection: ({ sectionId, value }, options) => {
+      if (!business) return;
+      const { routeName } = business;
+
+      const sectionData = getSectionFromBusiness({ sectionId, business });
       if (!sectionData) return;
 
       const { index, section } = sectionData;
 
-      const layouts = businessOwnerData.onGetLayouts();
-
+      const layouts = getLayoutsFromBusiness(business);
       set(layouts, `posts.sections.${index}`, {
         ...section,
         ...value,
@@ -82,14 +83,17 @@ export const useBusinessOwnerUpdate = (): {
         options,
       );
     },
-    showHidePostsLayoutSection: ({ routeName, sectionId, hidden }, options) => {
-      const sectionData = businessOwnerData.onGetPostsLayoutSection({ sectionId });
+    showHidePostsLayoutSection: ({ sectionId, hidden }, options) => {
+      if (!business) return;
+      const { routeName } = business;
+
+      const sectionData = getSectionFromBusiness({ sectionId, business });
+
       if (!sectionData) return;
 
       const { index, section } = sectionData;
 
-      const layouts = businessOwnerData.onGetLayouts();
-
+      const layouts = getLayoutsFromBusiness(business);
       set(layouts, `posts.sections.${index}`, { ...section, hidden });
 
       updateOneUserBusiness.fetch(
@@ -102,14 +106,17 @@ export const useBusinessOwnerUpdate = (): {
         options,
       );
     },
-    removePostsLayoutSection: ({ routeName, sectionId }, options) => {
-      const sectionData = businessOwnerData.onGetPostsLayoutSection({ sectionId });
+    removePostsLayoutSection: ({ sectionId }, options) => {
+      if (!business) return;
+      const { routeName } = business;
+
+      const sectionData = getSectionFromBusiness({ sectionId, business });
       if (!sectionData) return;
 
       const { index } = sectionData;
 
-      const layouts = businessOwnerData.onGetLayouts();
-      const sections = businessOwnerData.onGetPostsLayoutSections();
+      const layouts = getLayoutsFromBusiness(business);
+      const sections = business.layouts?.posts?.sections || [];
 
       set(layouts, `posts.sections`, removeRow(sections, index));
 

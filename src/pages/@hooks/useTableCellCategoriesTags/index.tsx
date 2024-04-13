@@ -6,11 +6,11 @@ import { viewUtils } from 'utils/view';
 export const useTableCellCategoriesTags = ({
   business,
 }: {
-  business: Business;
+  business: Business | undefined | null;
 }): {
   onGetTableCellNode: (args: { postCategoriesTags?: Array<string> }) => React.ReactNode;
 } => {
-  const { postCategories } = business;
+  const { postCategories = [] } = business || {};
 
   const tagsRecord = useMemo<Record<string, string>>(
     () =>

@@ -84,7 +84,6 @@ export interface BusinessLayouts {
 }
 
 export interface PostCategory {
-  _id: string;
   label: string;
   tag: string;
   hidden?: boolean;

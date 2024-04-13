@@ -138,14 +138,21 @@ export const mergeDeep = <T extends AnyRecord = AnyRecord>(target: T, source: Pa
 export const isEqualObj = (a: AnyRecord | undefined, b: AnyRecord | undefined): boolean => {
   if (!a || !b) return false;
 
+  if (isArray(a) && isArray(b) && a.length !== b.length) {
+    return false;
+  }
+
   for (const prop in a) {
     //eslint-disable-next-line
     if (a.hasOwnProperty(prop)) {
       //eslint-disable-next-line
       if (b.hasOwnProperty(prop)) {
+        //@ts-expect-error ignore
         if (typeof a[prop] === 'object') {
+          //@ts-expect-error ignore
           if (!isEqualObj(a[prop], b[prop])) return false;
         } else {
+          //@ts-expect-error ignore
           if (a[prop] !== b[prop]) return false;
         }
       } else {

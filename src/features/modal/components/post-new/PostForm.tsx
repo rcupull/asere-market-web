@@ -41,7 +41,9 @@ type State = Pick<
 
 export interface PostFormProps {
   submitPortal: SubmitPortal;
+  //
   routeName: string;
+  //
   onAfterSuccess: OnAfterSuccess;
   post?: Post | null;
   validations: Parameters<GetFormErrors<State>>[1];
@@ -50,6 +52,7 @@ export interface PostFormProps {
 
 export const PostForm = ({
   routeName,
+  //
   submitPortal,
   onAfterSuccess,
   post,

@@ -64,10 +64,11 @@ export const PostSalesMethod = ({
                   return {
                     content: (
                       <div className="flex flex-col items-center px-20">
-                        <HtmlTextContainer className='w-80'>
+                        <HtmlTextContainer className="w-80">
                           <a href={whatsappLink} target="_blank" rel="noreferrer">
                             Click en este link
-                          </a> o use el código desde su teléfono para contactar con nosotros
+                          </a>{' '}
+                          o use el código desde su teléfono para contactar con nosotros
                         </HtmlTextContainer>
                         <QrCode value={whatsappLink} className="w-60 h-60 mt-2" />
                       </div>

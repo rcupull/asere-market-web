@@ -7,14 +7,12 @@ import { useBusinessUpdateBanner } from 'pages/@hooks/useBusinessUpdateBanner';
 import { useBusinessUpdateInfo } from 'pages/@hooks/useBusinessUpdateInfo';
 import { useBusinessUpdateLogo } from 'pages/@hooks/useBusinessUpdateLogo';
 import { useBusinessUpdatePostCategories } from 'pages/@hooks/useBusinessUpdatePostCategories';
-import { Business } from 'types/business';
 
 export interface SettingsProps {
-  business: Business;
-  onRefresh: () => void;
+  routeName: string;
 }
 
-export const Settings = ({ business, onRefresh }: SettingsProps) => {
+export const Settings = ({ routeName }: SettingsProps) => {
   const businessUpdateInfo = useBusinessUpdateInfo();
   const businessUpdateBanner = useBusinessUpdateBanner();
   const businessUpdateAboutUs = useBusinessUpdateAboutUs();
@@ -26,9 +24,7 @@ export const Settings = ({ business, onRefresh }: SettingsProps) => {
       <SettingsLayout
         title="Informaciones básicas"
         description="Configure los link de las redes sociales de su negocio, contacto de whatsapp y demás."
-        action={
-          <Button label="Editar" onClick={() => businessUpdateInfo.open({ business, onRefresh })} />
-        }
+        action={<Button label="Editar" onClick={() => businessUpdateInfo.open({ routeName })} />}
       />
 
       <SettingsLayout
@@ -49,42 +45,27 @@ export const Settings = ({ business, onRefresh }: SettingsProps) => {
             publicitarios.
           </div>
         }
-        action={
-          <Button
-            label="Editar"
-            onClick={() => businessUpdateBanner.open({ business, onRefresh })}
-          />
-        }
+        action={<Button label="Editar" onClick={() => businessUpdateBanner.open({ routeName })} />}
       />
 
       <SettingsLayout
         title="Logo"
         description="El logo o logotipo un punto de identificación para tu negocio y es el símbolo utilizado para reconocerla. Te separa de la competencia y es el medio para transmitir tus valores y mostrar a los consumidores por qué no eres como tus competidores."
-        action={
-          <Button label="Editar" onClick={() => businessUpdateLogo.open({ business, onRefresh })} />
-        }
+        action={<Button label="Editar" onClick={() => businessUpdateLogo.open({ routeName })} />}
       />
 
       <SettingsLayout
         title="Categorías"
         description="Las categorías permiten clasificar fácilmente las publicaciones por grupos predefinidos. Puedes crear, editar o eliminar categorías. Cada publicacion puede estar asociada a una o varias categorías. En la página de tu negocio, se podrá filtrar tus publicaciones por categorías muy facilmente."
         action={
-          <Button
-            label="Editar"
-            onClick={() => businessUpdatePostCategories.open({ routeName: business.routeName, onRefresh })}
-          />
+          <Button label="Editar" onClick={() => businessUpdatePostCategories.open({ routeName })} />
         }
       />
 
       <SettingsLayout
         title="Sobre mi negocio"
         description="Mediante su página de presentación usted puede indentificar su tienda para que sus clientes conozcan sobre sus ventas y demás(TODO)"
-        action={
-          <Button
-            label="Editar"
-            onClick={() => businessUpdateAboutUs.open({ business, onRefresh })}
-          />
-        }
+        action={<Button label="Editar" onClick={() => businessUpdateAboutUs.open({ routeName })} />}
       />
     </>
   );

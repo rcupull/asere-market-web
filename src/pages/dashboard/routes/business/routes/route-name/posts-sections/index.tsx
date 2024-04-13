@@ -2,56 +2,43 @@ import { ButtonNew } from 'components/button-new';
 import { ButtonRefresh } from 'components/button-refresh';
 import { Table } from 'components/table';
 
-import { useModal } from 'features/modal/useModal';
-
-import { useCallFromAfar } from 'hooks/useCallFromAfar';
-
 import { RowActions } from './RowActions';
 
 import { TopActions } from 'pages/@common/top-actions';
+import { useBusinessNewUpdateSection } from 'pages/@hooks/useBusinessNewUpdateSection';
 import { useBusinessOwnerData } from 'pages/@hooks/useBusinessOwnerData';
 import { useTableCellCategoriesTags } from 'pages/@hooks/useTableCellCategoriesTags';
-import { Business, PostsLayoutSection } from 'types/business';
+import { PostsLayoutSection } from 'types/business';
 import { getSearchLayoutLabel } from 'utils/business';
 import { viewUtils } from 'utils/view';
 
 export interface PostsSectionsProps {
-  business: Business;
-  onRefresh: () => void;
+  routeName: string;
 }
 
-export const PostsSections = ({ business, onRefresh }: PostsSectionsProps) => {
-  const businessOwnerData = useBusinessOwnerData();
-  const { pushModal } = useModal();
-  const { routeName } = business;
+export const PostsSections = ({ routeName }: PostsSectionsProps) => {
+  const { business, onFetch } = useBusinessOwnerData();
 
-  const refeshId = 'dashboard_business_routeName_postsSections_OnRefresh';
-  useCallFromAfar(refeshId, onRefresh);
-
-  const data = businessOwnerData.data?.layouts?.posts?.sections || null;
+  const data = business?.layouts?.posts?.sections || [];
 
   const tableCellCategoriesTags = useTableCellCategoriesTags({
     business,
   });
+
+  const businessNewUpdateSection = useBusinessNewUpdateSection();
 
   return (
     <>
       <TopActions>
         <ButtonNew
           label="Nuevo grupo"
-          onClick={() =>
-            pushModal('PostsSectionNew', {
-              routeName,
-              callAfarResources: refeshId,
-            })
-          }
+          onClick={() => {
+            businessNewUpdateSection.open({ routeName });
+          }}
           className="ml-auto"
         />
 
-        <ButtonRefresh
-          onClick={() => businessOwnerData.onFetch({ routeName })}
-          isBusy={businessOwnerData.status.isBusy}
-        />
+        <ButtonRefresh onClick={() => onFetch({ routeName })} />
       </TopActions>
       <Table<PostsLayoutSection>
         heads={[null, 'Nombre', 'Categorías', 'Visible en', 'Búsqueda']}
@@ -60,12 +47,7 @@ export const PostsSections = ({ business, onRefresh }: PostsSectionsProps) => {
 
           return {
             nodes: [
-              <RowActions
-                key="RowActions"
-                rowData={rowData}
-                routeName={routeName}
-                callAfarResources={refeshId}
-              />,
+              <RowActions key="RowActions" rowData={rowData} routeName={routeName} />,
               <div key={name} className="flex items-center">
                 {name}
                 {hiddenName && <span className="text-red-500 ml-2">(oculto)</span>}

@@ -1,6 +1,6 @@
-import { replaceAll } from './general';
+import { deepJsonCopy, isNumber, replaceAll } from './general';
 
-import { BusinessCategory, SearchLayoutType } from 'types/business';
+import { Business, BusinessCategory, SearchLayoutType } from 'types/business';
 
 export const getRouteName = (name: string): string => {
   let out = name.trim().toLowerCase();
@@ -74,4 +74,27 @@ export const getSearchLayoutLabel = (type: SearchLayoutType): string => {
     default:
       return 'unknown category';
   }
+};
+
+export const getSectionFromBusiness = (args: { sectionId: string; business: Business | null }) => {
+  const { business, sectionId } = args;
+
+  const index = business?.layouts?.posts?.sections?.findIndex?.(({ _id }) => _id === sectionId);
+
+  if (isNumber(index) && index >= 0) {
+    const section = business?.layouts?.posts?.sections?.[index];
+
+    if (!section) return undefined;
+
+    return {
+      index,
+      section,
+    };
+  }
+
+  return undefined;
+};
+
+export const getLayoutsFromBusiness = (business: Business) => {
+  return deepJsonCopy(business.layouts || {});
 };

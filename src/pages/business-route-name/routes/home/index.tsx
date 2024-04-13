@@ -4,28 +4,28 @@ import { useRouter } from 'hooks/useRouter';
 
 import { LayoutPage } from 'pages/@common/layout-page';
 import { UpdateSomethingContainer } from 'pages/@common/update-something-container';
+import { useBusinessOwnerData } from 'pages/@hooks/useBusinessOwnerData';
 import { Banner } from 'pages/business-route-name/components/banner';
-import { Business } from 'types/business';
 
 interface HomeProps {
-  business: Business;
-  onRefresh: () => void;
+  routeName: string;
 }
-export const Home = ({ business, onRefresh }: HomeProps) => {
+export const Home = ({ routeName }: HomeProps) => {
   const { pushRoute } = useRouter();
+
+  const { business } = useBusinessOwnerData();
 
   return (
     <UpdateSomethingContainer
       title="Editar este negocio"
-      onClick={() => pushRoute(`/dashboard/business/${business.routeName}`)}
+      onClick={() => pushRoute(`/dashboard/business/${routeName}`)}
     >
       <LayoutPage>
-        <Banner business={business} onRefresh={onRefresh}/>
+        <Banner routeName={routeName} />
 
         <PostsSectionsView
-          business={business}
-          onRefresh={onRefresh}
-          layouts={business.layouts?.posts?.sections || []}
+          routeName={routeName}
+          layouts={business?.layouts?.posts?.sections || []}
           visibility="businessPage"
         />
       </LayoutPage>

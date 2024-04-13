@@ -26,21 +26,23 @@ export const FieldPostCategoriesButtons = (props: FieldPostCategoriesButtonsProp
 
   const { value, onChange, name, onBlur } = field;
 
-  const businessOwnerData = useBusinessOwnerData();
+  const { business } = useBusinessOwnerData();
+
 
   const businessUpdatePostCategories = useBusinessUpdatePostCategories();
+
 
   useEffect(() => {
     setState(value);
   }, [value]);
 
-  const business = businessOwnerData.data;
+
 
   if (!business) {
     return <></>;
   }
 
-  const postCategories = business.postCategories;
+  const postCategories = business?.postCategories;
 
   const iconAdd = (
     <IconButtonAdd
@@ -50,8 +52,7 @@ export const FieldPostCategoriesButtons = (props: FieldPostCategoriesButtonsProp
         e.preventDefault();
         e.stopPropagation();
         businessUpdatePostCategories.open({
-          routeName: business.routeName,
-          onRefresh: () => businessOwnerData.onFetch({ routeName }),
+          routeName,
         });
       }}
     />

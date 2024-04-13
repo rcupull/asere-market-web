@@ -15,11 +15,6 @@ const componentRecord: Record<ModalId, LoadableReturn> = {
       default: m.Emergent,
     })),
   ),
-  PostsSectionNew: dynamic(() =>
-    import('./components/posts-section-new').then((m) => ({
-      default: m.PostsSectionNew,
-    })),
-  ),
   CatalogsSearchImage: dynamic(() =>
     import('./components/catalogs-search-image').then((m) => ({
       default: m.CatalogsSearchImage,
