@@ -56,13 +56,13 @@ export const Posts = ({ routeName }: PostsProps) => {
   });
 
   const tableCellCategoriesTags = useTableCellCategoriesTags({
-    business: businessOwnerData.data,
+    business: businessOwnerData.business,
   });
 
   return (
     <div className="h-full flex flex-col">
       <BulkActions
-        business={businessOwnerData.data}
+        business={businessOwnerData.business}
         onRefresh={() => filters.onMergeFilters({ page: 1 }, { forceFetch: true })}
         filters={filters.value}
       >
@@ -89,7 +89,7 @@ export const Posts = ({ routeName }: PostsProps) => {
             <Divider className="!my-3" />
 
             <Filters
-              business={businessOwnerData.data}
+              business={businessOwnerData.business}
               onChange={(filtersValue) => filters.onMergeFilters(filtersValue)}
               value={filters.value}
             />

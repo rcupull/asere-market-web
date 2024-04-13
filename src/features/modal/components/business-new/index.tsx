@@ -9,7 +9,7 @@ import { Modal } from 'components/modal';
 
 import { useAddOneUserBusiness } from 'features/api/useAddOneUserBusiness';
 import { useGetAllBusiness } from 'features/api/useGetAllBusiness';
-import { useGetOneUserBusiness } from 'features/api/useGetOneUserBusiness';
+import { useGetOneBusiness } from 'features/api/useGetOneBusiness';
 import { useUpdateOneUserBusiness } from 'features/api/useUpdateOneUserBusiness';
 import { useModal } from 'features/modal/useModal';
 
@@ -38,13 +38,13 @@ export const BusinessNew = ({ callAfarResources, routeName }: BusinessNewProps) 
   const { addOneUserBusiness } = useAddOneUserBusiness();
   const { updateOneUserBusiness } = useUpdateOneUserBusiness();
 
-  const { getOneUserBusiness } = useGetOneUserBusiness();
+  const { getOneBusiness } = useGetOneBusiness();
 
-  const business = getOneUserBusiness.data;
+  const business = getOneBusiness.data;
 
   useEffect(() => {
     if (routeName) {
-      getOneUserBusiness.fetch({ routeName });
+      getOneBusiness.fetch({ routeName });
     }
   }, []);
 

@@ -40,7 +40,7 @@ export const PostNew = ({ routeName: routeNameProp, postId, callAfarResources }:
   const businessOwnerData = useBusinessOwnerData();
 
   const post = getOneUserPost.data;
-  const business = businessOwnerData.data;
+  const business = businessOwnerData.business;
 
   useEffect(() => {
     if (postId) {

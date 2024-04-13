@@ -26,7 +26,7 @@ export const RouteName = () => {
     }
   }, [routeName]);
 
-  const business = businessOwnerData.data;
+  const business = businessOwnerData.business;
   const { isBusy, isFailed, wasCalled } = businessOwnerData.status;
 
   if (!business && isBusy) {

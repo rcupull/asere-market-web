@@ -1,4 +1,4 @@
-import { useGetOneUserBusiness } from 'features/api/useGetOneUserBusiness';
+import { useGetOneBusiness } from 'features/api/useGetOneBusiness';
 import { useSimpleSlice } from 'features/slices/useSimpleSlice';
 
 import { FetchStatus } from 'types/api';
@@ -8,7 +8,6 @@ import { Business } from 'types/business';
  * Informacion relacionada con el negocio que se puede editar editando. Siempre estara debajo de un routename
  */
 export const useBusinessOwnerData = (): {
-  data: Business | null;
   business: Business | null;
   status: FetchStatus;
   /**
@@ -17,17 +16,16 @@ export const useBusinessOwnerData = (): {
   onFetch: (args: { routeName: string }) => void;
   onReset: () => void;
 } => {
-  const { getOneUserBusiness } = useGetOneUserBusiness();
+  const { getOneBusiness } = useGetOneBusiness();
 
   const { data, setData, reset } = useSimpleSlice<Business>('useBusinessOwnerData');
 
   return {
     onFetch: ({ routeName }) => {
-      getOneUserBusiness.fetch({ routeName }, { onAfterSuccess: setData });
+      getOneBusiness.fetch({ routeName }, { onAfterSuccess: setData });
     },
     onReset: reset,
-    status: getOneUserBusiness.status,
-    data, //deprecated
+    status: getOneBusiness.status,
     business: data,
   };
 };
