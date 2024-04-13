@@ -9,8 +9,7 @@ import { FieldInput } from 'components/field-input';
 import { IconButtonRemove } from 'components/icon-button-remove ';
 import { IconButtonShowHide } from 'components/icon-button-show-hide';
 
-import { useAddBusinessPostCategory } from 'features/api/useAddBusinessPostCategory';
-import { useUpdateBusinessPostCategories } from 'features/api/useUpdateBusinessPostCategories';
+import { useUpdateBusinessPostCategories } from 'features/api/business/useUpdateBusinessPostCategories';
 import { useModal } from 'features/modal/useModal';
 
 import { useGetFormErrors } from 'hooks/useGetFormErrors';
@@ -43,7 +42,6 @@ export const useBusinessUpdatePostCategories = () => {
 
             const submitPortal = useSubmitPortal();
 
-            const { addBusinessPostCategory } = useAddBusinessPostCategory();
             const { pushModal } = useModal();
 
             const getFormErrors = useGetFormErrors();
@@ -85,7 +83,6 @@ export const useBusinessUpdatePostCategories = () => {
                           {submitPortal.getPortal(
                             <Button
                               label="Agregar categoría"
-                              isBusy={addBusinessPostCategory.status.isBusy}
                               disabled={!isValid}
                               onClick={() => {
                                 const { label } = values;

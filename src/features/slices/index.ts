@@ -9,7 +9,6 @@ export const slices = {
   useCallFromAfar: createSimpleSlice<Array<any>>('useCallFromAfar', []),
   emergentModals: createSimpleSlice<Array<any>>('emergentModals', []),
   //
-  useAllUserBusinessRouteNames: createSimpleSlice<null>('useAllUserBusinessRouteNames', null),
   useAllUserBusiness: createSimpleSlice<null>('useAllUserBusiness', null),
   useAuth: createSimpleSlice<null>('useAuth', null),
 };

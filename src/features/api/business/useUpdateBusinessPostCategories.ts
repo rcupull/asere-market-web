@@ -1,5 +1,3 @@
-import { useAuth } from 'features/api-slices/useAuth';
-
 import { useFetch } from 'hooks/useFetch';
 
 import { FetchResource } from 'types/api';
@@ -13,9 +11,6 @@ export const useUpdateBusinessPostCategories = (): {
   >;
 } => {
   const fetch = useFetch();
-  const { authData } = useAuth();
-
-  const userId = authData?.user._id || '<unknow user>';
 
   return {
     updateBusinessPostCategories: {
@@ -26,8 +21,8 @@ export const useUpdateBusinessPostCategories = (): {
           {
             method: 'put',
             url: getEndpoint({
-              path: '/user/:userId/business/:routeName/postCategories',
-              urlParams: { userId, routeName },
+              path: '/business/:routeName/postCategories',
+              urlParams: { routeName },
             }),
             data: {
               postCategories,
