@@ -1,10 +1,29 @@
-import { useGetAllUserBusiness } from 'features/api/useGetAlluserBusiness';
+import { useGetAllBusiness } from 'features/api/business/useGetAllBusiness';
 import { useApiPersistentPaginated } from 'features/slices/useApiPersistentPaginated';
 
-export const useAllUserBusiness = (): ReturnType<typeof useGetAllUserBusiness> => {
-  const { getAllUserBussiness } = useGetAllUserBusiness();
+import { useAuth } from './useAuth';
+
+import { Business } from 'types/business';
+
+export const useAllUserBusiness = (): {
+  init: () => void;
+  reset: () => void;
+  data: Array<Business> | null;
+} => {
+  const { getAllBusiness } = useGetAllBusiness();
+
+  const { data, fetch, reset } = useApiPersistentPaginated('useAllUserBusiness', getAllBusiness);
+  const { authData } = useAuth();
 
   return {
-    getAllUserBussiness: useApiPersistentPaginated('useAllUserBusiness', getAllUserBussiness),
+    reset,
+    data,
+    init: () => {
+      fetch({
+        includeHidden: true,
+        pagination: false,
+        userId: authData?.user._id,
+      });
+    },
   };
 };

@@ -94,7 +94,10 @@ export type GetAllPostsQuery = {
 export type GetAllBusinessQuery = {
   routeNames?: Array<string>;
   search?: string;
+  includeHidden?: boolean;
+  userId?: string;
   //
   limit?: number;
   page?: number;
+  pagination?: boolean;
 };

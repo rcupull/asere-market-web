@@ -9,11 +9,11 @@ import { callAfarIds } from 'hooks/useCallFromAfar';
 import { useRouter } from 'hooks/useRouter';
 
 export const Home = () => {
-  const { getAllUserBussiness } = useAllUserBusiness();
+  const allUserBusiness = useAllUserBusiness();
 
   const { pushModal } = useModal();
   const { pathname } = useRouter();
-  const firstBusiness = getAllUserBussiness.data?.[0];
+  const firstBusiness = allUserBusiness.data?.[0];
 
   if (firstBusiness) {
     return <Navigate to={`${pathname}/${firstBusiness.routeName}`} />;

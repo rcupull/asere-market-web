@@ -29,7 +29,7 @@ import { StyleProps } from 'types/general';
 export interface SideBarProps extends StyleProps {}
 
 export const SideBar = ({ className }: SideBarProps) => {
-  const { getAllUserBussiness } = useAllUserBusiness();
+  const allUserBusiness = useAllUserBusiness();
   const { isBusinessPage, isDashboardPage, params } = useRouter();
   const { routeName } = params;
   const { isAdmin, isAuthenticated, isUser } = useAuth();
@@ -38,11 +38,11 @@ export const SideBar = ({ className }: SideBarProps) => {
 
   const { authSignOut } = useAuthSignOut();
 
-  const business = getAllUserBussiness.data || [];
+  const business = allUserBusiness.data || [];
 
   const { isNotValidBussinessCountByUser } = useGetUserPaymentPlan();
 
-  const needPremium = isNotValidBussinessCountByUser(getAllUserBussiness.data?.length);
+  const needPremium = isNotValidBussinessCountByUser(allUserBusiness.data?.length);
 
   return (
     <SideBarBase

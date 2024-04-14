@@ -13,12 +13,12 @@ export const useInit = () => {
   const { pushRoute } = useRouter();
   //
   const { getUserPaymentPlan } = useGetUserPaymentPlan();
-  const { getAllUserBussiness } = useAllUserBusiness();
+  const allUserBusiness = useAllUserBusiness();
 
   const debouncer = useDebouncer();
 
   const getUserPaymentPlanRefresh = () => getUserPaymentPlan.fetch(undefined);
-  const getAllUserBussinessRefresh = () => getAllUserBussiness.fetch({});
+  const getAllUserBussinessRefresh = () => allUserBusiness.init();
 
   useCallFromAfar(callAfarIds.getUserPaymentPlan, getUserPaymentPlanRefresh);
   useCallFromAfar(callAfarIds.getAllUserBussiness, getAllUserBussinessRefresh);
@@ -39,7 +39,7 @@ export const useInit = () => {
 
   const reset = () => {
     getUserPaymentPlan.reset();
-    getAllUserBussiness.reset();
+    allUserBusiness.reset();
   };
 
   useEffect(() => {

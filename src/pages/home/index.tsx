@@ -4,7 +4,7 @@ import { BusinessCardSimple } from 'components/business-card-simple';
 import { CardGroup } from 'components/card-group';
 import { HeroSectionCentered } from 'components/hero-section-centered';
 
-import { useGetAllBusiness } from 'features/api/useGetAllBusiness';
+import { useGetAllBusiness } from 'features/api/business/useGetAllBusiness';
 
 import { useFiltersVolatile } from 'hooks/useFiltersVolatile';
 import { useScrollBottom } from 'hooks/useScrollBottom';
