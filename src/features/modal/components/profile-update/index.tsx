@@ -6,8 +6,8 @@ import { ButtonClose } from 'components/button-close';
 import { FieldInputImages } from 'components/field-input-images';
 import { Modal } from 'components/modal';
 
-import { useAddManyUserImages } from 'features/api/useAddManyUserImages';
 import { useAddOneBusiness } from 'features/api/business/useAddOneBusiness';
+import { useAddManyImages } from 'features/api/images/useAddManyImages';
 import { useGetOneUser } from 'features/api/useGetOneUser';
 import { useUpdateOneUser } from 'features/api/useUpdateOneUser';
 import { useModal } from 'features/modal/useModal';
@@ -37,7 +37,7 @@ export const ProfileUpdate = ({ userId, callAfarResources }: ProfileUpdateProps)
 
   const { addOneBusiness } = useAddOneBusiness();
   const { updateOneUser } = useUpdateOneUser();
-  const { addManyUserImages } = useAddManyUserImages();
+  const { addManyImages } = useAddManyImages();
 
   const user = getOneUser.data;
 
@@ -89,7 +89,7 @@ export const ProfileUpdate = ({ userId, callAfarResources }: ProfileUpdateProps)
                   };
 
                   if (profileImages.length) {
-                    addManyUserImages.fetch(
+                    addManyImages.fetch(
                       { images: profileImages, userId },
                       {
                         onAfterSuccess: (images) => {

@@ -5,7 +5,7 @@ import { ButtonClose } from 'components/button-close';
 import { FieldInputImages } from 'components/field-input-images';
 
 import { useUpdateOneBusiness } from 'features/api/business/useUpdateOneBusiness';
-import { useAddManyUserBusinessImages } from 'features/api/useAddManyUserBusinessImages';
+import { useAddManyImages } from 'features/api/images/useAddManyImages';
 import { useGetUserPaymentPlan } from 'features/api/useGetUserPaymentPlan';
 import { useModal } from 'features/modal/useModal';
 
@@ -41,7 +41,7 @@ export const useBusinessUpdateBanner = () => {
 
             const submitportal = useSubmitPortal();
             const { updateOneBusiness } = useUpdateOneBusiness();
-            const { addManyUserBusinessImages } = useAddManyUserBusinessImages();
+            const { addManyImages } = useAddManyImages();
 
             const initialValues = useMemo<State>(
               () => ({
@@ -74,17 +74,16 @@ export const useBusinessUpdateBanner = () => {
                       {submitportal.getPortal(
                         <Button
                           label="Guardar"
-                          isBusy={
-                            updateOneBusiness.status.isBusy ||
-                            addManyUserBusinessImages.status.isBusy
-                          }
+                          isBusy={updateOneBusiness.status.isBusy || addManyImages.status.isBusy}
                           disabled={!isValid || initialValues.bannerImages === values.bannerImages}
                           onClick={() => {
+                            if (!business) return;
+
                             const { bannerImages } = values;
 
                             if (bannerImages.length) {
-                              addManyUserBusinessImages.fetch(
-                                { images: bannerImages, routeName },
+                              addManyImages.fetch(
+                                { images: bannerImages, routeName, userId: business.createdBy },
                                 {
                                   onAfterSuccess: (bannerImages) => {
                                     updateOneBusiness.fetch(

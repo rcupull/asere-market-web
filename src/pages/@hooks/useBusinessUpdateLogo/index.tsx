@@ -5,7 +5,7 @@ import { ButtonClose } from 'components/button-close';
 import { FieldInputImages } from 'components/field-input-images';
 
 import { useUpdateOneBusiness } from 'features/api/business/useUpdateOneBusiness';
-import { useAddManyUserBusinessImages } from 'features/api/useAddManyUserBusinessImages';
+import { useAddManyImages } from 'features/api/images/useAddManyImages';
 import { useModal } from 'features/modal/useModal';
 
 import { useSubmitPortal } from 'hooks/useSubmitPortal';
@@ -38,7 +38,7 @@ export const useBusinessUpdateLogo = () => {
 
             const submitportal = useSubmitPortal();
             const { updateOneBusiness } = useUpdateOneBusiness();
-            const { addManyUserBusinessImages } = useAddManyUserBusinessImages();
+            const { addManyImages } = useAddManyImages();
 
             const initialValues = useMemo<State>(
               () => ({
@@ -62,19 +62,18 @@ export const useBusinessUpdateLogo = () => {
                       {submitportal.getPortal(
                         <Button
                           label="Guardar"
-                          isBusy={
-                            updateOneBusiness.status.isBusy ||
-                            addManyUserBusinessImages.status.isBusy
-                          }
+                          isBusy={updateOneBusiness.status.isBusy || addManyImages.status.isBusy}
                           disabled={!isValid || initialValues.logoField === values.logoField}
                           onClick={() => {
+                            if(!business) return 
                             const { logoField } = values;
 
                             const [logo] = logoField;
 
                             if (logo) {
-                              addManyUserBusinessImages.fetch(
-                                { images: [logo], routeName },
+
+                              addManyImages.fetch(
+                                { images: [logo], routeName, userId: business.createdBy },
                                 {
                                   onAfterSuccess: ([logo]) => {
                                     updateOneBusiness.fetch(

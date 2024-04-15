@@ -14,7 +14,7 @@ import { Menu } from 'components/menu';
 import { NavBar as NavBarBase } from 'components/nav-bar';
 import { UserAvatar } from 'components/user-avatar';
 
-import { useAuthSignOut } from 'features/api/useAuthSignOut';
+import { useAuthSignOut } from 'features/api/auth/useAuthSignOut';
 import { useAuth } from 'features/api-slices/useAuth';
 import { useModal } from 'features/modal/useModal';
 

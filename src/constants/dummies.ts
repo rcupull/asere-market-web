@@ -2,6 +2,7 @@ import { Post } from 'types/post';
 
 export const dummyPostClothing: Post = {
   name: 'Basic Tee 6-Pack',
+  createdBy: '123',
   price: 192,
   currency: 'USD',
   _id: '123',

@@ -1,7 +1,7 @@
 import { Button } from 'components/button';
 import { FieldInput } from 'components/field-input';
 
-import { useAuthValidate } from 'features/api/useAuthValidate';
+import { useAuthValidate } from 'features/api/auth/useAuthValidate';
 
 import { useGetFormErrors } from 'hooks/useGetFormErrors';
 import { useRouter } from 'hooks/useRouter';

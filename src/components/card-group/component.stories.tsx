@@ -29,6 +29,7 @@ const productItems = [
 
 const post1: Post = {
   _id: '_id',
+  createdBy: 'createdById',
   createdAt: new Date().toISOString(),
   currency: 'USD',
   description: 'Description',

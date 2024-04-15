@@ -11,7 +11,7 @@ import { SpinnerEllipsis } from 'components/spinner-ellipsis';
 import {
   UseGetCatalogImagesResponse,
   useGetCatalogsImages,
-} from 'features/api/useGetCatalogsImages';
+} from 'features/api/images/useGetCatalogsImages';
 import { useModal } from 'features/modal/useModal';
 import { useSimpleSlice } from 'features/slices/useSimpleSlice';
 

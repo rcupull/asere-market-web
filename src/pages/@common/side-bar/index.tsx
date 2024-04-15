@@ -14,7 +14,7 @@ import { IconShowHide } from 'components/icon-show-hide';
 import { ProLink } from 'components/pro-link';
 import { SideBar as SideBarBase } from 'components/side-bar';
 
-import { useAuthSignOut } from 'features/api/useAuthSignOut';
+import { useAuthSignOut } from 'features/api/auth/useAuthSignOut';
 import { useGetUserPaymentPlan } from 'features/api/useGetUserPaymentPlan';
 import { useAuth } from 'features/api-slices/useAuth';
 import { useAllUserBusiness } from 'features/api-slices/useGetAllUserBusinessPersistent';

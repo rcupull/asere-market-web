@@ -21,6 +21,7 @@ import { TopActions } from 'pages/@common/top-actions';
 import { useBusinessOwnerData } from 'pages/@hooks/useBusinessOwnerData';
 import { useTableCellCategoriesTags } from 'pages/@hooks/useTableCellCategoriesTags';
 import { GetAllPostsQuery } from 'types/api';
+import { getImageEndpoint } from 'utils/api';
 import { getDateString } from 'utils/date';
 import { cn } from 'utils/general';
 import { viewUtils } from 'utils/view';
@@ -102,11 +103,14 @@ export const Posts = ({ routeName }: PostsProps) => {
                 null,
                 'Nombre',
                 'Categorías',
+                'Imágen',
                 'Fecha de Creación',
                 'Detalles',
               ])}
               getRowProps={(rowData) => {
-                const { name, createdAt, currency, price, postCategoriesTags, hidden } = rowData;
+                const { name, createdAt, currency, price, postCategoriesTags, hidden, images } = rowData;
+
+                const mainImage = images?.[0];
 
                 return {
                   className: cn({
@@ -121,6 +125,7 @@ export const Posts = ({ routeName }: PostsProps) => {
                     />,
                     name,
                     tableCellCategoriesTags.onGetTableCellNode({ postCategoriesTags }),
+                    mainImage ? <img src={getImageEndpoint(mainImage.src)}  className="object-contain w-10 h-10" /> : 'ninguna',
                     getDateString({ date: createdAt, showTime: true }),
                     viewUtils.keyValueList([
                       {

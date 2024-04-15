@@ -8,6 +8,7 @@ export const Default = (): JSX.Element => (
   <ProductSimple
     post={{
       _id: '_id',
+      createdBy: 'createdById',
       createdAt: new Date().toISOString(),
       currency: 'USD',
       description: 'Description',

@@ -11,9 +11,9 @@ import { FieldPostPageLayout } from 'components/field-post-page-layout';
 import { FieldSelect } from 'components/field-select';
 import { FieldTextArea } from 'components/field-text-area';
 
+import { useAddManyImages } from 'features/api/images/useAddManyImages';
 import { useAddOnePost } from 'features/api/posts/useAddOnePost';
 import { useUpdateOnePost } from 'features/api/posts/useUpdateOnePost';
-import { useAddManyUserPostImages } from 'features/api/useAddManyUserPostImages';
 import { useGetUserPaymentPlan } from 'features/api/useGetUserPaymentPlan';
 
 import { GetFormErrors, useGetFormErrors } from 'hooks/useGetFormErrors';
@@ -64,7 +64,7 @@ export const PostForm = ({
 
   const { userPlan } = useGetUserPaymentPlan();
 
-  const { addManyUserPostImages } = useAddManyUserPostImages();
+  const { addManyImages } = useAddManyImages();
 
   const getFormErrors = useGetFormErrors();
 
@@ -247,8 +247,8 @@ export const PostForm = ({
                   const handelUpdatePost = (post: Post) => {
                     const { _id: postId } = post;
 
-                    addManyUserPostImages.fetch(
-                      { images, routeName, postId },
+                    addManyImages.fetch(
+                      { images, routeName, postId , userId: post.createdBy },
                       {
                         onAfterSuccess: (images) => {
                           updateOnePost.fetch(

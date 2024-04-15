@@ -13,6 +13,7 @@ const imagesSrcs = [
 
 const dummyPost: Post = {
   name: 'Zapatos de mujer',
+  createdBy: '123',
   images: imagesSrcs.map((src) => ({
     src,
     width: 300,

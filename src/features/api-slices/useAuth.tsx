@@ -1,4 +1,4 @@
-import { useAuthSignIn } from 'features/api/useAuthSignIn';
+import { useAuthSignIn } from 'features/api/auth/useAuthSignIn';
 import { useGetOneUser } from 'features/api/useGetOneUser';
 import { useCookies } from 'features/cookies/useCookies';
 import { useApiPersistent } from 'features/slices/useApiPersistent';

@@ -6,6 +6,7 @@ export type PostCurrency = 'CUP' | 'USD' | 'MLC';
 export type PostReviews = [number, number, number, number, number];
 
 export interface Post extends BaseIdentity {
+  createdBy: string;
   images?: Array<Image>;
   routeName: string;
   description: string;

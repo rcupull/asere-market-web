@@ -1,11 +1,11 @@
 import { useEffect } from 'react';
 import { Navigate } from 'react-router-dom';
 
+import { SpinnerEllipsis } from 'components/spinner-ellipsis';
 import { Tabs } from 'components/tabs';
 
 import { useRouter } from 'hooks/useRouter';
 
-import { Loading } from './loading';
 import { OptionsMenu } from './options-menu';
 import { Posts } from './posts';
 import { PostsSections } from './posts-sections';
@@ -29,8 +29,12 @@ export const RouteName = () => {
   const business = businessOwnerData.business;
   const { isBusy, isFailed, wasCalled } = businessOwnerData.status;
 
-  if (!business && isBusy) {
-    return <Loading />;
+  if (isBusy) {
+    return (
+      <div className="flex items-center justify-center size-full">
+        <SpinnerEllipsis />
+      </div>
+    );
   }
 
   if (isFailed && wasCalled) {

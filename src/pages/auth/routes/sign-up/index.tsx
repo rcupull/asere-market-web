@@ -4,7 +4,7 @@ import { Button } from 'components/button';
 import { FieldCheckbox } from 'components/field-checkbox';
 import { FieldInput } from 'components/field-input';
 
-import { useAuthSignUp } from 'features/api/useAuthSignUp';
+import { useAuthSignUp } from 'features/api/auth/useAuthSignUp';
 
 import { useGetFormErrors } from 'hooks/useGetFormErrors';
 import { useRouter } from 'hooks/useRouter';
