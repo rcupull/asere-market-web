@@ -5,7 +5,7 @@ import { ButtonClose } from 'components/button-close';
 import { Modal } from 'components/modal';
 import { SpinnerEllipsis } from 'components/spinner-ellipsis';
 
-import { useGetOneUserPost } from 'features/api/useGetOneUserPost';
+import { useGetOnePost } from 'features/api/posts/useGetOnePost';
 import { useModal } from 'features/modal/useModal';
 
 import { CallAfarResources, useCallFromAfar } from 'hooks/useCallFromAfar';
@@ -36,15 +36,15 @@ export const PostNew = ({ routeName: routeNameProp, postId, callAfarResources }:
   /**
    *
    */
-  const { getOneUserPost } = useGetOneUserPost();
+  const { getOnePost } = useGetOnePost();
   const businessOwnerData = useBusinessOwnerData();
 
-  const post = getOneUserPost.data;
+  const post = getOnePost.data;
   const business = businessOwnerData.business;
 
   useEffect(() => {
     if (postId) {
-      return getOneUserPost.fetch(
+      return getOnePost.fetch(
         { id: postId },
         {
           onAfterSuccess: ({ routeName }) => {
@@ -65,7 +65,7 @@ export const PostNew = ({ routeName: routeNameProp, postId, callAfarResources }:
   const routeName = routeNameProp || post?.routeName;
 
   const getContent = () => {
-    if (getOneUserPost.status.isBusy) {
+    if (getOnePost.status.isBusy) {
       return (
         <div className="h-40 flex justify-center items-center">
           <SpinnerEllipsis />

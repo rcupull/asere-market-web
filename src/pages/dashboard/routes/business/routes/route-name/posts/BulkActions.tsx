@@ -8,8 +8,8 @@ import { FieldCheckbox } from 'components/field-checkbox';
 import { IconButtonOptionsBars } from 'components/icon-button-options-bars';
 import { Menu } from 'components/menu';
 
-import { useDeleteManyBusinessPosts } from 'features/api/useDeleteManyBusinessPosts';
-import { useUpdateManyBusinessPosts } from 'features/api/useUpdateManyBusinessPosts';
+import { useDeleteManyBusinessPosts } from 'features/api/bulk/useDeleteManyBusinessPosts';
+import { useUpdateManyBusinessPosts } from 'features/api/bulk/useUpdateManyBusinessPosts';
 import { useModal } from 'features/modal/useModal';
 
 import { GetAllPostsQuery } from 'types/api';

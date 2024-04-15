@@ -9,9 +9,9 @@ import { IconButtonUpdate } from 'components/icon-button-update';
 import { IconButtonView } from 'components/icon-button-view';
 import { Menu } from 'components/menu';
 
-import { useDuplicateOneUserPost } from 'features/api/useDuplicateOneUserPost';
-import { useRemoveOneUserPost } from 'features/api/useRemoveOneUserPost';
-import { useUpdateOneUserPost } from 'features/api/useUpdateOneUserPost';
+import { useDuplicateOnePost } from 'features/api/posts/useDuplicateOnePost';
+import { useRemoveOnePost } from 'features/api/posts/useRemoveOnePost';
+import { useUpdateOnePost } from 'features/api/posts/useUpdateOnePost';
 import { useModal } from 'features/modal/useModal';
 
 import { CallAfarResources, useCallFromAfar } from 'hooks/useCallFromAfar';
@@ -37,7 +37,7 @@ export const RowActions = ({ rowData, callAfarResources, routeName }: RowActions
       'Confirmation',
       {
         useProps: () => {
-          const { removeOneUserPost } = useRemoveOneUserPost();
+          const { removeOnePost } = useRemoveOnePost();
           const { onClose } = useModal();
           const { onCallAfar } = useCallFromAfar();
           return {
@@ -53,9 +53,9 @@ export const RowActions = ({ rowData, callAfarResources, routeName }: RowActions
             badge: <Badge variant="warning" />,
             primaryBtn: (
               <ButtonRemove
-                isBusy={removeOneUserPost.status.isBusy}
+                isBusy={removeOnePost.status.isBusy}
                 onClick={() =>
-                  removeOneUserPost.fetch(
+                  removeOnePost.fetch(
                     { id: rowData._id },
                     {
                       onAfterSuccess: () => {
@@ -80,7 +80,7 @@ export const RowActions = ({ rowData, callAfarResources, routeName }: RowActions
       'Confirmation',
       {
         useProps: () => {
-          const { updateOneUserPost } = useUpdateOneUserPost();
+          const { updateOnePost } = useUpdateOnePost();
           const { onClose } = useModal();
           const { onCallAfar } = useCallFromAfar();
           return {
@@ -96,10 +96,10 @@ export const RowActions = ({ rowData, callAfarResources, routeName }: RowActions
             badge: <Badge variant="warning" />,
             primaryBtn: (
               <ButtonSave
-                isBusy={updateOneUserPost.status.isBusy}
+                isBusy={updateOnePost.status.isBusy}
                 label={hidden ? 'Ocultar' : 'Mostrar'}
                 onClick={() =>
-                  updateOneUserPost.fetch(
+                  updateOnePost.fetch(
                     { postId: rowData._id, hidden },
                     {
                       onAfterSuccess: () => {
@@ -118,10 +118,10 @@ export const RowActions = ({ rowData, callAfarResources, routeName }: RowActions
     );
   };
 
-  const { duplicateOneUserPost } = useDuplicateOneUserPost();
+  const { duplicateOnePost } = useDuplicateOnePost();
 
   const handleDuplicate = () => {
-    duplicateOneUserPost.fetch(
+    duplicateOnePost.fetch(
       {
         postId: rowData._id,
       },
@@ -170,7 +170,7 @@ export const RowActions = ({ rowData, callAfarResources, routeName }: RowActions
         <IconButtonUpdate onClick={handleUpdate} />
         <IconButtonDuplicate
           onClick={handleDuplicate}
-          isBusy={duplicateOneUserPost.status.isBusy}
+          isBusy={duplicateOnePost.status.isBusy}
         />
 
         <IconButtonView

@@ -5,7 +5,7 @@ import { ButtonRefresh } from 'components/button-refresh';
 import { Divider } from 'components/divider';
 import { Table } from 'components/table';
 
-import { useGetAllUserPosts } from 'features/api/useGetAllUserPosts';
+import { useGetAllPosts } from 'features/api/posts/useGetAllPosts';
 import { useGetUserPaymentPlan } from 'features/api/useGetUserPaymentPlan';
 import { useModal } from 'features/modal/useModal';
 
@@ -30,18 +30,18 @@ export interface PostsProps {
 }
 
 export const Posts = ({ routeName }: PostsProps) => {
-  const { getAllUserPosts } = useGetAllUserPosts();
+  const { getAllPosts } = useGetAllPosts();
   const { pushModal } = useModal();
 
   const businessOwnerData = useBusinessOwnerData();
 
   const infinityScrolling = useInfinityScrolling({
-    fetchPaginatedResources: getAllUserPosts,
+    fetchPaginatedResources: getAllPosts,
     onFetch: ({ page }) => filters.onMergeFilters({ page }),
   });
 
   const filters = useFiltersVolatile<GetAllPostsQuery>({
-    onChange: (filters) => getAllUserPosts.fetch({ routeNames: [routeName], ...filters }),
+    onChange: (filters) => getAllPosts.fetch({ routeNames: [routeName], ...filters }),
   });
 
   useEffect(() => {
@@ -72,7 +72,7 @@ export const Posts = ({ routeName }: PostsProps) => {
               <TopActions>
                 <ButtonNew
                   label="Nueva publicación"
-                  needPremium={isNotValidPostsCountByBussines(getAllUserPosts.data?.length)}
+                  needPremium={isNotValidPostsCountByBussines(getAllPosts.data?.length)}
                   onClick={() =>
                     pushModal('PostNew', {
                       routeName,
@@ -82,7 +82,7 @@ export const Posts = ({ routeName }: PostsProps) => {
                   className="ml-auto"
                 />
 
-                <ButtonRefresh onClick={filters.onRefresh} isBusy={getAllUserPosts.status.isBusy} />
+                <ButtonRefresh onClick={filters.onRefresh} isBusy={getAllPosts.status.isBusy} />
               </TopActions>,
             )}
 
@@ -144,7 +144,7 @@ export const Posts = ({ routeName }: PostsProps) => {
               }}
               data={infinityScrolling.tableData}
               onScrollBottom={infinityScrolling.onScrollBottom}
-              isBusy={getAllUserPosts.status.isBusy}
+              isBusy={getAllPosts.status.isBusy}
             />
           </>
         )}

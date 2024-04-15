@@ -5,7 +5,7 @@ import { Button } from 'components/button';
 import { ButtonRemove } from 'components/button-remove';
 import { IconButtonShowHideProps } from 'components/icon-button-show-hide';
 
-import { useUpdateManyUserPosts } from 'features/api/useUpdateManyUserPosts';
+import { useUpdateManyUserPosts } from 'features/api/bulk/useUpdateManyUserPosts';
 import { useModal } from 'features/modal/useModal';
 
 import { FetchStatus, OnRefresh } from 'types/api';

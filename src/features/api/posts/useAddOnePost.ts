@@ -6,8 +6,8 @@ import { FetchResource } from 'types/api';
 import { Post } from 'types/post';
 import { getEndpoint } from 'utils/api';
 
-export const useAddOneUserPost = (): {
-  addOneUserPost: FetchResource<
+export const useAddOnePost = (): {
+  addOnePost: FetchResource<
     Pick<
       Post,
       | 'routeName'
@@ -35,7 +35,7 @@ export const useAddOneUserPost = (): {
   const userId = authData?.user._id || '<unknow user>';
 
   return {
-    addOneUserPost: {
+    addOnePost: {
       data: fetch[0],
       status: fetch[1],
       fetch: (data, options = {}) => {
@@ -43,7 +43,7 @@ export const useAddOneUserPost = (): {
           {
             method: 'post',
             url: getEndpoint({
-              path: '/user/:userId/posts',
+              path: '/posts',
               urlParams: { userId },
             }),
             data,

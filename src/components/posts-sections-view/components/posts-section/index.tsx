@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 
-import { useGetAllPosts } from 'features/api/useGetAllPosts';
+import { useGetAllPosts } from 'features/api/posts/useGetAllPosts';
 
 import { useCallFromAfar } from 'hooks/useCallFromAfar';
 import { useFiltersVolatile } from 'hooks/useFiltersVolatile';

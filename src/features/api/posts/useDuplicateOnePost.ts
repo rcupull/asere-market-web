@@ -6,8 +6,8 @@ import { FetchResource } from 'types/api';
 import { Post } from 'types/post';
 import { getEndpoint } from 'utils/api';
 
-export const useDuplicateOneUserPost = (): {
-  duplicateOneUserPost: FetchResource<{ postId: string }, Post>;
+export const useDuplicateOnePost = (): {
+  duplicateOnePost: FetchResource<{ postId: string }, Post>;
 } => {
   const fetch = useFetch<Post>();
 
@@ -16,7 +16,7 @@ export const useDuplicateOneUserPost = (): {
   const userId = authData?.user._id || '<unknow user>';
 
   return {
-    duplicateOneUserPost: {
+    duplicateOnePost: {
       data: fetch[0],
       status: fetch[1],
       fetch: ({ postId }, options = {}) => {
@@ -24,7 +24,7 @@ export const useDuplicateOneUserPost = (): {
           {
             method: 'post',
             url: getEndpoint({
-              path: '/user/:userId/posts/:postId/duplicate',
+              path: '/posts/:postId/duplicate',
               urlParams: { userId, postId },
             }),
           },

@@ -1,5 +1,6 @@
 import { useFetch } from 'hooks/useFetch';
 
+import { defaultLimit } from 'constants/api';
 import { FetchResourceWithPagination, GetAllPostsQuery, PaginatedData } from 'types/api';
 import { Post } from 'types/post';
 import { getEndpoint } from 'utils/api';
@@ -20,7 +21,7 @@ export const useGetAllPosts = (): {
             method: 'get',
             url: getEndpoint({
               path: '/posts',
-              query,
+              query: { limit: defaultLimit, ...query },
             }),
           },
           options,

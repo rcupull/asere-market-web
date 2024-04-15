@@ -12,7 +12,7 @@ import { ProductImages2 } from 'components/product/images/product-images-2';
 import { ProductPrice1 } from 'components/product/price/product-price-1';
 import { Review } from 'components/review';
 
-import { useGetOnePost } from 'features/api/useGetOnePost';
+import { useGetOnePost } from 'features/api/posts/useGetOnePost';
 import { useModal } from 'features/modal/useModal';
 
 import { useCallFromAfar } from 'hooks/useCallFromAfar';

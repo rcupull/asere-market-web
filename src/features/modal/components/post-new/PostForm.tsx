@@ -11,10 +11,10 @@ import { FieldPostPageLayout } from 'components/field-post-page-layout';
 import { FieldSelect } from 'components/field-select';
 import { FieldTextArea } from 'components/field-text-area';
 
+import { useAddOnePost } from 'features/api/posts/useAddOnePost';
+import { useUpdateOnePost } from 'features/api/posts/useUpdateOnePost';
 import { useAddManyUserPostImages } from 'features/api/useAddManyUserPostImages';
-import { useAddOneUserPost } from 'features/api/useAddOneUserPost';
 import { useGetUserPaymentPlan } from 'features/api/useGetUserPaymentPlan';
-import { useUpdateOneUserPost } from 'features/api/useUpdateOneUserPost';
 
 import { GetFormErrors, useGetFormErrors } from 'hooks/useGetFormErrors';
 import { SubmitPortal } from 'hooks/useSubmitPortal';
@@ -59,8 +59,8 @@ export const PostForm = ({
   validations: validationsProp,
   render,
 }: PostFormProps) => {
-  const { addOneUserPost } = useAddOneUserPost();
-  const { updateOneUserPost } = useUpdateOneUserPost();
+  const { addOnePost } = useAddOnePost();
+  const { updateOnePost } = useUpdateOnePost();
 
   const { userPlan } = useGetUserPaymentPlan();
 
@@ -227,7 +227,7 @@ export const PostForm = ({
             {submitPortal.getPortal(
               <Button
                 label="Guardar"
-                isBusy={addOneUserPost.status.isBusy}
+                isBusy={addOnePost.status.isBusy || updateOnePost.status.isBusy}
                 disabled={!isValid}
                 onClick={() => {
                   const {
@@ -251,7 +251,7 @@ export const PostForm = ({
                       { images, routeName, postId },
                       {
                         onAfterSuccess: (images) => {
-                          updateOneUserPost.fetch(
+                          updateOnePost.fetch(
                             {
                               postId,
                               images,
@@ -275,7 +275,7 @@ export const PostForm = ({
                     );
                   };
                   const handelAddPost = () => {
-                    addOneUserPost.fetch(
+                    addOnePost.fetch(
                       {
                         currency,
                         description,
