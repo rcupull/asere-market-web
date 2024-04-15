@@ -95,6 +95,7 @@ export const useBusinessNewUpdateSection = () => {
                         className="w-full"
                       />
 
+                      {/* //////////////////////////////////////////////////////////////////////////////////////////////// */}
                       <Divider />
 
                       <FieldInput
@@ -111,6 +112,7 @@ export const useBusinessNewUpdateSection = () => {
                         className="w-full"
                       />
 
+                      {/* //////////////////////////////////////////////////////////////////////////////////////////////// */}
                       <Divider />
 
                       <FieldPostsSectionLayout name="type" label="Diseño" className="w-full" />
@@ -123,6 +125,7 @@ export const useBusinessNewUpdateSection = () => {
                         routeName={routeName}
                       />
 
+                      {/* //////////////////////////////////////////////////////////////////////////////////////////////// */}
                       <Divider />
 
                       <FieldSearchLayout
@@ -131,6 +134,7 @@ export const useBusinessNewUpdateSection = () => {
                         className="w-full"
                       />
 
+                      {/* //////////////////////////////////////////////////////////////////////////////////////////////// */}
                       <Divider />
 
                       <FieldPostCardLayout
@@ -139,7 +143,9 @@ export const useBusinessNewUpdateSection = () => {
                         className="w-full"
                       />
 
+                      {/* //////////////////////////////////////////////////////////////////////////////////////////////// */}
                       <Divider />
+
 
                       {submitPortal.getPortal(
                         <ButtonSave

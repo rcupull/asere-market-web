@@ -37,7 +37,7 @@ export const Navbar = ({ className }: NavbarProps) => {
   const { user } = authData || {};
   const { isBusinessPage, params } = useRouter();
   const { routeName } = params;
-  const { business } = useBusinessPageData();
+  const { business, hasSomeShoppingCartStrategy } = useBusinessPageData();
   const aboutUsPage = business?.aboutUsPage || {};
   const { pushModal } = useModal();
   const { pushRoute } = useRouter();
@@ -80,7 +80,7 @@ export const Navbar = ({ className }: NavbarProps) => {
             />
           )}
 
-          {isAuthenticated && <ShoppingCartMenu />}
+          {isAuthenticated && hasSomeShoppingCartStrategy && <ShoppingCartMenu />}
 
           {isUser && (
             <IconButton

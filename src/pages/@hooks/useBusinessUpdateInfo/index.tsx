@@ -3,6 +3,7 @@ import { useMemo } from 'react';
 import { Button } from 'components/button';
 import { ButtonClose } from 'components/button-close';
 import { FieldInput } from 'components/field-input';
+import { FieldSelect } from 'components/field-select';
 
 import { useUpdateOneBusiness } from 'features/api/business/useUpdateOneBusiness';
 import { useModal } from 'features/modal/useModal';
@@ -12,6 +13,7 @@ import { useSubmitPortal } from 'hooks/useSubmitPortal';
 import { useBusinessOwnerData } from '../useBusinessOwnerData';
 
 import { Formik } from 'formik';
+import { BusinessSalesStrategy } from 'types/business';
 
 interface State {
   face: string;
@@ -20,6 +22,7 @@ interface State {
   linkedin: string;
   youtube: string;
   whatsAppPhoneNumber: string;
+  salesStrategy: BusinessSalesStrategy;
 }
 
 export const useBusinessUpdateInfo = () => {
@@ -47,6 +50,7 @@ export const useBusinessUpdateInfo = () => {
                 linkedin: business?.socialLinks?.linkedin || '',
                 youtube: business?.socialLinks?.youtube || '',
                 whatsAppPhoneNumber: business?.whatsAppPhoneNumber || '',
+                salesStrategy: business?.salesStrategy || 'none',
               }),
               [business],
             );
@@ -90,10 +94,27 @@ export const useBusinessUpdateInfo = () => {
                         <FieldInput label="Linkedin" name="linkedin" className="w-full" />,
                         values.linkedin,
                       )}
-                      {/* {renderFieldLink(
-                          <FieldInput label="Youtube" name="youtube" className="w-full" />,
-                          values.youtube,
-                        )} */}
+
+                      <FieldSelect<{ value: BusinessSalesStrategy }>
+                        label="Estratégia de venta"
+                        renderOption={({ value }) => value}
+                        renderValue={({ value }) => value}
+                        optionToValue={({ value }) => value}
+                        items={[
+                          {
+                            value: 'none',
+                          },
+                          {
+                            value: 'whatsAppWithOwner_pickUpProduct',
+                          },
+                          {
+                            value: 'addToCart_whatsAppWithOwner_pickUpProduct',
+                          },
+                        ]}
+                        name="salesStrategy"
+                        className="w-full"
+                      />
+
                       {submitportal.getPortal(
                         <Button
                           label="Guardar"
@@ -107,6 +128,7 @@ export const useBusinessUpdateInfo = () => {
                               linkedin,
                               youtube,
                               whatsAppPhoneNumber,
+                              salesStrategy
                             } = values;
 
                             updateOneBusiness.fetch(
@@ -120,6 +142,7 @@ export const useBusinessUpdateInfo = () => {
                                     linkedin,
                                     youtube,
                                   },
+                                  salesStrategy
                                 },
                                 routeName,
                               },

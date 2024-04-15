@@ -103,6 +103,11 @@ export interface BusinessAboutUsPage {
   description?: string; // checkeditor text
 }
 
+export type BusinessSalesStrategy =
+  | 'none'
+  | 'whatsAppWithOwner_pickUpProduct'
+  | 'addToCart_whatsAppWithOwner_pickUpProduct';
+
 export interface Business extends BaseIdentity {
   name: string;
   category: BusinessCategory;
@@ -116,4 +121,5 @@ export interface Business extends BaseIdentity {
   layouts?: BusinessLayouts;
   aboutUsPage?: BusinessAboutUsPage;
   whatsAppPhoneNumber?: string;
+  salesStrategy?: BusinessSalesStrategy;
 }
