@@ -15,7 +15,7 @@ import { useModal } from 'features/modal/useModal';
 import { useGetFormErrors } from 'hooks/useGetFormErrors';
 import { useSubmitPortal } from 'hooks/useSubmitPortal';
 
-import { useBusinessOwnerData } from '../useBusinessOwnerData';
+import { useBusiness } from '../useBusiness';
 
 import { Formik } from 'formik';
 import { PostCategory } from 'types/business';
@@ -32,7 +32,7 @@ export const useBusinessUpdatePostCategories = () => {
         {
           useProps: () => {
             const { routeName } = args;
-            const { business, onFetch } = useBusinessOwnerData();
+            const { business, onFetch } = useBusiness();
             const { onClose } = useModal();
 
             const initialCategories = business?.postCategories || [];

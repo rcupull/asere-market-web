@@ -13,7 +13,7 @@ import { useSubmitPortal } from 'hooks/useSubmitPortal';
 
 import { PostForm, PostFormProps } from './PostForm';
 
-import { useBusinessOwnerData } from 'pages/@hooks/useBusinessOwnerData';
+import { useBusiness } from 'pages/@hooks/useBusiness';
 
 export interface PostNewProps {
   routeName?: string;
@@ -37,7 +37,7 @@ export const PostNew = ({ routeName: routeNameProp, postId, callAfarResources }:
    *
    */
   const { getOnePost } = useGetOnePost();
-  const businessOwnerData = useBusinessOwnerData();
+  const businessOwnerData = useBusiness();
 
   const post = getOnePost.data;
   const business = businessOwnerData.business;

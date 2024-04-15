@@ -7,7 +7,7 @@ import { FormikFieldProps, useFormikField } from 'hooks/useFormikField';
 
 import { PostCategoriesFilterButtons } from '../post-categories-filter-buttons';
 
-import { useBusinessOwnerData } from 'pages/@hooks/useBusinessOwnerData';
+import { useBusiness } from 'pages/@hooks/useBusiness';
 import { useBusinessUpdatePostCategories } from 'pages/@hooks/useBusinessUpdatePostCategories';
 
 type State = Array<string>;
@@ -26,17 +26,13 @@ export const FieldPostCategoriesButtons = (props: FieldPostCategoriesButtonsProp
 
   const { value, onChange, name, onBlur } = field;
 
-  const { business } = useBusinessOwnerData();
-
+  const { business } = useBusiness();
 
   const businessUpdatePostCategories = useBusinessUpdatePostCategories();
-
 
   useEffect(() => {
     setState(value);
   }, [value]);
-
-
 
   if (!business) {
     return <></>;

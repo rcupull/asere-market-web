@@ -9,9 +9,8 @@ import { PostsSectionCards } from '../posts-section-cards';
 import { PostsSectionSearch } from '../posts-section-search';
 
 import { UpdateSomethingContainer } from 'pages/@common/update-something-container';
+import { useBusiness } from 'pages/@hooks/useBusiness';
 import { useBusinessNewUpdateSection } from 'pages/@hooks/useBusinessNewUpdateSection';
-import { useBusinessOwnerData } from 'pages/@hooks/useBusinessOwnerData';
-import { useBusinessPageData } from 'pages/@hooks/useBusinessPageData';
 import { GetAllPostsQuery } from 'types/api';
 import { PostsLayoutSection, PostsLayoutSectionVisibility } from 'types/business';
 import { StyleProps } from 'types/general';
@@ -31,11 +30,11 @@ export const PostsSection = ({
   index,
   visibility,
 }: PostsSectionProps) => {
-  const { business, onFetch } = useBusinessOwnerData();
+  const { business, onFetch } = useBusiness();
   const { name, hiddenName, postCategoriesTags, _id, showIn } = layout;
 
   const { getAllPosts } = useGetAllPosts();
-  const { owner } = useBusinessPageData();
+  const { owner } = useBusiness();
 
   const hidden = !showIn?.includes(visibility);
   const notRender = hidden && !owner;

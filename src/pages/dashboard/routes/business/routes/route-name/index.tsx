@@ -12,13 +12,13 @@ import { PostsSections } from './posts-sections';
 import { Settings } from './settings';
 
 import { LayoutSection } from 'pages/@common/layout-section';
-import { useBusinessOwnerData } from 'pages/@hooks/useBusinessOwnerData';
+import { useBusiness } from 'pages/@hooks/useBusiness';
 
 export const RouteName = () => {
   const { params, query, onChangeQuery } = useRouter();
   const { routeName } = params;
 
-  const businessOwnerData = useBusinessOwnerData();
+  const businessOwnerData = useBusiness();
 
   useEffect(() => {
     if (routeName) {

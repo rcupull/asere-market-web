@@ -128,11 +128,7 @@ export const useHiddenBusinessControl = ({
   return {
     onRefresh: handleRefresh,
     submitBtn: hasChange && (
-      <Button
-        label="Guardar"
-        onClick={handleSubmit}
-        isBusy={updateManyBussiness.status.isBusy}
-      />
+      <Button label="Guardar" onClick={handleSubmit} isBusy={updateManyBussiness.status.isBusy} />
     ),
     hasChange,
     onGetHiddenButtonProp: (value: Business) => {

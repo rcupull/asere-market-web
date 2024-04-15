@@ -18,7 +18,7 @@ import { RowActions } from './RowActions';
 import { useInfinityScrolling } from './useInfinityScrolling';
 
 import { TopActions } from 'pages/@common/top-actions';
-import { useBusinessOwnerData } from 'pages/@hooks/useBusinessOwnerData';
+import { useBusiness } from 'pages/@hooks/useBusiness';
 import { useTableCellCategoriesTags } from 'pages/@hooks/useTableCellCategoriesTags';
 import { GetAllPostsQuery } from 'types/api';
 import { getImageEndpoint } from 'utils/api';
@@ -34,7 +34,7 @@ export const Posts = ({ routeName }: PostsProps) => {
   const { getAllPosts } = useGetAllPosts();
   const { pushModal } = useModal();
 
-  const businessOwnerData = useBusinessOwnerData();
+  const businessOwnerData = useBusiness();
 
   const infinityScrolling = useInfinityScrolling({
     fetchPaginatedResources: getAllPosts,
@@ -42,7 +42,8 @@ export const Posts = ({ routeName }: PostsProps) => {
   });
 
   const filters = useFiltersVolatile<GetAllPostsQuery>({
-    onChange: (filters) => getAllPosts.fetch({ includeHidden: true, routeNames: [routeName], ...filters }),
+    onChange: (filters) =>
+      getAllPosts.fetch({ includeHidden: true, routeNames: [routeName], ...filters }),
   });
 
   useEffect(() => {
@@ -108,7 +109,8 @@ export const Posts = ({ routeName }: PostsProps) => {
                 'Detalles',
               ])}
               getRowProps={(rowData) => {
-                const { name, createdAt, currency, price, postCategoriesTags, hidden, images } = rowData;
+                const { name, createdAt, currency, price, postCategoriesTags, hidden, images } =
+                  rowData;
 
                 const mainImage = images?.[0];
 
@@ -125,7 +127,14 @@ export const Posts = ({ routeName }: PostsProps) => {
                     />,
                     name,
                     tableCellCategoriesTags.onGetTableCellNode({ postCategoriesTags }),
-                    mainImage ? <img src={getImageEndpoint(mainImage.src)}  className="object-contain w-10 h-10" /> : 'ninguna',
+                    mainImage ? (
+                      <img
+                        src={getImageEndpoint(mainImage.src)}
+                        className="object-contain w-10 h-10"
+                      />
+                    ) : (
+                      'ninguna'
+                    ),
                     getDateString({ date: createdAt, showTime: true }),
                     viewUtils.keyValueList([
                       {

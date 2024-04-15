@@ -2,7 +2,7 @@ import { useState } from 'react';
 
 import { IconButtonUpdate } from 'components/icon-button-update';
 
-import { useBusinessPageData } from 'pages/@hooks/useBusinessPageData';
+import { useBusiness } from 'pages/@hooks/useBusiness';
 import { StyleProps } from 'types/general';
 import { cn } from 'utils/general';
 
@@ -18,7 +18,7 @@ export const UpdateSomethingContainer = ({
   title,
   className,
 }: UpdateSomethingContainerProps) => {
-  const { owner } = useBusinessPageData();
+  const { owner } = useBusiness();
   const [over, setOver] = useState(false);
 
   if (!owner) {

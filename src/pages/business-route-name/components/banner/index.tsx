@@ -2,7 +2,7 @@ import { EmptyImage } from 'components/empty-image';
 import { Swiper } from 'components/swiper';
 
 import { UpdateSomethingContainer } from 'pages/@common/update-something-container';
-import { useBusinessOwnerData } from 'pages/@hooks/useBusinessOwnerData';
+import { useBusiness } from 'pages/@hooks/useBusiness';
 import { useBusinessUpdateBanner } from 'pages/@hooks/useBusinessUpdateBanner';
 import { StyleProps } from 'types/general';
 import { getImageEndpoint } from 'utils/api';
@@ -14,7 +14,7 @@ export interface BannerProps extends StyleProps {
 
 export const Banner = ({ routeName, className }: BannerProps) => {
   const businessUpdateBanner = useBusinessUpdateBanner();
-  const { business } = useBusinessOwnerData();
+  const { business } = useBusiness();
   const { bannerImages, layouts } = business || {};
 
   const bannerLayout = layouts?.banner;

@@ -248,7 +248,7 @@ export const PostForm = ({
                     const { _id: postId } = post;
 
                     addManyImages.fetch(
-                      { images, routeName, postId , userId: post.createdBy },
+                      { images, routeName, postId, userId: post.createdBy },
                       {
                         onAfterSuccess: (images) => {
                           updateOnePost.fetch(

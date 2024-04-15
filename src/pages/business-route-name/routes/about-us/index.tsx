@@ -4,7 +4,7 @@ import { HtmlTextContainer } from 'components/html-text-container';
 
 import { LayoutPage } from 'pages/@common/layout-page';
 import { UpdateSomethingContainer } from 'pages/@common/update-something-container';
-import { useBusinessOwnerData } from 'pages/@hooks/useBusinessOwnerData';
+import { useBusiness } from 'pages/@hooks/useBusiness';
 import { useBusinessUpdateAboutUs } from 'pages/@hooks/useBusinessUpdateAboutUs';
 
 export interface AboutUsProps {
@@ -12,7 +12,7 @@ export interface AboutUsProps {
 }
 
 export const AboutUs = ({ routeName }: AboutUsProps) => {
-  const { business } = useBusinessOwnerData();
+  const { business } = useBusiness();
   const { aboutUsPage } = business || {};
 
   const { description, title, visible } = aboutUsPage || {};

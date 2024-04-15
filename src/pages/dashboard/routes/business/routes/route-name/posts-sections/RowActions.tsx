@@ -6,8 +6,8 @@ import { IconButtonUpdate } from 'components/icon-button-update';
 import { useModal } from 'features/modal/useModal';
 
 import { RowActionsContainer } from 'pages/@common/row-actions-container';
+import { useBusiness } from 'pages/@hooks/useBusiness';
 import { useBusinessNewUpdateSection } from 'pages/@hooks/useBusinessNewUpdateSection';
-import { useBusinessOwnerData } from 'pages/@hooks/useBusinessOwnerData';
 import { useBusinessOwnerUpdate } from 'pages/@hooks/useBusinessOwnerUpdate';
 import { PostsLayoutSection } from 'types/business';
 
@@ -17,7 +17,7 @@ export interface RowActionsProps {
 }
 export const RowActions = ({ rowData, routeName }: RowActionsProps) => {
   const { pushModal } = useModal();
-  const { business, onFetch } = useBusinessOwnerData();
+  const { business, onFetch } = useBusiness();
 
   const handleDelete = () => {
     pushModal(

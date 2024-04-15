@@ -1,8 +1,8 @@
 import { FieldSelect, FieldSelectProps } from 'components/field-select';
 import { IconButtonAdd } from 'components/icon-button-add';
 
+import { useBusiness } from 'pages/@hooks/useBusiness';
 import { useBusinessNewUpdateSection } from 'pages/@hooks/useBusinessNewUpdateSection';
-import { useBusinessOwnerData } from 'pages/@hooks/useBusinessOwnerData';
 
 export interface FieldPostsSectionLayoutProps
   extends Omit<
@@ -17,7 +17,7 @@ export const FieldPostsSectionSelect = ({
   label,
   ...props
 }: FieldPostsSectionLayoutProps) => {
-  const { business } = useBusinessOwnerData();
+  const { business } = useBusiness();
   const sections = business?.layouts?.posts?.sections || [];
   const businessNewUpdateSection = useBusinessNewUpdateSection();
 

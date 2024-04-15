@@ -3,7 +3,7 @@ import { Route, Routes } from 'react-router-dom';
 
 import { useRouter } from 'hooks/useRouter';
 
-import { useBusinessPageData } from 'pages/@hooks/useBusinessPageData';
+import { useBusiness } from 'pages/@hooks/useBusiness';
 import { dynamic } from 'utils/makeLazy';
 
 const PostId = dynamic(() => import('./routes/postId').then((m) => ({ default: m.PostId })));
@@ -24,11 +24,11 @@ export const BusinessRouteName = () => {
   const { params } = useRouter();
   const { routeName } = params;
 
-  const { business, onRefresh, onReset } = useBusinessPageData();
+  const { business, onFetch, onReset } = useBusiness();
 
   useEffect(() => {
     if (routeName) {
-      onRefresh({ routeName });
+      onFetch({ routeName });
 
       return () => onReset();
     }

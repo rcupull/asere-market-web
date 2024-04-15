@@ -26,7 +26,7 @@ import { BusinessMarketLogo } from './business-market-logo';
 import { BusinessName } from './business-name';
 import { ShoppingCartMenu } from './shopping-cart-menu';
 
-import { useBusinessPageData } from 'pages/@hooks/useBusinessPageData';
+import { useBusiness } from 'pages/@hooks/useBusiness';
 import { StyleProps } from 'types/general';
 import { getDashboardBusinessRoute, getDashboardRoute } from 'utils/business';
 
@@ -37,7 +37,7 @@ export const Navbar = ({ className }: NavbarProps) => {
   const { user } = authData || {};
   const { isBusinessPage, params } = useRouter();
   const { routeName } = params;
-  const { business, hasSomeShoppingCartStrategy } = useBusinessPageData();
+  const { business, hasSomeShoppingCartStrategy } = useBusiness();
   const aboutUsPage = business?.aboutUsPage || {};
   const { pushModal } = useModal();
   const { pushRoute } = useRouter();
@@ -80,7 +80,7 @@ export const Navbar = ({ className }: NavbarProps) => {
             />
           )}
 
-          {isAuthenticated && hasSomeShoppingCartStrategy && <ShoppingCartMenu />}
+          {isAuthenticated && isBusinessPage && hasSomeShoppingCartStrategy && <ShoppingCartMenu />}
 
           {isUser && (
             <IconButton

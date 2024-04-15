@@ -5,8 +5,8 @@ import { Table } from 'components/table';
 import { RowActions } from './RowActions';
 
 import { TopActions } from 'pages/@common/top-actions';
+import { useBusiness } from 'pages/@hooks/useBusiness';
 import { useBusinessNewUpdateSection } from 'pages/@hooks/useBusinessNewUpdateSection';
-import { useBusinessOwnerData } from 'pages/@hooks/useBusinessOwnerData';
 import { useTableCellCategoriesTags } from 'pages/@hooks/useTableCellCategoriesTags';
 import { PostsLayoutSection } from 'types/business';
 import { getSearchLayoutLabel } from 'utils/business';
@@ -17,7 +17,7 @@ export interface PostsSectionsProps {
 }
 
 export const PostsSections = ({ routeName }: PostsSectionsProps) => {
-  const { business, onFetch } = useBusinessOwnerData();
+  const { business, onFetch } = useBusiness();
 
   const data = business?.layouts?.posts?.sections || [];
 

@@ -168,10 +168,7 @@ export const RowActions = ({ rowData, callAfarResources, routeName }: RowActions
           onClick={() => handleShowHide(!rowData.hidden)}
         />
         <IconButtonUpdate onClick={handleUpdate} />
-        <IconButtonDuplicate
-          onClick={handleDuplicate}
-          isBusy={duplicateOnePost.status.isBusy}
-        />
+        <IconButtonDuplicate onClick={handleDuplicate} isBusy={duplicateOnePost.status.isBusy} />
 
         <IconButtonView
           stopPropagation

@@ -4,7 +4,7 @@ import { useRouter } from 'hooks/useRouter';
 
 import { LayoutPage } from 'pages/@common/layout-page';
 import { UpdateSomethingContainer } from 'pages/@common/update-something-container';
-import { useBusinessOwnerData } from 'pages/@hooks/useBusinessOwnerData';
+import { useBusiness } from 'pages/@hooks/useBusiness';
 import { Banner } from 'pages/business-route-name/components/banner';
 
 interface HomeProps {
@@ -13,7 +13,7 @@ interface HomeProps {
 export const Home = ({ routeName }: HomeProps) => {
   const { pushRoute } = useRouter();
 
-  const { business } = useBusinessOwnerData();
+  const { business } = useBusiness();
 
   return (
     <UpdateSomethingContainer

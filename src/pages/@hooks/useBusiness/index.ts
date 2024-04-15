@@ -2,25 +2,27 @@ import { useGetOneBusiness } from 'features/api/business/useGetOneBusiness';
 import { useAuth } from 'features/api-slices/useAuth';
 import { useSimpleSlice } from 'features/slices/useSimpleSlice';
 
-import { FetchOptions } from 'hooks/useFetch';
-
+import { FetchStatus } from 'types/api';
 import { Business } from 'types/business';
 
 /**
- * This hooks has the bussines data in the business page
+ * Informacion relacionada con el negocio que se puede editar editando. Siempre estara debajo de un routename
  */
-export const useBusinessPageData = (): {
+export const useBusiness = (): {
   business: Business | null;
-  onRefresh: (args: { routeName: string }, options?: FetchOptions) => void;
+  status: FetchStatus;
+  /**
+   * Always fetch the new data
+   */
+  onFetch: (args: { routeName: string }) => void;
   onReset: () => void;
   owner: boolean;
   hasSomeShoppingCartStrategy: boolean;
 } => {
+  const { getOneBusiness } = useGetOneBusiness();
   const { authData } = useAuth();
 
-  const { getOneBusiness } = useGetOneBusiness();
-
-  const { data, setData, reset } = useSimpleSlice<Business | null>('useBusinessPageData');
+  const { data, setData, reset } = useSimpleSlice<Business>('useBusiness');
 
   const getHasSomeShoppingCartStrategy = () => {
     switch (data?.salesStrategy) {
@@ -34,19 +36,11 @@ export const useBusinessPageData = (): {
   return {
     owner: authData?.user._id === data?.createdBy,
     hasSomeShoppingCartStrategy: getHasSomeShoppingCartStrategy(),
-    business: data,
-    onRefresh: ({ routeName }, options) => {
-      getOneBusiness.fetch(
-        { routeName },
-        {
-          ...options,
-          onAfterSuccess: (response) => {
-            setData(response);
-            options?.onAfterSuccess?.(response);
-          },
-        },
-      );
+    onFetch: ({ routeName }) => {
+      getOneBusiness.fetch({ routeName }, { onAfterSuccess: setData });
     },
     onReset: reset,
+    status: getOneBusiness.status,
+    business: data,
   };
 };

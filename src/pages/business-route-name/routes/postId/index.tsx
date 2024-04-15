@@ -20,7 +20,7 @@ import { useRouter } from 'hooks/useRouter';
 
 import { LayoutPage } from 'pages/@common/layout-page';
 import { UpdateSomethingContainer } from 'pages/@common/update-something-container';
-import { useBusinessPageData } from 'pages/@hooks/useBusinessPageData';
+import { useBusiness } from 'pages/@hooks/useBusiness';
 import { PostsLayoutSection } from 'types/business';
 import { getImageEndpoint } from 'utils/api';
 
@@ -34,7 +34,7 @@ export const PostId = ({ routeName }: PostIdProps) => {
 
   const { getOnePost } = useGetOnePost();
   const onRefresh = () => postId && getOnePost.fetch({ id: postId });
-  const businessPageData = useBusinessPageData();
+  const businessPageData = useBusiness();
 
   useCallFromAfar(postId, onRefresh);
 

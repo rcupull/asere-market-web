@@ -10,7 +10,7 @@ import { useModal } from 'features/modal/useModal';
 
 import { useSubmitPortal } from 'hooks/useSubmitPortal';
 
-import { useBusinessOwnerData } from '../useBusinessOwnerData';
+import { useBusiness } from '../useBusiness';
 
 import { Formik } from 'formik';
 import { BusinessSalesStrategy } from 'types/business';
@@ -36,7 +36,7 @@ export const useBusinessUpdateInfo = () => {
           useProps: () => {
             const { routeName } = args;
 
-            const { business, onFetch } = useBusinessOwnerData();
+            const { business, onFetch } = useBusiness();
             const { onClose } = useModal();
 
             const submitportal = useSubmitPortal();
@@ -128,7 +128,7 @@ export const useBusinessUpdateInfo = () => {
                               linkedin,
                               youtube,
                               whatsAppPhoneNumber,
-                              salesStrategy
+                              salesStrategy,
                             } = values;
 
                             updateOneBusiness.fetch(
@@ -142,7 +142,7 @@ export const useBusinessUpdateInfo = () => {
                                     linkedin,
                                     youtube,
                                   },
-                                  salesStrategy
+                                  salesStrategy,
                                 },
                                 routeName,
                               },

@@ -14,7 +14,7 @@ import { useModal } from 'features/modal/useModal';
 import { useGetFormErrors } from 'hooks/useGetFormErrors';
 import { useSubmitPortal } from 'hooks/useSubmitPortal';
 
-import { useBusinessOwnerData } from '../useBusinessOwnerData';
+import { useBusiness } from '../useBusiness';
 import { PostsLayoutSectionPayload, useBusinessOwnerUpdate } from '../useBusinessOwnerUpdate';
 
 import { Formik } from 'formik';
@@ -33,7 +33,7 @@ export const useBusinessNewUpdateSection = () => {
         {
           useProps: () => {
             const { routeName, sectionId } = args;
-            const { business, onFetch } = useBusinessOwnerData();
+            const { business, onFetch } = useBusiness();
             const { onClose } = useModal();
 
             const submitPortal = useSubmitPortal();
@@ -145,7 +145,6 @@ export const useBusinessNewUpdateSection = () => {
 
                       {/* //////////////////////////////////////////////////////////////////////////////////////////////// */}
                       <Divider />
-
 
                       {submitPortal.getPortal(
                         <ButtonSave

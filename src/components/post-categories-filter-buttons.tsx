@@ -7,7 +7,7 @@ import { useAuth } from 'features/api-slices/useAuth';
 
 import { useDebouncer } from 'hooks/useDebouncer';
 
-import { useBusinessPageData } from 'pages/@hooks/useBusinessPageData';
+import { useBusiness } from 'pages/@hooks/useBusiness';
 import { PostCategory } from 'types/business';
 import { StyleProps } from 'types/general';
 import { addStringToUniqueArray, cn, removeStringFromArray } from 'utils/general';
@@ -34,7 +34,7 @@ export const PostCategoriesFilterButtons = ({
   const [state, setState] = useState<Array<string>>();
   const { authData } = useAuth();
 
-  const { business } = useBusinessPageData();
+  const { business } = useBusiness();
 
   const isMyBussiness = business?.createdBy === authData?.user?._id;
 

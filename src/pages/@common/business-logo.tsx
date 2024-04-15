@@ -1,13 +1,13 @@
 import { BusinessMarketLogo } from './business-market-logo';
 
-import { useBusinessPageData } from 'pages/@hooks/useBusinessPageData';
+import { useBusiness } from 'pages/@hooks/useBusiness';
 import { StyleProps } from 'types/general';
 import { getImageEndpoint } from 'utils/api';
 
 export interface BusinessLogoProps extends StyleProps {}
 
 export const BusinessLogo = ({ className }: BusinessLogoProps) => {
-  const { business } = useBusinessPageData();
+  const { business } = useBusiness();
 
   if (business) {
     const src = business?.logo?.src;

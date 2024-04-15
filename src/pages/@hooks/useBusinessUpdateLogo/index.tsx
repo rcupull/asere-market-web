@@ -10,7 +10,7 @@ import { useModal } from 'features/modal/useModal';
 
 import { useSubmitPortal } from 'hooks/useSubmitPortal';
 
-import { useBusinessOwnerData } from '../useBusinessOwnerData';
+import { useBusiness } from '../useBusiness';
 
 import { Formik } from 'formik';
 import { Image, ImageFile } from 'types/general';
@@ -30,7 +30,7 @@ export const useBusinessUpdateLogo = () => {
         {
           useProps: () => {
             const { routeName } = args;
-            const { business, onFetch } = useBusinessOwnerData();
+            const { business, onFetch } = useBusiness();
 
             const { onClose } = useModal();
 
@@ -65,13 +65,12 @@ export const useBusinessUpdateLogo = () => {
                           isBusy={updateOneBusiness.status.isBusy || addManyImages.status.isBusy}
                           disabled={!isValid || initialValues.logoField === values.logoField}
                           onClick={() => {
-                            if(!business) return 
+                            if (!business) return;
                             const { logoField } = values;
 
                             const [logo] = logoField;
 
                             if (logo) {
-
                               addManyImages.fetch(
                                 { images: [logo], routeName, userId: business.createdBy },
                                 {

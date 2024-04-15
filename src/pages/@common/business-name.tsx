@@ -1,11 +1,11 @@
-import { useBusinessPageData } from 'pages/@hooks/useBusinessPageData';
+import { useBusiness } from 'pages/@hooks/useBusiness';
 import { StyleProps } from 'types/general';
 import { cn } from 'utils/general';
 
 export interface BusinessNameProps extends StyleProps {}
 
 export const BusinessName = ({ className }: BusinessNameProps) => {
-  const { business } = useBusinessPageData();
+  const { business } = useBusiness();
 
   return (
     <div
