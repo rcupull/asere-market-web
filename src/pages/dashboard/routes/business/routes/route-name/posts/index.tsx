@@ -41,7 +41,7 @@ export const Posts = ({ routeName }: PostsProps) => {
   });
 
   const filters = useFiltersVolatile<GetAllPostsQuery>({
-    onChange: (filters) => getAllPosts.fetch({ routeNames: [routeName], ...filters }),
+    onChange: (filters) => getAllPosts.fetch({ includeHidden: true, routeNames: [routeName], ...filters }),
   });
 
   useEffect(() => {

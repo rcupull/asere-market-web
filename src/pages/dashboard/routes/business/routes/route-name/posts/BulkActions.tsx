@@ -8,8 +8,8 @@ import { FieldCheckbox } from 'components/field-checkbox';
 import { IconButtonOptionsBars } from 'components/icon-button-options-bars';
 import { Menu } from 'components/menu';
 
-import { useDeleteManyBusinessPosts } from 'features/api/bulk/useDeleteManyBusinessPosts';
-import { useUpdateManyBusinessPosts } from 'features/api/bulk/useUpdateManyBusinessPosts';
+import { useDeleteManyPosts } from 'features/api/bulk/useDeleteManyPosts';
+import { useUpdateManyPosts } from 'features/api/bulk/useUpdateManyPosts';
 import { useModal } from 'features/modal/useModal';
 
 import { GetAllPostsQuery } from 'types/api';
@@ -72,7 +72,7 @@ export const BulkActions = ({ business, children, onRefresh, filters }: BulkActi
       'Confirmation',
       {
         useProps: () => {
-          const { deleteManyBusinessPosts } = useDeleteManyBusinessPosts();
+          const { deleteManyPosts } = useDeleteManyPosts();
           const { onClose } = useModal();
           return {
             content: (
@@ -87,7 +87,7 @@ export const BulkActions = ({ business, children, onRefresh, filters }: BulkActi
             badge: <Badge variant="error" />,
             primaryBtn: (
               <ButtonRemove
-                isBusy={deleteManyBusinessPosts.status.isBusy}
+                isBusy={deleteManyPosts.status.isBusy}
                 onClick={() => {
                   const onAfterSuccess = () => {
                     onClose();
@@ -96,7 +96,7 @@ export const BulkActions = ({ business, children, onRefresh, filters }: BulkActi
                   const { postCategoriesMethod, postCategoriesTags, search } = filters;
 
                   if (selectedAll) {
-                    return deleteManyBusinessPosts.fetch(
+                    return deleteManyPosts.fetch(
                       {
                         routeName,
                         query: { postCategoriesMethod, postCategoriesTags, search },
@@ -106,7 +106,7 @@ export const BulkActions = ({ business, children, onRefresh, filters }: BulkActi
                   }
 
                   if (selectedPosts.length > 0) {
-                    return deleteManyBusinessPosts.fetch(
+                    return deleteManyPosts.fetch(
                       {
                         routeName,
                         query: { postCategoriesMethod, postCategoriesTags, search },
@@ -130,7 +130,7 @@ export const BulkActions = ({ business, children, onRefresh, filters }: BulkActi
       'Confirmation',
       {
         useProps: () => {
-          const { updateManyBusinessPosts } = useUpdateManyBusinessPosts();
+          const { updateManyPosts } = useUpdateManyPosts();
           const { onClose } = useModal();
           return {
             content: (
@@ -145,7 +145,7 @@ export const BulkActions = ({ business, children, onRefresh, filters }: BulkActi
             badge: <Badge variant="warning" />,
             primaryBtn: (
               <ButtonSave
-                isBusy={updateManyBusinessPosts.status.isBusy}
+                isBusy={updateManyPosts.status.isBusy}
                 label={hidden ? 'Ocultar' : 'Mostrar'}
                 onClick={() => {
                   const onAfterSuccess = () => {
@@ -155,7 +155,7 @@ export const BulkActions = ({ business, children, onRefresh, filters }: BulkActi
                   const { postCategoriesMethod, postCategoriesTags, search } = filters;
 
                   if (selectedAll) {
-                    return updateManyBusinessPosts.fetch(
+                    return updateManyPosts.fetch(
                       {
                         routeName,
                         update: { hidden },
@@ -170,7 +170,7 @@ export const BulkActions = ({ business, children, onRefresh, filters }: BulkActi
                   }
 
                   if (selectedPosts.length > 0) {
-                    return updateManyBusinessPosts.fetch(
+                    return updateManyPosts.fetch(
                       {
                         routeName,
                         update: { hidden },

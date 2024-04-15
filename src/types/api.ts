@@ -86,6 +86,7 @@ export type GetAllPostsQuery = {
   postCategoriesMethod?: 'every' | 'some';
   postCategoriesTags?: Array<string>;
   search?: string;
+  includeHidden?: boolean;
   //
   limit?: number;
   page?: number;
