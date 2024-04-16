@@ -17,9 +17,8 @@ export const useAuth = (): ReturnType<typeof useAuthSignIn> & {
 } => {
   const { authSignIn } = useAuthSignIn();
 
-  const { resources, setDataRedux } = useApiPersistent('useAuth', authSignIn);
+  const { data, setDataRedux , status, fetch , reset} = useApiPersistent('useAuth', authSignIn);
 
-  const { data } = resources;
   const { removeCookie, setCookie } = useCookies();
 
   const { getOneUser } = useGetOneUser();
@@ -55,9 +54,9 @@ export const useAuth = (): ReturnType<typeof useAuthSignIn> & {
     authData,
     authSignIn: {
       data: authData,
-      status: resources.status,
+      status,
       fetch: ({ email, password }, options = {}) => {
-        resources.fetch(
+        fetch(
           {
             email,
             password,
@@ -76,7 +75,7 @@ export const useAuth = (): ReturnType<typeof useAuthSignIn> & {
       reset: () => {
         removeCookie('token');
         removeCookie('user');
-        resources.reset();
+        reset();
       },
     },
   };

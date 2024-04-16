@@ -2,6 +2,7 @@ import { cookiesUtilsBackdoor } from 'features/cookies';
 import { slices } from 'features/slices';
 
 import { configureStore } from '@reduxjs/toolkit';
+import { dummyStatus } from 'constants/api';
 import { combineReducers } from 'redux';
 import { AuthData, User } from 'types/auth';
 import { AnyRecord } from 'types/general';
@@ -31,7 +32,13 @@ export const makerStore = (preloadedState: Partial<AnyRecord> = {}) => {
       token,
       user,
     };
-    store.dispatch(slices.useAuth.actions.setState(authData));
+
+    store.dispatch(
+      slices.useAuth.actions.setState({
+        data: authData,
+        status: dummyStatus,
+      }),
+    );
   }
 
   return { store };

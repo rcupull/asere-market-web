@@ -176,7 +176,7 @@ export const FieldPostCardLayout = ({
             className="w-full"
           />
 
-          <FieldPostSalesMethodSelect //TODO hide this fiels if has not business resources
+          <FieldPostSalesMethodSelect
             label="Método de venta"
             name={getFieldName('salesMethod')}
             className="w-full"

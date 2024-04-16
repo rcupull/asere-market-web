@@ -1,36 +1,50 @@
+import { useEffect } from 'react';
+
 import { useSimpleSlice } from './useSimpleSlice';
 
-import type { FetchResource } from 'types/api';
+import type { FetchData, FetchResource, FetchStatus } from 'types/api';
+
+interface ApiPersistent<Args = any, D = any> extends FetchResource<Args, D> {
+  setDataRedux: (d: D) => void;
+  resetDataRedux: () => void;
+}
 
 export const useApiPersistent = <Args = any, D = any>(
   field: string,
   resources: FetchResource<Args, D>,
-): {
-  resources: FetchResource<Args, D>;
-  setDataRedux: (d: any) => void;
-  resetDataRedux: () => void;
-} => {
-  const { data, reset, setData } = useSimpleSlice(field);
+): ApiPersistent<Args, D> => {
+  const {
+    data: reduxData,
+    reset,
+    setData,
+  } = useSimpleSlice<{ data: FetchData<D>; status: FetchStatus } | null>(field);
+
+  const status = reduxData?.status || resources.status;
+  const data = reduxData?.data || null;
+
+  const setDataRedux: ApiPersistent<Args, D>['setDataRedux'] = (d) => setData({ status, data: d });
+
+  useEffect(() => {
+    setData({ data, status: resources.status });
+  }, [JSON.stringify(resources.status)]);
 
   return {
-    resources: {
-      ...resources,
-      data,
-      fetch: (args, options = {}) => {
-        resources.fetch(args, {
-          ...options,
-          onAfterSuccess: (response) => {
-            setData(response);
-            options?.onAfterSuccess?.(response);
-          },
-        });
-      },
-      reset: () => {
-        reset();
-        resources.reset();
-      },
+    status,
+    data,
+    fetch: (args, options = {}) => {
+      resources.fetch(args, {
+        ...options,
+        onAfterSuccess: (response) => {
+          setDataRedux(response);
+          options?.onAfterSuccess?.(response);
+        },
+      });
     },
-    setDataRedux: setData,
+    reset: () => {
+      reset();
+      resources.reset();
+    },
+    setDataRedux,
     resetDataRedux: reset,
   };
 };

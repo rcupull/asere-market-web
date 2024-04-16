@@ -1,76 +1,84 @@
-import { useEffect, useState } from 'react';
-
+import { Button } from 'components/button';
 import { FieldCheckbox } from 'components/field-checkbox';
-import { FieldSelect } from 'components/field-select';
+import { FieldRadioGroup } from 'components/field-radio-group';
+import { FieldSelectProps } from 'components/field-select';
 import { FormFieldWrapperProps } from 'components/form-field-wrapper';
 
 import { FormikFieldProps, useFormikField } from 'hooks/useFormikField';
 
+import { useBusiness } from 'pages/@hooks/useBusiness';
+import { useBusinessUpdateInfo } from 'pages/@hooks/useBusinessUpdateInfo';
 import { PostLayoutSalesMethod } from 'types/business';
 import { AnyRecord } from 'types/general';
-import { isNullOrUndefined } from 'utils/general';
 
 export interface FieldPostSalesMethodSelectProps
   extends FormFieldWrapperProps,
     FormikFieldProps<AnyRecord> {}
 
-export const FieldPostSalesMethodSelect = ({
-  label,
-  ...props
-}: FieldPostSalesMethodSelectProps) => {
+export const FieldPostSalesMethodSelect = (props: FieldPostSalesMethodSelectProps) => {
+  const { label, ...omittedProps } = props;
   const { field } = useFormikField(props);
 
-  const { value } = field;
+  const businessUpdateInfo = useBusinessUpdateInfo();
 
-  const [disabled, setDisabled] = useState(false);
+  const { business, status } = useBusiness();
 
-  useEffect(() => {
-    setDisabled(isNullOrUndefined(value));
-  }, [value]);
+
+  const getItems = (): FieldSelectProps<{ value: PostLayoutSalesMethod }>['items'] => {
+    const out: Array<{ value: PostLayoutSalesMethod }> = [
+      {
+        value: 'none',
+      },
+    ];
+
+    if(business?.salesStrategy === 'whatsAppWithOwner_pickUpProduct'){
+      out.push({
+        value: 'whatsApp_xsLink_lgQR',
+      });
+    }
+
+    if(business?.salesStrategy === 'addToCart_whatsAppWithOwner_pickUpProduct'){
+      out.push({
+        value: 'salesCart',
+      });
+    }
+
+    return out
+  };
 
   return (
-    <FieldSelect<{ value: PostLayoutSalesMethod }>
+    <FieldRadioGroup<{ value: PostLayoutSalesMethod }>
       label={
-        <div className="flex items-center">
+        <div className="flex items-center justify-start flex-wrap">
           {label}
-          <FieldCheckbox
-            className="ml-4"
-            label="Usar la configuración del negocio"
-            noUseFormik
-            value={disabled}
-            onChange={(e) => {
-              const newDisabled = e.target.checked;
-              setDisabled(newDisabled);
+          <Button
+            variant="link"
+            label="Configuración del negocio"
+            onClick={(e) => {
+              e.preventDefault();
+              if (!business?.routeName) return;
 
-              field.onBlur({ target: { name: field.name } });
-
-              field.onChange({
-                target: {
-                  name: field.name,
-                  value: newDisabled ? undefined : 'none',
-                },
-              });
+              businessUpdateInfo.open({ routeName: business.routeName });
             }}
           />
         </div>
       }
-      disabled={disabled}
-      renderOption={({ value }) => value}
-      renderValue={({ value }) => value}
+      isBusy={status.isBusy}
+      renderOption={({ checked, item }) => {
+
+        const labels: Record<PostLayoutSalesMethod, string> = {
+          none: 'Ninguna',
+          whatsApp_xsLink_lgQR: 'Contactar por whatsapp para los detalles de la compra',
+          salesCart: 'Agregar al carrito',
+        }
+        return (
+          <FieldCheckbox noUseFormik value={checked} label={labels[item.value]} />
+        )
+      }}
       optionToValue={({ value }) => value}
-      items={[
-        {
-          value: 'none',
-        },
-        {
-          value: 'whatsApp_xsLink_lgQR',
-        },
-        {
-          value: 'salesCart',
-        },
-      ]}
-      {...props}
+      items={getItems()}
       {...field}
+      {...omittedProps}
     />
   );
 };
