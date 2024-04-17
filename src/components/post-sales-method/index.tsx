@@ -1,15 +1,12 @@
-import { ShoppingCartIcon } from '@heroicons/react/24/outline';
-
 import { ButtonClose } from 'components/button-close';
 import { HtmlTextContainer } from 'components/html-text-container';
-import { IconButton } from 'components/icon-button';
 import { QrCode } from 'components/qr-code';
 
-import { useAddOnePostToCart } from 'features/api/user/useAddOnePostToCart';
-import { useAuth } from 'features/api-slices/useAuth';
 import { useModal } from 'features/modal/useModal';
 
 import { queryToSearch } from 'hooks/useRouter/utils';
+
+import { ButtonPostToCart } from './ButtonPostToCart';
 
 import { PostLayoutSalesMethod } from 'types/business';
 import { StyleProps } from 'types/general';
@@ -43,8 +40,6 @@ export const PostSalesMethod = ({
   className,
 }: PostSalesMethodProps) => {
   const { pushModal } = useModal();
-  const { addOnePostToCart } = useAddOnePostToCart();
-  const { onRefreshAuthUser } = useAuth();
 
   if (layout === 'whatsApp_xsLink_lgQR') {
     if (!whatsAppPhoneNumber) {
@@ -91,25 +86,7 @@ export const PostSalesMethod = ({
   }
 
   if (layout === 'salesCart') {
-    return (
-      <IconButton
-        title="Adicionar el carrito"
-        svg={() => <ShoppingCartIcon className="size-8" />}
-        isBusy={addOnePostToCart.status.isBusy}
-        onClick={(e) => {
-          e.preventDefault();
-          addOnePostToCart.fetch(
-            { postId: post._id, routeName: post.routeName },
-            {
-              onAfterSuccess: () => {
-                onRefreshAuthUser();
-              },
-            },
-          );
-        }}
-        className={className}
-      />
-    );
+    return <ButtonPostToCart post={post} className={className} />;
   }
 
   return <></>;
