@@ -16,7 +16,7 @@ import { useModal } from 'features/modal/useModal';
 import { CallAfarResources, useCallFromAfar } from 'hooks/useCallFromAfar';
 import { useDebouncer } from 'hooks/useDebouncer';
 import { useGetFormErrors } from 'hooks/useGetFormErrors';
-import { useSubmitPortal } from 'hooks/useSubmitPortal';
+import { usePortal } from 'hooks/usePortal';
 
 import { Formik } from 'formik';
 import { FormRouteName } from 'pages/@common/form-route-name';
@@ -50,7 +50,7 @@ export const BusinessNew = ({ callAfarResources, routeName }: BusinessNewProps) 
 
   const debouncer = useDebouncer();
 
-  const submitPortal = useSubmitPortal();
+  const portal = usePortal();
 
   const getFormErrors = useGetFormErrors();
 
@@ -145,7 +145,7 @@ export const BusinessNew = ({ callAfarResources, routeName }: BusinessNewProps) 
               />
             )}
 
-            {submitPortal.getPortal(
+            {portal.getPortal(
               <Button
                 label="Guardar"
                 isBusy={addOneBusiness.status.isBusy}
@@ -207,7 +207,7 @@ export const BusinessNew = ({ callAfarResources, routeName }: BusinessNewProps) 
       title={business ? 'Editar negocio' : 'Crear negocio'}
       content={newPostForm}
       badge={<Badge variant="info" />}
-      primaryBtn={<div ref={submitPortal.ref} />}
+      primaryBtn={<div ref={portal.ref} />}
       secondaryBtn={<ButtonClose />}
     />
   );

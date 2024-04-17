@@ -13,7 +13,7 @@ import { useUpdateBusinessPostCategories } from 'features/api/business/useUpdate
 import { useModal } from 'features/modal/useModal';
 
 import { useGetFormErrors } from 'hooks/useGetFormErrors';
-import { useSubmitPortal } from 'hooks/useSubmitPortal';
+import { usePortal } from 'hooks/usePortal';
 
 import { useBusiness } from '../useBusiness';
 
@@ -40,7 +40,7 @@ export const useBusinessUpdatePostCategories = () => {
             const { updateBusinessPostCategories } = useUpdateBusinessPostCategories();
             const [state, setState] = useState<Array<PostCategory>>(initialCategories);
 
-            const submitPortal = useSubmitPortal();
+            const portal = usePortal();
 
             const { pushModal } = useModal();
 
@@ -80,7 +80,7 @@ export const useBusinessUpdatePostCategories = () => {
                             placeholder='Escriba una nueva categoría, ej. "Productos en oferta", "Recientes", etc"'
                           />
 
-                          {submitPortal.getPortal(
+                          {portal.getPortal(
                             <Button
                               label="Agregar categoría"
                               disabled={!isValid}
@@ -103,7 +103,7 @@ export const useBusinessUpdatePostCategories = () => {
                       );
                     }}
                   </Formik>
-                  <div className="ml-auto" ref={submitPortal.ref} />
+                  <div className="ml-auto" ref={portal.ref} />
                 </div>
 
                 <div className="flex flex-wrap mt-3 gap-3 border border-gray-300 rounded-md p-3 ">

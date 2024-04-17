@@ -12,7 +12,7 @@ import { FieldShowHide } from 'components/field-show-hide';
 import { useModal } from 'features/modal/useModal';
 
 import { useGetFormErrors } from 'hooks/useGetFormErrors';
-import { useSubmitPortal } from 'hooks/useSubmitPortal';
+import { usePortal } from 'hooks/usePortal';
 
 import { useBusiness } from '../useBusiness';
 import { PostsLayoutSectionPayload, useBusinessOwnerUpdate } from '../useBusinessOwnerUpdate';
@@ -36,7 +36,7 @@ export const useBusinessNewUpdateSection = () => {
             const { business, onFetch } = useBusiness();
             const { onClose } = useModal();
 
-            const submitPortal = useSubmitPortal();
+            const portal = usePortal();
 
             const onAfterSuccess = () => {
               onFetch({ routeName });
@@ -146,7 +146,7 @@ export const useBusinessNewUpdateSection = () => {
                       {/* //////////////////////////////////////////////////////////////////////////////////////////////// */}
                       <Divider />
 
-                      {submitPortal.getPortal(
+                      {portal.getPortal(
                         <ButtonSave
                           isBusy={businessOwnerUpdate.status.isBusy}
                           disabled={!isValid}
@@ -175,7 +175,7 @@ export const useBusinessNewUpdateSection = () => {
               title: 'Informaciones básicas de su negocio',
               content,
               secondaryBtn: <ButtonClose />,
-              primaryBtn: <div ref={submitPortal.ref} />,
+              primaryBtn: <div ref={portal.ref} />,
             };
           },
         },

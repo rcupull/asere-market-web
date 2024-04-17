@@ -13,7 +13,7 @@ const Component = dynamic(() =>
   })),
 );
 
-export const useAuthSignInModal = () => {
+export const useAuthValidateModal = () => {
   const { pushModal } = useModal();
 
   return {

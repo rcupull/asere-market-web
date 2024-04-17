@@ -9,7 +9,7 @@ import { useGetOnePost } from 'features/api/posts/useGetOnePost';
 import { useModal } from 'features/modal/useModal';
 
 import { CallAfarResources, useCallFromAfar } from 'hooks/useCallFromAfar';
-import { useSubmitPortal } from 'hooks/useSubmitPortal';
+import { usePortal } from 'hooks/usePortal';
 
 import { PostForm, PostFormProps } from './PostForm';
 
@@ -22,7 +22,7 @@ export interface PostNewProps {
 }
 
 export const PostNew = ({ routeName: routeNameProp, postId, callAfarResources }: PostNewProps) => {
-  const submitPortal = useSubmitPortal();
+  const portal = usePortal();
   const { onClose } = useModal();
 
   const { onCallAfar } = useCallFromAfar();
@@ -82,7 +82,7 @@ export const PostNew = ({ routeName: routeNameProp, postId, callAfarResources }:
     const commonProps: PostFormProps = {
       routeName,
       //
-      submitPortal,
+      portal,
       onAfterSuccess,
       post,
       render: [],
@@ -135,7 +135,7 @@ export const PostNew = ({ routeName: routeNameProp, postId, callAfarResources }:
       title={postId ? 'Editar publicación' : 'Nueva publicación'}
       content={getContent()}
       badge={<Badge variant="info" />}
-      primaryBtn={<div ref={submitPortal.ref} />}
+      primaryBtn={<div ref={portal.ref} />}
       secondaryBtn={<ButtonClose />}
     />
   );

@@ -12,8 +12,8 @@ import { useGetOnePaymentPlan } from 'features/api/useGetOnePaymentPlan';
 
 import { callAfarIds, useCallFromAfar } from 'hooks/useCallFromAfar';
 import { useGetFormErrors } from 'hooks/useGetFormErrors';
+import { usePortal } from 'hooks/usePortal';
 import { useRouter } from 'hooks/useRouter';
-import { useSubmitPortal } from 'hooks/useSubmitPortal';
 
 import { Step } from './Step';
 
@@ -26,7 +26,7 @@ export const PaymentPlansPurchase = () => {
 
   const type = query.type as PaymentPlanType | undefined;
   const { onCallAfar } = useCallFromAfar();
-  const submitBtnPortal = useSubmitPortal();
+  const submitBtnPortal = usePortal();
 
   const { getOnePaymentPlan } = useGetOnePaymentPlan();
   const { addOnePaymentPlanPurchase } = useAddOnePaymentPlanPurchase();

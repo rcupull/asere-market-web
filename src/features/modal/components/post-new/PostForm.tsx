@@ -17,7 +17,7 @@ import { useUpdateOnePost } from 'features/api/posts/useUpdateOnePost';
 import { useGetUserPaymentPlan } from 'features/api/useGetUserPaymentPlan';
 
 import { GetFormErrors, useGetFormErrors } from 'hooks/useGetFormErrors';
-import { SubmitPortal } from 'hooks/useSubmitPortal';
+import { Portal } from 'hooks/usePortal';
 
 import { Formik } from 'formik';
 import { OnAfterSuccess } from 'types/api';
@@ -40,7 +40,7 @@ type State = Pick<
 > & { images: Array<ImageFile | Image> };
 
 export interface PostFormProps {
-  submitPortal: SubmitPortal;
+  portal: Portal;
   //
   routeName: string;
   //
@@ -53,7 +53,7 @@ export interface PostFormProps {
 export const PostForm = ({
   routeName,
   //
-  submitPortal,
+  portal,
   onAfterSuccess,
   post,
   validations: validationsProp,
@@ -224,7 +224,7 @@ export const PostForm = ({
               </>
             )}
 
-            {submitPortal.getPortal(
+            {portal.getPortal(
               <Button
                 label="Guardar"
                 isBusy={addOnePost.status.isBusy || updateOnePost.status.isBusy}

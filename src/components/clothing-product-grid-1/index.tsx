@@ -8,7 +8,7 @@ import { ProductImagesProps } from 'components/product/images/types';
 import { ProductPriceProps } from 'components/product/price/types';
 import { ReviewProps } from 'components/review';
 
-import { useSubmitPortal } from 'hooks/useSubmitPortal';
+import { usePortal } from 'hooks/usePortal';
 
 import { Formik } from 'formik';
 import { Post, PostColor } from 'types/post';
@@ -35,7 +35,7 @@ export const ClothingProductGrid1 = ({
   onAddToCar,
   getImageUrl,
 }: ClothingProductGrid1Props) => {
-  const submitPortal = useSubmitPortal();
+  const portal = usePortal();
 
   if (!value) return <></>;
 
@@ -103,7 +103,7 @@ export const ClothingProductGrid1 = ({
                       name: 'clothingSizes',
                     })}
 
-                  {submitPortal.getPortal(
+                  {portal.getPortal(
                     <Button
                       label="Add to bag"
                       className="mt-10 w-full"
@@ -119,7 +119,7 @@ export const ClothingProductGrid1 = ({
             }}
           </Formik>
 
-          <div ref={submitPortal.ref} />
+          <div ref={portal.ref} />
         </div>
 
         <div className="py-10 lg:col-span-2 lg:col-start-1 lg:border-r lg:border-gray-200 lg:pb-16 lg:pr-8 lg:pt-6">

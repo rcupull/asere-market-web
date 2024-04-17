@@ -158,7 +158,10 @@ export const Navbar = ({ className }: NavbarProps) => {
               className="ml-3 hidden sm:block flex-shrink-0"
             />
           ) : (
-            <div className="text-gray-200 text-nowrap cursor-pointer" onClick={() => authSignInModal.open()}>
+            <div
+              className="text-gray-200 text-nowrap cursor-pointer"
+              onClick={() => authSignInModal.open()}
+            >
               Iniciar sesión
             </div>
           )}

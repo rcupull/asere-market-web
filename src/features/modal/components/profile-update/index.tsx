@@ -13,7 +13,7 @@ import { useUpdateOneUser } from 'features/api/useUpdateOneUser';
 import { useModal } from 'features/modal/useModal';
 
 import { CallAfarResources, useCallFromAfar } from 'hooks/useCallFromAfar';
-import { useSubmitPortal } from 'hooks/useSubmitPortal';
+import { usePortal } from 'hooks/usePortal';
 
 import { Formik } from 'formik';
 import { Image } from 'types/general';
@@ -41,7 +41,7 @@ export const ProfileUpdate = ({ userId, callAfarResources }: ProfileUpdateProps)
 
   const user = getOneUser.data;
 
-  const submitPortal = useSubmitPortal();
+  const portal = usePortal();
 
   const content = (
     <Formik
@@ -62,7 +62,7 @@ export const ProfileUpdate = ({ userId, callAfarResources }: ProfileUpdateProps)
               getImageSrc={getImageEndpoint}
             />
 
-            {submitPortal.getPortal(
+            {portal.getPortal(
               <Button
                 label="Guardar"
                 isBusy={addOneBusiness.status.isBusy}
@@ -116,7 +116,7 @@ export const ProfileUpdate = ({ userId, callAfarResources }: ProfileUpdateProps)
       title="Editar perfil"
       content={content}
       badge={<Badge variant="info" />}
-      primaryBtn={<div ref={submitPortal.ref} />}
+      primaryBtn={<div ref={portal.ref} />}
       secondaryBtn={<ButtonClose />}
     />
   );

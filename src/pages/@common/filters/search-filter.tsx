@@ -3,7 +3,7 @@ import { MagnifyingGlassIcon, XCircleIcon } from '@heroicons/react/24/solid';
 import { Button } from 'components/button';
 import { FieldInput } from 'components/field-input';
 
-import { useSubmitPortal } from 'hooks/useSubmitPortal';
+import { usePortal } from 'hooks/usePortal';
 
 import { Formik } from 'formik';
 import { StyleProps } from 'types/general';
@@ -23,8 +23,8 @@ export const SearchFilter = ({
   value,
   hideButtons,
 }: SearchFilterProps) => {
-  const submitBtnPortal = useSubmitPortal();
-  const clearBtnPortal = useSubmitPortal();
+  const submitBtnPortal = usePortal();
+  const clearBtnPortal = usePortal();
 
   if (hideButtons) {
     return (

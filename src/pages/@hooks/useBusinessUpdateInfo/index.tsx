@@ -9,7 +9,7 @@ import { useUpdateOneBusiness } from 'features/api/business/useUpdateOneBusiness
 import { useModal } from 'features/modal/useModal';
 
 import { FetchOptions } from 'hooks/useFetch';
-import { useSubmitPortal } from 'hooks/useSubmitPortal';
+import { usePortal } from 'hooks/usePortal';
 
 import { useBusiness } from '../useBusiness';
 
@@ -30,7 +30,7 @@ export const useBusinessUpdateInfo = () => {
   const { pushModal } = useModal();
 
   return {
-    open: (args: { routeName: string;  }, options?: FetchOptions) => {
+    open: (args: { routeName: string }, options?: FetchOptions) => {
       pushModal(
         'Emergent',
         {
@@ -40,7 +40,7 @@ export const useBusinessUpdateInfo = () => {
             const { business } = useBusiness();
             const { onClose } = useModal();
 
-            const submitportal = useSubmitPortal();
+            const portal = usePortal();
             const { updateOneBusiness } = useUpdateOneBusiness();
 
             const initialValues = useMemo<State>(
@@ -116,7 +116,7 @@ export const useBusinessUpdateInfo = () => {
                         className="w-full"
                       />
 
-                      {submitportal.getPortal(
+                      {portal.getPortal(
                         <Button
                           label="Guardar"
                           isBusy={updateOneBusiness.status.isBusy}
@@ -169,7 +169,7 @@ export const useBusinessUpdateInfo = () => {
               title: 'Informaciones básicas de su negocio',
               content,
               secondaryBtn: <ButtonClose />,
-              primaryBtn: <div ref={submitportal.ref} />,
+              primaryBtn: <div ref={portal.ref} />,
             };
           },
         },

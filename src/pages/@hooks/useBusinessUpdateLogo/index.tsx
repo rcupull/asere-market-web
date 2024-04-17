@@ -8,7 +8,7 @@ import { useUpdateOneBusiness } from 'features/api/business/useUpdateOneBusiness
 import { useAddManyImages } from 'features/api/images/useAddManyImages';
 import { useModal } from 'features/modal/useModal';
 
-import { useSubmitPortal } from 'hooks/useSubmitPortal';
+import { usePortal } from 'hooks/usePortal';
 
 import { useBusiness } from '../useBusiness';
 
@@ -36,7 +36,7 @@ export const useBusinessUpdateLogo = () => {
 
             const { logo } = business || {};
 
-            const submitportal = useSubmitPortal();
+            const portal = usePortal();
             const { updateOneBusiness } = useUpdateOneBusiness();
             const { addManyImages } = useAddManyImages();
 
@@ -59,7 +59,7 @@ export const useBusinessUpdateLogo = () => {
                         getImageSrc={getImageEndpoint}
                       />
 
-                      {submitportal.getPortal(
+                      {portal.getPortal(
                         <Button
                           label="Guardar"
                           isBusy={updateOneBusiness.status.isBusy || addManyImages.status.isBusy}
@@ -108,7 +108,7 @@ export const useBusinessUpdateLogo = () => {
               title: 'Logo',
               content,
               secondaryBtn: <ButtonClose />,
-              primaryBtn: <div ref={submitportal.ref} />,
+              primaryBtn: <div ref={portal.ref} />,
             };
           },
         },

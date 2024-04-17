@@ -10,7 +10,7 @@ import { useUpdateAdminUserPlan } from 'features/api/useUpdateAdminUserPlan';
 import { useModal } from 'features/modal/useModal';
 
 import { CallAfarResources, useCallFromAfar } from 'hooks/useCallFromAfar';
-import { useSubmitPortal } from 'hooks/useSubmitPortal';
+import { usePortal } from 'hooks/usePortal';
 
 import { Formik } from 'formik';
 import { UserPurchasedPlan } from 'types/auth';
@@ -27,7 +27,7 @@ export const UpdateUserPlan = ({ userPlan, userId, callAfarResources }: UpdateUs
   const { onCallAfar } = useCallFromAfar();
   const { onClose } = useModal();
 
-  const submitportal = useSubmitPortal();
+  const portal = usePortal();
   const { updateAdminUserPlan } = useUpdateAdminUserPlan();
 
   const initialValues = useMemo<State>(
@@ -62,7 +62,7 @@ export const UpdateUserPlan = ({ userPlan, userId, callAfarResources }: UpdateUs
               className="w-full"
             />
 
-            {submitportal.getPortal(
+            {portal.getPortal(
               <Button
                 label="Guardar"
                 isBusy={updateAdminUserPlan.status.isBusy}
@@ -101,7 +101,7 @@ export const UpdateUserPlan = ({ userPlan, userId, callAfarResources }: UpdateUs
       title="Actualizar plan"
       content={content}
       badge={<Badge variant="info" />}
-      primaryBtn={<div ref={submitportal.ref} />}
+      primaryBtn={<div ref={portal.ref} />}
       secondaryBtn={<ButtonClose />}
     />
   );

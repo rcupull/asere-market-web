@@ -27,14 +27,14 @@ export const ShoppingCartMenu = ({ className }: ShoppingCartMenuProps) => {
         <>
           <div>
             Si tienes artículos en tu bolsa de compras, los guardamos para ti.
-           <div className='inline-block mx-1'>
-           <Button
-              onClick={() => authSignInModal.open()}
-              label="INICIA SESSIÓN"
-              variant="link"
-              className='!text-md'
-            />
-           </div>
+            <div className="inline-block mx-1">
+              <Button
+                onClick={() => authSignInModal.open()}
+                label="INICIA SESSIÓN"
+                variant="link"
+                className="!text-md"
+              />
+            </div>
             ahora para verlos, o revísalos en cualquier momento.
           </div>
         </>
