@@ -14,7 +14,6 @@ import { dynamic } from 'utils/makeLazy';
 const Dashboard = dynamic(() => import('pages/dashboard').then((m) => ({ default: m.Dashboard })));
 
 const Admin = dynamic(() => import('pages/admin').then((m) => ({ default: m.Admin })));
-const Auth = dynamic(() => import('pages/auth').then((m) => ({ default: m.Auth })));
 
 const AboutUs = dynamic(() => import('pages/about-us').then((m) => ({ default: m.AboutUs })));
 const BusinessRouteName = dynamic(() =>
@@ -34,7 +33,6 @@ export const App = (): JSX.Element => {
     <Routes>
       <Route path="/" element={withPageProviders(<Home />, LayoutMain)} />
 
-      <Route path="auth/*" element={withPageProviders(<Auth />, LayoutMain)} />
       <Route path="/not-found" element={withPageProviders(<NotFound />, LayoutMain)} />
       <Route path="/about-us" element={withPageProviders(<AboutUs />, LayoutMain)} />
 

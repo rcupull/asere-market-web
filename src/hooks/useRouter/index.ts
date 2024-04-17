@@ -25,6 +25,7 @@ interface UseRouterReturn {
   isDashboardPage: boolean;
   isAdminPage: boolean;
   isHomePage: boolean;
+  isAuthenticatedPage: boolean;
   //
   onChangeQuery: (
     partialQuery: Query,
@@ -60,11 +61,15 @@ export const useRouter = (): UseRouterReturn => {
 
   const { routeName } = params;
 
+  const isDashboardPage = pathname.startsWith('/dashboard');
+
+  const isAdminPage = pathname.startsWith('/admin');
   return {
     isBusinessPage: pathname.startsWith(`/${routeName}`),
-    isDashboardPage: pathname.startsWith('/dashboard'),
-    isAdminPage: pathname.startsWith('/admin'),
+    isDashboardPage,
+    isAdminPage,
     isHomePage: pathname === '/',
+    isAuthenticatedPage: isDashboardPage || isAdminPage,
     params,
     search,
     queryToSearch,

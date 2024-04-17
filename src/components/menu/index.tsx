@@ -3,8 +3,8 @@ import { Float } from '@headlessui-float/react';
 import { Fragment } from 'react';
 import { Link } from 'react-router-dom';
 
-import { StyleProps } from 'types/general';
-import { cn } from 'utils/general';
+import { Nullable, StyleProps } from 'types/general';
+import { cn, compact } from 'utils/general';
 
 interface MenuItem {
   label: string;
@@ -14,12 +14,12 @@ interface MenuItem {
 }
 
 export interface MenuProps extends StyleProps {
-  items?: Array<MenuItem>;
+  items?: Array<Nullable<MenuItem>>;
   buttonElement: React.ReactNode;
   headerElement?: React.ReactNode;
 }
 
-export const Menu = ({ className, buttonElement, items, headerElement }: MenuProps) => {
+export const Menu = ({ className, buttonElement, items = [], headerElement }: MenuProps) => {
   return (
     <MenuBase data-id="Menu" as="div" className={cn('relative', className)}>
       <Float
@@ -46,7 +46,7 @@ export const Menu = ({ className, buttonElement, items, headerElement }: MenuPro
           <MenuBase.Items className="absolute right-0 z-10 mt-2 w-max origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
             {headerElement}
 
-            {items?.map(({ label, href, onClick, svg: Svg }, index) => (
+            {compact(items).map(({ label, href, onClick, svg: Svg }, index) => (
               <MenuBase.Item key={label}>
                 {({ active }) => {
                   const svgNode = Svg && <Svg className={cn('h-5 w-5', { ['mr-2']: label })} />;

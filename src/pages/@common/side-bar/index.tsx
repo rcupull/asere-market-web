@@ -1,20 +1,16 @@
 import {
-  ArrowRightEndOnRectangleIcon,
-  ArrowRightStartOnRectangleIcon,
   BookmarkIcon,
   Cog8ToothIcon,
   CurrencyDollarIcon,
   HomeIcon,
   UserCircleIcon,
   UserGroupIcon,
-  UserPlusIcon,
 } from '@heroicons/react/24/outline';
 
 import { IconShowHide } from 'components/icon-show-hide';
 import { ProLink } from 'components/pro-link';
 import { SideBar as SideBarBase } from 'components/side-bar';
 
-import { useAuthSignOut } from 'features/api/auth/useAuthSignOut';
 import { useGetUserPaymentPlan } from 'features/api/useGetUserPaymentPlan';
 import { useAuth } from 'features/api-slices/useAuth';
 import { useAllUserBusiness } from 'features/api-slices/useGetAllUserBusinessPersistent';
@@ -35,8 +31,6 @@ export const SideBar = ({ className }: SideBarProps) => {
   const { isAdmin, isAuthenticated, isUser } = useAuth();
 
   const isDashboardOrAdminPage = isDashboardPage || isAdmin;
-
-  const { authSignOut } = useAuthSignOut();
 
   const business = allUserBusiness.data || [];
 
@@ -119,32 +113,6 @@ export const SideBar = ({ className }: SideBarProps) => {
           isUser && {
             divider: true,
           },
-        isDashboardPage && {
-          label: 'Configuración',
-          href: '/dashboard/settings',
-          svg: Cog8ToothIcon,
-        },
-        isAuthenticated && {
-          // AUTH
-          label: 'Cerrar sesión',
-          svg: ArrowRightStartOnRectangleIcon,
-          onClick: () => authSignOut.fetch(undefined),
-          className: 'sm:hidden',
-        },
-        !isAuthenticated && {
-          // AUTH
-          label: 'Créate una cuenta',
-          svg: UserPlusIcon,
-          href: '/auth/sign-up',
-          className: 'sm:hidden',
-        },
-        !isAuthenticated && {
-          // AUTH
-          label: 'Iniciar sesión',
-          svg: ArrowRightEndOnRectangleIcon,
-          href: '/auth/sign-in',
-          className: 'sm:hidden',
-        },
       ]}
     />
   );

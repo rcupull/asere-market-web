@@ -15,9 +15,10 @@ import { Formik } from 'formik';
 export interface ComponentProps {
   portal: Portal;
   email?: string;
+  redirect?: string;
 }
 
-export const Component = ({ portal, email = '' }: ComponentProps) => {
+export const Component = ({ portal, email = '', redirect }: ComponentProps) => {
   const { authSignIn } = useAuth();
   const { pushRoute } = useRouter();
   const { onClose } = useModal();
@@ -92,6 +93,9 @@ export const Component = ({ portal, email = '' }: ComponentProps) => {
                         { email, password },
                         {
                           onAfterSuccess: () => {
+                            if (redirect) {
+                              pushRoute(redirect);
+                            }
                             onClose();
                           },
                         },

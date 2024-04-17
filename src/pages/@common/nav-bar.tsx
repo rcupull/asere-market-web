@@ -4,6 +4,7 @@ import {
   Cog8ToothIcon,
   HomeIcon,
   UserGroupIcon,
+  UserIcon,
   UserPlusIcon,
 } from '@heroicons/react/24/outline';
 
@@ -11,7 +12,6 @@ import { IconButton } from 'components/icon-button';
 import { IconUpdate } from 'components/icon-update';
 import { Menu } from 'components/menu';
 import { NavBar as NavBarBase } from 'components/nav-bar';
-import { UserAvatar } from 'components/user-avatar';
 
 import { useAuthSignOut } from 'features/api/auth/useAuthSignOut';
 import { useAuth } from 'features/api-slices/useAuth';
@@ -21,11 +21,11 @@ import { useCallFromAfar } from 'hooks/useCallFromAfar';
 import { useRouter } from 'hooks/useRouter';
 
 import { BusinessLogo } from './business-logo';
-import { BusinessMarketLogo } from './business-market-logo';
 import { BusinessName } from './business-name';
 import { ShoppingCartMenu } from './shopping-cart-menu';
 
 import { useAuthSignInModal } from 'pages/@hooks/useAuthSignInModal';
+import { useAuthSignUpModal } from 'pages/@hooks/useAuthSignUpModal';
 import { useBusiness } from 'pages/@hooks/useBusiness';
 import { StyleProps } from 'types/general';
 import { getDashboardBusinessRoute, getDashboardRoute } from 'utils/business';
@@ -35,7 +35,7 @@ export const Navbar = ({ className }: NavbarProps) => {
   const { isAdmin, isUser, isAuthenticated, authData, onRefreshAuthUser } = useAuth();
   const { authSignOut } = useAuthSignOut();
   const { user } = authData || {};
-  const { isBusinessPage, params } = useRouter();
+  const { isBusinessPage, params, isAuthenticatedPage } = useRouter();
   const { routeName } = params;
   const { business, hasSomeShoppingCartStrategy } = useBusiness();
   const aboutUsPage = business?.aboutUsPage || {};
@@ -43,6 +43,7 @@ export const Navbar = ({ className }: NavbarProps) => {
   const { pushRoute } = useRouter();
 
   const authSignInModal = useAuthSignInModal();
+  const authSignUpModal = useAuthSignUpModal();
   const callAfarResourcesRefreshUser = 'callAfarResourcesRefreshUser';
   useCallFromAfar(callAfarResourcesRefreshUser, onRefreshAuthUser);
 
@@ -80,9 +81,7 @@ export const Navbar = ({ className }: NavbarProps) => {
               onClick={() => pushRoute('/')}
             />
           )}
-
           {isBusinessPage && hasSomeShoppingCartStrategy && <ShoppingCartMenu />}
-
           {isUser && (
             <IconButton
               title="Panel de Control"
@@ -98,73 +97,63 @@ export const Navbar = ({ className }: NavbarProps) => {
               className="hidden sm:block"
             />
           )}
-
-          {!isAuthenticated && isBusinessPage && (
-            <Menu
-              buttonElement={<BusinessMarketLogo />}
-              headerElement={
-                <div className="w-64 m-2 rounded-md px-4 py-3 border flex items-center justify-center">
-                  <span className="text-center">
-                    Haz crecer tu negocio online en Cuba y usa{' '}
-                    <span className="font-bold">Asere Market</span> para enganchar a tus clientes
-                  </span>
-                </div>
-              }
-              items={[
-                { label: 'Inicio', href: '/', svg: HomeIcon },
-                {
-                  label: 'Iniciar sesión',
-                  href: '/auth/sign-in',
-                  svg: ArrowRightEndOnRectangleIcon,
+          (
+          <Menu
+            buttonElement={<IconButton svg={() => <UserIcon className="size-7" />} dark />}
+            headerElement={
+              <>
+                {user ? (
+                  <div className="px-2 py-3 flex flex-col items-center border">
+                    <span className="text-sm border px-2 py-1 rounded-2xl">{user.name}</span>
+                    <span className="text-xs mt-2">{user.email}</span>
+                  </div>
+                ) : (
+                  <div className="w-64 m-2 rounded-md px-4 py-3 border flex items-center justify-center">
+                    <span className="text-center">
+                      Haz crecer tu negocio online en Cuba y usa{' '}
+                      <span className="font-bold">Asere Market</span> para enganchar a tus clientes
+                    </span>
+                  </div>
+                )}
+              </>
+            }
+            items={[
+              { label: 'Inicio', href: '/', svg: HomeIcon },
+              user && {
+                label: 'Editar perfil',
+                onClick: () => {
+                  pushModal('ProfileUpdate', {
+                    userId: user._id,
+                    callAfarResources: callAfarResourcesRefreshUser,
+                  });
                 },
-                { label: 'Créate una cuenta', href: '/auth/sign-up', svg: UserPlusIcon },
-                { label: 'Saber más sobre nosotros', href: '/about-us', svg: UserGroupIcon },
-              ]}
-              className="flex-shrink-0"
-            />
-          )}
-
-          {user ? (
-            <Menu
-              buttonElement={<UserAvatar />}
-              headerElement={
-                <div className="px-2 py-3 flex flex-col items-center border">
-                  <span className="text-sm border px-2 py-1 rounded-2xl">{user.name}</span>
-                  <span className="text-xs mt-2">{user.email}</span>
-                </div>
-              }
-              items={[
-                {
-                  label: 'Editar perfil',
-                  onClick: () => {
-                    pushModal('ProfileUpdate', {
-                      userId: user._id,
-                      callAfarResources: callAfarResourcesRefreshUser,
-                    });
-                  },
-                  svg: IconUpdate,
+                svg: IconUpdate,
+              },
+              !isAuthenticated && {
+                label: 'Iniciar sesión',
+                onClick: () => authSignInModal.open(),
+                svg: ArrowRightEndOnRectangleIcon,
+              },
+              !isAuthenticated && {
+                label: 'Créate una cuenta',
+                onClick: () => authSignUpModal.open(),
+                svg: UserPlusIcon,
+              },
+              isAuthenticated && {
+                label: 'Cerrar sesión',
+                onClick: () => {
+                  if (isAuthenticatedPage) {
+                    pushRoute('/');
+                  }
+                  setTimeout(() => authSignOut.fetch(), 500);
                 },
-                {
-                  label: 'Cerrar sesión',
-                  onClick: () =>
-                    authSignOut.fetch(undefined, {
-                      onAfterSuccess: () => {
-                        pushRoute('/auth/sign-in');
-                      },
-                    }),
-                  svg: ArrowRightStartOnRectangleIcon,
-                },
-              ]}
-              className="ml-3 hidden sm:block flex-shrink-0"
-            />
-          ) : (
-            <div
-              className="text-gray-200 text-nowrap cursor-pointer"
-              onClick={() => authSignInModal.open()}
-            >
-              Iniciar sesión
-            </div>
-          )}
+                svg: ArrowRightStartOnRectangleIcon,
+              },
+              { label: 'Saber más sobre nosotros', href: '/about-us', svg: UserGroupIcon },
+            ]}
+            className="flex-shrink-0"
+          />
+          )
         </>
       }
     />
