@@ -11,12 +11,15 @@ export interface UserPurchasedPlan extends BaseIdentity {
   validationPurchaseCode?: string;
 }
 
+export interface UserShoppingCartAddedMeta {
+  postId: string;
+  routeName: string;
+  count: number;
+  lastUpdatedDate: Date;
+}
+
 export interface UserShoppingCart {
-  added: Array<{
-    postId: string;
-    count: number;
-    lastUpdatedDate: Date;
-  }>;
+  added: Array<UserShoppingCartAddedMeta>;
 }
 
 export interface User extends BaseIdentity {

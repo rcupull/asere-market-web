@@ -44,7 +44,7 @@ export const Menu = ({ className, buttonElement, items = [], headerElement }: Me
           leaveTo="transform opacity-0 scale-95"
         >
           <MenuBase.Items className="absolute right-0 z-10 mt-2 w-max origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-            {headerElement}
+          <MenuBase.Item key="header" as='div'>{headerElement}</MenuBase.Item>
 
             {compact(items).map(({ label, href, onClick, svg: Svg }, index) => (
               <MenuBase.Item key={label}>

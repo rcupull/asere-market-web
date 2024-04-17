@@ -24,6 +24,7 @@ export const useAuth = (): ReturnType<typeof useAuthSignIn> & {
   const { getOneUser } = useGetOneUser();
 
   const authData = data;
+  
   return {
     onRefreshAuthUser: () => {
       if (!authData) return;

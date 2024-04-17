@@ -83,6 +83,8 @@ export type FetchData<Data = unknown> = Data | null;
 
 export type GetAllPostsQuery = {
   routeNames?: Array<string>;
+  postsIds?: Array<string>;
+  //
   postCategoriesMethod?: 'every' | 'some';
   postCategoriesTags?: Array<string>;
   search?: string;

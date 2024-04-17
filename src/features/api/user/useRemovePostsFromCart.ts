@@ -5,8 +5,8 @@ import { useFetch } from 'hooks/useFetch';
 import { FetchResource } from 'types/api';
 import { getEndpoint } from 'utils/api';
 
-export const useAddOnePostToCart = (): {
-  addOnePostToCart: FetchResource<{ postId: string; routeName: string; amountToAdd?: number }>;
+export const useRemovePostsFromCart = (): {
+  removePostsFromCart: FetchResource<{ routeName?: string; postId?: string }>;
 } => {
   const fetch = useFetch();
 
@@ -15,13 +15,13 @@ export const useAddOnePostToCart = (): {
   const userId = authData?.user._id || '<unknow user>';
 
   return {
-    addOnePostToCart: {
+    removePostsFromCart: {
       data: fetch[0],
       status: fetch[1],
       fetch: (data, options = {}) => {
         fetch[2](
           {
-            method: 'post',
+            method: 'delete',
             url: getEndpoint({
               path: '/user/shoppingCart',
               urlParams: { userId },

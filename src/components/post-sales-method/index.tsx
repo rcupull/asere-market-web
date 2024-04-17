@@ -99,7 +99,7 @@ export const PostSalesMethod = ({
         onClick={(e) => {
           e.preventDefault();
           addOnePostToCart.fetch(
-            { postId: post._id },
+            { postId: post._id, routeName: post.routeName },
             {
               onAfterSuccess: () => {
                 onRefreshAuthUser();
