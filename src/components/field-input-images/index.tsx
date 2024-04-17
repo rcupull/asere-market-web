@@ -3,7 +3,7 @@ import { forwardRef, useEffect, useMemo, useState } from 'react';
 
 import { EmptyImage } from 'components/empty-image';
 import { FormFieldWrapper, FormFieldWrapperProps } from 'components/form-field-wrapper';
-import { IconButtonRemove } from 'components/icon-button-remove ';
+import { IconButtonRemove } from 'components/icon-button-remove';
 import { Input } from 'components/input';
 import { ProLink } from 'components/pro-link';
 

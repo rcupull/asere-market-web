@@ -6,7 +6,7 @@ import { ButtonClose } from 'components/button-close';
 import { ButtonRemove } from 'components/button-remove';
 import { ButtonSave } from 'components/button-save';
 import { FieldInput } from 'components/field-input';
-import { IconButtonRemove } from 'components/icon-button-remove ';
+import { IconButtonRemove } from 'components/icon-button-remove';
 import { IconButtonShowHide } from 'components/icon-button-show-hide';
 
 import { useUpdateBusinessPostCategories } from 'features/api/business/useUpdateBusinessPostCategories';

@@ -3,7 +3,7 @@ import { ButtonRemove } from 'components/button-remove';
 import { ButtonSave } from 'components/button-save';
 import { IconButtonDuplicate } from 'components/icon-button-duplicate';
 import { IconButtonOptionsBars } from 'components/icon-button-options-bars';
-import { IconButtonRemove } from 'components/icon-button-remove ';
+import { IconButtonRemove } from 'components/icon-button-remove';
 import { IconButtonShowHide } from 'components/icon-button-show-hide';
 import { IconButtonUpdate } from 'components/icon-button-update';
 import { IconButtonView } from 'components/icon-button-view';

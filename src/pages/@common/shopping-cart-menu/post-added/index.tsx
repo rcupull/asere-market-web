@@ -1,7 +1,7 @@
 import { Badge } from 'components/badge';
 import { Button } from 'components/button';
 import { EmptyImage } from 'components/empty-image';
-import { IconButtonRemove } from 'components/icon-button-remove ';
+import { IconButtonRemove } from 'components/icon-button-remove';
 
 import { useAddOnePostToCart } from 'features/api/user/useAddOnePostToCart';
 import { useRemovePostsFromCart } from 'features/api/user/useRemovePostsFromCart';

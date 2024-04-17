@@ -2,7 +2,7 @@ import { Badge } from 'components/badge';
 import { Button } from 'components/button';
 import { ButtonRemove } from 'components/button-remove';
 import { IconButtonOptionsBars } from 'components/icon-button-options-bars';
-import { IconButtonRemove } from 'components/icon-button-remove ';
+import { IconButtonRemove } from 'components/icon-button-remove';
 import { IconButtonShowHide } from 'components/icon-button-show-hide';
 import { IconButtonUpdate } from 'components/icon-button-update';
 import { IconButtonView } from 'components/icon-button-view';
