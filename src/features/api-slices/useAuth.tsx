@@ -17,7 +17,7 @@ export const useAuth = (): ReturnType<typeof useAuthSignIn> & {
 } => {
   const { authSignIn } = useAuthSignIn();
 
-  const { data, setDataRedux , status, fetch , reset} = useApiPersistent('useAuth', authSignIn);
+  const { data, setDataRedux, status, fetch, reset } = useApiPersistent('useAuth', authSignIn);
 
   const { removeCookie, setCookie } = useCookies();
 

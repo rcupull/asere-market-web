@@ -5,8 +5,8 @@ import { useFetch } from 'hooks/useFetch';
 import { FetchResource } from 'types/api';
 import { getEndpoint } from 'utils/api';
 
-export const useAddOnePostToCar = (): {
-  addOnePostToCar: FetchResource<{ postId: string }>;
+export const useAddOnePostToCart = (): {
+  addOnePostToCart: FetchResource<{ postId: string }>;
 } => {
   const fetch = useFetch();
 
@@ -15,7 +15,7 @@ export const useAddOnePostToCar = (): {
   const userId = authData?.user._id || '<unknow user>';
 
   return {
-    addOnePostToCar: {
+    addOnePostToCart: {
       data: fetch[0],
       status: fetch[1],
       fetch: (data, options = {}) => {
@@ -23,7 +23,7 @@ export const useAddOnePostToCar = (): {
           {
             method: 'post',
             url: getEndpoint({
-              path: '/user/:userId/shopping/car',
+              path: '/user/shoppingCart',
               urlParams: { userId },
             }),
             data,

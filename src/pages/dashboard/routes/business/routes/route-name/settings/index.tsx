@@ -2,6 +2,7 @@ import { Button } from 'components/button';
 
 import { SettingsLayout } from './SettingsLayout';
 
+import { useBusiness } from 'pages/@hooks/useBusiness';
 import { useBusinessUpdateAboutUs } from 'pages/@hooks/useBusinessUpdateAboutUs';
 import { useBusinessUpdateBanner } from 'pages/@hooks/useBusinessUpdateBanner';
 import { useBusinessUpdateInfo } from 'pages/@hooks/useBusinessUpdateInfo';
@@ -19,12 +20,26 @@ export const Settings = ({ routeName }: SettingsProps) => {
   const businessUpdateLogo = useBusinessUpdateLogo();
   const businessUpdatePostCategories = useBusinessUpdatePostCategories();
 
+  const { onFetch, business } = useBusiness();
+
   return (
     <>
       <SettingsLayout
         title="Informaciones básicas"
         description="Configure los link de las redes sociales de su negocio, contacto de whatsapp y demás."
-        action={<Button label="Editar" onClick={() => businessUpdateInfo.open({ routeName })} />}
+        action={
+          <Button
+            label="Editar"
+            onClick={() =>
+              businessUpdateInfo.open(
+                { routeName },
+                {
+                  onAfterSuccess: () => business && onFetch({ routeName: business?.routeName }),
+                },
+              )
+            }
+          />
+        }
       />
 
       <SettingsLayout

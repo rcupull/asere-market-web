@@ -37,7 +37,7 @@ export const useModal = (): {
 
   ///////////////////////////////////////////////////////////////////////////////////////////
   const handleCloseAllEmergent = () => reset();
-  const handleCloseLastEmergent = () => setData(emergentState.slice(0, -1));
+  const handleCloseLastEmergent = () => setData((currentState) => currentState.slice(0, -1));
   const handleCloseRouterModal = () => onBack();
 
   const hasSomeEmergent = !!emergentState.length;
@@ -53,7 +53,7 @@ export const useModal = (): {
     const { timeout, emergent } = options || {};
 
     const handleAddEmergent = () => {
-      setData([...emergentState, { id: modalId, props }]);
+      setData((state) => [...state, { id: modalId, props }]);
     };
 
     const handlePushModal = () => {

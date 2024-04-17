@@ -21,8 +21,7 @@ export const FieldPostSalesMethodSelect = (props: FieldPostSalesMethodSelectProp
 
   const businessUpdateInfo = useBusinessUpdateInfo();
 
-  const { business, status } = useBusiness();
-
+  const { business, status, onFetch } = useBusiness();
 
   const getItems = (): FieldSelectProps<{ value: PostLayoutSalesMethod }>['items'] => {
     const out: Array<{ value: PostLayoutSalesMethod }> = [
@@ -31,19 +30,19 @@ export const FieldPostSalesMethodSelect = (props: FieldPostSalesMethodSelectProp
       },
     ];
 
-    if(business?.salesStrategy === 'whatsAppWithOwner_pickUpProduct'){
+    if (business?.salesStrategy === 'whatsAppWithOwner_pickUpProduct') {
       out.push({
         value: 'whatsApp_xsLink_lgQR',
       });
     }
 
-    if(business?.salesStrategy === 'addToCart_whatsAppWithOwner_pickUpProduct'){
+    if (business?.salesStrategy === 'addToCart_whatsAppWithOwner_pickUpProduct') {
       out.push({
         value: 'salesCart',
       });
     }
 
-    return out
+    return out;
   };
 
   return (
@@ -56,24 +55,24 @@ export const FieldPostSalesMethodSelect = (props: FieldPostSalesMethodSelectProp
             label="Configuración del negocio"
             onClick={(e) => {
               e.preventDefault();
-              if (!business?.routeName) return;
+              if (!business) return;
 
-              businessUpdateInfo.open({ routeName: business.routeName });
+              businessUpdateInfo.open(
+                { routeName: business.routeName },
+                { onAfterSuccess: () => onFetch({ routeName: business.routeName }) },
+              );
             }}
           />
         </div>
       }
       isBusy={status.isBusy}
       renderOption={({ checked, item }) => {
-
         const labels: Record<PostLayoutSalesMethod, string> = {
           none: 'Ninguna',
           whatsApp_xsLink_lgQR: 'Contactar por whatsapp para los detalles de la compra',
           salesCart: 'Agregar al carrito',
-        }
-        return (
-          <FieldCheckbox noUseFormik value={checked} label={labels[item.value]} />
-        )
+        };
+        return <FieldCheckbox noUseFormik value={checked} label={labels[item.value]} />;
       }}
       optionToValue={({ value }) => value}
       items={getItems()}

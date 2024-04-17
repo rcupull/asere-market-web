@@ -11,7 +11,7 @@ export interface FieldRadioGroupProps<O, V>
 export const FieldRadioGroup = <O extends any = any, V = any>(
   props: FieldRadioGroupProps<O, V>,
 ) => {
-  const { label, className, optionToValue, renderOption, items , isBusy} = props;
+  const { label, className, optionToValue, renderOption, items, isBusy } = props;
   const { field, error } = useFormikField<V>(props);
 
   return (

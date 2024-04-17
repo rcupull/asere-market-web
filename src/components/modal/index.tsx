@@ -5,7 +5,7 @@ import { StyleProps } from 'types/general';
 import { cn } from 'utils/general';
 
 export interface ModalProps extends StyleProps {
-  title: React.ReactNode;
+  title?: React.ReactNode;
   content: React.ReactNode;
   badge?: React.ReactNode;
   primaryBtn?: React.ReactElement;

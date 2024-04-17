@@ -8,6 +8,7 @@ import { FieldSelect } from 'components/field-select';
 import { useUpdateOneBusiness } from 'features/api/business/useUpdateOneBusiness';
 import { useModal } from 'features/modal/useModal';
 
+import { FetchOptions } from 'hooks/useFetch';
 import { useSubmitPortal } from 'hooks/useSubmitPortal';
 
 import { useBusiness } from '../useBusiness';
@@ -29,14 +30,14 @@ export const useBusinessUpdateInfo = () => {
   const { pushModal } = useModal();
 
   return {
-    open: (args: { routeName: string }) => {
+    open: (args: { routeName: string;  }, options?: FetchOptions) => {
       pushModal(
         'Emergent',
         {
           useProps: () => {
             const { routeName } = args;
 
-            const { business, onFetch } = useBusiness();
+            const { business } = useBusiness();
             const { onClose } = useModal();
 
             const submitportal = useSubmitPortal();
@@ -148,7 +149,7 @@ export const useBusinessUpdateInfo = () => {
                               },
                               {
                                 onAfterSuccess: () => {
-                                  onFetch({ routeName });
+                                  options?.onAfterSuccess?.({});
                                   onClose();
                                 },
                               },

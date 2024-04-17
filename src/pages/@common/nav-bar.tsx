@@ -6,7 +6,6 @@ import {
   UserGroupIcon,
   UserPlusIcon,
 } from '@heroicons/react/24/outline';
-import { Link } from 'react-router-dom';
 
 import { IconButton } from 'components/icon-button';
 import { IconUpdate } from 'components/icon-update';
@@ -26,6 +25,7 @@ import { BusinessMarketLogo } from './business-market-logo';
 import { BusinessName } from './business-name';
 import { ShoppingCartMenu } from './shopping-cart-menu';
 
+import { useAuthSignInModal } from 'pages/@hooks/useAuthSignInModal';
 import { useBusiness } from 'pages/@hooks/useBusiness';
 import { StyleProps } from 'types/general';
 import { getDashboardBusinessRoute, getDashboardRoute } from 'utils/business';
@@ -42,6 +42,7 @@ export const Navbar = ({ className }: NavbarProps) => {
   const { pushModal } = useModal();
   const { pushRoute } = useRouter();
 
+  const authSignInModal = useAuthSignInModal();
   const callAfarResourcesRefreshUser = 'callAfarResourcesRefreshUser';
   useCallFromAfar(callAfarResourcesRefreshUser, onRefreshAuthUser);
 
@@ -80,7 +81,7 @@ export const Navbar = ({ className }: NavbarProps) => {
             />
           )}
 
-          {isAuthenticated && isBusinessPage && hasSomeShoppingCartStrategy && <ShoppingCartMenu />}
+          {isBusinessPage && hasSomeShoppingCartStrategy && <ShoppingCartMenu />}
 
           {isUser && (
             <IconButton
@@ -157,9 +158,9 @@ export const Navbar = ({ className }: NavbarProps) => {
               className="ml-3 hidden sm:block flex-shrink-0"
             />
           ) : (
-            <Link to="/auth/sign-in" className="text-gray-200 text-nowrap">
+            <div className="text-gray-200 text-nowrap cursor-pointer" onClick={() => authSignInModal.open()}>
               Iniciar sesión
-            </Link>
+            </div>
           )}
         </>
       }

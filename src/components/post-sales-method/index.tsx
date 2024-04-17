@@ -5,7 +5,8 @@ import { HtmlTextContainer } from 'components/html-text-container';
 import { IconButton } from 'components/icon-button';
 import { QrCode } from 'components/qr-code';
 
-import { useAddOnePostToCar } from 'features/api/useAddOnePostToCar';
+import { useAddOnePostToCart } from 'features/api/user/useAddOnePostToCart';
+import { useAuth } from 'features/api-slices/useAuth';
 import { useModal } from 'features/modal/useModal';
 
 import { queryToSearch } from 'hooks/useRouter/utils';
@@ -42,7 +43,8 @@ export const PostSalesMethod = ({
   className,
 }: PostSalesMethodProps) => {
   const { pushModal } = useModal();
-  const { addOnePostToCar } = useAddOnePostToCar();
+  const { addOnePostToCart } = useAddOnePostToCart();
+  const { onRefreshAuthUser } = useAuth();
 
   if (layout === 'whatsApp_xsLink_lgQR') {
     if (!whatsAppPhoneNumber) {
@@ -93,10 +95,17 @@ export const PostSalesMethod = ({
       <IconButton
         title="Adicionar el carrito"
         svg={() => <ShoppingCartIcon className="size-8" />}
-        isBusy={addOnePostToCar.status.isBusy}
+        isBusy={addOnePostToCart.status.isBusy}
         onClick={(e) => {
           e.preventDefault();
-          addOnePostToCar.fetch({ postId: post._id });
+          addOnePostToCart.fetch(
+            { postId: post._id },
+            {
+              onAfterSuccess: () => {
+                onRefreshAuthUser();
+              },
+            },
+          );
         }}
         className={className}
       />

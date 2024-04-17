@@ -1,6 +1,8 @@
 import { cookiesUtilsBackdoor } from 'features/cookies';
 import { slices } from 'features/slices';
 
+import { setupReduxBackdoor } from './setupReduxBackdoor';
+
 import { configureStore } from '@reduxjs/toolkit';
 import { dummyStatus } from 'constants/api';
 import { combineReducers } from 'redux';
@@ -40,6 +42,8 @@ export const makerStore = (preloadedState: Partial<AnyRecord> = {}) => {
       }),
     );
   }
+
+  setupReduxBackdoor(store);
 
   return { store };
 };
