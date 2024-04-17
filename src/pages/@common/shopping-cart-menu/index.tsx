@@ -1,17 +1,14 @@
 import { ShoppingCartIcon } from '@heroicons/react/24/outline';
 import { useEffect } from 'react';
 
-import { Badge } from 'components/badge';
 import { Button } from 'components/button';
 import { IconButton } from 'components/icon-button';
 import { Menu } from 'components/menu';
 
 import { useGetAllPosts } from 'features/api/posts/useGetAllPosts';
-import { useRemovePostsFromCart } from 'features/api/user/useRemovePostsFromCart';
 import { useAuth } from 'features/api-slices/useAuth';
-import { useModal } from 'features/modal/useModal';
 
-import { PostAdded } from './post-added';
+import { ShoppingCartMenuPosts } from '../shopping-cart-menu-posts';
 
 import { useAuthSignInModal } from 'pages/@hooks/useAuthSignInModal';
 import { useBusiness } from 'pages/@hooks/useBusiness';
@@ -20,9 +17,8 @@ import { StyleProps } from 'types/general';
 export interface ShoppingCartMenuProps extends StyleProps {}
 
 export const ShoppingCartMenu = ({ className }: ShoppingCartMenuProps) => {
-  const { authData, isAuthenticated, onRefreshAuthUser } = useAuth();
+  const { authData, isAuthenticated } = useAuth();
   const { business } = useBusiness();
-  const { pushModal } = useModal();
 
   const { user } = authData || {};
 
@@ -76,66 +72,19 @@ export const ShoppingCartMenu = ({ className }: ShoppingCartMenuProps) => {
       );
     }
 
+    const allPosts = getAllPosts.data;
+
     return (
-      <div className="text-center">
-        Haz crecer tu negocio online en Cuba y usa <span className="font-bold">Asere Market</span>{' '}
-        para enganchar a tus clientes
-
-        <div className='font-semibold my-2'>Productos en tu carro</div>
-        <div className="flex flex-col gap-1 mt-3">
-          {postsAdded.map((meta, index) => {
-            const post = getAllPosts.data?.[index];
-
-            if (!post) {
-              return null;
-            }
-
-            return <PostAdded key={index} meta={meta} post={post} />;
-          })}
-        </div>
-        <div className="flex justify-end mt-2">
-          <Button
-            label="Eliminar todos"
-            variant="link"
-            onClick={() => {
-              pushModal(
-                'Confirmation',
-                {
-                  useProps: () => {
-                    const { onClose } = useModal();
-                    const { removePostsFromCart } = useRemovePostsFromCart();
-
-                    return {
-                      className: '!w-96',
-                      content:
-                        '¿Seguro que desea eliminar todos los artículos de su carro de compras?',
-                      badge: <Badge variant="error" />,
-                      primaryBtn: (
-                        <Button
-                          label="Eliminar"
-                          isBusy={removePostsFromCart.status.isBusy}
-                          onClick={() => {
-                            removePostsFromCart.fetch(
-                              { routeName: business?.routeName },
-                              {
-                                onAfterSuccess: () => {
-                                  onClose();
-                                  onRefreshAuthUser();
-                                },
-                              },
-                            );
-                          }}
-                        />
-                      ),
-                    };
-                  },
-                },
-                { emergent: true },
-              );
-            }}
+      <>
+        {allPosts && (
+          <ShoppingCartMenuPosts
+            value={postsAdded.map((meta, index) => ({
+              meta,
+              post: allPosts[index],
+            }))}
           />
-        </div>
-      </div>
+        )}
+      </>
     );
   };
 
