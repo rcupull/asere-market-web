@@ -28,7 +28,9 @@ export const Settings = () => {
             label="Editar"
             onClick={() =>
               businessUpdateInfo.open({
-                onAfterSuccess: () => business && onFetch({ routeName: business?.routeName }),
+                onAfterSuccess: () => {
+                  business && onFetch({ routeName: business?.routeName })
+                },
               })
             }
           />

@@ -82,9 +82,11 @@ export const ShoppingCartMenu = ({ className }: ShoppingCartMenuProps) => {
             svg={() => <ShoppingCartIcon className="size-7" />}
             dark
           />
-          <span className="absolute text-gray-100 font-bold top-0 right-0">
-            {sales.currentSaleCount}
-          </span>
+          {isAuthenticated && (
+            <span className="absolute text-gray-100 font-bold top-0 right-0">
+              {sales.currentSaleCount}
+            </span>
+          )}
         </div>
       }
       headerElement={

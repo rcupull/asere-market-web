@@ -1,6 +1,8 @@
 import { useEffect } from 'react';
 import { Route, Routes } from 'react-router-dom';
 
+import { useAuth } from 'features/api-slices/useAuth';
+
 import { useRouter } from 'hooks/useRouter';
 
 import { useBusiness } from 'pages/@hooks/useBusiness';
@@ -23,22 +25,40 @@ const AboutUs = dynamic(() =>
 
 export const BusinessRouteName = () => {
   const { params } = useRouter();
+  const { isAuthenticated } = useAuth();
   const { routeName } = params;
 
   const business = useBusiness();
   const sales = useSales();
 
+  ////////////////////////////////////////////////////////////////////////////////////
+  
   useEffect(() => {
-    if (routeName) {
-      business.onFetch({ routeName });
-      sales.onFetch({ routeName });
+    if (!routeName) return;
 
-      return () => {
-        business.onReset();
-        sales.onReset();
-      };
-    }
+    business.onFetch({ routeName });
+
+    return () => {
+      business.onReset();
+    };
   }, [routeName]);
+
+  ////////////////////////////////////////////////////////////////////////////////////
+
+  useEffect(() => {
+    if (!routeName) return;
+
+    if (isAuthenticated) {
+      sales.onFetch({ routeName });
+    } else {
+      sales.onReset();
+    }
+
+    return () => {
+      sales.onReset();
+    };
+  }, [routeName, isAuthenticated]);
+  ////////////////////////////////////////////////////////////////////////////////////
 
   if (!routeName || !business) return <></>;
 

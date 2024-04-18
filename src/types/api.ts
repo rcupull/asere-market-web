@@ -5,7 +5,7 @@ import { AnyRecord } from './general';
 //eslint-disable-next-line
 import { ParsedQuery } from 'query-string';
 
-export type OnAfterSuccess<Data = any> = (reponse: Data) => void;
+export type OnAfterSuccess<Data = any> = (reponse: Data) => void | Promise<void>;
 export type OnAfterFailed = (error: ApiError) => void;
 export type OnRefresh = () => void;
 

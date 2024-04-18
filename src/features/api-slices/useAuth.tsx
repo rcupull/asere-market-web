@@ -5,6 +5,7 @@ import { useApiPersistent } from 'features/slices/useApiPersistent';
 
 import { FetchResource } from 'types/api';
 import { AuthData } from 'types/auth';
+import { wait } from 'utils/general';
 
 export const useAuth = (): ReturnType<typeof useAuthSignIn> & {
   authData: AuthData | null;
@@ -64,10 +65,11 @@ export const useAuth = (): ReturnType<typeof useAuthSignIn> & {
           },
           {
             ...options,
-            onAfterSuccess: (response) => {
+            onAfterSuccess: async (response) => {
               const { token, user } = response;
               setCookie('token', token);
               setCookie('user', user);
+              await wait(100);
               options?.onAfterSuccess?.(response);
             },
           },

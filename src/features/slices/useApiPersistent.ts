@@ -34,9 +34,10 @@ export const useApiPersistent = <Args = any, D = any>(
     fetch: (args, options = {}) => {
       resources.fetch(args, {
         ...options,
-        onAfterSuccess: (response) => {
+        onAfterSuccess: async (response) => {
+          await options?.onAfterSuccess?.(response);
+
           setDataRedux(response);
-          options?.onAfterSuccess?.(response);
         },
       });
     },

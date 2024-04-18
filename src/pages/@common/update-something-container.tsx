@@ -40,7 +40,7 @@ export const UpdateSomethingContainer = ({
       <div
         onMouseLeave={() => setOver(false)}
         onMouseEnter={() => setOver(true)}
-        className={cn('absolute top-0 right-0')}
+        className={cn('absolute -top-4 -right-4')}
       >
         <IconButtonUpdate
           title={title}
@@ -48,6 +48,7 @@ export const UpdateSomethingContainer = ({
             e.preventDefault();
             onClick?.();
           }}
+          className='!bg-transparent'
         />
       </div>
     </div>
