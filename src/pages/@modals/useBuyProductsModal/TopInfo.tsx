@@ -19,7 +19,7 @@ export const TopInfo = () => {
       {info ? (
         <HtmlTextContainer className="w-full" dangerouslySetInnerHTML={{ __html: info }} />
       ) : (
-        <div className='h-14 flex items-center justify-center bg-gray-300'>No hay información </div>
+        <div className="h-14 flex items-center justify-center bg-gray-300">No hay información </div>
       )}
     </UpdateSomethingContainer>
   );

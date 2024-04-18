@@ -28,7 +28,7 @@ export const usePurchaseRequestTopInfoModal = () => {
             return {
               title: 'Información sobre la compra',
               badge: <Badge variant="cart" />,
-              content: <Component portal={portal}/>,
+              content: <Component portal={portal} />,
               secondaryBtn: <ButtonClose />,
               primaryBtn: <div ref={portal.ref} />,
             };

@@ -1,13 +1,9 @@
 import { PostAdded } from './post-added';
 
-import { UserShoppingCartAddedMeta } from 'types/auth';
-import { Post } from 'types/post';
+import { Sale } from 'types/sales';
 
 export interface ShoppingCartPostsProps {
-  value: Array<{
-    post: Post;
-    meta: UserShoppingCartAddedMeta;
-  }>;
+  value: Sale;
 }
 
 export const ShoppingCartPosts = ({ value }: ShoppingCartPostsProps) => {
@@ -15,8 +11,8 @@ export const ShoppingCartPosts = ({ value }: ShoppingCartPostsProps) => {
     <div className="text-center">
       <div className="font-semibold my-2">Productos en tu carro</div>
       <div className="flex flex-col gap-1 mt-3">
-        {value.map(({ meta, post }, index) => {
-          return <PostAdded key={index} meta={meta} post={post} />;
+        {value.posts.map(({ count, post }, index) => {
+          return <PostAdded key={index} count={count} post={post} />;
         })}
       </div>
     </div>

@@ -1,21 +1,19 @@
-import { useAuth } from 'features/api-slices/useAuth';
-
 import { useFetch } from 'hooks/useFetch';
 
 import { FetchResource } from 'types/api';
+import { Post } from 'types/post';
 import { getEndpoint } from 'utils/api';
 
-export const useAddOnePostToCart = (): {
-  addOnePostToCart: FetchResource<{ postId: string; routeName: string; amountToAdd?: number }>;
+export const useUpdateAddOneSale = (): {
+  updateAddOneSale: FetchResource<
+    { routeName: string; postId: string; amountToAdd?: number },
+    Post
+  >;
 } => {
-  const fetch = useFetch();
-
-  const { authData } = useAuth();
-
-  const userId = authData?.user._id || '<unknow user>';
+  const fetch = useFetch<Post>();
 
   return {
-    addOnePostToCart: {
+    updateAddOneSale: {
       data: fetch[0],
       status: fetch[1],
       fetch: (data, options = {}) => {
@@ -23,8 +21,7 @@ export const useAddOnePostToCart = (): {
           {
             method: 'post',
             url: getEndpoint({
-              path: '/user/shoppingCart',
-              urlParams: { userId },
+              path: '/sale',
             }),
             data,
           },

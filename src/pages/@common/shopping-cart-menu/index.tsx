@@ -9,8 +9,7 @@ import { useAuth } from 'features/api-slices/useAuth';
 import { ShoppingCartPosts } from '../shopping-cart-posts';
 import { ShoppingCartRemoveAllButton } from '../shopping-cart-remove-all-button';
 
-import { useBusiness } from 'pages/@hooks/useBusiness';
-import { useBusinessShoppingCart } from 'pages/@hooks/useBusinessShoppingCart';
+import { useSales } from 'pages/@hooks/useSales';
 import { useAuthSignInModal } from 'pages/@modals/useAuthSignInModal';
 import { useBuyProductsModal } from 'pages/@modals/useBuyProductsModal';
 import { StyleProps } from 'types/general';
@@ -18,10 +17,9 @@ import { StyleProps } from 'types/general';
 export interface ShoppingCartMenuProps extends StyleProps {}
 
 export const ShoppingCartMenu = ({ className }: ShoppingCartMenuProps) => {
-  const { business } = useBusiness();
   const buyProductsModal = useBuyProductsModal();
 
-  const shoppingCart = useBusinessShoppingCart({ routeName: business?.routeName });
+  const sales = useSales();
 
   const { isAuthenticated } = useAuth();
 
@@ -43,7 +41,7 @@ export const ShoppingCartMenu = ({ className }: ShoppingCartMenuProps) => {
       );
     }
 
-    if (shoppingCart.totalCount === 0) {
+    if (!sales.currentSale) {
       return (
         <div>
           <div className="text-center font-semibold text-lg my-2">
@@ -64,7 +62,7 @@ export const ShoppingCartMenu = ({ className }: ShoppingCartMenuProps) => {
           para enganchar a tus clientes
         </span>
 
-        <ShoppingCartPosts value={shoppingCart.data} />
+        <ShoppingCartPosts value={sales.currentSale} />
 
         <div className="flex justify-between mt-2">
           <Button variant="link" label="Comprar ahora" onClick={() => buyProductsModal.open()} />
@@ -85,7 +83,7 @@ export const ShoppingCartMenu = ({ className }: ShoppingCartMenuProps) => {
             dark
           />
           <span className="absolute text-gray-100 font-bold top-0 right-0">
-            {shoppingCart.totalCount}
+            {sales.currentSaleCount}
           </span>
         </div>
       }

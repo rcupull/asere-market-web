@@ -3,11 +3,12 @@ import { useState } from 'react';
 
 import { IconButton } from 'components/icon-button';
 
-import { useAddOnePostToCart } from 'features/api/user/useAddOnePostToCart';
-import { useAuth } from 'features/api-slices/useAuth';
+import { useUpdateAddOneSale } from 'features/api/sales/useUpdateAddOneSale';
 
 import { useDebouncer } from 'hooks/useDebouncer';
 
+import { useBusiness } from 'pages/@hooks/useBusiness';
+import { useSales } from 'pages/@hooks/useSales';
 import { StyleProps } from 'types/general';
 import { Post } from 'types/post';
 
@@ -18,15 +19,16 @@ export interface ButtonPostToCartProps extends StyleProps {
 export const ButtonPostToCart = ({ post, className }: ButtonPostToCartProps) => {
   const [count, setCount] = useState<number>(0);
 
-  const { addOnePostToCart } = useAddOnePostToCart();
-  const { onRefreshAuthUser } = useAuth();
+  const { updateAddOneSale } = useUpdateAddOneSale();
+  const sales = useSales();
+  const { business } = useBusiness();
 
   const debouncer = useDebouncer();
   return (
     <IconButton
       title="Adicionar el carrito"
       svg={() => <ShoppingCartIcon className="size-8" />}
-      isBusy={addOnePostToCart.status.isBusy}
+      isBusy={updateAddOneSale.status.isBusy}
       onClick={(e) => {
         e.preventDefault();
 
@@ -35,11 +37,13 @@ export const ButtonPostToCart = ({ post, className }: ButtonPostToCartProps) => 
 
         debouncer(() => {
           setCount(0);
-          addOnePostToCart.fetch(
-            { postId: post._id, routeName: post.routeName, amountToAdd },
+          if (!business) return;
+
+          updateAddOneSale.fetch(
+            { postId: post._id, amountToAdd, routeName: business.routeName },
             {
               onAfterSuccess: () => {
-                onRefreshAuthUser();
+                sales.onFetch({ routeName: business.routeName });
               },
             },
           );

@@ -11,17 +11,6 @@ export interface UserPurchasedPlan extends BaseIdentity {
   validationPurchaseCode?: string;
 }
 
-export interface UserShoppingCartAddedMeta {
-  postId: string;
-  routeName: string;
-  count: number;
-  lastUpdatedDate: Date;
-}
-
-export interface UserShoppingCart {
-  added: Array<UserShoppingCartAddedMeta>;
-}
-
 export interface User extends BaseIdentity {
   name: string;
   email: string;
@@ -33,7 +22,6 @@ export interface User extends BaseIdentity {
   payment: {
     planHistory: Array<UserPurchasedPlan>;
   };
-  shoppingCart?: UserShoppingCart;
 }
 
 export type UserData = User | null;

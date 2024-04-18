@@ -3,26 +3,24 @@ import { Button } from 'components/button';
 import { EmptyImage } from 'components/empty-image';
 import { IconButtonRemove } from 'components/icon-button-remove';
 
-import { useAddOnePostToCart } from 'features/api/user/useAddOnePostToCart';
-import { useRemovePostsFromCart } from 'features/api/user/useRemovePostsFromCart';
-import { useAuth } from 'features/api-slices/useAuth';
+import { useRemoveSale } from 'features/api/sales/useRemoveSale';
+import { useUpdateAddOneSale } from 'features/api/sales/useUpdateAddOneSale';
 import { useModal } from 'features/modal/useModal';
 
 import { ChangeCount } from './ChangeCount';
 
-import { UserShoppingCartAddedMeta } from 'types/auth';
+import { useSales } from 'pages/@hooks/useSales';
 import { Post } from 'types/post';
 
 export interface PostAddedProps {
-  meta: UserShoppingCartAddedMeta;
+  count: number;
   post: Post;
 }
 
-export const PostAdded = ({ meta, post }: PostAddedProps) => {
-  const { onRefreshAuthUser } = useAuth();
-  const { addOnePostToCart } = useAddOnePostToCart();
+export const PostAdded = ({ count, post }: PostAddedProps) => {
+  const { updateAddOneSale } = useUpdateAddOneSale();
+  const sales = useSales();
 
-  const { count } = meta;
   const { name, images, _id, routeName } = post;
   const mainImage = images?.[0];
   const { pushModal } = useModal();
@@ -38,10 +36,12 @@ export const PostAdded = ({ meta, post }: PostAddedProps) => {
       <ChangeCount
         value={count}
         onChange={(amount) => {
-          addOnePostToCart.fetch(
+          updateAddOneSale.fetch(
             { postId: _id, routeName, amountToAdd: amount - count },
             {
-              onAfterSuccess: () => onRefreshAuthUser(),
+              onAfterSuccess: () => {
+                sales.onFetch({ routeName });
+              },
             },
           );
         }}
@@ -58,7 +58,7 @@ export const PostAdded = ({ meta, post }: PostAddedProps) => {
             {
               useProps: () => {
                 const { onClose } = useModal();
-                const { removePostsFromCart } = useRemovePostsFromCart();
+                const { removeSale } = useRemoveSale();
 
                 return {
                   content: '¿Seguro que desea quitar este producto del carro de compras?',
@@ -66,14 +66,14 @@ export const PostAdded = ({ meta, post }: PostAddedProps) => {
                   primaryBtn: (
                     <Button
                       label="Eliminar artículo"
-                      isBusy={removePostsFromCart.status.isBusy}
+                      isBusy={removeSale.status.isBusy}
                       onClick={() => {
-                        removePostsFromCart.fetch(
-                          { postId: _id },
+                        removeSale.fetch(
+                          { postId: _id, routeName },
                           {
                             onAfterSuccess: () => {
                               onClose();
-                              onRefreshAuthUser();
+                              sales.onFetch({ routeName });
                             },
                           },
                         );
