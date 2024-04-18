@@ -57,10 +57,9 @@ export const FieldPostSalesMethodSelect = (props: FieldPostSalesMethodSelectProp
               e.preventDefault();
               if (!business) return;
 
-              businessUpdateInfo.open(
-                { routeName: business.routeName },
-                { onAfterSuccess: () => onFetch({ routeName: business.routeName }) },
-              );
+              businessUpdateInfo.open({
+                onAfterSuccess: () => onFetch({ routeName: business.routeName }),
+              });
             }}
           />
         </div>

@@ -26,7 +26,7 @@ export const AboutUs = ({ routeName }: AboutUsProps) => {
   return (
     <UpdateSomethingContainer
       title="Editar la descripción de mi negocio"
-      onClick={() => businessUpdateAboutUs.open({ routeName })}
+      onClick={() => businessUpdateAboutUs.open()}
     >
       <LayoutPage title={title}>
         {description && (

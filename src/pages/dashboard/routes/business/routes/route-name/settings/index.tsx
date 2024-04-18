@@ -31,12 +31,9 @@ export const Settings = ({ routeName }: SettingsProps) => {
           <Button
             label="Editar"
             onClick={() =>
-              businessUpdateInfo.open(
-                { routeName },
-                {
-                  onAfterSuccess: () => business && onFetch({ routeName: business?.routeName }),
-                },
-              )
+              businessUpdateInfo.open({
+                onAfterSuccess: () => business && onFetch({ routeName: business?.routeName }),
+              })
             }
           />
         }
@@ -60,7 +57,7 @@ export const Settings = ({ routeName }: SettingsProps) => {
             publicitarios.
           </div>
         }
-        action={<Button label="Editar" onClick={() => businessUpdateBanner.open({ routeName })} />}
+        action={<Button label="Editar" onClick={() => businessUpdateBanner.open()} />}
       />
 
       <SettingsLayout
@@ -80,7 +77,7 @@ export const Settings = ({ routeName }: SettingsProps) => {
       <SettingsLayout
         title="Sobre mi negocio"
         description="Mediante su página de presentación usted puede indentificar su tienda para que sus clientes conozcan sobre sus ventas y demás(TODO)"
-        action={<Button label="Editar" onClick={() => businessUpdateAboutUs.open({ routeName })} />}
+        action={<Button label="Editar" onClick={() => businessUpdateAboutUs.open()} />}
       />
     </>
   );

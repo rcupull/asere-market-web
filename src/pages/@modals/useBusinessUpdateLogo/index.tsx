@@ -1,112 +1,31 @@
-import { useMemo } from 'react';
-
-import { Button } from 'components/button';
 import { ButtonClose } from 'components/button-close';
-import { FieldInputImages } from 'components/field-input-images';
 
-import { useUpdateOneBusiness } from 'features/api/business/useUpdateOneBusiness';
-import { useAddManyImages } from 'features/api/images/useAddManyImages';
 import { useModal } from 'features/modal/useModal';
 
 import { usePortal } from 'hooks/usePortal';
 
-import { useBusiness } from '../../@hooks/useBusiness';
+import { dynamic } from 'utils/makeLazy';
 
-import { Formik } from 'formik';
-import { Image, ImageFile } from 'types/general';
-import { getImageEndpoint } from 'utils/api';
-
-interface State {
-  logoField: Array<ImageFile | Image | undefined>;
-}
+//eslint-disable-next-line
+const Component = dynamic(() =>
+  import('./Component').then((m) => ({
+    default: m.Component,
+  })),
+);
 
 export const useBusinessUpdateLogo = () => {
   const { pushModal } = useModal();
 
   return {
-    open: (args: { routeName: string }) => {
+    open: () => {
       pushModal(
         'Emergent',
         {
           useProps: () => {
-            const { routeName } = args;
-            const { business, onFetch } = useBusiness();
-
-            const { onClose } = useModal();
-
-            const { logo } = business || {};
-
             const portal = usePortal();
-            const { updateOneBusiness } = useUpdateOneBusiness();
-            const { addManyImages } = useAddManyImages();
-
-            const initialValues = useMemo<State>(
-              () => ({
-                logoField: [logo],
-              }),
-              [logo],
-            );
-
-            const content = (
-              <Formik<State> initialValues={initialValues} onSubmit={() => {}} enableReinitialize>
-                {({ values, isValid }) => {
-                  return (
-                    <form>
-                      <FieldInputImages
-                        id="logoField"
-                        name="logoField"
-                        className="mt-6"
-                        getImageSrc={getImageEndpoint}
-                      />
-
-                      {portal.getPortal(
-                        <Button
-                          label="Guardar"
-                          isBusy={updateOneBusiness.status.isBusy || addManyImages.status.isBusy}
-                          disabled={!isValid || initialValues.logoField === values.logoField}
-                          onClick={() => {
-                            if (!business) return;
-                            const { logoField } = values;
-
-                            const [logo] = logoField;
-
-                            if (logo) {
-                              addManyImages.fetch(
-                                { images: [logo], routeName, userId: business.createdBy },
-                                {
-                                  onAfterSuccess: ([logo]) => {
-                                    updateOneBusiness.fetch(
-                                      {
-                                        update: {
-                                          logo,
-                                        },
-                                        routeName,
-                                      },
-                                      {
-                                        onAfterSuccess: () => {
-                                          onFetch({ routeName });
-                                          onClose();
-                                        },
-                                      },
-                                    );
-                                  },
-                                },
-                              );
-                            }
-                          }}
-                          variant="primary"
-                          className="w-full"
-                        />,
-                      )}
-                    </form>
-                  );
-                }}
-              </Formik>
-            );
-
             return {
               title: 'Logo',
-              content,
+              content: <Component portal={portal} />,
               secondaryBtn: <ButtonClose />,
               primaryBtn: <div ref={portal.ref} />,
             };
