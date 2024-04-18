@@ -142,7 +142,6 @@ export const PostForm = ({
                   label="Categorías"
                   name="postCategoriesTags"
                   className="mt-6"
-                  routeName={routeName}
                 />
                 <Divider />
               </>
@@ -218,7 +217,6 @@ export const PostForm = ({
                   label="Diseño de la página de la publicación"
                   name="postPageLayout"
                   className="w-full"
-                  routeName={routeName}
                 />
                 <Divider />
               </>

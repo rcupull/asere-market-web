@@ -14,7 +14,7 @@ export const useBusinessShoppingCart = (args?: {
     meta: UserShoppingCartAddedMeta;
   }>;
   onRefresh: () => void;
-  totalCount: number
+  totalCount: number;
 } => {
   const { routeName } = args || {};
 
@@ -25,7 +25,6 @@ export const useBusinessShoppingCart = (args?: {
   const postsAdded = user?.shoppingCart?.added?.filter((e) => e.routeName === routeName);
 
   const { getAllPosts } = useGetAllPosts();
-
 
   useEffect(() => {
     if (postsAdded?.length) {
@@ -48,9 +47,7 @@ export const useBusinessShoppingCart = (args?: {
     }));
   };
 
-
   const data = getData();
-
 
   const totalCount = data?.reduce((acc, { meta }) => {
     const { count } = meta;
@@ -58,11 +55,9 @@ export const useBusinessShoppingCart = (args?: {
     return acc + count;
   }, 0);
 
-
-
   return {
     data,
     onRefresh: onRefreshAuthUser,
-    totalCount
+    totalCount,
   };
 };

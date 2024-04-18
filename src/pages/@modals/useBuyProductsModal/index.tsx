@@ -27,8 +27,8 @@ export const useBuyProductsModal = () => {
 
             return {
               title: 'Solicitar compra',
-              badge: <Badge variant='cart' />,
-              content: <Component  />,
+              badge: <Badge variant="cart" />,
+              content: <Component />,
               secondaryBtn: <ButtonClose />,
               primaryBtn: <div ref={portal.ref} />,
               className: '!w-[30rem]',

@@ -6,8 +6,8 @@ import { RowActions } from './RowActions';
 
 import { TopActions } from 'pages/@common/top-actions';
 import { useBusiness } from 'pages/@hooks/useBusiness';
-import { useBusinessNewUpdateSection } from 'pages/@modals/useBusinessNewUpdateSection';
 import { useTableCellCategoriesTags } from 'pages/@hooks/useTableCellCategoriesTags';
+import { useBusinessNewUpdateSection } from 'pages/@modals/useBusinessNewUpdateSection';
 import { PostsLayoutSection } from 'types/business';
 import { getSearchLayoutLabel } from 'utils/business';
 import { viewUtils } from 'utils/view';
@@ -33,7 +33,7 @@ export const PostsSections = ({ routeName }: PostsSectionsProps) => {
         <ButtonNew
           label="Nuevo grupo"
           onClick={() => {
-            businessNewUpdateSection.open({ routeName });
+            businessNewUpdateSection.open();
           }}
           className="ml-auto"
         />

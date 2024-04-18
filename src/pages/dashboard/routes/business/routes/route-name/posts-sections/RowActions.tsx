@@ -7,8 +7,8 @@ import { useModal } from 'features/modal/useModal';
 
 import { RowActionsContainer } from 'pages/@common/row-actions-container';
 import { useBusiness } from 'pages/@hooks/useBusiness';
-import { useBusinessNewUpdateSection } from 'pages/@modals/useBusinessNewUpdateSection';
 import { useBusinessOwnerUpdate } from 'pages/@hooks/useBusinessOwnerUpdate';
+import { useBusinessNewUpdateSection } from 'pages/@modals/useBusinessNewUpdateSection';
 import { PostsLayoutSection } from 'types/business';
 
 export interface RowActionsProps {
@@ -64,7 +64,7 @@ export const RowActions = ({ rowData, routeName }: RowActionsProps) => {
 
   const businessNewUpdateSection = useBusinessNewUpdateSection();
   const handleUpdate = () => {
-    businessNewUpdateSection.open({ routeName, sectionId: rowData._id });
+    businessNewUpdateSection.open({ sectionId: rowData._id });
   };
 
   return (

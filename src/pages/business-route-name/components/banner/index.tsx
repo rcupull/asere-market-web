@@ -8,11 +8,9 @@ import { StyleProps } from 'types/general';
 import { getImageEndpoint } from 'utils/api';
 import { cn } from 'utils/general';
 
-export interface BannerProps extends StyleProps {
-  routeName: string;
-}
+export interface BannerProps extends StyleProps {}
 
-export const Banner = ({ routeName, className }: BannerProps) => {
+export const Banner = ({ className }: BannerProps) => {
   const businessUpdateBanner = useBusinessUpdateBanner();
   const { business } = useBusiness();
   const { bannerImages, layouts } = business || {};
@@ -24,10 +22,7 @@ export const Banner = ({ routeName, className }: BannerProps) => {
   }
 
   const renderContainer = (content: React.ReactNode) => (
-    <UpdateSomethingContainer
-      title="Editar el banner"
-      onClick={() => businessUpdateBanner.open({ routeName })}
-    >
+    <UpdateSomethingContainer title="Editar el banner" onClick={() => businessUpdateBanner.open()}>
       {content}
     </UpdateSomethingContainer>
   );

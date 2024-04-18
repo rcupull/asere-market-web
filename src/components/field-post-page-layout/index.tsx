@@ -14,14 +14,12 @@ export interface FieldPostPageLayoutProps
   extends FormFieldWrapperProps,
     FormikFieldProps<AnyRecord> {
   collapsable?: boolean;
-  routeName: string;
 }
 
 export const FieldPostPageLayout = ({
   className,
   label,
   collapsable,
-  routeName,
   ...props
 }: FieldPostPageLayoutProps) => {
   const { field, error } = useFormikField(props);
@@ -41,7 +39,6 @@ export const FieldPostPageLayout = ({
         label="Grupos de publicaciones similares"
         name={getFieldName('postsSectionsBelowIds')}
         className="mt-6"
-        routeName={routeName}
       />
     </div>
   );

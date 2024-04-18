@@ -40,11 +40,11 @@ export const Component = ({ portal }: ComponentProps) => {
     [logo],
   );
 
-  if(!routeName){
-    return <></>
+  if (!routeName) {
+    return <></>;
   }
 
-  return  (
+  return (
     <Formik<State> initialValues={initialValues} onSubmit={() => {}} enableReinitialize>
       {({ values, isValid }) => {
         return (

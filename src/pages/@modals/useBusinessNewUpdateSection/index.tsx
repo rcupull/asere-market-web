@@ -17,12 +17,12 @@ export const useBusinessNewUpdateSection = () => {
   const { pushModal } = useModal();
 
   return {
-    open: (args: { sectionId?: string }) => {
+    open: (args?: { sectionId?: string }) => {
       pushModal(
         'Emergent',
         {
           useProps: () => {
-            const { sectionId } = args;
+            const { sectionId } = args || {};
 
             const portal = usePortal();
 

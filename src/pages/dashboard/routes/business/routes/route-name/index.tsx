@@ -73,7 +73,7 @@ export const RouteName = () => {
         items={[
           {
             label: 'Configuración',
-            content: <Settings routeName={routeName} />,
+            content: <Settings />,
           },
           {
             label: 'Publicaciones',

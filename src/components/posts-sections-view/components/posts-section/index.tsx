@@ -78,7 +78,6 @@ export const PostsSection = ({
       title="Editar este grupo de publicaciones"
       onClick={() => {
         businessNewUpdateSection.open({
-          routeName,
           sectionId: _id,
         });
       }}

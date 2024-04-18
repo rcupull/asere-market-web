@@ -21,7 +21,7 @@ export const Home = ({ routeName }: HomeProps) => {
       onClick={() => pushRoute(`/dashboard/business/${routeName}`)}
     >
       <LayoutPage>
-        <Banner routeName={routeName} />
+        <Banner />
 
         <PostsSectionsView
           routeName={routeName}

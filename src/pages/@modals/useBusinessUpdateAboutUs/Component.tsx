@@ -25,11 +25,11 @@ export const Component = ({ portal }: ComponentProps) => {
 
   const { updateOneBusiness } = useUpdateOneBusiness();
 
-  if(!business){
-    return <></>
+  if (!business) {
+    return <></>;
   }
 
-  const { routeName } = business
+  const { routeName } = business;
 
   return (
     <>

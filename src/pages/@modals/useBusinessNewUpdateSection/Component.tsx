@@ -118,11 +118,7 @@ export const Component = ({ portal, sectionId }: ComponentProps) => {
 
             <Divider />
 
-            <FieldPostCategoriesButtons
-              label="Categorías"
-              name="postCategoriesTags"
-              routeName={routeName}
-            />
+            <FieldPostCategoriesButtons label="Categorías" name="postCategoriesTags" />
 
             {/* //////////////////////////////////////////////////////////////////////////////////////////////// */}
             <Divider />

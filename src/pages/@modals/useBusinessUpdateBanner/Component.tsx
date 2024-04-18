@@ -42,7 +42,7 @@ export const Component = ({ portal }: ComponentProps) => {
     [bannerImages],
   );
 
-  if(!routeName){
+  if (!routeName) {
     return <></>;
   }
 

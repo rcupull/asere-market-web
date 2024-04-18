@@ -65,7 +65,7 @@ export const ShoppingCartMenu = ({ className }: ShoppingCartMenuProps) => {
         </span>
 
         <ShoppingCartPosts value={shoppingCart.data} />
-        
+
         <div className="flex justify-between mt-2">
           <Button variant="link" label="Comprar ahora" onClick={() => buyProductsModal.open()} />
 

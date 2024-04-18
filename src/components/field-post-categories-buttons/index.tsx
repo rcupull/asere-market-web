@@ -14,12 +14,10 @@ type State = Array<string>;
 
 export interface FieldPostCategoriesButtonsProps
   extends FormFieldWrapperProps,
-    FormikFieldProps<State> {
-  routeName: string;
-}
+    FormikFieldProps<State> {}
 
 export const FieldPostCategoriesButtons = (props: FieldPostCategoriesButtonsProps) => {
-  const { className, label, routeName } = props;
+  const { className, label } = props;
   const [state, setState] = useState<State>();
 
   const { field, error } = useFormikField(props);
@@ -47,9 +45,7 @@ export const FieldPostCategoriesButtons = (props: FieldPostCategoriesButtonsProp
       onClick={(e) => {
         e.preventDefault();
         e.stopPropagation();
-        businessUpdatePostCategories.open({
-          routeName,
-        });
+        businessUpdatePostCategories.open();
       }}
     />
   );

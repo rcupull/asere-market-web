@@ -8,15 +8,9 @@ export interface FieldPostsSectionLayoutProps
   extends Omit<
     FieldSelectProps,
     'items' | 'renderOption' | 'renderValue' | 'optionToValue' | 'multi'
-  > {
-  routeName: string;
-}
+  > {}
 
-export const FieldPostsSectionSelect = ({
-  routeName,
-  label,
-  ...props
-}: FieldPostsSectionLayoutProps) => {
+export const FieldPostsSectionSelect = ({ label, ...props }: FieldPostsSectionLayoutProps) => {
   const { business } = useBusiness();
   const sections = business?.layouts?.posts?.sections || [];
   const businessNewUpdateSection = useBusinessNewUpdateSection();
@@ -32,7 +26,7 @@ export const FieldPostsSectionSelect = ({
             onClick={(e) => {
               e.preventDefault();
               e.stopPropagation();
-              businessNewUpdateSection.open({ routeName });
+              businessNewUpdateSection.open();
             }}
           />
         </div>
