@@ -23,6 +23,7 @@ export const useUpdateOneBusiness = (): {
           | 'aboutUsPage'
           | 'whatsAppPhoneNumber'
           | 'salesStrategy'
+          | 'salesMeta'
         >
       >;
     },
