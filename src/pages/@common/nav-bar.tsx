@@ -24,9 +24,9 @@ import { BusinessLogo } from './business-logo';
 import { BusinessName } from './business-name';
 import { ShoppingCartMenu } from './shopping-cart-menu';
 
-import { useAuthSignInModal } from 'pages/@hooks/useAuthSignInModal';
-import { useAuthSignUpModal } from 'pages/@hooks/useAuthSignUpModal';
 import { useBusiness } from 'pages/@hooks/useBusiness';
+import { useAuthSignInModal } from 'pages/@modals/useAuthSignInModal';
+import { useAuthSignUpModal } from 'pages/@modals/useAuthSignUpModal';
 import { StyleProps } from 'types/general';
 import { getDashboardBusinessRoute, getDashboardRoute } from 'utils/business';
 

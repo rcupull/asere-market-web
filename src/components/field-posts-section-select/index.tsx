@@ -2,7 +2,7 @@ import { FieldSelect, FieldSelectProps } from 'components/field-select';
 import { IconButtonAdd } from 'components/icon-button-add';
 
 import { useBusiness } from 'pages/@hooks/useBusiness';
-import { useBusinessNewUpdateSection } from 'pages/@hooks/useBusinessNewUpdateSection';
+import { useBusinessNewUpdateSection } from 'pages/@modals/useBusinessNewUpdateSection';
 
 export interface FieldPostsSectionLayoutProps
   extends Omit<

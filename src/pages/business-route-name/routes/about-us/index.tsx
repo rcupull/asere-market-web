@@ -5,7 +5,7 @@ import { HtmlTextContainer } from 'components/html-text-container';
 import { LayoutPage } from 'pages/@common/layout-page';
 import { UpdateSomethingContainer } from 'pages/@common/update-something-container';
 import { useBusiness } from 'pages/@hooks/useBusiness';
-import { useBusinessUpdateAboutUs } from 'pages/@hooks/useBusinessUpdateAboutUs';
+import { useBusinessUpdateAboutUs } from 'pages/@modals/useBusinessUpdateAboutUs';
 
 export interface AboutUsProps {
   routeName: string;

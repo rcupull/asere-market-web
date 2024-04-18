@@ -7,7 +7,7 @@ import { FormFieldWrapperProps } from 'components/form-field-wrapper';
 import { FormikFieldProps, useFormikField } from 'hooks/useFormikField';
 
 import { useBusiness } from 'pages/@hooks/useBusiness';
-import { useBusinessUpdateInfo } from 'pages/@hooks/useBusinessUpdateInfo';
+import { useBusinessUpdateInfo } from 'pages/@modals/useBusinessUpdateInfo';
 import { PostLayoutSalesMethod } from 'types/business';
 import { AnyRecord } from 'types/general';
 

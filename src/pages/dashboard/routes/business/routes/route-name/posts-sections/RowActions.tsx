@@ -7,7 +7,7 @@ import { useModal } from 'features/modal/useModal';
 
 import { RowActionsContainer } from 'pages/@common/row-actions-container';
 import { useBusiness } from 'pages/@hooks/useBusiness';
-import { useBusinessNewUpdateSection } from 'pages/@hooks/useBusinessNewUpdateSection';
+import { useBusinessNewUpdateSection } from 'pages/@modals/useBusinessNewUpdateSection';
 import { useBusinessOwnerUpdate } from 'pages/@hooks/useBusinessOwnerUpdate';
 import { PostsLayoutSection } from 'types/business';
 

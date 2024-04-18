@@ -9,10 +9,10 @@ import { useAuth } from 'features/api-slices/useAuth';
 import { ShoppingCartPosts } from '../shopping-cart-posts';
 import { ShoppingCartRemoveAllButton } from '../shopping-cart-remove-all-button';
 
-import { useAuthSignInModal } from 'pages/@hooks/useAuthSignInModal';
 import { useBusiness } from 'pages/@hooks/useBusiness';
 import { useBusinessShoppingCart } from 'pages/@hooks/useBusinessShoppingCart';
-import { useBuyProductsModal } from 'pages/@hooks/useBuyProductsModal';
+import { useAuthSignInModal } from 'pages/@modals/useAuthSignInModal';
+import { useBuyProductsModal } from 'pages/@modals/useBuyProductsModal';
 import { StyleProps } from 'types/general';
 
 export interface ShoppingCartMenuProps extends StyleProps {}

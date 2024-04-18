@@ -9,7 +9,7 @@ import { useModal } from 'features/modal/useModal';
 
 import { usePortal } from 'hooks/usePortal';
 
-import { useBusiness } from '../useBusiness';
+import { useBusiness } from '../../@hooks/useBusiness';
 
 import { Formik } from 'formik';
 import { BusinessAboutUsPage } from 'types/business';

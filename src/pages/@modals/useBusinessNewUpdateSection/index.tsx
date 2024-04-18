@@ -14,8 +14,8 @@ import { useModal } from 'features/modal/useModal';
 import { useGetFormErrors } from 'hooks/useGetFormErrors';
 import { usePortal } from 'hooks/usePortal';
 
-import { useBusiness } from '../useBusiness';
-import { PostsLayoutSectionPayload, useBusinessOwnerUpdate } from '../useBusinessOwnerUpdate';
+import { useBusiness } from '../../@hooks/useBusiness';
+import { PostsLayoutSectionPayload, useBusinessOwnerUpdate } from '../../@hooks/useBusinessOwnerUpdate';
 
 import { Formik } from 'formik';
 import { PostsLayoutSectionVisibility } from 'types/business';

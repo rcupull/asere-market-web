@@ -1,5 +1,5 @@
-import { useBusiness } from '../useBusiness';
-import { useBusinessShoppingCart } from '../useBusinessShoppingCart';
+import { useBusiness } from '../../@hooks/useBusiness';
+import { useBusinessShoppingCart } from '../../@hooks/useBusinessShoppingCart';
 
 import { ShoppingCartPosts } from 'pages/@common/shopping-cart-posts';
 import { ShoppingCartRemoveAllButton } from 'pages/@common/shopping-cart-remove-all-button';

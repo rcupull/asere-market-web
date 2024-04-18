@@ -6,7 +6,7 @@ import { RowActions } from './RowActions';
 
 import { TopActions } from 'pages/@common/top-actions';
 import { useBusiness } from 'pages/@hooks/useBusiness';
-import { useBusinessNewUpdateSection } from 'pages/@hooks/useBusinessNewUpdateSection';
+import { useBusinessNewUpdateSection } from 'pages/@modals/useBusinessNewUpdateSection';
 import { useTableCellCategoriesTags } from 'pages/@hooks/useTableCellCategoriesTags';
 import { PostsLayoutSection } from 'types/business';
 import { getSearchLayoutLabel } from 'utils/business';

@@ -8,7 +8,7 @@ import { FormikFieldProps, useFormikField } from 'hooks/useFormikField';
 import { PostCategoriesFilterButtons } from '../post-categories-filter-buttons';
 
 import { useBusiness } from 'pages/@hooks/useBusiness';
-import { useBusinessUpdatePostCategories } from 'pages/@hooks/useBusinessUpdatePostCategories';
+import { useBusinessUpdatePostCategories } from 'pages/@modals/useBusinessUpdatePostCategories';
 
 type State = Array<string>;
 

@@ -3,11 +3,11 @@ import { Button } from 'components/button';
 import { SettingsLayout } from './SettingsLayout';
 
 import { useBusiness } from 'pages/@hooks/useBusiness';
-import { useBusinessUpdateAboutUs } from 'pages/@hooks/useBusinessUpdateAboutUs';
-import { useBusinessUpdateBanner } from 'pages/@hooks/useBusinessUpdateBanner';
-import { useBusinessUpdateInfo } from 'pages/@hooks/useBusinessUpdateInfo';
-import { useBusinessUpdateLogo } from 'pages/@hooks/useBusinessUpdateLogo';
-import { useBusinessUpdatePostCategories } from 'pages/@hooks/useBusinessUpdatePostCategories';
+import { useBusinessUpdateAboutUs } from 'pages/@modals/useBusinessUpdateAboutUs';
+import { useBusinessUpdateBanner } from 'pages/@modals/useBusinessUpdateBanner';
+import { useBusinessUpdateInfo } from 'pages/@modals/useBusinessUpdateInfo';
+import { useBusinessUpdateLogo } from 'pages/@modals/useBusinessUpdateLogo';
+import { useBusinessUpdatePostCategories } from 'pages/@modals/useBusinessUpdatePostCategories';
 
 export interface SettingsProps {
   routeName: string;

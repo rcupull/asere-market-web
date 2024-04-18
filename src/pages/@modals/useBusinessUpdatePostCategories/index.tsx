@@ -15,7 +15,7 @@ import { useModal } from 'features/modal/useModal';
 import { useGetFormErrors } from 'hooks/useGetFormErrors';
 import { usePortal } from 'hooks/usePortal';
 
-import { useBusiness } from '../useBusiness';
+import { useBusiness } from '../../@hooks/useBusiness';
 
 import { Formik } from 'formik';
 import { PostCategory } from 'types/business';

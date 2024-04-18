@@ -10,7 +10,7 @@ import { PostsSectionSearch } from '../posts-section-search';
 
 import { UpdateSomethingContainer } from 'pages/@common/update-something-container';
 import { useBusiness } from 'pages/@hooks/useBusiness';
-import { useBusinessNewUpdateSection } from 'pages/@hooks/useBusinessNewUpdateSection';
+import { useBusinessNewUpdateSection } from 'pages/@modals/useBusinessNewUpdateSection';
 import { GetAllPostsQuery } from 'types/api';
 import { PostsLayoutSection, PostsLayoutSectionVisibility } from 'types/business';
 import { StyleProps } from 'types/general';

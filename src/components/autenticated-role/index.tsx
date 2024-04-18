@@ -5,7 +5,7 @@ import { useAuth } from 'features/api-slices/useAuth';
 
 import { useRouter } from 'hooks/useRouter';
 
-import { useAuthSignInModal } from 'pages/@hooks/useAuthSignInModal';
+import { useAuthSignInModal } from 'pages/@modals/useAuthSignInModal';
 import { UserRole } from 'types/auth';
 import { ChildrenProp } from 'types/general';
 

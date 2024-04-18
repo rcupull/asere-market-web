@@ -11,7 +11,7 @@ import { useModal } from 'features/modal/useModal';
 import { FetchOptions } from 'hooks/useFetch';
 import { usePortal } from 'hooks/usePortal';
 
-import { useBusiness } from '../useBusiness';
+import { useBusiness } from '../../@hooks/useBusiness';
 
 import { Formik } from 'formik';
 import { BusinessSalesStrategy } from 'types/business';

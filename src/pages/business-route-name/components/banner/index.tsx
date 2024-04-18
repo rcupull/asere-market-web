@@ -3,7 +3,7 @@ import { Swiper } from 'components/swiper';
 
 import { UpdateSomethingContainer } from 'pages/@common/update-something-container';
 import { useBusiness } from 'pages/@hooks/useBusiness';
-import { useBusinessUpdateBanner } from 'pages/@hooks/useBusinessUpdateBanner';
+import { useBusinessUpdateBanner } from 'pages/@modals/useBusinessUpdateBanner';
 import { StyleProps } from 'types/general';
 import { getImageEndpoint } from 'utils/api';
 import { cn } from 'utils/general';

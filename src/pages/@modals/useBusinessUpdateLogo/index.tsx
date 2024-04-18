@@ -6,22 +6,21 @@ import { FieldInputImages } from 'components/field-input-images';
 
 import { useUpdateOneBusiness } from 'features/api/business/useUpdateOneBusiness';
 import { useAddManyImages } from 'features/api/images/useAddManyImages';
-import { useGetUserPaymentPlan } from 'features/api/useGetUserPaymentPlan';
 import { useModal } from 'features/modal/useModal';
 
 import { usePortal } from 'hooks/usePortal';
 
-import { useBusiness } from '../useBusiness';
+import { useBusiness } from '../../@hooks/useBusiness';
 
 import { Formik } from 'formik';
 import { Image, ImageFile } from 'types/general';
 import { getImageEndpoint } from 'utils/api';
 
 interface State {
-  bannerImages: Array<ImageFile | Image>;
+  logoField: Array<ImageFile | Image | undefined>;
 }
 
-export const useBusinessUpdateBanner = () => {
+export const useBusinessUpdateLogo = () => {
   const { pushModal } = useModal();
 
   return {
@@ -31,13 +30,11 @@ export const useBusinessUpdateBanner = () => {
         {
           useProps: () => {
             const { routeName } = args;
-
             const { business, onFetch } = useBusiness();
 
             const { onClose } = useModal();
-            const { userPlan } = useGetUserPaymentPlan();
 
-            const { bannerImages } = business || {};
+            const { logo } = business || {};
 
             const portal = usePortal();
             const { updateOneBusiness } = useUpdateOneBusiness();
@@ -45,51 +42,43 @@ export const useBusinessUpdateBanner = () => {
 
             const initialValues = useMemo<State>(
               () => ({
-                bannerImages: bannerImages || [],
+                logoField: [logo],
               }),
-              [bannerImages],
+              [logo],
             );
 
             const content = (
-              <Formik<{
-                bannerImages: Array<ImageFile | Image>;
-              }>
-                initialValues={initialValues}
-                onSubmit={() => {}}
-                enableReinitialize
-              >
+              <Formik<State> initialValues={initialValues} onSubmit={() => {}} enableReinitialize>
                 {({ values, isValid }) => {
                   return (
                     <form>
                       <FieldInputImages
-                        id="bannerImages"
-                        name="bannerImages"
+                        id="logoField"
+                        name="logoField"
                         className="mt-6"
                         getImageSrc={getImageEndpoint}
-                        multi
-                        max={userPlan?.maxImagesByBusinessBanner}
-                        enabledImageHref
                       />
 
                       {portal.getPortal(
                         <Button
                           label="Guardar"
                           isBusy={updateOneBusiness.status.isBusy || addManyImages.status.isBusy}
-                          disabled={!isValid || initialValues.bannerImages === values.bannerImages}
+                          disabled={!isValid || initialValues.logoField === values.logoField}
                           onClick={() => {
                             if (!business) return;
+                            const { logoField } = values;
 
-                            const { bannerImages } = values;
+                            const [logo] = logoField;
 
-                            if (bannerImages.length) {
+                            if (logo) {
                               addManyImages.fetch(
-                                { images: bannerImages, routeName, userId: business.createdBy },
+                                { images: [logo], routeName, userId: business.createdBy },
                                 {
-                                  onAfterSuccess: (bannerImages) => {
+                                  onAfterSuccess: ([logo]) => {
                                     updateOneBusiness.fetch(
                                       {
                                         update: {
-                                          bannerImages,
+                                          logo,
                                         },
                                         routeName,
                                       },
@@ -116,7 +105,7 @@ export const useBusinessUpdateBanner = () => {
             );
 
             return {
-              title: 'Banner',
+              title: 'Logo',
               content,
               secondaryBtn: <ButtonClose />,
               primaryBtn: <div ref={portal.ref} />,
