@@ -2,6 +2,7 @@ import {
   CheckCircleIcon,
   ExclamationTriangleIcon,
   InformationCircleIcon,
+  ShoppingCartIcon,
 } from '@heroicons/react/24/outline';
 import { useMemo } from 'react';
 
@@ -9,7 +10,7 @@ import { cn } from 'utils/general';
 
 export interface BadgeProps {
   className?: string;
-  variant: 'error' | 'info' | 'success' | 'warning';
+  variant: 'error' | 'info' | 'success' | 'warning' | 'cart';
 }
 
 export const Badge = ({ variant, className }: BadgeProps) => {
@@ -18,6 +19,7 @@ export const Badge = ({ variant, className }: BadgeProps) => {
     if (variant === 'success') return CheckCircleIcon;
     if (variant === 'info') return InformationCircleIcon;
     if (variant === 'warning') return ExclamationTriangleIcon;
+    if (variant === 'cart') return ShoppingCartIcon;
 
     return () => null;
   }, [variant]);
@@ -31,6 +33,7 @@ export const Badge = ({ variant, className }: BadgeProps) => {
           ['bg-green-100']: variant == 'success',
           ['bg-blue-100']: variant == 'info',
           ['bg-yellow-200']: variant == 'warning',
+          ['bg-gray-200']: variant == 'cart',
         },
         className,
       )}
@@ -41,6 +44,7 @@ export const Badge = ({ variant, className }: BadgeProps) => {
           ['text-green-600']: variant == 'success',
           ['text-blue-600']: variant == 'info',
           ['text-yellow-600']: variant == 'warning',
+          ['text-gray-600']: variant == 'cart',
         })}
         aria-hidden="true"
       />

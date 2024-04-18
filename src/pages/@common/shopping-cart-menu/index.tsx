@@ -1,44 +1,29 @@
 import { ShoppingCartIcon } from '@heroicons/react/24/outline';
-import { useEffect } from 'react';
 
 import { Button } from 'components/button';
 import { IconButton } from 'components/icon-button';
 import { Menu } from 'components/menu';
 
-import { useGetAllPosts } from 'features/api/posts/useGetAllPosts';
 import { useAuth } from 'features/api-slices/useAuth';
 
-import { ShoppingCartMenuPosts } from '../shopping-cart-menu-posts';
+import { ShoppingCartPosts } from '../shopping-cart-posts';
+import { ShoppingCartRemoveAllButton } from '../shopping-cart-remove-all-button';
 
 import { useAuthSignInModal } from 'pages/@hooks/useAuthSignInModal';
 import { useBusiness } from 'pages/@hooks/useBusiness';
+import { useBusinessShoppingCart } from 'pages/@hooks/useBusinessShoppingCart';
+import { useBuyProductsModal } from 'pages/@hooks/useBuyProductsModal';
 import { StyleProps } from 'types/general';
 
 export interface ShoppingCartMenuProps extends StyleProps {}
 
 export const ShoppingCartMenu = ({ className }: ShoppingCartMenuProps) => {
-  const { authData, isAuthenticated } = useAuth();
   const { business } = useBusiness();
+  const buyProductsModal = useBuyProductsModal();
 
-  const { user } = authData || {};
+  const shoppingCart = useBusinessShoppingCart({ routeName: business?.routeName });
 
-  const postsAdded = user?.shoppingCart?.added?.filter((e) => e.routeName === business?.routeName);
-
-  //////////////////////////////////////////////
-  const { getAllPosts } = useGetAllPosts();
-
-  useEffect(() => {
-    if (postsAdded?.length) {
-      getAllPosts.fetch({ postsIds: postsAdded.map(({ postId }) => postId) });
-    }
-  }, [postsAdded?.length]);
-  //////////////////////////////////////////////
-
-  const addedInTheCartInThisBusiness = postsAdded?.reduce((acc, meta) => {
-    const { count, routeName } = meta;
-
-    return business?.routeName === routeName ? acc + count : acc;
-  }, 0);
+  const { isAuthenticated } = useAuth();
 
   const authSignInModal = useAuthSignInModal();
 
@@ -58,7 +43,7 @@ export const ShoppingCartMenu = ({ className }: ShoppingCartMenuProps) => {
       );
     }
 
-    if (!postsAdded?.length) {
+    if (shoppingCart.totalCount === 0) {
       return (
         <div>
           <div className="text-center font-semibold text-lg my-2">
@@ -72,19 +57,21 @@ export const ShoppingCartMenu = ({ className }: ShoppingCartMenuProps) => {
       );
     }
 
-    const allPosts = getAllPosts.data;
-
     return (
-      <>
-        {allPosts && (
-          <ShoppingCartMenuPosts
-            value={postsAdded.map((meta, index) => ({
-              meta,
-              post: allPosts[index],
-            }))}
-          />
-        )}
-      </>
+      <div>
+        <span>
+          Haz crecer tu negocio online en Cuba y usa <span className="font-bold">Asere Market</span>{' '}
+          para enganchar a tus clientes
+        </span>
+
+        <ShoppingCartPosts value={shoppingCart.data} />
+        
+        <div className="flex justify-between mt-2">
+          <Button variant="link" label="Comprar ahora" onClick={() => buyProductsModal.open()} />
+
+          <ShoppingCartRemoveAllButton />
+        </div>
+      </div>
     );
   };
 
@@ -98,7 +85,7 @@ export const ShoppingCartMenu = ({ className }: ShoppingCartMenuProps) => {
             dark
           />
           <span className="absolute text-gray-100 font-bold top-0 right-0">
-            {addedInTheCartInThisBusiness}
+            {shoppingCart.totalCount}
           </span>
         </div>
       }

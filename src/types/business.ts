@@ -122,4 +122,7 @@ export interface Business extends BaseIdentity {
   aboutUsPage?: BusinessAboutUsPage;
   whatsAppPhoneNumber?: string;
   salesStrategy?: BusinessSalesStrategy;
+  salesMeta?: {
+    purchaseRequestTopInfo?: string;
+  };
 }
