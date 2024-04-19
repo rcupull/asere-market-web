@@ -81,9 +81,9 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>((props, ref) =>
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            ...(variant === 'link' ? {top: '-7px'} : {})
+            ...(variant === 'link' ? { top: '-7px' } : {}),
           }}
-          {...(variant === 'link' ? {color: 'gray'} : {})}
+          {...(variant === 'link' ? { color: 'gray' } : {})}
         />
       )}
 

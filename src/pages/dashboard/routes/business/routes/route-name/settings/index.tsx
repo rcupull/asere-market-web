@@ -29,7 +29,7 @@ export const Settings = () => {
             onClick={() =>
               businessUpdateInfo.open({
                 onAfterSuccess: () => {
-                  business && onFetch({ routeName: business?.routeName })
+                  business && onFetch({ routeName: business?.routeName });
                 },
               })
             }

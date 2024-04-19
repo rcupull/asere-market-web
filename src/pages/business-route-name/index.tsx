@@ -10,6 +10,7 @@ import { useSales } from 'pages/@hooks/useSales';
 import { dynamic } from 'utils/makeLazy';
 
 const PostId = dynamic(() => import('./routes/postId').then((m) => ({ default: m.PostId })));
+const Sales = dynamic(() => import('./routes/sales').then((m) => ({ default: m.Sales })));
 
 const Home = dynamic(() =>
   import('./routes/home').then((m) => ({
@@ -32,7 +33,7 @@ export const BusinessRouteName = () => {
   const sales = useSales();
 
   ////////////////////////////////////////////////////////////////////////////////////
-  
+
   useEffect(() => {
     if (!routeName) return;
 
@@ -67,6 +68,8 @@ export const BusinessRouteName = () => {
       <Route path="/" element={<Home routeName={routeName} />} />
 
       <Route path="about-us" element={<AboutUs routeName={routeName} />} />
+
+      <Route path="sales/*" element={<Sales routeName={routeName} />} />
 
       <Route path=":postId" element={<PostId routeName={routeName} />} />
     </Routes>

@@ -24,7 +24,7 @@ export const useBuyProductsModal = () => {
             return {
               badge: <Badge variant="cart" />,
               content: <Component />,
-              customBtn: <ButtonClose className='ml-auto'/>,
+              customBtn: <ButtonClose className="ml-auto" />,
               className: '!w-[50rem]',
             };
           },

@@ -49,7 +49,7 @@ export const UpdateSomethingContainer = ({
             e.preventDefault();
             onClick?.();
           }}
-          className='!bg-transparent'
+          className="!bg-transparent"
         />
       </div>
     </div>

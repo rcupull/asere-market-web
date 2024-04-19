@@ -45,6 +45,13 @@ export const getPostRoute = (args: { routeName: string; postId: string }) => {
   return `/${args.routeName}/${args.postId}`;
 };
 
+export const getSalesRoute = (args: { routeName: string }) => {
+  return `/${args.routeName}/sales`;
+};
+export const getSaleRoute = (args: { routeName: string; saleId: string }) => {
+  return `/${args.routeName}/sales/${args.saleId}`;
+};
+
 export const getBusinessRoute = (args: { routeName: string }) => {
   return `/${args.routeName}`;
 };

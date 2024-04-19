@@ -8,7 +8,7 @@ import { useSales } from 'pages/@hooks/useSales';
 
 export interface ShoppingCartProps extends StepCommonProps {}
 
-export const ShoppingCart = ({  nextButton }: ShoppingCartProps) => {
+export const ShoppingCart = ({ nextButton }: ShoppingCartProps) => {
   const sales = useSales();
 
   if (!sales.currentSale) {
@@ -26,7 +26,7 @@ export const ShoppingCart = ({  nextButton }: ShoppingCartProps) => {
         </div>
       </div>
 
-      <ButtonNavContainer  rightButton={nextButton} />
+      <ButtonNavContainer rightButton={nextButton} />
     </>
   );
 };

@@ -6,7 +6,7 @@ import { ButtonNavContainer } from '../button-nav-container';
 
 import { useBusiness } from 'pages/@hooks/useBusiness';
 import { useSales } from 'pages/@hooks/useSales';
-import {  getWhatsAppSaleLink } from 'utils/business';
+import { getWhatsAppSaleLink } from 'utils/business';
 
 export interface WhatsAppMessageProps extends StepCommonProps {}
 

@@ -1,25 +1,28 @@
 import { cloneElement } from 'react';
 
+import { useSaleMakeOrder } from 'features/api/sales/useSaleMakeOrder';
+
 import { StepCommonProps } from '../../types';
 import { ButtonNavContainer } from '../button-nav-container';
 
-import { useBusiness } from 'pages/@hooks/useBusiness';
 import { useSales } from 'pages/@hooks/useSales';
 
 export interface PurchaseOrderProps extends StepCommonProps {}
 
 export const PurchaseOrder = ({ nextButton: nextButtonProp, backButton }: PurchaseOrderProps) => {
-  const { business } = useBusiness();
-
+  const { saleMakeOrder } = useSaleMakeOrder();
   const sales = useSales();
 
   const nextButton = cloneElement(nextButtonProp, {
     label: 'Crear orden',
-    isBusy: sales.status.isBusy,
+    isBusy: saleMakeOrder.status.isBusy,
     onClick: () => {
-      if (!business) return;
-      sales.onFetch(
-        { routeName: business.routeName },
+      if (!sales.currentSale) return;
+
+      const { _id: saleId } = sales.currentSale;
+
+      saleMakeOrder.fetch(
+        { saleId },
         {
           onAfterSuccess: () => {
             nextButtonProp.props.onClick();

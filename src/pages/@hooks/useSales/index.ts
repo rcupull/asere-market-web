@@ -18,7 +18,7 @@ export const useSales = (): {
 
   const { data, status, reset, fetch } = useApiPersistent('useSales', getSales);
 
-  const currentSale = data?.find(({ state }) => state === 'construction');
+  const currentSale = data?.find(({ state }) => state === 'CONSTRUCTION');
 
   const currentSaleCount = (currentSale?.posts || [])?.reduce((acc, { count }) => acc + count, 0);
 

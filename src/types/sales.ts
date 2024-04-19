@@ -1,7 +1,7 @@
 import { BaseIdentity } from './general';
 import { Post } from './post';
 
-export type SaleState = 'construction';
+export type SaleState = 'CONSTRUCTION' | 'REQUESTED' | 'DELIVERED' | 'CANCELED' | 'REJECTED';
 
 export interface Sale extends BaseIdentity {
   posts: Array<{

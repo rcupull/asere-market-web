@@ -1,6 +1,8 @@
 import { ShoppingCartIcon } from '@heroicons/react/24/outline';
+import { Link } from 'react-router-dom';
 
 import { Button } from 'components/button';
+import { HtmlTextContainer } from 'components/html-text-container';
 import { IconButton } from 'components/icon-button';
 import { Menu } from 'components/menu';
 
@@ -9,21 +11,29 @@ import { useAuth } from 'features/api-slices/useAuth';
 import { ShoppingCartPosts } from '../shopping-cart-posts';
 import { ShoppingCartRemoveAllButton } from '../shopping-cart-remove-all-button';
 
+import { useBusiness } from 'pages/@hooks/useBusiness';
 import { useSales } from 'pages/@hooks/useSales';
 import { useAuthSignInModal } from 'pages/@modals/useAuthSignInModal';
 import { useBuyProductsModal } from 'pages/@modals/useBuyProductsModal';
 import { StyleProps } from 'types/general';
+import {  getSalesRoute } from 'utils/business';
 
 export interface ShoppingCartMenuProps extends StyleProps {}
 
 export const ShoppingCartMenu = ({ className }: ShoppingCartMenuProps) => {
   const buyProductsModal = useBuyProductsModal();
-
+  const { business } = useBusiness();
   const sales = useSales();
 
   const { isAuthenticated } = useAuth();
 
   const authSignInModal = useAuthSignInModal();
+
+  if (!business) {
+    return <></>;
+  }
+
+  const { routeName } = business;
 
   const getHeaderElement = () => {
     if (!isAuthenticated) {
@@ -48,9 +58,10 @@ export const ShoppingCartMenu = ({ className }: ShoppingCartMenuProps) => {
             Tu bolsa de compra esta vacía
           </div>
 
-          <div className="text-center">
-            Agrega productos a tu bolsa y te facilitaremos la compra.
-          </div>
+          <HtmlTextContainer className="text-center">
+            Agrega productos a tu bolsa y te facilitaremos la compra. Tambien puedes ver tu{' '}
+            <Link to={getSalesRoute({ routeName })}>historial de compras</Link> en cualquier momento.
+          </HtmlTextContainer>
         </div>
       );
     }
@@ -71,7 +82,7 @@ export const ShoppingCartMenu = ({ className }: ShoppingCartMenuProps) => {
             variant="link"
             label="Crear orden de compra"
             onClick={() => buyProductsModal.open()}
-            className='bg-indigo-600 text-white hover:text-gray-100 !px-2 !rounded-2xl'
+            className="bg-indigo-600 text-white hover:text-gray-100 !px-2 !rounded-2xl"
           />
         </div>
       </div>
