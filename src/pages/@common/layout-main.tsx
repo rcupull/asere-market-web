@@ -2,6 +2,7 @@ import { Popover } from '@headlessui/react';
 
 import { useRouter } from 'hooks/useRouter';
 
+import { AppBreadCrumble } from '../../AppBreadCrumble';
 import { Footer } from './footer';
 import { SideBar } from './side-bar';
 
@@ -57,6 +58,8 @@ export const LayoutMain = ({ children }: LayoutMainProps): JSX.Element => {
             'sm:w-[calc(100%-16rem)]': isDashboardPage || isAdminPage,
           })}
         >
+          <AppBreadCrumble className="mt-4 ml-4" />
+
           {children}
         </div>
 

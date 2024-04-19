@@ -4,6 +4,8 @@ export const slices = {
   useGetUserPaymentPlan: createSimpleSlice('useGetUserPaymentPlan', null),
   useBusiness: createSimpleSlice('useBusiness', null),
   useShopping: createSimpleSlice('useShopping', null),
+  useShoppingIdPersistent: createSimpleSlice('useShoppingIdPersistent', null),
+  //
   modal_catalogsSearchImage: createSimpleSlice('modal_catalogsSearchImage', null),
   //
   useCallFromAfar: createSimpleSlice<Array<any>>('useCallFromAfar', []),

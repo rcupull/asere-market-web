@@ -1,8 +1,6 @@
 import { ShoppingCartIcon } from '@heroicons/react/24/outline';
-import { Link } from 'react-router-dom';
 
 import { Button } from 'components/button';
-import { HtmlTextContainer } from 'components/html-text-container';
 import { IconButton } from 'components/icon-button';
 import { Menu } from 'components/menu';
 
@@ -61,11 +59,9 @@ export const ShoppingCartMenu = ({ className }: ShoppingCartMenuProps) => {
             Tu bolsa de compra esta vacía
           </div>
 
-          <HtmlTextContainer className="text-center">
-            Agrega productos a tu bolsa y te facilitaremos la compra. Tambien puedes ver tu{' '}
-            <Link to={getShoppingRoute({ routeName })}>historial de compras</Link> en cualquier
-            momento.
-          </HtmlTextContainer>
+          <div className="text-center">
+            Agrega productos a tu bolsa y te facilitaremos la compra.
+          </div>
         </div>
       );
     }
@@ -115,7 +111,7 @@ export const ShoppingCartMenu = ({ className }: ShoppingCartMenuProps) => {
             <Button
               variant="link"
               className="!mb-2"
-              label="Ver historial de compras"
+              label="Ver historial de compras en esta tienda"
               onClick={() => {
                 pushRoute(getShoppingRoute({ routeName }));
               }}

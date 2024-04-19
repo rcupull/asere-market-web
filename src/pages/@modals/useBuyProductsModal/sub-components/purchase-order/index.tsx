@@ -16,7 +16,7 @@ export const PurchaseOrder = ({ nextButton: nextButtonProp, backButton }: Purcha
   const shopping = useShopping();
   const { business } = useBusiness();
 
-  if (!shopping.lastShopping) {
+  if (!shopping.constructionShopping) {
     return <></>;
   }
 
@@ -24,9 +24,9 @@ export const PurchaseOrder = ({ nextButton: nextButtonProp, backButton }: Purcha
     label: 'Crear orden',
     isBusy: shoppingMakeOrder.status.isBusy,
     onClick: () => {
-      if (!shopping.lastShopping || !business) return;
+      if (!shopping.constructionShopping || !business) return;
 
-      const { _id: shoppingId } = shopping.lastShopping;
+      const { _id: shoppingId } = shopping.constructionShopping;
 
       shoppingMakeOrder.fetch(
         { shoppingId },
@@ -42,7 +42,7 @@ export const PurchaseOrder = ({ nextButton: nextButtonProp, backButton }: Purcha
   return (
     <>
       <div className="flex justify-center">
-        <ShoppingDetails shopping={shopping.lastShopping} />
+        <ShoppingDetails shopping={shopping.constructionShopping} />
       </div>
 
       <ButtonNavContainer leftButton={backButton} rightButton={nextButton} />

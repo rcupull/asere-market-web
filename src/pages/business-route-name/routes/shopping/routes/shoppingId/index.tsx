@@ -1,26 +1,29 @@
 import { useEffect } from 'react';
 
-import { useGetOneShopping } from 'features/api/shopping/useGetOneShopping';
-
 import { useRouter } from 'hooks/useRouter';
 
 import { LayoutPageSection } from 'pages/@common/layout-page-section';
 import { ShoppingDetails } from 'pages/@common/shopping-details';
+import { useShoppingIdPersistent } from 'pages/@hooks/useShoppingIdPersistent';
 
 export const ShoppingId = () => {
   const { params } = useRouter();
 
   const { shoppingId } = params;
 
-  const { getOneShopping } = useGetOneShopping();
+  const shoppingIdPersistent = useShoppingIdPersistent();
 
   useEffect(() => {
     if (shoppingId) {
-      getOneShopping.fetch({ shoppingId });
+      shoppingIdPersistent.fetch({ shoppingId });
+
+      return () => {
+        shoppingIdPersistent.reset();
+      };
     }
   }, [shoppingId]);
 
-  const shopping = getOneShopping.data;
+  const shopping = shoppingIdPersistent.data;
 
   if (!shopping) {
     return <></>;

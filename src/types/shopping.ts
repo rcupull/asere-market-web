@@ -10,5 +10,6 @@ export interface Shopping extends BaseIdentity {
     lastUpdatedDate: Date;
   }>;
   purchaserId: string;
+  routeName: string;
   state: ShoppingState;
 }

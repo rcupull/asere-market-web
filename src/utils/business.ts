@@ -125,12 +125,14 @@ export const getWhatsAppPostLink = (phoneNumber: string, post: Post) => {
 };
 
 export const getWhatsAppShoppingLink = (phoneNumber: string, shopping: Shopping) => {
-  const { _id } = shopping;
+  const { _id, routeName } = shopping;
 
-  const shoppingLink = '';
+  const shoppingRoute = getOneShoppingRoute({ routeName, shoppingId: _id });
+
+  const shoppingUrl = `${window.location.origin}${shoppingRoute}`;
 
   const search = queryToSearch({
-    text: `Le escribo referente a la orden de compra *${_id}* que posee algunos articulos de mi interes. Puede ver los detalles en el link ${shoppingLink}`,
+    text: `Le escribo referente a la orden de compra *${_id}* que posee algunos artículos de mi interes. Puede ver los detalles en el link ${shoppingUrl}`,
   });
 
   return `https://wa.me/${phoneNumber}?${search}`;
