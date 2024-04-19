@@ -20,6 +20,7 @@ export interface Post extends BaseIdentity {
   hidden?: boolean;
   postCategoriesTags?: Array<string>;
   discount?: number; //money to save in the same currency (not percent)
+  stockAmount?: number | null; // number of elements in stock. When is undefined or null the user has not enabled this feature
   // clothing
   clothingSizes?: Array<PostClothingSize>;
   //

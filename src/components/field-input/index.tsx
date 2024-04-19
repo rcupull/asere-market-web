@@ -5,7 +5,7 @@ import { Input } from 'components/input';
 
 import { useFormikField } from 'hooks/useFormikField';
 
-import { cn } from 'utils/general';
+import { cn, isNullOrUndefined } from 'utils/general';
 
 export interface FieldInputProps
   extends React.InputHTMLAttributes<HTMLInputElement>,
@@ -16,7 +16,7 @@ export const FieldInput = forwardRef<HTMLInputElement, FieldInputProps>((props, 
 
   const { field, error } = useFormikField(props);
 
-  const { value = '', ...restField } = field;
+  const { value, ...restField } = field;
 
   return (
     <FormFieldWrapper label={label} error={error} className={className}>
@@ -26,7 +26,7 @@ export const FieldInput = forwardRef<HTMLInputElement, FieldInputProps>((props, 
           'ring-1 rounded-md ring-red-500 focus:ring-red-500': !!error,
         })}
         {...omittedProps}
-        value={value}
+        value={isNullOrUndefined(value) ? '' : value}
         {...restField}
       />
     </FormFieldWrapper>

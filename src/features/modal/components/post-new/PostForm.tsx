@@ -8,6 +8,7 @@ import { FieldInput } from 'components/field-input';
 import { FieldInputImages } from 'components/field-input-images';
 import { FieldPostCategoriesButtons } from 'components/field-post-categories-buttons';
 import { FieldPostPageLayout } from 'components/field-post-page-layout';
+import { FieldPostStockAmount } from 'components/field-post-stock-amount';
 import { FieldSelect } from 'components/field-select';
 import { FieldTextArea } from 'components/field-text-area';
 
@@ -37,6 +38,7 @@ type State = Pick<
   | 'postCategoriesTags'
   | 'discount'
   | 'postPageLayout'
+  | 'stockAmount'
 > & { images: Array<ImageFile | Image> };
 
 export interface PostFormProps {
@@ -85,6 +87,7 @@ export const PostForm = ({
         images: [],
         postCategoriesTags: [],
         postPageLayout: undefined,
+        stockAmount: null,
         ...(post || {}),
       }}
       enableReinitialize
@@ -187,6 +190,15 @@ export const PostForm = ({
                       className="mt-6 w-full"
                     />
                   )}
+
+                  {render.includes('stockAmount') && (
+                    <FieldPostStockAmount
+                      id="post_stockAmount"
+                      name="stockAmount"
+                      label="Disponibilidad"
+                      className="mt-6 w-full"
+                    />
+                  )}
                 </div>
                 <Divider />
               </>
@@ -240,6 +252,7 @@ export const PostForm = ({
                     postCategoriesTags,
                     discount,
                     postPageLayout,
+                    stockAmount
                   } = values;
 
                   const handelUpdatePost = (post: Post) => {
@@ -263,6 +276,7 @@ export const PostForm = ({
                               postCategoriesTags,
                               discount,
                               postPageLayout,
+                              stockAmount
                             },
                             {
                               onAfterSuccess,
@@ -286,6 +300,7 @@ export const PostForm = ({
                         images: [],
                         discount,
                         postPageLayout,
+                        stockAmount
                       },
                       {
                         onAfterSuccess: (response) => {

@@ -25,6 +25,7 @@ export const useUpdateOnePost = (): {
         | 'postCategoriesTags'
         | 'discount'
         | 'postPageLayout'
+        | 'stockAmount'
       >
     >,
     void

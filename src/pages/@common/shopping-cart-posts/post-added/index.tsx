@@ -1,3 +1,4 @@
+import { Amount } from 'components/amount';
 import { Badge } from 'components/badge';
 import { Button } from 'components/button';
 import { EmptyImage } from 'components/empty-image';
@@ -6,8 +7,6 @@ import { IconButtonRemove } from 'components/icon-button-remove';
 import { useRemoveShopping } from 'features/api/shopping/useRemoveShopping';
 import { useUpdateAddOneShopping } from 'features/api/shopping/useUpdateAddOneShopping';
 import { useModal } from 'features/modal/useModal';
-
-import { ChangeCount } from './ChangeCount';
 
 import { useShopping } from 'pages/@hooks/useShopping';
 import { Post } from 'types/post';
@@ -33,8 +32,9 @@ export const PostAdded = ({ count, post }: PostAddedProps) => {
 
       {name}
 
-      <ChangeCount
+      <Amount
         value={count}
+        isBusy={updateAddOneShopping.status.isBusy}
         onChange={(amount) => {
           updateAddOneShopping.fetch(
             { postId: _id, routeName, amountToAdd: amount - count },

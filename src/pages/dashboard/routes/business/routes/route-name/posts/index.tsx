@@ -14,6 +14,7 @@ import { useFiltersVolatile } from 'hooks/useFiltersVolatile';
 
 import { BulkActions } from './BulkActions';
 import { Filters } from './Filters';
+import { PostAmount } from './PostAmount';
 import { RowActions } from './RowActions';
 import { useInfinityScrolling } from './useInfinityScrolling';
 
@@ -23,7 +24,7 @@ import { useTableCellCategoriesTags } from 'pages/@hooks/useTableCellCategoriesT
 import { GetAllPostsQuery } from 'types/api';
 import { getImageEndpoint } from 'utils/api';
 import { getDateString } from 'utils/date';
-import { cn } from 'utils/general';
+import { cn, isNumber } from 'utils/general';
 import { viewUtils } from 'utils/view';
 
 export interface PostsProps {
@@ -109,8 +110,17 @@ export const Posts = ({ routeName }: PostsProps) => {
                 'Detalles',
               ])}
               getRowProps={(rowData) => {
-                const { name, createdAt, currency, price, postCategoriesTags, hidden, images } =
-                  rowData;
+                const {
+                  _id: postId,
+                  name,
+                  createdAt,
+                  currency,
+                  price,
+                  postCategoriesTags,
+                  hidden,
+                  images,
+                  stockAmount,
+                } = rowData;
 
                 const mainImage = images?.[0];
 
@@ -151,6 +161,14 @@ export const Posts = ({ routeName }: PostsProps) => {
                       {
                         label: 'Precio',
                         value: `${price} ${currency}`,
+                      },
+                      {
+                        label: 'Stock',
+                        value: isNumber(stockAmount) ? (
+                          <PostAmount value={stockAmount} postId={postId} onAfterSuccess={filters.onRefresh} />
+                        ) : (
+                          <span className="text-red-500">Desabilitada</span>
+                        ),
                       },
                     ]),
                   ]),

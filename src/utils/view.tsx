@@ -25,13 +25,9 @@ const keyValueList = (list: Array<{ label: React.ReactNode; value?: React.ReactN
     <div>
       {list.map(({ label, value }, index) => {
         return (
-          <div key={index} className="flex justify-between">
+          <div key={index} className="flex justify-between items-center">
             <div className="font-bold text-nowrap">{label}</div>
-            {value && (
-              <>
-                :<div className="ml-2 text-nowrap">{value}</div>
-              </>
-            )}
+            {value && <div className="ml-2 text-nowrap">{value}</div>}
           </div>
         );
       })}
