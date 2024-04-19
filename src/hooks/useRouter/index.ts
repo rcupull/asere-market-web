@@ -27,6 +27,7 @@ interface UseRouterReturn {
   isBusinessAboutUsPage: boolean;
   isDashboardPage: boolean;
   isAdminPage: boolean;
+  isAboutUsPage: boolean;
   isHomePage: boolean;
   isAuthenticatedPage: boolean;
   //
@@ -71,6 +72,7 @@ export const useRouter = (): UseRouterReturn => {
     isBusinessPage: pathname.startsWith(`/${routeName}`),
     isShoppingPage: pathname.startsWith(`/${routeName}/shopping`),
     isPostPage: pathname.startsWith(`/${routeName}/posts`),
+    isAboutUsPage: pathname.startsWith(`/about-us`),
     isBusinessAboutUsPage: pathname.startsWith(`/${routeName}/about-us`),
     isDashboardPage,
     isAdminPage,

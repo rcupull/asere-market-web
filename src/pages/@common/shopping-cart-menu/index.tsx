@@ -111,7 +111,7 @@ export const ShoppingCartMenu = ({ className }: ShoppingCartMenuProps) => {
             <Button
               variant="link"
               className="!mb-2"
-              label="Ver historial de compras en esta tienda"
+              label="Ver tu historial de compras en esta tienda"
               onClick={() => {
                 pushRoute(getShoppingRoute({ routeName }));
               }}

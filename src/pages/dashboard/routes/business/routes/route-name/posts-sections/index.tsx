@@ -48,9 +48,9 @@ export const PostsSections = ({ routeName }: PostsSectionsProps) => {
           return {
             nodes: [
               <RowActions key="RowActions" rowData={rowData} routeName={routeName} />,
-              <div key={name} className="flex items-center">
+              <div key={name} className="flex items-center flex-col">
                 {name}
-                {hiddenName && <span className="text-red-500 ml-2">(oculto)</span>}
+                {hiddenName && <span className="text-red-500 ml-2">(nombre oculto)</span>}
               </div>,
               tableCellCategoriesTags.onGetTableCellNode({ postCategoriesTags }),
               viewUtils.mapToOutlinedBox({ value: showIn }),

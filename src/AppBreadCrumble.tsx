@@ -19,7 +19,15 @@ export interface AppBreadCrumbleProps extends StyleProps {}
 
 export const AppBreadCrumble = ({ className }: AppBreadCrumbleProps): JSX.Element => {
   const { business } = useBusiness();
-  const { isShoppingPage, isDashboardPage, isPostPage, isBusinessAboutUsPage, isHomePage } = useRouter();
+  const {
+    isShoppingPage,
+    isDashboardPage,
+    isPostPage,
+    isBusinessAboutUsPage,
+    isHomePage,
+    isBusinessPage,
+    isAboutUsPage
+  } = useRouter();
   const shoppingIdPersistent = useShoppingIdPersistent();
   const postIdPersistent = usePostIdPersistent();
 
@@ -30,14 +38,19 @@ export const AppBreadCrumble = ({ className }: AppBreadCrumbleProps): JSX.Elemen
           label: 'Asere Market',
           route: '/',
         },
+        isAboutUsPage && {
+          label: 'Sobre nosotros',
+          route: '/about-us',
+        },
         isDashboardPage && {
           label: 'Dashboard',
           route: getDashboardRoute(),
         },
-        business && {
-          label: business.name,
-          route: getBusinessRoute({ routeName: business.routeName }),
-        },
+        isBusinessPage &&
+          business && {
+            label: business.name,
+            route: getBusinessRoute({ routeName: business.routeName }),
+          },
         business &&
           isShoppingPage && {
             label: 'Compras',

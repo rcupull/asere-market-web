@@ -31,7 +31,7 @@ export const LayoutMain = ({ children }: LayoutMainProps): JSX.Element => {
       {({ close }) => {
         return (
           <>
-            <Popover.Button as="div" className="absolute -top-12">
+            <Popover.Button as="div" className="absolute -top-12 z-10">
               <div className="flex w-14 cursor-pointer">
                 <BusinessLogo className="ml-auto" />
               </div>
@@ -49,25 +49,28 @@ export const LayoutMain = ({ children }: LayoutMainProps): JSX.Element => {
   );
 
   return (
-    <div className="flex flex-col h-screen">
-      <Navbar className="flex-shrink-0" />
-
-      <div className="flex flex-row-reverse">
+    <div className="flex flex-col h-screen relative">
+      <div className="flex flex-row-reverse mt-[64px]">
         <div
-          className={cn('w-full p-3', {
-            'sm:w-[calc(100%-16rem)]': isDashboardPage || isAdminPage,
-          })}
+          className={cn(
+            'w-full overflow-auto max-h-[calc(100vh-64px)] min-h-[calc(100vh-64px)] flex flex-col',
+            {
+              'sm:w-[calc(100%-16rem)]': isDashboardPage || isAdminPage,
+            },
+          )}
         >
           <AppBreadCrumble className="my-2 ml-4" />
 
-          {children}
+          <div className="p-3">{children}</div>
+
+          <Footer className="mt-auto flex-shrink-0" />
         </div>
 
         {xsSideBar}
         {smSideBar}
       </div>
 
-      <Footer className="mt-auto flex-shrink-0" />
+      <Navbar className="flex-shrink-0 fixed top-0" />
     </div>
   );
 };
