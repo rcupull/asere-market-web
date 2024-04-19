@@ -1,6 +1,6 @@
 import { HtmlTextContainer } from 'components/html-text-container';
 
-import { usePurchaseRequestTopInfoModal } from '../usePurchaseRequestTopInfoModal';
+import { usePurchaseRequestTopInfoModal } from '../../../usePurchaseRequestTopInfoModal';
 
 import { UpdateSomethingContainer } from 'pages/@common/update-something-container';
 import { useBusiness } from 'pages/@hooks/useBusiness';

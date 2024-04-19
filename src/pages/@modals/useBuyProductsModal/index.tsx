@@ -3,8 +3,6 @@ import { ButtonClose } from 'components/button-close';
 
 import { useModal } from 'features/modal/useModal';
 
-import { usePortal } from 'hooks/usePortal';
-
 import { dynamic } from 'utils/makeLazy';
 
 //eslint-disable-next-line
@@ -23,15 +21,11 @@ export const useBuyProductsModal = () => {
         'Emergent',
         {
           useProps: () => {
-            const portal = usePortal();
-
             return {
-              title: 'Solicitar compra',
               badge: <Badge variant="cart" />,
               content: <Component />,
-              secondaryBtn: <ButtonClose />,
-              primaryBtn: <div ref={portal.ref} />,
-              className: '!w-[30rem]',
+              customBtn: <ButtonClose className='ml-auto'/>,
+              className: '!w-[50rem]',
             };
           },
         },

@@ -1,6 +1,10 @@
+import { queryToSearch } from 'hooks/useRouter/utils';
+
 import { deepJsonCopy, isNumber, replaceAll } from './general';
 
 import { Business, BusinessCategory, SearchLayoutType } from 'types/business';
+import { Post } from 'types/post';
+import { Sale } from 'types/sales';
 
 export const getRouteName = (name: string): string => {
   let out = name.trim().toLowerCase();
@@ -97,4 +101,30 @@ export const getSectionFromBusiness = (args: { sectionId: string; business: Busi
 
 export const getLayoutsFromBusiness = (business: Business) => {
   return deepJsonCopy(business.layouts || {});
+};
+
+export const getWhatsAppPostLink = (phoneNumber: string, post: Post) => {
+  const { name, routeName, _id } = post;
+
+  const postRoute = getPostRoute({ routeName, postId: _id });
+
+  const postUrl = `${window.location.origin}${postRoute}`;
+
+  const search = queryToSearch({
+    text: `Le escribo referente al producto *${name}* con link de referencia ${postUrl}`,
+  });
+
+  return `https://wa.me/${phoneNumber}?${search}`;
+};
+
+export const getWhatsAppSaleLink = (phoneNumber: string, sale: Sale) => {
+  const { _id } = sale;
+
+  const saleLink = '';
+
+  const search = queryToSearch({
+    text: `Le escribo referente a la orden de compra *${_id}* que posee algunos articulos de mi interes. Puede ver los detalles en el link ${saleLink}`,
+  });
+
+  return `https://wa.me/${phoneNumber}?${search}`;
 };

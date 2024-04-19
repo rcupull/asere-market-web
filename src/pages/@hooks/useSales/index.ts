@@ -1,7 +1,7 @@
 import { useGetSales } from 'features/api/sales/useGetSales';
 import { useApiPersistent } from 'features/slices/useApiPersistent';
 
-import { FetchStatus } from 'types/api';
+import { FetchResource, FetchStatus } from 'types/api';
 import { Sale } from 'types/sales';
 
 export const useSales = (): {
@@ -11,7 +11,7 @@ export const useSales = (): {
   currentSaleCount: number;
   //
   status: FetchStatus;
-  onFetch: (args: { routeName: string }) => void;
+  onFetch: FetchResource<{ routeName: string }, Array<Sale>>['fetch'];
   onReset: () => void;
 } => {
   const { getSales } = useGetSales();
@@ -29,7 +29,7 @@ export const useSales = (): {
     currentSaleCount,
     //
     status,
-    onFetch: ({ routeName }) => fetch({ routeName }),
+    onFetch: fetch,
     onReset: reset,
   };
 };

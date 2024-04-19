@@ -1,8 +1,8 @@
 import { Tab } from '@headlessui/react';
 import { Fragment } from 'react';
 
-import { StyleProps } from 'types/general';
-import { cn } from 'utils/general';
+import { Nullable, StyleProps } from 'types/general';
+import { cn, compact } from 'utils/general';
 
 interface TabItem<L extends string = string> extends StyleProps {
   label: L;
@@ -16,7 +16,7 @@ type ItemRender<L extends string = string> = (args: {
 }) => React.ReactElement;
 
 export interface TabsProps<L extends string = string> extends StyleProps {
-  items: Array<TabItem<L>>;
+  items: Array<Nullable<TabItem<L>>>;
   itemRenderType?: 'classic' | 'rounded';
   itemRender?: ItemRender<L>;
   selected?: number;
@@ -40,13 +40,15 @@ const clasicItemRender: ItemRender = ({ selected, label }) => {
 };
 
 export const Tabs = <L extends string = string>({
-  items,
+  items: itemsProp,
   className,
   onSelect,
   selected,
   itemRender = clasicItemRender,
   contentClassName,
 }: TabsProps<L>) => {
+  const items = compact(itemsProp);
+
   return (
     <Tab.Group selectedIndex={selected} onChange={onSelect}>
       <Tab.List className={cn('flex gap-1 overflow-auto', className)}>

@@ -65,9 +65,14 @@ export const ShoppingCartMenu = ({ className }: ShoppingCartMenuProps) => {
         <ShoppingCartPosts value={sales.currentSale} />
 
         <div className="flex justify-between mt-2">
-          <Button variant="link" label="Comprar ahora" onClick={() => buyProductsModal.open()} />
-
           <ShoppingCartRemoveAllButton />
+
+          <Button
+            variant="link"
+            label="Crear orden de compra"
+            onClick={() => buyProductsModal.open()}
+            className='bg-indigo-600 text-white hover:text-gray-100 !px-2 !rounded-2xl'
+          />
         </div>
       </div>
     );

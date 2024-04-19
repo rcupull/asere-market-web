@@ -14,6 +14,7 @@ const outlinedStyles = 'bg-white text-gray-900 ring-1 ring-inset ring-gray-300 h
 
 export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: 'primary' | 'outlined' | 'error' | 'link';
+  svgPosition?: 'left' | 'right';
   label?: string;
   isBusy?: boolean;
   svg?: React.FunctionComponent<StyleProps>;
@@ -32,6 +33,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>((props, ref) =>
     stopPropagation,
     onClick,
     needPremium,
+    svgPosition = 'left',
     ...omittedProps
   } = props;
 
@@ -66,8 +68,9 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>((props, ref) =>
       }}
       {...omittedProps}
     >
-      {Svg && <Svg className={cn('h-5 w-5', { ['mr-2']: label })} />}
+      {Svg && svgPosition === 'left' && <Svg className={cn('h-5 w-5', { ['mr-2']: label })} />}
       {label}
+      {Svg && svgPosition === 'right' && <Svg className={cn('h-5 w-5', { ['ml-2']: label })} />}
       {isBusy && (
         <Ellipsis
           size={40}
@@ -78,7 +81,9 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>((props, ref) =>
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
+            ...(variant === 'link' ? {top: '-7px'} : {})
           }}
+          {...(variant === 'link' ? {color: 'gray'} : {})}
         />
       )}
 

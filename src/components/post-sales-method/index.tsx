@@ -4,28 +4,12 @@ import { QrCode } from 'components/qr-code';
 
 import { useModal } from 'features/modal/useModal';
 
-import { queryToSearch } from 'hooks/useRouter/utils';
-
 import { ButtonPostToCart } from './ButtonPostToCart';
 
 import { PostLayoutSalesMethod } from 'types/business';
 import { StyleProps } from 'types/general';
 import { Post } from 'types/post';
-import { getPostRoute } from 'utils/business';
-
-const getWhatsAppLink = (phoneNumber: string, post: Post) => {
-  const { name, routeName, _id } = post;
-
-  const postRoute = getPostRoute({ routeName, postId: _id });
-
-  const postUrl = `${window.location.origin}${postRoute}`;
-
-  const search = queryToSearch({
-    text: `Le escribo referente al producto *${name}* con link de referencia ${postUrl}`,
-  });
-
-  return `https://wa.me/${phoneNumber}?${search}`;
-};
+import { getWhatsAppPostLink } from 'utils/business';
 
 export interface PostSalesMethodProps extends StyleProps {
   post: Post;
@@ -46,7 +30,7 @@ export const PostSalesMethod = ({
       return <></>;
     }
 
-    const whatsappLink = getWhatsAppLink(whatsAppPhoneNumber, post);
+    const whatsappLink = getWhatsAppPostLink(whatsAppPhoneNumber, post);
 
     return (
       <div className={className}>
