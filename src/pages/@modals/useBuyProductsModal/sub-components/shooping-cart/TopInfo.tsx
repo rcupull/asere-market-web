@@ -9,7 +9,7 @@ export const TopInfo = () => {
   const purchaseRequestTopInfoModal = usePurchaseRequestTopInfoModal();
   const { business } = useBusiness();
 
-  const info = business?.salesMeta?.purchaseRequestTopInfo;
+  const info = business?.shoppingMeta?.purchaseRequestTopInfo;
 
   return (
     <UpdateSomethingContainer

@@ -1,34 +1,36 @@
 import { useEffect } from 'react';
 
-import { useGetSales } from 'features/api/sales/useGetSales';
+import { useGetShopping } from 'features/api/shopping/useGetShopping';
 
 import { useRouter } from 'hooks/useRouter';
 
 import { LayoutPageSection } from 'pages/@common/layout-page-section';
-import { SaleDetails } from 'pages/@common/sale-details';
-import { getSaleRoute } from 'utils/business';
+import { ShoppingDetails } from 'pages/@common/shopping-details';
+import { getOneShoppingRoute } from 'utils/business';
 
 export interface HomeProps {
   routeName: string;
 }
 
 export const Home = ({ routeName }: HomeProps) => {
-  const { getSales } = useGetSales();
+  const { getShopping } = useGetShopping();
   const { pushRoute } = useRouter();
 
   useEffect(() => {
-    getSales.fetch({ routeName });
+    getShopping.fetch({ routeName });
   }, []);
 
   return (
     <LayoutPageSection title="Tus compras">
       <div className="flex flex-col items-center gap-4">
-        {getSales.data?.map((sale, index) => {
+        {getShopping.data?.map((shopping, index) => {
           return (
-            <SaleDetails
+            <ShoppingDetails
               key={index}
-              sale={sale}
-              onClick={() => pushRoute(getSaleRoute({ routeName, saleId: sale._id }))}
+              shopping={shopping}
+              onClick={() =>
+                pushRoute(getOneShoppingRoute({ routeName, shoppingId: shopping._id }))
+              }
             />
           );
         })}

@@ -4,7 +4,7 @@ import { deepJsonCopy, isNumber, replaceAll } from './general';
 
 import { Business, BusinessCategory, SearchLayoutType } from 'types/business';
 import { Post } from 'types/post';
-import { Sale } from 'types/sales';
+import { Shopping } from 'types/shopping';
 
 export const getRouteName = (name: string): string => {
   let out = name.trim().toLowerCase();
@@ -45,11 +45,11 @@ export const getPostRoute = (args: { routeName: string; postId: string }) => {
   return `/${args.routeName}/${args.postId}`;
 };
 
-export const getSalesRoute = (args: { routeName: string }) => {
-  return `/${args.routeName}/sales`;
+export const getShoppingRoute = (args: { routeName: string }) => {
+  return `/${args.routeName}/shopping`;
 };
-export const getSaleRoute = (args: { routeName: string; saleId: string }) => {
-  return `/${args.routeName}/sales/${args.saleId}`;
+export const getOneShoppingRoute = (args: { routeName: string; shoppingId: string }) => {
+  return `/${args.routeName}/shopping/${args.shoppingId}`;
 };
 
 export const getBusinessRoute = (args: { routeName: string }) => {
@@ -124,13 +124,13 @@ export const getWhatsAppPostLink = (phoneNumber: string, post: Post) => {
   return `https://wa.me/${phoneNumber}?${search}`;
 };
 
-export const getWhatsAppSaleLink = (phoneNumber: string, sale: Sale) => {
-  const { _id } = sale;
+export const getWhatsAppShoppingLink = (phoneNumber: string, shopping: Shopping) => {
+  const { _id } = shopping;
 
-  const saleLink = '';
+  const shoppingLink = '';
 
   const search = queryToSearch({
-    text: `Le escribo referente a la orden de compra *${_id}* que posee algunos articulos de mi interes. Puede ver los detalles en el link ${saleLink}`,
+    text: `Le escribo referente a la orden de compra *${_id}* que posee algunos articulos de mi interes. Puede ver los detalles en el link ${shoppingLink}`,
   });
 
   return `https://wa.me/${phoneNumber}?${search}`;

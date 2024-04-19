@@ -5,13 +5,15 @@ import { useAuth } from 'features/api-slices/useAuth';
 import { getBusinessRoute } from 'utils/business';
 import { dynamic } from 'utils/makeLazy';
 const Home = dynamic(() => import('./routes/home').then((m) => ({ default: m.Home })));
-const SaleId = dynamic(() => import('./routes/saleId').then((m) => ({ default: m.SaleId })));
+const ShoppingId = dynamic(() =>
+  import('./routes/shoppingId').then((m) => ({ default: m.ShoppingId })),
+);
 
-export interface SalesProps {
+export interface ShoppingProps {
   routeName: string;
 }
 
-export const Sales = ({ routeName }: SalesProps) => {
+export const Shopping = ({ routeName }: ShoppingProps) => {
   const { isAuthenticated } = useAuth();
 
   if (!isAuthenticated) {
@@ -21,7 +23,7 @@ export const Sales = ({ routeName }: SalesProps) => {
   return (
     <Routes>
       <Route path="/" element={<Home routeName={routeName} />} />
-      <Route path=":saleId" element={<SaleId />} />
+      <Route path=":shoppingId" element={<ShoppingId />} />
     </Routes>
   );
 };

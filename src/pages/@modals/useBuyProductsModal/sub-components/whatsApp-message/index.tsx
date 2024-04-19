@@ -5,14 +5,14 @@ import { StepCommonProps } from '../../types';
 import { ButtonNavContainer } from '../button-nav-container';
 
 import { useBusiness } from 'pages/@hooks/useBusiness';
-import { useSales } from 'pages/@hooks/useSales';
-import { getWhatsAppSaleLink } from 'utils/business';
+import { useShopping } from 'pages/@hooks/useShopping';
+import { getWhatsAppShoppingLink } from 'utils/business';
 
 export interface WhatsAppMessageProps extends StepCommonProps {}
 
 export const WhatsAppMessage = ({ backButton }: WhatsAppMessageProps) => {
   const { business } = useBusiness();
-  const { currentSale } = useSales();
+  const { currentShopping } = useShopping();
 
   const whatsAppPhoneNumber = business?.whatsAppPhoneNumber;
 
@@ -20,11 +20,11 @@ export const WhatsAppMessage = ({ backButton }: WhatsAppMessageProps) => {
     return <>No tiene contacto de Whatsapp</>;
   }
 
-  if (!currentSale) {
+  if (!currentShopping) {
     return <>No tiene una solicitud de venta en construccion</>;
   }
 
-  const whatsappLink = getWhatsAppSaleLink(whatsAppPhoneNumber, currentSale);
+  const whatsappLink = getWhatsAppShoppingLink(whatsAppPhoneNumber, currentShopping);
 
   return (
     <>

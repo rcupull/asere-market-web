@@ -13,7 +13,7 @@ import { Portal } from 'hooks/usePortal';
 import { useBusiness } from '../../@hooks/useBusiness';
 
 import { Formik } from 'formik';
-import { BusinessSalesStrategy } from 'types/business';
+import { BusinessShoppingStrategy } from 'types/business';
 
 interface State {
   face: string;
@@ -22,7 +22,7 @@ interface State {
   linkedin: string;
   youtube: string;
   whatsAppPhoneNumber: string;
-  salesStrategy: BusinessSalesStrategy;
+  shoppingStrategy: BusinessShoppingStrategy;
 }
 
 export interface ComponentProps {
@@ -44,7 +44,7 @@ export const Component = ({ portal, options }: ComponentProps) => {
       linkedin: business?.socialLinks?.linkedin || '',
       youtube: business?.socialLinks?.youtube || '',
       whatsAppPhoneNumber: business?.whatsAppPhoneNumber || '',
-      salesStrategy: business?.salesStrategy || 'none',
+      shoppingStrategy: business?.shoppingStrategy || 'none',
     }),
     [business],
   );
@@ -90,7 +90,7 @@ export const Component = ({ portal, options }: ComponentProps) => {
               values.linkedin,
             )}
 
-            <FieldSelect<{ value: BusinessSalesStrategy }>
+            <FieldSelect<{ value: BusinessShoppingStrategy }>
               label="Estratégia de venta"
               renderOption={({ value }) => value}
               renderValue={({ value }) => value}
@@ -106,7 +106,7 @@ export const Component = ({ portal, options }: ComponentProps) => {
                   value: 'addToCart_whatsAppWithOwner_pickUpProduct',
                 },
               ]}
-              name="salesStrategy"
+              name="shoppingStrategy"
               className="w-full"
             />
 
@@ -123,7 +123,7 @@ export const Component = ({ portal, options }: ComponentProps) => {
                     linkedin,
                     youtube,
                     whatsAppPhoneNumber,
-                    salesStrategy,
+                    shoppingStrategy,
                   } = values;
 
                   updateOneBusiness.fetch(
@@ -137,7 +137,7 @@ export const Component = ({ portal, options }: ComponentProps) => {
                           linkedin,
                           youtube,
                         },
-                        salesStrategy,
+                        shoppingStrategy,
                       },
                       routeName,
                     },

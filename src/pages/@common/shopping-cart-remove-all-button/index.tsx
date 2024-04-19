@@ -1,17 +1,17 @@
 import { Badge } from 'components/badge';
 import { Button } from 'components/button';
 
-import { useRemoveSale } from 'features/api/sales/useRemoveSale';
+import { useRemoveShopping } from 'features/api/shopping/useRemoveShopping';
 import { useModal } from 'features/modal/useModal';
 
 import { useBusiness } from 'pages/@hooks/useBusiness';
-import { useSales } from 'pages/@hooks/useSales';
+import { useShopping } from 'pages/@hooks/useShopping';
 import { StyleProps } from 'types/general';
 
 export interface ShoppingCartRemoveAllButton extends StyleProps {}
 
 export const ShoppingCartRemoveAllButton = ({ className }: ShoppingCartRemoveAllButton) => {
-  const sales = useSales();
+  const shopping = useShopping();
   const { business } = useBusiness();
   const { pushModal } = useModal();
 
@@ -25,7 +25,7 @@ export const ShoppingCartRemoveAllButton = ({ className }: ShoppingCartRemoveAll
           {
             useProps: () => {
               const { onClose } = useModal();
-              const { removeSale } = useRemoveSale();
+              const { removeShopping } = useRemoveShopping();
 
               return {
                 className: '!w-96',
@@ -34,16 +34,16 @@ export const ShoppingCartRemoveAllButton = ({ className }: ShoppingCartRemoveAll
                 primaryBtn: (
                   <Button
                     label="Eliminar"
-                    isBusy={removeSale.status.isBusy}
+                    isBusy={removeShopping.status.isBusy}
                     onClick={() => {
                       if (!business) return;
 
-                      removeSale.fetch(
+                      removeShopping.fetch(
                         { routeName: business?.routeName },
                         {
                           onAfterSuccess: () => {
                             onClose();
-                            sales.onFetch({ routeName: business?.routeName });
+                            shopping.onFetch({ routeName: business?.routeName });
                           },
                         },
                       );

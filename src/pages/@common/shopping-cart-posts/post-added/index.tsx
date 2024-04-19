@@ -3,13 +3,13 @@ import { Button } from 'components/button';
 import { EmptyImage } from 'components/empty-image';
 import { IconButtonRemove } from 'components/icon-button-remove';
 
-import { useRemoveSale } from 'features/api/sales/useRemoveSale';
-import { useUpdateAddOneSale } from 'features/api/sales/useUpdateAddOneSale';
+import { useRemoveShopping } from 'features/api/shopping/useRemoveShopping';
+import { useUpdateAddOneShopping } from 'features/api/shopping/useUpdateAddOneShopping';
 import { useModal } from 'features/modal/useModal';
 
 import { ChangeCount } from './ChangeCount';
 
-import { useSales } from 'pages/@hooks/useSales';
+import { useShopping } from 'pages/@hooks/useShopping';
 import { Post } from 'types/post';
 
 export interface PostAddedProps {
@@ -18,8 +18,8 @@ export interface PostAddedProps {
 }
 
 export const PostAdded = ({ count, post }: PostAddedProps) => {
-  const { updateAddOneSale } = useUpdateAddOneSale();
-  const sales = useSales();
+  const { updateAddOneShopping } = useUpdateAddOneShopping();
+  const shopping = useShopping();
 
   const { name, images, _id, routeName } = post;
   const mainImage = images?.[0];
@@ -36,11 +36,11 @@ export const PostAdded = ({ count, post }: PostAddedProps) => {
       <ChangeCount
         value={count}
         onChange={(amount) => {
-          updateAddOneSale.fetch(
+          updateAddOneShopping.fetch(
             { postId: _id, routeName, amountToAdd: amount - count },
             {
               onAfterSuccess: () => {
-                sales.onFetch({ routeName });
+                shopping.onFetch({ routeName });
               },
             },
           );
@@ -58,7 +58,7 @@ export const PostAdded = ({ count, post }: PostAddedProps) => {
             {
               useProps: () => {
                 const { onClose } = useModal();
-                const { removeSale } = useRemoveSale();
+                const { removeShopping } = useRemoveShopping();
 
                 return {
                   content: '¿Seguro que desea quitar este producto del carro de compras?',
@@ -66,14 +66,14 @@ export const PostAdded = ({ count, post }: PostAddedProps) => {
                   primaryBtn: (
                     <Button
                       label="Eliminar artículo"
-                      isBusy={removeSale.status.isBusy}
+                      isBusy={removeShopping.status.isBusy}
                       onClick={() => {
-                        removeSale.fetch(
+                        removeShopping.fetch(
                           { postId: _id, routeName },
                           {
                             onAfterSuccess: () => {
                               onClose();
-                              sales.onFetch({ routeName });
+                              shopping.onFetch({ routeName });
                             },
                           },
                         );

@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 
-import { PostSalesMethod } from 'components/post-sales-method';
+import { PostShoppingMethod } from 'components/post-shopping-method';
 
 import { useModal } from 'features/modal/useModal';
 
@@ -47,8 +47,8 @@ export const CardPost = ({
             <CardPostPrice layout={layout} post={post} />
           </div>
 
-          <PostSalesMethod
-            layout={layout?.salesMethod}
+          <PostShoppingMethod
+            layout={layout?.shoppingMethod}
             post={post}
             whatsAppPhoneNumber={whatsAppPhoneNumber}
             className="ml-auto"
@@ -63,8 +63,8 @@ export const CardPost = ({
           <CardPostName layout={layout} post={post} />
           <CardPostPrice layout={layout} post={post} />
 
-          <PostSalesMethod
-            layout={layout?.salesMethod}
+          <PostShoppingMethod
+            layout={layout?.shoppingMethod}
             post={post}
             whatsAppPhoneNumber={whatsAppPhoneNumber}
           />

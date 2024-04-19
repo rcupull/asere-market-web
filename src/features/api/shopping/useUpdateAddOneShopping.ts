@@ -4,8 +4,8 @@ import { FetchResource } from 'types/api';
 import { Post } from 'types/post';
 import { getEndpoint } from 'utils/api';
 
-export const useUpdateAddOneSale = (): {
-  updateAddOneSale: FetchResource<
+export const useUpdateAddOneShopping = (): {
+  updateAddOneShopping: FetchResource<
     { routeName: string; postId: string; amountToAdd?: number },
     Post
   >;
@@ -13,7 +13,7 @@ export const useUpdateAddOneSale = (): {
   const fetch = useFetch<Post>();
 
   return {
-    updateAddOneSale: {
+    updateAddOneShopping: {
       data: fetch[0],
       status: fetch[1],
       fetch: (data, options = {}) => {
@@ -21,7 +21,7 @@ export const useUpdateAddOneSale = (): {
           {
             method: 'post',
             url: getEndpoint({
-              path: '/sale',
+              path: '/shopping',
             }),
             data,
           },

@@ -62,7 +62,7 @@ export const Component = () => {
       label: 'Crear orden compra',
       content: <PurchaseOrder {...commonProps} />,
     },
-    business?.salesStrategy === 'addToCart_whatsAppWithOwner_pickUpProduct' && {
+    business?.shoppingStrategy === 'addToCart_whatsAppWithOwner_pickUpProduct' && {
       label: 'Contactar con el vendedor',
       content: <WhatsAppMessage {...commonProps} />,
     },

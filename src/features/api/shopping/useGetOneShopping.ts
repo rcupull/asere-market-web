@@ -1,25 +1,25 @@
 import { useFetch } from 'hooks/useFetch';
 
 import { FetchResource } from 'types/api';
-import { Sale } from 'types/sales';
+import { Shopping } from 'types/shopping';
 import { getEndpoint } from 'utils/api';
 
-export const useGetSales = (): {
-  getSales: FetchResource<{ routeName: string }, Array<Sale>>;
+export const useGetOneShopping = (): {
+  getOneShopping: FetchResource<{ shoppingId: string }, Shopping>;
 } => {
-  const fetch = useFetch<Array<Sale>>();
+  const fetch = useFetch<Shopping>();
 
   return {
-    getSales: {
+    getOneShopping: {
       data: fetch[0],
       status: fetch[1],
-      fetch: (query, options = {}) => {
+      fetch: ({ shoppingId }, options = {}) => {
         fetch[2](
           {
             method: 'get',
             url: getEndpoint({
-              path: '/sale',
-              query,
+              path: '/shopping/:shoppingId',
+              urlParams: { shoppingId },
             }),
           },
           options,

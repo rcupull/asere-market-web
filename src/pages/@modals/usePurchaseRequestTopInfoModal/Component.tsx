@@ -27,13 +27,13 @@ export const Component = ({ portal }: ComponentProps) => {
     return <></>;
   }
 
-  const { routeName, salesMeta = {} } = business;
+  const { routeName, shoppingMeta = {} } = business;
 
   return (
     <>
       <Formik<State>
         initialValues={{
-          purchaseRequestTopInfo: salesMeta.purchaseRequestTopInfo || '',
+          purchaseRequestTopInfo: shoppingMeta.purchaseRequestTopInfo || '',
         }}
         enableReinitialize
         onSubmit={() => {}}
@@ -57,8 +57,8 @@ export const Component = ({ portal }: ComponentProps) => {
                     updateOneBusiness.fetch(
                       {
                         update: {
-                          salesMeta: {
-                            ...salesMeta,
+                          shoppingMeta: {
+                            ...shoppingMeta,
                             purchaseRequestTopInfo,
                           },
                         },

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
 import { Accordion } from 'components/accordion';
-import { FieldPostSalesMethodSelect } from 'components/field-post-sales-method-select';
+import { FieldPostShoppingMethodSelect } from 'components/field-post-shopping-method-select';
 import { FieldSelect } from 'components/field-select';
 import { FormFieldWrapper, FormFieldWrapperProps } from 'components/form-field-wrapper';
 
@@ -45,7 +45,7 @@ export const FieldPostCardLayout = ({
       discount: 'none',
       name: 'basic',
       price: 'smallerCurrency',
-      salesMethod: undefined,
+      shoppingMethod: undefined,
     },
   });
 
@@ -176,9 +176,9 @@ export const FieldPostCardLayout = ({
             className="w-full"
           />
 
-          <FieldPostSalesMethodSelect
-            label="Método de venta"
-            name={getFieldName('salesMethod')}
+          <FieldPostShoppingMethodSelect
+            label="Método de compra"
+            name={getFieldName('shoppingMethod')}
             className="w-full"
           />
         </div>

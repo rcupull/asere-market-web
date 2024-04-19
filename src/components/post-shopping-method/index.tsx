@@ -6,23 +6,23 @@ import { useModal } from 'features/modal/useModal';
 
 import { ButtonPostToCart } from './ButtonPostToCart';
 
-import { PostLayoutSalesMethod } from 'types/business';
+import { PostLayoutShoppingMethod } from 'types/business';
 import { StyleProps } from 'types/general';
 import { Post } from 'types/post';
 import { getWhatsAppPostLink } from 'utils/business';
 
-export interface PostSalesMethodProps extends StyleProps {
+export interface PostShoppingMethodProps extends StyleProps {
   post: Post;
-  layout?: PostLayoutSalesMethod;
+  layout?: PostLayoutShoppingMethod;
   whatsAppPhoneNumber?: string;
 }
 
-export const PostSalesMethod = ({
+export const PostShoppingMethod = ({
   layout,
   whatsAppPhoneNumber,
   post,
   className,
-}: PostSalesMethodProps) => {
+}: PostShoppingMethodProps) => {
   const { pushModal } = useModal();
 
   if (layout === 'whatsApp_xsLink_lgQR') {
@@ -69,7 +69,7 @@ export const PostSalesMethod = ({
     );
   }
 
-  if (layout === 'salesCart') {
+  if (layout === 'shoppingCart') {
     return <ButtonPostToCart post={post} className={className} />;
   }
 

@@ -12,18 +12,18 @@ import { ShoppingCartPosts } from '../shopping-cart-posts';
 import { ShoppingCartRemoveAllButton } from '../shopping-cart-remove-all-button';
 
 import { useBusiness } from 'pages/@hooks/useBusiness';
-import { useSales } from 'pages/@hooks/useSales';
+import { useShopping } from 'pages/@hooks/useShopping';
 import { useAuthSignInModal } from 'pages/@modals/useAuthSignInModal';
 import { useBuyProductsModal } from 'pages/@modals/useBuyProductsModal';
 import { StyleProps } from 'types/general';
-import {  getSalesRoute } from 'utils/business';
+import { getShoppingRoute } from 'utils/business';
 
 export interface ShoppingCartMenuProps extends StyleProps {}
 
 export const ShoppingCartMenu = ({ className }: ShoppingCartMenuProps) => {
   const buyProductsModal = useBuyProductsModal();
   const { business } = useBusiness();
-  const sales = useSales();
+  const shopping = useShopping();
 
   const { isAuthenticated } = useAuth();
 
@@ -51,7 +51,7 @@ export const ShoppingCartMenu = ({ className }: ShoppingCartMenuProps) => {
       );
     }
 
-    if (!sales.currentSale) {
+    if (!shopping.currentShopping) {
       return (
         <div>
           <div className="text-center font-semibold text-lg my-2">
@@ -60,7 +60,8 @@ export const ShoppingCartMenu = ({ className }: ShoppingCartMenuProps) => {
 
           <HtmlTextContainer className="text-center">
             Agrega productos a tu bolsa y te facilitaremos la compra. Tambien puedes ver tu{' '}
-            <Link to={getSalesRoute({ routeName })}>historial de compras</Link> en cualquier momento.
+            <Link to={getShoppingRoute({ routeName })}>historial de compras</Link> en cualquier
+            momento.
           </HtmlTextContainer>
         </div>
       );
@@ -73,7 +74,7 @@ export const ShoppingCartMenu = ({ className }: ShoppingCartMenuProps) => {
           para enganchar a tus clientes
         </span>
 
-        <ShoppingCartPosts value={sales.currentSale} />
+        <ShoppingCartPosts value={shopping.currentShopping} />
 
         <div className="flex justify-between mt-2">
           <ShoppingCartRemoveAllButton />
@@ -100,7 +101,7 @@ export const ShoppingCartMenu = ({ className }: ShoppingCartMenuProps) => {
           />
           {isAuthenticated && (
             <span className="absolute text-gray-100 font-bold top-0 right-0">
-              {sales.currentSaleCount}
+              {shopping.currentShoppingCount}
             </span>
           )}
         </div>

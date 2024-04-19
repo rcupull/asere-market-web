@@ -1,26 +1,25 @@
 import { useFetch } from 'hooks/useFetch';
 
 import { FetchResource } from 'types/api';
-import { Sale } from 'types/sales';
 import { getEndpoint } from 'utils/api';
 
-export const useGetOneSale = (): {
-  getOneSale: FetchResource<{ saleId: string }, Sale>;
+export const useRemoveShopping = (): {
+  removeShopping: FetchResource<{ routeName: string; postId?: string }, void>;
 } => {
-  const fetch = useFetch<Sale>();
+  const fetch = useFetch();
 
   return {
-    getOneSale: {
+    removeShopping: {
       data: fetch[0],
       status: fetch[1],
-      fetch: ({ saleId }, options = {}) => {
+      fetch: (data, options = {}) => {
         fetch[2](
           {
-            method: 'get',
+            method: 'delete',
             url: getEndpoint({
-              path: '/sale/:saleId',
-              urlParams: { saleId },
+              path: '/shopping',
             }),
+            data,
           },
           options,
         );

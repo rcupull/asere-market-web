@@ -21,7 +21,7 @@ export const useBusiness = (): {
   const { data, status, reset, fetch } = useApiPersistent('useBusiness', getOneBusiness);
 
   const getHasSomeShoppingCartStrategy = () => {
-    switch (data?.salesStrategy) {
+    switch (data?.shoppingStrategy) {
       case 'addToCart_whatsAppWithOwner_pickUpProduct':
         return true;
       default:

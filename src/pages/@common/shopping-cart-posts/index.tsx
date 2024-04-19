@@ -1,9 +1,9 @@
 import { PostAdded } from './post-added';
 
-import { Sale } from 'types/sales';
+import { Shopping } from 'types/shopping';
 
 export interface ShoppingCartPostsProps {
-  value: Sale;
+  value: Shopping;
 }
 
 export const ShoppingCartPosts = ({ value }: ShoppingCartPostsProps) => {

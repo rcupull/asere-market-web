@@ -22,8 +22,8 @@ export const useUpdateOneBusiness = (): {
           | 'layouts'
           | 'aboutUsPage'
           | 'whatsAppPhoneNumber'
-          | 'salesStrategy'
-          | 'salesMeta'
+          | 'shoppingStrategy'
+          | 'shoppingMeta'
         >
       >;
     },

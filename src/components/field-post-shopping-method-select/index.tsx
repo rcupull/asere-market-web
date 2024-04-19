@@ -8,14 +8,14 @@ import { FormikFieldProps, useFormikField } from 'hooks/useFormikField';
 
 import { useBusiness } from 'pages/@hooks/useBusiness';
 import { useBusinessUpdateInfo } from 'pages/@modals/useBusinessUpdateInfo';
-import { PostLayoutSalesMethod } from 'types/business';
+import { PostLayoutShoppingMethod } from 'types/business';
 import { AnyRecord } from 'types/general';
 
-export interface FieldPostSalesMethodSelectProps
+export interface FieldPostShoppingMethodSelectProps
   extends FormFieldWrapperProps,
     FormikFieldProps<AnyRecord> {}
 
-export const FieldPostSalesMethodSelect = (props: FieldPostSalesMethodSelectProps) => {
+export const FieldPostShoppingMethodSelect = (props: FieldPostShoppingMethodSelectProps) => {
   const { label, ...omittedProps } = props;
   const { field } = useFormikField(props);
 
@@ -23,22 +23,22 @@ export const FieldPostSalesMethodSelect = (props: FieldPostSalesMethodSelectProp
 
   const { business, status, onFetch } = useBusiness();
 
-  const getItems = (): FieldSelectProps<{ value: PostLayoutSalesMethod }>['items'] => {
-    const out: Array<{ value: PostLayoutSalesMethod }> = [
+  const getItems = (): FieldSelectProps<{ value: PostLayoutShoppingMethod }>['items'] => {
+    const out: Array<{ value: PostLayoutShoppingMethod }> = [
       {
         value: 'none',
       },
     ];
 
-    if (business?.salesStrategy === 'whatsAppWithOwner_pickUpProduct') {
+    if (business?.shoppingStrategy === 'whatsAppWithOwner_pickUpProduct') {
       out.push({
         value: 'whatsApp_xsLink_lgQR',
       });
     }
 
-    if (business?.salesStrategy === 'addToCart_whatsAppWithOwner_pickUpProduct') {
+    if (business?.shoppingStrategy === 'addToCart_whatsAppWithOwner_pickUpProduct') {
       out.push({
-        value: 'salesCart',
+        value: 'shoppingCart',
       });
     }
 
@@ -46,7 +46,7 @@ export const FieldPostSalesMethodSelect = (props: FieldPostSalesMethodSelectProp
   };
 
   return (
-    <FieldRadioGroup<{ value: PostLayoutSalesMethod }>
+    <FieldRadioGroup<{ value: PostLayoutShoppingMethod }>
       label={
         <div className="flex items-center justify-start flex-wrap">
           {label}
@@ -66,10 +66,10 @@ export const FieldPostSalesMethodSelect = (props: FieldPostSalesMethodSelectProp
       }
       isBusy={status.isBusy}
       renderOption={({ checked, item }) => {
-        const labels: Record<PostLayoutSalesMethod, string> = {
+        const labels: Record<PostLayoutShoppingMethod, string> = {
           none: 'Ninguna',
           whatsApp_xsLink_lgQR: 'Contactar por whatsapp para los detalles de la compra',
-          salesCart: 'Agregar al carrito',
+          shoppingCart: 'Agregar al carrito',
         };
         return <FieldCheckbox noUseFormik value={checked} label={labels[item.value]} />;
       }}

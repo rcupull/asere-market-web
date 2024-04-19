@@ -6,11 +6,11 @@ import { useAuth } from 'features/api-slices/useAuth';
 import { useRouter } from 'hooks/useRouter';
 
 import { useBusiness } from 'pages/@hooks/useBusiness';
-import { useSales } from 'pages/@hooks/useSales';
+import { useShopping } from 'pages/@hooks/useShopping';
 import { dynamic } from 'utils/makeLazy';
 
 const PostId = dynamic(() => import('./routes/postId').then((m) => ({ default: m.PostId })));
-const Sales = dynamic(() => import('./routes/sales').then((m) => ({ default: m.Sales })));
+const Shopping = dynamic(() => import('./routes/shopping').then((m) => ({ default: m.Shopping })));
 
 const Home = dynamic(() =>
   import('./routes/home').then((m) => ({
@@ -30,7 +30,7 @@ export const BusinessRouteName = () => {
   const { routeName } = params;
 
   const business = useBusiness();
-  const sales = useSales();
+  const shopping = useShopping();
 
   ////////////////////////////////////////////////////////////////////////////////////
 
@@ -50,13 +50,13 @@ export const BusinessRouteName = () => {
     if (!routeName) return;
 
     if (isAuthenticated) {
-      sales.onFetch({ routeName });
+      shopping.onFetch({ routeName });
     } else {
-      sales.onReset();
+      shopping.onReset();
     }
 
     return () => {
-      sales.onReset();
+      shopping.onReset();
     };
   }, [routeName, isAuthenticated]);
   ////////////////////////////////////////////////////////////////////////////////////
@@ -69,7 +69,7 @@ export const BusinessRouteName = () => {
 
       <Route path="about-us" element={<AboutUs routeName={routeName} />} />
 
-      <Route path="sales/*" element={<Sales routeName={routeName} />} />
+      <Route path="shopping/*" element={<Shopping routeName={routeName} />} />
 
       <Route path=":postId" element={<PostId routeName={routeName} />} />
     </Routes>

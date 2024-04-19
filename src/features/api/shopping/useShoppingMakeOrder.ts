@@ -3,23 +3,23 @@ import { useFetch } from 'hooks/useFetch';
 import { FetchResource } from 'types/api';
 import { getEndpoint } from 'utils/api';
 
-export const useRemoveSale = (): {
-  removeSale: FetchResource<{ routeName: string; postId?: string }, void>;
+export const useShoppingMakeOrder = (): {
+  shoppingMakeOrder: FetchResource<{ shoppingId: string }, void>;
 } => {
   const fetch = useFetch();
 
   return {
-    removeSale: {
+    shoppingMakeOrder: {
       data: fetch[0],
       status: fetch[1],
-      fetch: (data, options = {}) => {
+      fetch: ({ shoppingId }, options = {}) => {
         fetch[2](
           {
-            method: 'delete',
+            method: 'post',
             url: getEndpoint({
-              path: '/sale',
+              path: '/shopping/:shoppingId/makeOrder',
+              urlParams: { shoppingId },
             }),
-            data,
           },
           options,
         );

@@ -1,14 +1,14 @@
 import { EmptyImage } from 'components/empty-image';
 
-import { Sale, SaleState } from 'types/sales';
+import { Shopping, ShoppingState } from 'types/shopping';
 import { cn } from 'utils/general';
 
-export interface SaleDetailsProps {
-  sale: Sale;
+export interface ShoppingDetailsProps {
+  shopping: Shopping;
   onClick?: () => void;
 }
 
-const getStatName: Record<SaleState, string> = {
+const getStatName: Record<ShoppingState, string> = {
   CONSTRUCTION: 'En construcción',
   REQUESTED: 'Solicitado',
   DELIVERED: 'Entregado',
@@ -16,8 +16,8 @@ const getStatName: Record<SaleState, string> = {
   REJECTED: 'Rechazado',
 };
 
-export const SaleDetails = ({ sale, onClick }: SaleDetailsProps) => {
-  const { state, posts } = sale;
+export const ShoppingDetails = ({ shopping, onClick }: ShoppingDetailsProps) => {
+  const { state, posts } = shopping;
 
   return (
     <div
