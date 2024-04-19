@@ -41,8 +41,8 @@ export const getBusinessCategoryLabel = (category: BusinessCategory): string => 
   return record[category];
 };
 
-export const getPostRoute = (args: { routeName: string; postId: string }) => {
-  return `/${args.routeName}/${args.postId}`;
+export const getOnePostRoute = (args: { routeName: string; postId: string }) => {
+  return `/${args.routeName}/posts/${args.postId}`;
 };
 
 export const getShoppingRoute = (args: { routeName: string }) => {
@@ -54,6 +54,10 @@ export const getOneShoppingRoute = (args: { routeName: string; shoppingId: strin
 
 export const getBusinessRoute = (args: { routeName: string }) => {
   return `/${args.routeName}`;
+};
+
+export const getBusinessAboutUsRoute = (args: { routeName: string }) => {
+  return `/${args.routeName}/about-us`;
 };
 
 export const getDashboardBusinessRoute = (args: { routeName: string }) => {
@@ -113,7 +117,7 @@ export const getLayoutsFromBusiness = (business: Business) => {
 export const getWhatsAppPostLink = (phoneNumber: string, post: Post) => {
   const { name, routeName, _id } = post;
 
-  const postRoute = getPostRoute({ routeName, postId: _id });
+  const postRoute = getOnePostRoute({ routeName, postId: _id });
 
   const postUrl = `${window.location.origin}${postRoute}`;
 

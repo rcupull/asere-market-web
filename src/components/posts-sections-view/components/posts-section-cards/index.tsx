@@ -7,7 +7,7 @@ import { CallAfarResources } from 'hooks/useCallFromAfar';
 import { Business, PostsLayoutSection } from 'types/business';
 import { StyleProps } from 'types/general';
 import { Post } from 'types/post';
-import { getPostRoute } from 'utils/business';
+import { getOnePostRoute } from 'utils/business';
 
 export interface PostsSectionCardsProps extends StyleProps {
   posts: Array<Post> | null;
@@ -39,7 +39,7 @@ export const PostsSectionCards = ({
                 key={index}
                 post={post}
                 layout={layout.postCardLayout}
-                href={getPostRoute({ routeName, postId: _id })}
+                href={getOnePostRoute({ routeName, postId: _id })}
                 whatsAppPhoneNumber={whatsAppPhoneNumber}
                 callAfarResources={callAfarResources}
               />
@@ -60,7 +60,7 @@ export const PostsSectionCards = ({
             key={index}
             post={post}
             layout={layout.postCardLayout}
-            href={getPostRoute({ routeName, postId: _id })}
+            href={getOnePostRoute({ routeName, postId: _id })}
             whatsAppPhoneNumber={whatsAppPhoneNumber}
             callAfarResources={callAfarResources}
           />

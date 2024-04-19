@@ -5,6 +5,7 @@ export const slices = {
   useBusiness: createSimpleSlice('useBusiness', null),
   useShopping: createSimpleSlice('useShopping', null),
   useShoppingIdPersistent: createSimpleSlice('useShoppingIdPersistent', null),
+  usePostIdPersistent: createSimpleSlice('usePostIdPersistent', null),
   //
   modal_catalogsSearchImage: createSimpleSlice('modal_catalogsSearchImage', null),
   //

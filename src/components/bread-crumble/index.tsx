@@ -21,8 +21,8 @@ export const BreadCrumble = ({ items: itemsProp, className }: BreadCrumbleProps)
       {items.map(({ label, route }, index) => {
         return (
           <div key={index} className="flex items-center gap-2">
-            {!!index && <span>/</span>}
-            <Link to={route} className="text-lg">
+            {!!index && <span className="font-semibold text-gray-500">{'>'}</span>}
+            <Link to={route} className="text-md italic">
               {label}
             </Link>
           </div>

@@ -19,7 +19,7 @@ import { useRouter } from 'hooks/useRouter';
 
 import { RowActionsContainer } from 'pages/@common/row-actions-container';
 import { Post } from 'types/post';
-import { getPostRoute } from 'utils/business';
+import { getOnePostRoute } from 'utils/business';
 
 export interface RowActionsProps {
   rowData: Post;
@@ -155,7 +155,7 @@ export const RowActions = ({ rowData, callAfarResources, routeName }: RowActions
           { label: 'Duplicar', onClick: handleDuplicate },
           {
             label: 'Ver',
-            onClick: () => pushRoute(getPostRoute({ routeName, postId: rowData._id })),
+            onClick: () => pushRoute(getOnePostRoute({ routeName, postId: rowData._id })),
           },
         ]}
         className="sm:hidden"
@@ -172,7 +172,7 @@ export const RowActions = ({ rowData, callAfarResources, routeName }: RowActions
 
         <IconButtonView
           stopPropagation
-          onClick={() => pushRoute(getPostRoute({ routeName, postId: rowData._id }))}
+          onClick={() => pushRoute(getOnePostRoute({ routeName, postId: rowData._id }))}
         />
       </RowActionsContainer>
     </>

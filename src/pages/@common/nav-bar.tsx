@@ -28,7 +28,12 @@ import { useBusiness } from 'pages/@hooks/useBusiness';
 import { useAuthSignInModal } from 'pages/@modals/useAuthSignInModal';
 import { useAuthSignUpModal } from 'pages/@modals/useAuthSignUpModal';
 import { StyleProps } from 'types/general';
-import { getDashboardBusinessRoute, getDashboardRoute } from 'utils/business';
+import {
+  getBusinessAboutUsRoute,
+  getBusinessRoute,
+  getDashboardBusinessRoute,
+  getDashboardRoute,
+} from 'utils/business';
 
 export interface NavbarProps extends StyleProps {}
 export const Navbar = ({ className }: NavbarProps) => {
@@ -58,11 +63,14 @@ export const Navbar = ({ className }: NavbarProps) => {
         </>
       }
       items={[
-        isBusinessPage && { name: 'Publicaciones', href: `/${routeName}` },
         isBusinessPage &&
-          aboutUsPage?.visible && {
-            name: aboutUsPage.title || '<Sin titulo>',
-            href: `/${routeName}/about-us`,
+          !!routeName && { name: 'Publicaciones', href: getBusinessRoute({ routeName }) },
+        isBusinessPage &&
+          aboutUsPage?.visible &&
+          !!aboutUsPage.title &&
+          !!routeName && {
+            name: aboutUsPage.title,
+            href: getBusinessAboutUsRoute({ routeName }),
           },
         ////////////////////////////////////////////////////////////////////////////////////////////////
         !isBusinessPage && { name: 'Home', href: '/' },

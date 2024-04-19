@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { Route, Routes } from 'react-router-dom';
+import { Navigate, Route, Routes } from 'react-router-dom';
 
 import { useAuth } from 'features/api-slices/useAuth';
 
@@ -7,9 +7,10 @@ import { useRouter } from 'hooks/useRouter';
 
 import { useBusiness } from 'pages/@hooks/useBusiness';
 import { useShopping } from 'pages/@hooks/useShopping';
+import { getBusinessRoute } from 'utils/business';
 import { dynamic } from 'utils/makeLazy';
 
-const PostId = dynamic(() => import('./routes/postId').then((m) => ({ default: m.PostId })));
+const Posts = dynamic(() => import('./routes/posts').then((m) => ({ default: m.Posts })));
 const Shopping = dynamic(() => import('./routes/shopping').then((m) => ({ default: m.Shopping })));
 
 const Home = dynamic(() =>
@@ -71,7 +72,9 @@ export const BusinessRouteName = () => {
 
       <Route path="shopping/*" element={<Shopping routeName={routeName} />} />
 
-      <Route path=":postId" element={<PostId routeName={routeName} />} />
+      <Route path="posts/*" element={<Posts routeName={routeName} />} />
+
+      <Route path="*" element={<Navigate to={getBusinessRoute({ routeName })} />} />
     </Routes>
   );
 };

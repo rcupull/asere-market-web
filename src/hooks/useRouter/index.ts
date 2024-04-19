@@ -23,6 +23,8 @@ interface UseRouterReturn {
   //
   isBusinessPage: boolean;
   isShoppingPage: boolean;
+  isPostPage: boolean;
+  isBusinessAboutUsPage: boolean;
   isDashboardPage: boolean;
   isAdminPage: boolean;
   isHomePage: boolean;
@@ -68,10 +70,13 @@ export const useRouter = (): UseRouterReturn => {
   return {
     isBusinessPage: pathname.startsWith(`/${routeName}`),
     isShoppingPage: pathname.startsWith(`/${routeName}/shopping`),
+    isPostPage: pathname.startsWith(`/${routeName}/posts`),
+    isBusinessAboutUsPage: pathname.startsWith(`/${routeName}/about-us`),
     isDashboardPage,
     isAdminPage,
     isHomePage: pathname === '/',
     isAuthenticatedPage: isDashboardPage || isAdminPage,
+    //
     params,
     search,
     queryToSearch,

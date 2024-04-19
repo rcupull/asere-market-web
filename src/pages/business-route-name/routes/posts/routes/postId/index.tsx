@@ -12,7 +12,6 @@ import { ProductImages2 } from 'components/product/images/product-images-2';
 import { ProductPrice1 } from 'components/product/price/product-price-1';
 import { Review } from 'components/review';
 
-import { useGetOnePost } from 'features/api/posts/useGetOnePost';
 import { useModal } from 'features/modal/useModal';
 
 import { useCallFromAfar } from 'hooks/useCallFromAfar';
@@ -21,6 +20,7 @@ import { useRouter } from 'hooks/useRouter';
 import { LayoutPage } from 'pages/@common/layout-page';
 import { UpdateSomethingContainer } from 'pages/@common/update-something-container';
 import { useBusiness } from 'pages/@hooks/useBusiness';
+import { usePostIdPersistent } from 'pages/@hooks/usePostIdPersistent';
 import { PostsLayoutSection } from 'types/business';
 import { getImageEndpoint } from 'utils/api';
 
@@ -32,19 +32,23 @@ export const PostId = ({ routeName }: PostIdProps) => {
   const { postId } = params;
   const { pushModal } = useModal();
 
-  const { getOnePost } = useGetOnePost();
-  const onRefresh = () => postId && getOnePost.fetch({ id: postId });
+  const postIdPersistent = usePostIdPersistent();
   const businessPageData = useBusiness();
-
-  useCallFromAfar(postId, onRefresh);
+  useCallFromAfar(postId, () => {
+    postId && postIdPersistent.fetch({ id: postId });
+  });
 
   useEffect(() => {
     if (postId) {
-      onRefresh();
+      postIdPersistent.fetch({ id: postId });
+
+      return () => {
+        postIdPersistent.reset();
+      };
     }
   }, [postId]);
 
-  const post = getOnePost.data;
+  const post = postIdPersistent.data;
 
   const business = businessPageData.business;
 

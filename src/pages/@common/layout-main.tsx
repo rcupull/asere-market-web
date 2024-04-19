@@ -58,7 +58,7 @@ export const LayoutMain = ({ children }: LayoutMainProps): JSX.Element => {
             'sm:w-[calc(100%-16rem)]': isDashboardPage || isAdminPage,
           })}
         >
-          <AppBreadCrumble className="mt-4 ml-4" />
+          <AppBreadCrumble className="my-2 ml-4" />
 
           {children}
         </div>
