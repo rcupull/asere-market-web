@@ -22,6 +22,7 @@ interface UseRouterReturn {
   params: Record<string, string | undefined>;
   //
   isBusinessPage: boolean;
+  isShoppingPage: boolean;
   isDashboardPage: boolean;
   isAdminPage: boolean;
   isHomePage: boolean;
@@ -66,6 +67,7 @@ export const useRouter = (): UseRouterReturn => {
   const isAdminPage = pathname.startsWith('/admin');
   return {
     isBusinessPage: pathname.startsWith(`/${routeName}`),
+    isShoppingPage: pathname.startsWith(`/${routeName}/shopping`),
     isDashboardPage,
     isAdminPage,
     isHomePage: pathname === '/',

@@ -8,6 +8,8 @@ import { Menu } from 'components/menu';
 
 import { useAuth } from 'features/api-slices/useAuth';
 
+import { useRouter } from 'hooks/useRouter';
+
 import { ShoppingCartPosts } from '../shopping-cart-posts';
 import { ShoppingCartRemoveAllButton } from '../shopping-cart-remove-all-button';
 
@@ -24,6 +26,7 @@ export const ShoppingCartMenu = ({ className }: ShoppingCartMenuProps) => {
   const buyProductsModal = useBuyProductsModal();
   const { business } = useBusiness();
   const shopping = useShopping();
+  const { pushRoute, isShoppingPage } = useRouter();
 
   const { isAuthenticated } = useAuth();
 
@@ -51,7 +54,7 @@ export const ShoppingCartMenu = ({ className }: ShoppingCartMenuProps) => {
       );
     }
 
-    if (!shopping.currentShopping) {
+    if (!shopping.constructionShopping) {
       return (
         <div>
           <div className="text-center font-semibold text-lg my-2">
@@ -74,7 +77,7 @@ export const ShoppingCartMenu = ({ className }: ShoppingCartMenuProps) => {
           para enganchar a tus clientes
         </span>
 
-        <ShoppingCartPosts value={shopping.currentShopping} />
+        <ShoppingCartPosts value={shopping.constructionShopping} />
 
         <div className="flex justify-between mt-2">
           <ShoppingCartRemoveAllButton />
@@ -101,13 +104,24 @@ export const ShoppingCartMenu = ({ className }: ShoppingCartMenuProps) => {
           />
           {isAuthenticated && (
             <span className="absolute text-gray-100 font-bold top-0 right-0">
-              {shopping.currentShoppingCount}
+              {shopping.constructionShoppingProductsCount}
             </span>
           )}
         </div>
       }
       headerElement={
         <div className="w-96 m-2 rounded-md px-4 py-3 border flex flex-col items-center">
+          {!isShoppingPage && (
+            <Button
+              variant="link"
+              className="!mb-2"
+              label="Ver historial de compras"
+              onClick={() => {
+                pushRoute(getShoppingRoute({ routeName }));
+              }}
+            />
+          )}
+
           {getHeaderElement()}
         </div>
       }

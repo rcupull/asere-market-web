@@ -12,7 +12,7 @@ export interface WhatsAppMessageProps extends StepCommonProps {}
 
 export const WhatsAppMessage = ({ backButton }: WhatsAppMessageProps) => {
   const { business } = useBusiness();
-  const { currentShopping } = useShopping();
+  const { lastShopping } = useShopping();
 
   const whatsAppPhoneNumber = business?.whatsAppPhoneNumber;
 
@@ -20,11 +20,11 @@ export const WhatsAppMessage = ({ backButton }: WhatsAppMessageProps) => {
     return <>No tiene contacto de Whatsapp</>;
   }
 
-  if (!currentShopping) {
-    return <>No tiene una solicitud de venta en construccion</>;
+  if (!lastShopping) {
+    return <>No tiene ninguna solicitud de compra</>;
   }
 
-  const whatsappLink = getWhatsAppShoppingLink(whatsAppPhoneNumber, currentShopping);
+  const whatsappLink = getWhatsAppShoppingLink(whatsAppPhoneNumber, lastShopping);
 
   return (
     <>
