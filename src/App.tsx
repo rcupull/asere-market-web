@@ -13,6 +13,7 @@ import { dynamic } from 'utils/makeLazy';
 
 const Dashboard = dynamic(() => import('pages/dashboard').then((m) => ({ default: m.Dashboard })));
 const Validate = dynamic(() => import('pages/validate').then((m) => ({ default: m.Validate })));
+const ForgotPassword = dynamic(() => import('pages/forgot-password').then((m) => ({ default: m.ForgotPassword })));
 
 const Admin = dynamic(() => import('pages/admin').then((m) => ({ default: m.Admin })));
 
@@ -40,6 +41,7 @@ export const App = (): JSX.Element => {
       <Route path="/payment-plans" element={withPageProviders(<PaymentPlans />, LayoutMain)} />
 
       <Route path="/validate/:code" element={withPageProviders(<Validate />, LayoutMain)} />
+      <Route path="/forgot-password/:code" element={withPageProviders(<ForgotPassword />, LayoutMain)} />
 
       <Route
         path="/payment-plans/purchase"

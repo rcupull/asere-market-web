@@ -3,21 +3,24 @@ import { useFetch } from 'hooks/useFetch';
 import { FetchResource } from 'types/api';
 import { getEndpoint } from 'utils/api';
 
-export const useAuthChangePassword = (): {
-  authChangePassword: FetchResource<{ newPassword: string }, void>;
+export const useAuthForgotPasswordValidate = (): {
+  authForgotPasswordValidate: FetchResource<
+    { newPassword: string; code: string },
+    { email: string }
+  >;
 } => {
   const fetch = useFetch();
 
   return {
-    authChangePassword: {
+    authForgotPasswordValidate: {
       data: fetch[0],
       status: fetch[1],
-      fetch: ({ newPassword }, options = {}) => {
+      fetch: (data, options = {}) => {
         fetch[2](
           {
             method: 'post',
-            url: getEndpoint({ path: '/auth/change-password' }),
-            data: { newPassword },
+            url: getEndpoint({ path: '/auth/forgot-password-validate' }),
+            data,
           },
           options,
         );

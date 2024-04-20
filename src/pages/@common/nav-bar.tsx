@@ -4,6 +4,7 @@ import {
   Cog8ToothIcon,
   HomeIcon,
   KeyIcon,
+  UserCircleIcon,
   UserGroupIcon,
   UserIcon,
   UserPlusIcon,
@@ -27,6 +28,7 @@ import { ShoppingCartMenu } from './shopping-cart-menu';
 
 import { useBusiness } from 'pages/@hooks/useBusiness';
 import { useAuthChangePasswordModal } from 'pages/@modals/useAuthChangePasswordModal';
+import { useAuthForgotPasswordRequestModal } from 'pages/@modals/useAuthForgotPasswordRequestModal';
 import { useAuthSignInModal } from 'pages/@modals/useAuthSignInModal';
 import { useAuthSignUpModal } from 'pages/@modals/useAuthSignUpModal';
 import { StyleProps } from 'types/general';
@@ -52,6 +54,7 @@ export const Navbar = ({ className }: NavbarProps) => {
 
   const authSignInModal = useAuthSignInModal();
   const authSignUpModal = useAuthSignUpModal();
+  const authForgotPasswordRequestModal = useAuthForgotPasswordRequestModal();
   const callAfarResourcesRefreshUser = 'callAfarResourcesRefreshUser';
   useCallFromAfar(callAfarResourcesRefreshUser, onRefreshAuthUser);
 
@@ -149,6 +152,11 @@ export const Navbar = ({ className }: NavbarProps) => {
                 label: 'Créate una cuenta',
                 onClick: () => authSignUpModal.open(),
                 svg: UserPlusIcon,
+              },
+              !isAuthenticated && {
+                label: 'Recupera tu cuenta olvidada',
+                onClick: () => authForgotPasswordRequestModal.open(),
+                svg: UserCircleIcon,
               },
               isAuthenticated && {
                 label: 'Cerrar sesión',
