@@ -1,3 +1,4 @@
+import { Badge } from 'components/badge';
 import { Button } from 'components/button';
 import { FieldCheckbox } from 'components/field-checkbox';
 import { FieldInput } from 'components/field-input';
@@ -9,7 +10,6 @@ import { useGetFormErrors } from 'hooks/useGetFormErrors';
 import { Portal } from 'hooks/usePortal';
 
 import { useAuthSignInModal } from '../useAuthSignInModal';
-import { useAuthValidateModal } from '../useAuthValidateModal';
 
 import { Formik } from 'formik';
 
@@ -20,8 +20,7 @@ export interface ComponentProps {
 export const Component = ({ portal }: ComponentProps) => {
   const { authSignUp } = useAuthSignUp();
   const authSignInModal = useAuthSignInModal();
-  const authValidateModal = useAuthValidateModal();
-  const { onClose } = useModal();
+  const { onClose, pushModal } = useModal();
 
   const getFormErrors = useGetFormErrors();
 
@@ -125,7 +124,34 @@ export const Component = ({ portal }: ComponentProps) => {
                         {
                           onAfterSuccess: () => {
                             onClose();
-                            setTimeout(() => authValidateModal.open({ email }), 50);
+
+                            pushModal(
+                              'Confirmation',
+                              {
+                                useProps: () => {
+                                  const { onClose } = useModal();
+
+                                  return {
+                                    className: 'max-w-lg',
+                                    content:
+                                      'Se ha registrado exitosamente pero debe confirmar su correo para poder iniciar sesión. Revise el enlace enviado a su correo para confirmar el registro.',
+                                    badge: <Badge variant="success" />,
+                                    customBtn: (
+                                      <Button
+                                        label="Entendido"
+                                        className='ml-auto'
+                                        onClick={() => {
+                                          onClose();
+                                        }}
+                                      />
+                                    ),
+                                    primaryBtn: <></>,
+                                    secondaryBtn: <></>,
+                                  };
+                                },
+                              },
+                              { emergent: true },
+                            );
                           },
                         },
                       );

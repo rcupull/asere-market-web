@@ -4,7 +4,7 @@ import { FetchResource } from 'types/api';
 import { getEndpoint } from 'utils/api';
 
 export const useAuthValidate = (): {
-  authValidate: FetchResource<{ email: string; code: string }>;
+  authValidate: FetchResource<{ code: string }, { email: string}>;
 } => {
   const fetch = useFetch();
 
@@ -12,12 +12,12 @@ export const useAuthValidate = (): {
     authValidate: {
       data: fetch[0],
       status: fetch[1],
-      fetch: ({ code, email }, options = {}) => {
+      fetch: ({ code }, options = {}) => {
         fetch[2](
           {
             method: 'post',
             url: getEndpoint({ path: '/auth/validate' }),
-            data: { code, email },
+            data: { code },
           },
           options,
         );

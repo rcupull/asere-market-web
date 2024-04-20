@@ -29,7 +29,7 @@ export const HeroSectionCentered = () => {
               Registrarse
             </Link>
             <Link to="/about-us" className="text-sm font-semibold leading-6 text-gray-900">
-              Conocer mas <span aria-hidden="true">→</span>
+              Conocer más <span aria-hidden="true">→</span>
             </Link>
           </div>
         </div>

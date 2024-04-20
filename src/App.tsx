@@ -12,6 +12,7 @@ import { PaymentPlansPurchase } from 'pages/payment-plans-purchase';
 import { dynamic } from 'utils/makeLazy';
 
 const Dashboard = dynamic(() => import('pages/dashboard').then((m) => ({ default: m.Dashboard })));
+const Validate = dynamic(() => import('pages/validate').then((m) => ({ default: m.Validate })));
 
 const Admin = dynamic(() => import('pages/admin').then((m) => ({ default: m.Admin })));
 
@@ -39,6 +40,11 @@ export const App = (): JSX.Element => {
       <Route path="/payment-plans" element={withPageProviders(<PaymentPlans />, LayoutMain)} />
 
       <Route
+        path="/validate/:code"
+        element={withPageProviders(<Validate />, LayoutMain)}
+      />
+
+      <Route
         path="/payment-plans/purchase"
         element={withPageProviders(<PaymentPlansPurchase />, AuthenticatedUser, LayoutMain)}
       />
@@ -47,6 +53,8 @@ export const App = (): JSX.Element => {
         path="/admin/*"
         element={withPageProviders(<Admin />, AuthenticatedAdmin, LayoutMain)}
       />
+
+  
 
       <Route
         path="/dashboard/*"
