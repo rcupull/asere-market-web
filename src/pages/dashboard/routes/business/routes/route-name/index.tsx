@@ -9,6 +9,7 @@ import { useRouter } from 'hooks/useRouter';
 import { OptionsMenu } from './options-menu';
 import { Posts } from './posts';
 import { PostsSections } from './posts-sections';
+import { PurchaseOrders } from './purchase-orders';
 import { Settings } from './settings';
 
 import { LayoutSection } from 'pages/@common/layout-section';
@@ -82,6 +83,10 @@ export const RouteName = () => {
           {
             label: 'Grupos de publicaciones',
             content: <PostsSections routeName={routeName} />,
+          },
+          {
+            label: 'Órdenes de compras',
+            content: <PurchaseOrders routeName={routeName} />,
           },
         ]}
       />
