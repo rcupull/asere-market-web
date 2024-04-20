@@ -9,6 +9,7 @@ import { CallAfarResources } from 'hooks/useCallFromAfar';
 import { CardPostImage } from './CardPostImage';
 import { CardPostName } from './CardPostName';
 import { CardPostPrice } from './CardPostPrice';
+import { CardPostStockAmount } from './CardPostStockAmount';
 import { getCardPostSizes } from './utils';
 
 import { UpdateSomethingContainer } from 'pages/@common/update-something-container';
@@ -41,10 +42,11 @@ export const CardPost = ({
   const renderMeta = () => {
     if (metaLayout === 'basic') {
       return (
-        <div className="flex items-center flex-shrink-0">
+        <div className="flex items-end flex-shrink-0">
           <div>
             <CardPostName layout={layout} post={post} />
             <CardPostPrice layout={layout} post={post} />
+            <CardPostStockAmount post={post} />
           </div>
 
           <PostShoppingMethod

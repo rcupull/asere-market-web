@@ -1,5 +1,5 @@
 import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/outline';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 import { Button } from 'components/button';
 import { Input } from 'components/input';
@@ -18,6 +18,7 @@ export interface AmountProps extends StyleProps {
 
 export const Amount = ({ value, onChange, className, isBusy }: AmountProps) => {
   const [state, setState] = useState<number>();
+  const refPromise = useRef(false);
 
   useEffect(() => {
     setState(value);
@@ -27,7 +28,12 @@ export const Amount = ({ value, onChange, className, isBusy }: AmountProps) => {
 
   const handleChange = (newValue: number) => {
     setState(newValue);
-    debouncer(() => onChange?.(newValue), 500);
+    refPromise.current = true;
+    debouncer(() => {
+      refPromise.current = false;
+      setState(value);
+      onChange?.(newValue);
+    }, 500);
   };
 
   return (
@@ -37,6 +43,7 @@ export const Amount = ({ value, onChange, className, isBusy }: AmountProps) => {
         stopPropagation
         onClick={() => {
           if (!isNumber(state)) return;
+          if (state <= 0) return;
 
           handleChange(state - 1);
         }}
@@ -53,7 +60,9 @@ export const Amount = ({ value, onChange, className, isBusy }: AmountProps) => {
             event.preventDefault();
           }
         }}
-        className="!w-12 !h-6 !text-center"
+        className={cn('!w-12 !h-6 !text-center', {
+          '!font-bold !text-lg text-indigo-700': refPromise.current,
+        })}
       />
 
       <Button
