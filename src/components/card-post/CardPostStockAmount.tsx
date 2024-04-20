@@ -16,5 +16,7 @@ export const CardPostStockAmount = ({ post }: CardPostStockAmountProps) => {
     return <span className="text-red-500 font-semibold">Agotados</span>;
   }
 
-  return <span className="text-gray-50 bg-green-800 px-2 py-0.5 rounded-xl font-semibold ">{`Disponibles: ${stockAmount}`}</span>;
+  return (
+    <span className="text-gray-50 bg-green-800 px-2 py-0.5 rounded-xl font-semibold ">{`Disponibles: ${stockAmount}`}</span>
+  );
 };

@@ -13,7 +13,7 @@ export const FieldPostStockAmount = ({ label, ...props }: FieldPostStockAmountPr
   return (
     <FieldInput
       {...props}
-      disabled = {!isNumber(field.value)}
+      disabled={!isNumber(field.value)}
       label={
         <div className="flex items-center gap-2">
           {label}

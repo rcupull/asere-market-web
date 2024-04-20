@@ -26,7 +26,7 @@ export const AppBreadCrumble = ({ className }: AppBreadCrumbleProps): JSX.Elemen
     isBusinessAboutUsPage,
     isHomePage,
     isBusinessPage,
-    isAboutUsPage
+    isAboutUsPage,
   } = useRouter();
   const shoppingIdPersistent = useShoppingIdPersistent();
   const postIdPersistent = usePostIdPersistent();

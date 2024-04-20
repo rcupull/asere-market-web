@@ -105,7 +105,7 @@ export const PostNew = ({ routeName: routeNameProp, postId, callAfarResources }:
             'images',
             'discount',
             'postPageLayout',
-            'stockAmount'
+            'stockAmount',
           ]}
           validations={[
             {

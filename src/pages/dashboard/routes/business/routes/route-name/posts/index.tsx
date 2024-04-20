@@ -165,7 +165,11 @@ export const Posts = ({ routeName }: PostsProps) => {
                       {
                         label: 'Stock',
                         value: isNumber(stockAmount) ? (
-                          <PostAmount value={stockAmount} postId={postId} onAfterSuccess={filters.onRefresh} />
+                          <PostAmount
+                            value={stockAmount}
+                            postId={postId}
+                            onAfterSuccess={filters.onRefresh}
+                          />
                         ) : (
                           <span className="text-red-500">Desabilitada</span>
                         ),

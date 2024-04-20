@@ -1,6 +1,3 @@
-
-
-
 import { RowActionsContainer } from 'pages/@common/row-actions-container';
 import { Shopping } from 'types/shopping';
 
@@ -9,12 +6,5 @@ export interface RowActionsProps {
   routeName: string;
 }
 export const RowActions = ({ rowData, routeName }: RowActionsProps) => {
-
-
-
-  return (
-    <RowActionsContainer>
-      some actions
-    </RowActionsContainer>
-  );
+  return <RowActionsContainer>some actions</RowActionsContainer>;
 };

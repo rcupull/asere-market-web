@@ -28,7 +28,7 @@ export const PurchaseOrders = ({ routeName }: PurchaseOrdersProps) => {
   return (
     <>
       <TopActions>
-        <ButtonRefresh onClick={() => onRefresh()} className='ml-auto'/>
+        <ButtonRefresh onClick={() => onRefresh()} className="ml-auto" />
       </TopActions>
       <Table<Shopping>
         heads={[null, 'User', 'Estado', 'Fecha de creación', 'Productos']}
@@ -37,12 +37,12 @@ export const PurchaseOrders = ({ routeName }: PurchaseOrdersProps) => {
 
           return {
             nodes: [
-              <RowActions key='RowActions' routeName={routeName} rowData={rowData} />,
+              <RowActions key="RowActions" routeName={routeName} rowData={rowData} />,
               purchaserName,
-              state, getDateString({ date: createdAt, showTime: true }),
-              <ShoppingDetails key='ShoppingDetails' shopping={rowData}/>
+              state,
+              getDateString({ date: createdAt, showTime: true }),
+              <ShoppingDetails key="ShoppingDetails" shopping={rowData} />,
             ],
-             
           };
         }}
         data={getShoppingOwner.data}

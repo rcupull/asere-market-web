@@ -252,7 +252,7 @@ export const PostForm = ({
                     postCategoriesTags,
                     discount,
                     postPageLayout,
-                    stockAmount
+                    stockAmount,
                   } = values;
 
                   const handelUpdatePost = (post: Post) => {
@@ -276,7 +276,7 @@ export const PostForm = ({
                               postCategoriesTags,
                               discount,
                               postPageLayout,
-                              stockAmount
+                              stockAmount,
                             },
                             {
                               onAfterSuccess,
@@ -300,7 +300,7 @@ export const PostForm = ({
                         images: [],
                         discount,
                         postPageLayout,
-                        stockAmount
+                        stockAmount,
                       },
                       {
                         onAfterSuccess: (response) => {

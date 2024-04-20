@@ -4,7 +4,7 @@ import { FetchResource } from 'types/api';
 import { getEndpoint } from 'utils/api';
 
 export const useAuthValidate = (): {
-  authValidate: FetchResource<{ code: string }, { email: string}>;
+  authValidate: FetchResource<{ code: string }, { email: string }>;
 } => {
   const fetch = useFetch();
 

@@ -3,6 +3,7 @@ import {
   ArrowRightStartOnRectangleIcon,
   Cog8ToothIcon,
   HomeIcon,
+  KeyIcon,
   UserGroupIcon,
   UserIcon,
   UserPlusIcon,
@@ -25,6 +26,7 @@ import { BusinessName } from './business-name';
 import { ShoppingCartMenu } from './shopping-cart-menu';
 
 import { useBusiness } from 'pages/@hooks/useBusiness';
+import { useAuthChangePasswordModal } from 'pages/@modals/useAuthChangePasswordModal';
 import { useAuthSignInModal } from 'pages/@modals/useAuthSignInModal';
 import { useAuthSignUpModal } from 'pages/@modals/useAuthSignUpModal';
 import { StyleProps } from 'types/general';
@@ -43,6 +45,7 @@ export const Navbar = ({ className }: NavbarProps) => {
   const { isBusinessPage, params, isAuthenticatedPage } = useRouter();
   const { routeName } = params;
   const { business, hasSomeShoppingCartStrategy } = useBusiness();
+  const authChangePasswordModal = useAuthChangePasswordModal();
   const aboutUsPage = business?.aboutUsPage || {};
   const { pushModal } = useModal();
   const { pushRoute } = useRouter();
@@ -156,6 +159,13 @@ export const Navbar = ({ className }: NavbarProps) => {
                   setTimeout(() => authSignOut.fetch(), 500);
                 },
                 svg: ArrowRightStartOnRectangleIcon,
+              },
+              isAuthenticated && {
+                label: 'Cambiar contraseña',
+                onClick: () => {
+                  authChangePasswordModal.open();
+                },
+                svg: KeyIcon,
               },
               { label: 'Saber más sobre nosotros', href: '/about-us', svg: UserGroupIcon },
             ]}

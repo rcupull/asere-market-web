@@ -66,7 +66,10 @@ export const Validate = () => {
         <>
           <ExclamationTriangleIcon className="size-20 bg-red-100 text-red-500 rounded-full p-1" />
 
-          <span className="text-2xl font-semibold w-96 text-center">Error en la activación. Asegurese de haber usado el enlace correcto. Si el problema persiste contacte con nuestro equipo de soporte.</span>
+          <span className="text-2xl font-semibold w-96 text-center">
+            Error en la activación. Asegurese de haber usado el enlace correcto. Si el problema
+            persiste contacte con nuestro equipo de soporte.
+          </span>
         </>
       )}
     </div>

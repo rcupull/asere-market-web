@@ -18,7 +18,7 @@ export interface ButtonPostToCartProps extends StyleProps {
 
 export const ButtonPostToCart = ({ post, className }: ButtonPostToCartProps) => {
   const [count, setCount] = useState<number>(0);
-  const {stockAmount} = post
+  const { stockAmount } = post;
 
   const { updateAddOneShopping } = useUpdateAddOneShopping();
   const shopping = useShopping();
@@ -26,11 +26,11 @@ export const ButtonPostToCart = ({ post, className }: ButtonPostToCartProps) => 
 
   const debouncer = useDebouncer();
 
-  if(stockAmount === 0){
+  if (stockAmount === 0) {
     /**
      * Can not show the car because has not products in stock
      */
-    return <></>
+    return <></>;
   }
 
   return (

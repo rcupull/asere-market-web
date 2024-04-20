@@ -39,10 +39,7 @@ export const App = (): JSX.Element => {
 
       <Route path="/payment-plans" element={withPageProviders(<PaymentPlans />, LayoutMain)} />
 
-      <Route
-        path="/validate/:code"
-        element={withPageProviders(<Validate />, LayoutMain)}
-      />
+      <Route path="/validate/:code" element={withPageProviders(<Validate />, LayoutMain)} />
 
       <Route
         path="/payment-plans/purchase"
@@ -53,8 +50,6 @@ export const App = (): JSX.Element => {
         path="/admin/*"
         element={withPageProviders(<Admin />, AuthenticatedAdmin, LayoutMain)}
       />
-
-  
 
       <Route
         path="/dashboard/*"

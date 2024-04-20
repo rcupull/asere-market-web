@@ -139,7 +139,7 @@ export const Component = ({ portal }: ComponentProps) => {
                                     customBtn: (
                                       <Button
                                         label="Entendido"
-                                        className='ml-auto'
+                                        className="ml-auto"
                                         onClick={() => {
                                           onClose();
                                         }}
