@@ -152,7 +152,6 @@ export const Posts = ({ routeName }: PostsProps) => {
                           <span
                             className={cn({
                               'text-red-500': hidden,
-                              'text-indigo-600': !hidden,
                             })}
                           >{`${hidden ? 'Oculta' : 'Visible'}`}</span>
                         ),
@@ -163,12 +162,25 @@ export const Posts = ({ routeName }: PostsProps) => {
                         value: `${price} ${currency}`,
                       },
                       {
-                        label: 'Stock',
+                        label: (
+                          <span
+                            className={cn({
+                              'text-red-500': stockAmount === 0,
+                            })}
+                          >
+                            Stock
+                          </span>
+                        ),
                         value: isNumber(stockAmount) ? (
                           <PostAmount
                             value={stockAmount}
                             postId={postId}
                             onAfterSuccess={filters.onRefresh}
+                            className={cn(
+                              {
+                                'border-2 rounded-lg border-red-500': stockAmount === 0,
+                              },
+                            )}
                           />
                         ) : (
                           <span className="text-red-500">Desabilitada</span>

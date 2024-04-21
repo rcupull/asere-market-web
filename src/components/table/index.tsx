@@ -36,7 +36,7 @@ export const Table = <RowData extends AnyRecord = AnyRecord>({
 
   return (
     <div ref={ref} onScroll={onScroll} className={cn('relative max-h-screen', className)}>
-      <table className="min-w-full overflow-auto block max-h-full">
+      <table className="min-w-full overflow-auto max-h-full table-auto">
         <thead className="sticky top-0 z-10">
           <tr>
             {heads.map((head, index) => {
@@ -65,7 +65,7 @@ export const Table = <RowData extends AnyRecord = AnyRecord>({
         </div>
       )}
       {isBusy && (
-        <div className="absolute inset-0 flex justify-center items-center bg-white opacity-70">
+        <div className="absolute min-h-96 inset-0 flex justify-center items-center bg-white opacity-70">
           <SpinnerEllipsis />
         </div>
       )}

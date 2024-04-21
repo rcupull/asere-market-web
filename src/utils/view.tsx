@@ -22,7 +22,7 @@ const mapToOutlinedBox = <T extends React.ReactNode = React.ReactNode>(args: {
 
 const keyValueList = (list: Array<{ label: React.ReactNode; value?: React.ReactNode }>) => {
   return (
-    <div>
+    <div className="flex flex-col gap-1">
       {list.map(({ label, value }, index) => {
         return (
           <div key={index} className="flex justify-between items-center">

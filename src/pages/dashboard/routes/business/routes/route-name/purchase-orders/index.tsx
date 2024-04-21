@@ -7,7 +7,6 @@ import { useGetShoppingOwner } from 'features/api/shopping-owner/useGetShoppingO
 
 import { RowActions } from './RowActions';
 
-import { ShoppingDetails } from 'pages/@common/shopping-details';
 import { TopActions } from 'pages/@common/top-actions';
 import { Shopping } from 'types/shopping';
 import { getDateString } from 'utils/date';
@@ -28,24 +27,28 @@ export const PurchaseOrders = ({ routeName }: PurchaseOrdersProps) => {
   return (
     <>
       <TopActions>
-        <ButtonRefresh onClick={() => onRefresh()} className="ml-auto" />
+        <ButtonRefresh
+          onClick={() => onRefresh()}
+          className="ml-auto"
+          isBusy={getShoppingOwner.status.isBusy}
+        />
       </TopActions>
       <Table<Shopping>
-        heads={[null, 'User', 'Estado', 'Fecha de creación', 'Productos']}
+        heads={[null, 'User', 'Estado', 'Fecha de creación']}
         getRowProps={(rowData) => {
           const { state, createdAt, purchaserName } = rowData;
 
           return {
             nodes: [
-              <RowActions key="RowActions" routeName={routeName} rowData={rowData} />,
+              <RowActions key="RowActions" rowData={rowData} />,
               purchaserName,
               state,
               getDateString({ date: createdAt, showTime: true }),
-              <ShoppingDetails key="ShoppingDetails" shopping={rowData} />,
             ],
           };
         }}
         data={getShoppingOwner.data}
+        isBusy={getShoppingOwner.status.isBusy}
       />
     </>
   );
