@@ -34,9 +34,11 @@
     "react-css-spinners": "^4.0.2",
     "react-dom": "^18.2.0",
     "react-grid-gallery": "1.0.1-alpha.0",
+    "react-onesignal": "^3.0.1",
     "react-qr-code": "^2.0.12",
     "react-redux": "^9.1.0",
     "react-router-dom": "^6.21.3",
+    "react-toastify": "^10.0.5",
     "redux": "^5.0.1",
     "swiper": "^11.0.6"
   },

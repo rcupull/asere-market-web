@@ -176,11 +176,9 @@ export const Posts = ({ routeName }: PostsProps) => {
                             value={stockAmount}
                             postId={postId}
                             onAfterSuccess={filters.onRefresh}
-                            className={cn(
-                              {
-                                'border-2 rounded-lg border-red-500': stockAmount === 0,
-                              },
-                            )}
+                            className={cn({
+                              'border-2 rounded-lg border-red-500': stockAmount === 0,
+                            })}
                           />
                         ) : (
                           <span className="text-red-500">Desabilitada</span>

@@ -29,7 +29,9 @@ export const ForgotPassword = () => {
     <>
       <CheckCircleIcon className="size-20 bg-green-100 text-green-500 rounded-full p-1" />
 
-      <span className="text-2xl font-semibold text-center">La contraseña fue restablecida correctamente </span>
+      <span className="text-2xl font-semibold text-center">
+        La contraseña fue restablecida correctamente{' '}
+      </span>
 
       <Button
         label="Iniciar sesión"

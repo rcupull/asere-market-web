@@ -13,7 +13,7 @@ const Component = dynamic(() =>
   })),
 );
 
-export const useAuthForgotPasswordRequestModal  = () => {
+export const useAuthForgotPasswordRequestModal = () => {
   const { pushModal } = useModal();
 
   return {

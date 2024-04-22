@@ -16,8 +16,10 @@ export default defineConfig({
       constants: path.resolve(__dirname, './src/constants'),
     },
   },
-  plugins: [react()],
-  server: {
-    host: 'local.community.com',
+  define: {
+    DEVELOPMENT: process.env.NODE_ENV === 'development',
+    PRODUCTION: process.env.NODE_ENV === 'production',
+    STAGING: process.env.NODE_ENV === 'staging',
   },
+  plugins: [react()],
 });

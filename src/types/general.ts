@@ -33,3 +33,9 @@ export interface ImageFile {
   alt?: string;
   href?: string;
 }
+
+declare global {
+  const DEVELOPMENT: boolean;
+  const PRODUCTION: boolean;
+  const STAGING: boolean;
+}

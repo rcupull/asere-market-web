@@ -4,6 +4,7 @@ import { useGetAllPosts } from 'features/api/posts/useGetAllPosts';
 
 import { useCallFromAfar } from 'hooks/useCallFromAfar';
 import { useFiltersVolatile } from 'hooks/useFiltersVolatile';
+import { useHotUpdateTableData } from 'hooks/useHotUpdateTableData';
 
 import { PostsSectionCards } from '../posts-section-cards';
 import { PostsSectionSearch } from '../posts-section-search';
@@ -14,6 +15,7 @@ import { useBusinessNewUpdateSection } from 'pages/@modals/useBusinessNewUpdateS
 import { GetAllPostsQuery } from 'types/api';
 import { PostsLayoutSection, PostsLayoutSectionVisibility } from 'types/business';
 import { StyleProps } from 'types/general';
+import { Post } from 'types/post';
 import { cn } from 'utils/general';
 
 export interface PostsSectionProps extends StyleProps {
@@ -39,6 +41,13 @@ export const PostsSection = ({
   const hidden = !showIn?.includes(visibility);
   const notRender = hidden && !owner;
   const renderHiddenSection = hidden && owner;
+
+  const hotUpdateTableData = useHotUpdateTableData<Post, { postId: string; stockAmount: number }>({
+    data: getAllPosts.data,
+    updateKey: `updatePostAmount`,
+    findCB: (rowData, { postId }) => rowData._id === postId,
+    changeCB: (rowData, { stockAmount }) => ({ ...rowData, stockAmount }),
+  });
 
   const handleFilter = (filters: GetAllPostsQuery) => {
     const hasCategoriesTags = filters.postCategoriesTags?.length;
@@ -106,7 +115,7 @@ export const PostsSection = ({
 
         <PostsSectionCards
           layout={layout}
-          posts={getAllPosts.data}
+          posts={hotUpdateTableData.data}
           business={business}
           callAfarResources={[callAfarResourcesRefreshBusiness]}
         />
