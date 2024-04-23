@@ -59,7 +59,7 @@ export const getEndpoint: GetEndpoint = ({ path, query, urlParams }) => {
     urlParams,
   });
 
-  return `http://localhost:4009${flattenPath}`;
+  return `http://localhost:4009/api${flattenPath}`;
 };
 
 export const getImageEndpoint = (src: string) => {

@@ -22,4 +22,7 @@ export default defineConfig({
     STAGING: process.env.NODE_ENV === 'staging',
   },
   plugins: [react()],
+  build: {
+    outDir: 'build',
+  },
 });
