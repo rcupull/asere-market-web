@@ -78,7 +78,6 @@ export const Posts = ({ routeName }: PostsProps) => {
                   needPremium={isNotValidPostsCountByBussines(getAllPosts.data?.length)}
                   onClick={() =>
                     pushModal('PostNew', {
-                      routeName,
                       callAfarResources,
                     })
                   }

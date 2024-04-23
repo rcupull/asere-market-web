@@ -135,7 +135,6 @@ export const RowActions = ({ rowData, callAfarResources, routeName }: RowActions
 
   const handleUpdate = () => {
     pushModal('PostNew', {
-      routeName,
       postId: rowData._id,
       callAfarResources,
     });
