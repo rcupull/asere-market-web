@@ -1,4 +1,5 @@
 import { BaseIdentity, Image } from './general';
+import { PostFormState } from './post';
 
 export type BusinessCategory = 'food' | 'tool' | 'clothing' | 'service';
 
@@ -125,4 +126,5 @@ export interface Business extends BaseIdentity {
   shoppingMeta?: {
     purchaseRequestTopInfo?: string;
   };
+  postFormFields?: Array<keyof PostFormState>;
 }

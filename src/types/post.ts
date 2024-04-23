@@ -1,5 +1,5 @@
 import { PostPageLayout } from './business';
-import { BaseIdentity, Image } from './general';
+import { BaseIdentity, Image, ImageFile } from './general';
 
 export type PostCurrency = 'CUP' | 'USD' | 'MLC';
 
@@ -40,3 +40,18 @@ export type PostColorMeta = Record<
 // ////////////////CLOTHING
 
 export type PostClothingSize = 'XXS' | 'XS' | 'S' | 'M' | 'L' | 'XL' | '2XL' | '3XL';
+
+export type PostFormState = Pick<
+  Post,
+  | 'name'
+  | 'currency'
+  | 'clothingSizes'
+  | 'colors'
+  | 'description'
+  | 'price'
+  | 'details'
+  | 'postCategoriesTags'
+  | 'discount'
+  | 'postPageLayout'
+  | 'stockAmount'
+> & { images: Array<ImageFile | Image> };

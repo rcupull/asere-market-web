@@ -1,7 +1,9 @@
 import { useEffect } from 'react';
 
 import { Badge } from 'components/badge';
+import { Button } from 'components/button';
 import { ButtonClose } from 'components/button-close';
+import { IconUpdate } from 'components/icon-update';
 import { Modal } from 'components/modal';
 import { SpinnerEllipsis } from 'components/spinner-ellipsis';
 
@@ -11,19 +13,21 @@ import { useModal } from 'features/modal/useModal';
 import { CallAfarResources, useCallFromAfar } from 'hooks/useCallFromAfar';
 import { usePortal } from 'hooks/usePortal';
 
-import { PostForm, PostFormProps } from './PostForm';
+import { PostForm } from './PostForm';
 
 import { useBusiness } from 'pages/@hooks/useBusiness';
+import { useBusinessUpdatePostForm } from 'pages/@modals/useBusinessUpdatePostForm';
 
 export interface PostNewProps {
-  routeName?: string;
   postId?: string; //only user to update a post
   callAfarResources?: CallAfarResources;
 }
 
-export const PostNew = ({ routeName: routeNameProp, postId, callAfarResources }: PostNewProps) => {
+export const PostNew = ({ postId, callAfarResources }: PostNewProps) => {
   const portal = usePortal();
   const { onClose } = useModal();
+
+  const businessUpdatePostForm = useBusinessUpdatePostForm();
 
   const { onCallAfar } = useCallFromAfar();
   const onRefresh = () => onCallAfar(callAfarResources);
@@ -33,39 +37,17 @@ export const PostNew = ({ routeName: routeNameProp, postId, callAfarResources }:
     onClose();
   };
 
-  /**
-   *
-   */
   const { getOnePost } = useGetOnePost();
-  const businessOwnerData = useBusiness();
-
-  const post = getOnePost.data;
-  const business = businessOwnerData.business;
+  const { business, onFetch, status } = useBusiness();
 
   useEffect(() => {
     if (postId) {
-      return getOnePost.fetch(
-        { id: postId },
-        {
-          onAfterSuccess: ({ routeName }) => {
-            businessOwnerData.onFetch({ routeName });
-          },
-        },
-      );
-    }
-
-    if (routeNameProp) {
-      businessOwnerData.onFetch({ routeName: routeNameProp });
+      getOnePost.fetch({ id: postId });
     }
   }, []);
 
-  /**
-   *
-   */
-  const routeName = routeNameProp || post?.routeName;
-
   const getContent = () => {
-    if (getOnePost.status.isBusy) {
+    if (getOnePost.status.isBusy || status.isBusy) {
       return (
         <div className="h-40 flex justify-center items-center">
           <SpinnerEllipsis />
@@ -73,67 +55,40 @@ export const PostNew = ({ routeName: routeNameProp, postId, callAfarResources }:
       );
     }
 
-    if (!routeName || !business) {
+    if (!business) {
       return <></>;
-    }
-
-    const businessCategory = business.category;
-
-    const commonProps: PostFormProps = {
-      routeName,
-      //
-      portal,
-      onAfterSuccess,
-      post,
-      render: [],
-      validations: [],
-    };
-
-    if (businessCategory === 'clothing') {
-      return (
-        <PostForm
-          {...commonProps}
-          render={[
-            'name',
-            'description',
-            'price',
-            'currency',
-            'clothingSizes',
-            'colors',
-            'details',
-            'postCategoriesTags',
-            'images',
-            'discount',
-            'postPageLayout',
-            'stockAmount',
-          ]}
-          validations={[
-            {
-              field: 'name',
-              type: 'required',
-            },
-          ]}
-        />
-      );
     }
 
     return (
       <PostForm
-        {...commonProps}
-        render={['name', 'description', 'price', 'currency', 'details', 'images']}
-        validations={[
-          {
-            field: 'name',
-            type: 'required',
-          },
-        ]}
+        business={business}
+        portal={portal}
+        onAfterSuccess={onAfterSuccess}
+        post={getOnePost.data}
       />
     );
   };
 
   return (
     <Modal
-      title={postId ? 'Editar publicación' : 'Nueva publicación'}
+      title={
+        <div className="flex items-center justify-between">
+          {postId ? 'Editar publicación' : 'Nueva publicación'}
+          <Button
+            variant="link"
+            svg={IconUpdate}
+            label="Editar campos del formulario"
+            onClick={() =>
+              businessUpdatePostForm.open({
+                onAfterSuccess: () => {
+                  if (!business) return;
+                  onFetch({ routeName: business.routeName });
+                },
+              })
+            }
+          />
+        </div>
+      }
       content={getContent()}
       badge={<Badge variant="info" />}
       primaryBtn={<div ref={portal.ref} />}

@@ -1,5 +1,3 @@
-import { useMemo } from 'react';
-
 import { Button } from 'components/button';
 import { Divider } from 'components/divider';
 import { FieldClothingSizeSelect } from 'components/field-clothing-size-select';
@@ -17,50 +15,32 @@ import { useAddOnePost } from 'features/api/posts/useAddOnePost';
 import { useUpdateOnePost } from 'features/api/posts/useUpdateOnePost';
 import { useGetUserPaymentPlan } from 'features/api/useGetUserPaymentPlan';
 
-import { GetFormErrors, useGetFormErrors } from 'hooks/useGetFormErrors';
+import { useGetFormErrors } from 'hooks/useGetFormErrors';
 import { Portal } from 'hooks/usePortal';
 
 import { Formik } from 'formik';
 import { OnAfterSuccess } from 'types/api';
-import { Image, ImageFile } from 'types/general';
-import { Post, PostCurrency } from 'types/post';
+import { Business } from 'types/business';
+import { Post, PostCurrency, PostFormState } from 'types/post';
 import { getImageEndpoint } from 'utils/api';
-
-type State = Pick<
-  Post,
-  | 'name'
-  | 'currency'
-  | 'clothingSizes'
-  | 'colors'
-  | 'description'
-  | 'price'
-  | 'details'
-  | 'postCategoriesTags'
-  | 'discount'
-  | 'postPageLayout'
-  | 'stockAmount'
-> & { images: Array<ImageFile | Image> };
 
 export interface PostFormProps {
   portal: Portal;
   //
-  routeName: string;
+  business: Business;
   //
   onAfterSuccess: OnAfterSuccess;
   post?: Post | null;
-  validations: Parameters<GetFormErrors<State>>[1];
-  render: Array<keyof State>;
 }
 
 export const PostForm = ({
-  routeName,
+  business,
   //
   portal,
   onAfterSuccess,
   post,
-  validations: validationsProp,
-  render,
 }: PostFormProps) => {
+  const { routeName, postFormFields = [] } = business;
   const { addOnePost } = useAddOnePost();
   const { updateOnePost } = useUpdateOnePost();
 
@@ -70,12 +50,8 @@ export const PostForm = ({
 
   const getFormErrors = useGetFormErrors();
 
-  const validations = useMemo(() => {
-    return validationsProp.filter((validation) => render.includes(validation.field));
-  }, [JSON.stringify([validationsProp, render])]);
-
   return (
-    <Formik<State>
+    <Formik<PostFormState>
       initialValues={{
         name: '',
         price: 0,
@@ -91,27 +67,33 @@ export const PostForm = ({
         ...(post || {}),
       }}
       enableReinitialize
-      validate={(values) => getFormErrors(values, validations)}
+      validate={(values) =>
+        getFormErrors(values, [
+          {
+            field: 'name',
+            type: 'required',
+          },
+        ])
+      }
       onSubmit={() => {}}
     >
       {({ values, isValid }) => {
         return (
           <form>
-            {render.includes('name') && (
-              <>
-                <FieldInput name="name" label="Nombre del producto" />
-                <Divider />
-              </>
-            )}
+            {/** ALWAYS VISIBLE */}
+            <>
+              <FieldInput name="name" label="Nombre del producto" />
+              <Divider />
+            </>
 
-            {render.includes('description') && (
+            {postFormFields.includes('description') && (
               <>
                 <FieldTextArea label="Descripción" name="description" rows={3} className="mt-6" />
                 <Divider />
               </>
             )}
 
-            {render.includes('details') && (
+            {postFormFields.includes('details') && (
               <>
                 <FieldTextArea
                   id="post_details"
@@ -124,33 +106,34 @@ export const PostForm = ({
               </>
             )}
 
-            {render.includes('images') && (
-              <>
-                <FieldInputImages
-                  label="Imagen"
-                  id="images"
-                  name="images"
-                  className="mt-6"
-                  getImageSrc={getImageEndpoint}
-                  multi
-                  max={userPlan?.maxImagesByPosts}
-                />
-                <Divider />
-              </>
-            )}
+            {/** ALWAYS VISIBLE */}
+            <>
+              <FieldInputImages
+                label="Imagen"
+                id="images"
+                name="images"
+                className="mt-6"
+                getImageSrc={getImageEndpoint}
+                multi
+                max={userPlan?.maxImagesByPosts}
+              />
+              <Divider />
+            </>
 
-            {render.includes('postCategoriesTags') && (
-              <>
-                <FieldPostCategoriesButtons
-                  label="Categorías"
-                  name="postCategoriesTags"
-                  className="mt-6"
-                />
-                <Divider />
-              </>
-            )}
+            {/** ALWAYS VISIBLE */}
+            <>
+              <FieldPostCategoriesButtons
+                label="Categorías"
+                name="postCategoriesTags"
+                className="mt-6"
+              />
+              <Divider />
+            </>
 
-            {(render.includes('price') || render.includes('currency')) && (
+            {(postFormFields.includes('price') ||
+              postFormFields.includes('currency') ||
+              postFormFields.includes('discount') ||
+              postFormFields.includes('stockAmount')) && (
               <>
                 <div className="flex flex-col sm:flex-row items-center gap-6">
                   <FieldInput
@@ -181,7 +164,7 @@ export const PostForm = ({
                     className="mt-6 w-full"
                   />
 
-                  {render.includes('discount') && (
+                  {postFormFields.includes('discount') && (
                     <FieldInput
                       id="post_discount"
                       name="discount"
@@ -191,7 +174,7 @@ export const PostForm = ({
                     />
                   )}
 
-                  {render.includes('stockAmount') && (
+                  {postFormFields.includes('stockAmount') && (
                     <FieldPostStockAmount
                       id="post_stockAmount"
                       name="stockAmount"
@@ -204,14 +187,14 @@ export const PostForm = ({
               </>
             )}
 
-            {render.includes('colors') && (
+            {postFormFields.includes('colors') && (
               <>
                 <FieldColorSelect label="Colores" name="colors" className="mt-6" multi />
                 <Divider />
               </>
             )}
 
-            {render.includes('clothingSizes') && (
+            {postFormFields.includes('clothingSizes') && (
               <>
                 <FieldClothingSizeSelect
                   label="Tallas"
@@ -223,7 +206,7 @@ export const PostForm = ({
               </>
             )}
 
-            {render.includes('postPageLayout') && (
+            {postFormFields.includes('postPageLayout') && (
               <>
                 <FieldPostPageLayout
                   label="Diseño de la página de la publicación"

@@ -8,6 +8,7 @@ import { useBusinessUpdateBanner } from 'pages/@modals/useBusinessUpdateBanner';
 import { useBusinessUpdateInfo } from 'pages/@modals/useBusinessUpdateInfo';
 import { useBusinessUpdateLogo } from 'pages/@modals/useBusinessUpdateLogo';
 import { useBusinessUpdatePostCategories } from 'pages/@modals/useBusinessUpdatePostCategories';
+import { useBusinessUpdatePostForm } from 'pages/@modals/useBusinessUpdatePostForm';
 
 export const Settings = () => {
   const businessUpdateInfo = useBusinessUpdateInfo();
@@ -15,6 +16,7 @@ export const Settings = () => {
   const businessUpdateAboutUs = useBusinessUpdateAboutUs();
   const businessUpdateLogo = useBusinessUpdateLogo();
   const businessUpdatePostCategories = useBusinessUpdatePostCategories();
+  const businessUpdatePostForm = useBusinessUpdatePostForm();
 
   const { onFetch, business } = useBusiness();
 
@@ -28,6 +30,23 @@ export const Settings = () => {
             label="Editar"
             onClick={() =>
               businessUpdateInfo.open({
+                onAfterSuccess: () => {
+                  business && onFetch({ routeName: business?.routeName });
+                },
+              })
+            }
+          />
+        }
+      />
+
+      <SettingsLayout
+        title="Formulario"
+        description="Formulario"
+        action={
+          <Button
+            label="Editar"
+            onClick={() =>
+              businessUpdatePostForm.open({
                 onAfterSuccess: () => {
                   business && onFetch({ routeName: business?.routeName });
                 },

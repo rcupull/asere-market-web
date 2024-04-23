@@ -24,6 +24,7 @@ export const useUpdateOneBusiness = (): {
           | 'whatsAppPhoneNumber'
           | 'shoppingStrategy'
           | 'shoppingMeta'
+          | 'postFormFields'
         >
       >;
     },
