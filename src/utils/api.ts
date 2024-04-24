@@ -13,9 +13,17 @@ export const apiErrorsMesages = {
     'PreAuthentication failed with error Usted no tiene acceso a los recursos de esta aplicación.',
 };
 
-const prodUrl = 'http://192.241.145.70';
-const stageUrl = 'http://192.241.145.70:8080';
-const devUrl = 'http://localhost:4009';
+export const getEndpointUrl = () => {
+  if (STAGING) {
+    return `http://192.241.145.70:8088`;
+  }
+
+  if (PRODUCTION) {
+    return `http://192.241.145.70:8008`;
+  }
+
+  return 'http://localhost:4009';
+};
 
 export const injectUrlParams = (url: string, urlParams: UrlParams = {}): string => {
   let filledUrl = url;
@@ -63,15 +71,7 @@ export const getEndpoint: GetEndpoint = ({ path, query, urlParams }) => {
     urlParams,
   });
 
-  if (STAGING) {
-    return `${stageUrl}/api${flattenPath}`;
-  }
-
-  if (PRODUCTION) {
-    return `${prodUrl}/api${flattenPath}`;
-  }
-
-  return `${devUrl}/api${flattenPath}`;
+  return `${getEndpointUrl()}${flattenPath}`;
 };
 
 export const getImageEndpoint = (src: string) => {
@@ -79,13 +79,5 @@ export const getImageEndpoint = (src: string) => {
     return src;
   }
 
-  if (STAGING) {
-    return `${stageUrl}${src}`;
-  }
-
-  if (PRODUCTION) {
-    return `${prodUrl}${src}`;
-  }
-
-  return `${devUrl}${src}`;
+  return `${getEndpointUrl()}${src}`;
 };
