@@ -15,7 +15,6 @@ import {
   OnAfterFailed,
   OnAfterSuccess,
 } from 'types/api';
-import { wait } from 'utils/general';
 
 export type FetchOptions<Data = any> = {
   onAfterSuccess?: OnAfterSuccess<Data>;
@@ -88,8 +87,6 @@ export const useFetch = <Data = any>(): UseFetchReturn<Data> => {
       });
 
       const responseArray = await Promise.all(promises);
-
-      await wait(1000); //TODO remove after api
 
       const response = (
         args instanceof Array ? responseArray.map(({ data }) => data) : responseArray[0].data
