@@ -1,1 +1,0 @@
-import{j as t,b8 as o,Q as s}from"./index-OtumRKpY.js";const a=e=>t.jsxDEV(o,{svg:s,title:"Editar",...e},void 0,!1,{fileName:"/Users/mac/Documents/work/asere-market/asere-market-web/src/components/icon-button-update/index.tsx",lineNumber:7,columnNumber:3},void 0);export{a as I};

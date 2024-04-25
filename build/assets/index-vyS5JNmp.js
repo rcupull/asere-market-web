@@ -1,0 +1,7 @@
+import{d as o,_ as a,j as e,R as m,a as s}from"./index-ih0eSx80.js";const r=o(()=>a(()=>import("./index-TiX9Bknp.js"),__vite__mapDeps([0,1,2,3])).then(t=>({default:t.Home}))),_=o(()=>a(()=>import("./index-l6NqYSEG.js"),__vite__mapDeps([4,1,2,5,6,7,8,9,3,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25])).then(t=>({default:t.RouteName}))),u=()=>e.jsxs(m,{children:[e.jsx(s,{path:"/",element:e.jsx(r,{})}),e.jsx(s,{path:":routeName",element:e.jsx(_,{})})]});export{u as Business};
+function __vite__mapDeps(indexes) {
+  if (!__vite__mapDeps.viteFileDeps) {
+    __vite__mapDeps.viteFileDeps = ["assets/index-TiX9Bknp.js","assets/index-ih0eSx80.js","assets/index-l_Ec27-V.css","assets/index-vInJ5WVt.js","assets/index-l6NqYSEG.js","assets/index-EJzszR5P.js","assets/index-TYx6HqPn.js","assets/index-8hchy7Y-.js","assets/index-Oc-iVceo.js","assets/useUpdateOneBusiness-pno-eXXt.js","assets/date-Og264Mni.js","assets/index-WbMGdbre.js","assets/useGetAllPosts-__Z8YCdD.js","assets/index-ZCjJ8GOH.js","assets/index-SWQFTGmj.js","assets/index-b7vcoc-g.js","assets/index-ezD7gpb8.js","assets/radio-group-R5jNLVFN.js","assets/description-8TzrVJh3.js","assets/label-5zIu1i7p.js","assets/form-Ycfp73ce.js","assets/index-PEFSUcyH.js","assets/useInfinityScrolling-LFWilrnL.js","assets/index-xolsbqEV.js","assets/index-z-Te5FDw.js","assets/index-L7ZaB9Qp.js"]
+  }
+  return indexes.map((i) => __vite__mapDeps.viteFileDeps[i])
+}

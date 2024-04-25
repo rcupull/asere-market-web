@@ -1,1 +1,0 @@
-import{j as e,N as s}from"./index-OtumRKpY.js";const m=()=>e.jsxDEV(s,{to:"/admin/users"},void 0,!1,{fileName:"/Users/mac/Documents/work/asere-market/asere-market-web/src/pages/admin/routes/home/index.tsx",lineNumber:7,columnNumber:10},void 0);export{m as Home};

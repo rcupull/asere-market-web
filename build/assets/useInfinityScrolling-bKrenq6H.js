@@ -1,1 +1,0 @@
-import{r as n}from"./index-OtumRKpY.js";const l=c=>{const{onFetch:r,fetchPaginatedResources:i}=c,{data:t,paginator:e}=i,[f,s]=n.useState([]);return n.useEffect(()=>{if(e&&t){const{page:a}=e;s(a===1?[...t]:o=>[...o,...t])}},[t]),{tableData:f,onScrollBottom:()=>{if(e){const{page:a,hasNextPage:o}=e;o&&r({page:a+1})}}}};export{l as u};

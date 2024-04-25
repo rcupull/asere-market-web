@@ -1,0 +1,1 @@
+import{j as r}from"./index-ih0eSx80.js";import{M as s}from"./index-gmqFlRPh.js";import"./description-8TzrVJh3.js";const p=({useProps:o})=>{const t=o();return r.jsx(s,{content:"<Some message>",...t})};export{p as Emergent};

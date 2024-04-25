@@ -1,0 +1,1 @@
+import{j as o,B as n,b8 as u,bg as e}from"./index-ih0eSx80.js";const i=t=>o.jsx(n,{label:"Guardar",variant:"primary",...t}),x=({hidden:t,...r})=>{const s=t?"Mostrar":"Ocultar";return o.jsx(u,{svg:({className:a})=>o.jsx(e,{hidden:t,className:a}),title:s,...r})};export{i as B,x as I};

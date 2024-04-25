@@ -1,0 +1,1 @@
+import{j as s,n,S as l}from"./index-ih0eSx80.js";const c=({title:e,children:t,className:a,isBusy:i})=>s.jsxs("div",{className:n("mt-4 w-full relative",a),children:[e&&s.jsx("h2",{className:"text-xl mt-3 mb-2",children:e}),t,i&&s.jsx("div",{className:"absolute inset-0 flex items-center justify-center",children:s.jsx(l,{})})]});export{c as L};

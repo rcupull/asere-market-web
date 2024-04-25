@@ -1,1 +1,0 @@
-import{r as u,aK as f}from"./index-OtumRKpY.js";const F=r=>{const{onChange:e}=r||{},[t,l]=u.useState({});return{onMergeFilters:(o,a)=>{const{forceFetch:c}=a||{},s={...t,...o},i=!f(s,t);l(s),(i||c)&&(e==null||e(s))},onRefresh:()=>e==null?void 0:e(t),value:t}};export{F as u};

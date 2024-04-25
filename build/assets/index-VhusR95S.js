@@ -1,1 +1,0 @@
-import{j as s,B as t}from"./index-OtumRKpY.js";const n=e=>s.jsxDEV(t,{label:"Nuevo",...e},void 0,!1,{fileName:"/Users/mac/Documents/work/asere-market/asere-market-web/src/components/button-new/index.tsx",lineNumber:5,columnNumber:53},void 0);export{n as B};

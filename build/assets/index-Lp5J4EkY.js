@@ -1,0 +1,1 @@
+import{j as s,n as o}from"./index-ih0eSx80.js";const e=({className:r,children:n,title:a})=>s.jsxs("div",{"data-id":"CardGroup",className:o(r),children:[a&&s.jsx("h2",{className:"not-sr-only",children:a}),s.jsx("div",{className:"flex flex-wrap justify-around gap-4",children:n})]});export{e as C};

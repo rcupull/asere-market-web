@@ -1,1 +1,0 @@
-import{j as e}from"./index-OtumRKpY.js";const r=()=>e.jsxDEV("div",{children:"DashboardSettings"},void 0,!1,{fileName:"/Users/mac/Documents/work/asere-market/asere-market-web/src/pages/dashboard/routes/settings/index.tsx",lineNumber:2,columnNumber:10},void 0);export{r as Settings};
