@@ -3,6 +3,12 @@ import react from '@vitejs/plugin-react';
 import path from 'path';
 import { defineConfig } from 'vite';
 
+let outDir = 'build';
+
+if (process.env.NODE_ENV === 'staging') {
+  outDir = 'staging';
+}
+
 // https://vitejs.dev/config/
 export default defineConfig({
   resolve: {
@@ -23,6 +29,6 @@ export default defineConfig({
   },
   plugins: [react()],
   build: {
-    outDir: 'build',
+    outDir,
   },
 });

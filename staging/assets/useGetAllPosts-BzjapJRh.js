@@ -1,0 +1,1 @@
+import{b as o,aE as a,g as r,bf as u}from"./index-OtumRKpY.js";const l=()=>{const t=o();return{getAllPosts:{...a(t[0]),status:t[1],fetch:(s,e={})=>{t[2]({method:"get",url:r({path:"/posts",query:{limit:u,...s}})},e)},reset:t[3]}}};export{l as u};

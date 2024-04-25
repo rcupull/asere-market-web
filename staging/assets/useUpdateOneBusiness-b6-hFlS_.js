@@ -1,0 +1,1 @@
+import{b as a,u as o,g as d}from"./index-OtumRKpY.js";const p=()=>{const s=a(),{authData:e}=o(),t=(e==null?void 0:e.user._id)||"<unknow user>";return{updateOneBusiness:{data:s[0],status:s[1],fetch:({routeName:u,update:n},r={})=>{s[2]({method:"put",url:d({path:"/business/:routeName",urlParams:{routeName:u,userId:t}}),data:n},r)},reset:s[3]}}};export{p as u};

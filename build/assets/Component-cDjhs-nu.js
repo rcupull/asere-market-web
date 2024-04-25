@@ -1,0 +1,1 @@
+import{j as o}from"./index-OtumRKpY.js";import{S as s}from"./index-mIGiqvee.js";const t=({shopping:e})=>o.jsxDEV(s,{shopping:e},void 0,!1,{fileName:"/Users/mac/Documents/work/asere-market/asere-market-web/src/pages/@modals/useShoppingDetailsModal/Component.tsx",lineNumber:9,columnNumber:10},void 0);export{t as Component};

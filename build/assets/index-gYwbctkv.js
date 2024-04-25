@@ -1,0 +1,1 @@
+import{r as n}from"./index-OtumRKpY.js";const h=(s,t,i)=>{const[u,a]=n.useState(!1),{backWayDiff:p=100}=i||{};return{onScroll:()=>{if(s!=null&&s.current){const{scrollTop:e,clientHeight:r,scrollHeight:c}=s.current;Math.abs(e+r-c)>p&&a(!0),Math.abs(e+r-c)<=2&&u&&(a(!1),t==null||t())}}}};export{h as u};

@@ -1,0 +1,1 @@
+import{b as u,g as d}from"./index-OtumRKpY.js";const r=()=>{const s=u();return{addOneBusiness:{data:s[0],status:s[1],fetch:({name:t,category:e,routeName:a},n={})=>{s[2]({method:"post",url:d({path:"/business"}),data:{name:t,category:e,routeName:a}},n)},reset:s[3]}}};export{r as u};

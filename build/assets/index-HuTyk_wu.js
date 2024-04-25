@@ -1,0 +1,1 @@
+import{j as r,B as o}from"./index-OtumRKpY.js";const s=e=>r.jsxDEV(o,{label:"Eliminar",...e,variant:"error"},void 0,!1,{fileName:"/Users/mac/Documents/work/asere-market/asere-market-web/src/components/button-remove/index.tsx",lineNumber:6,columnNumber:3},void 0);export{s as B};
