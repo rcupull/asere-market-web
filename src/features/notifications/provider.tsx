@@ -1,13 +1,17 @@
 import 'react-toastify/dist/ReactToastify.css';
 import { createContext, useEffect } from 'react';
-import OneSignal from 'react-onesignal';
 import { toast, ToastContainer } from 'react-toastify';
+
+import { useAuthUpdateFirebaseToken } from 'features/api/auth/useAuthUpdateFirebaseToken';
+import { useAuth } from 'features/api-slices/useAuth';
 
 import { useCallFromAfar } from 'hooks/useCallFromAfar';
 
-import { Notification, NotificationAdditionalData } from '../../types/notifications';
-import { renderNotificationsContent } from './utils';
+import { NotificationToUpdatePayload } from '../../types/notifications';
+import { firebaseVapidKey, getFirebaseMessaging, renderNotificationsContent } from './utils';
 
+//eslint-disable-next-line
+import { getToken, isSupported, MessagePayload, Messaging, onMessage } from 'firebase/messaging';
 import { ChildrenProp } from 'types/general';
 
 interface State {
@@ -21,61 +25,86 @@ export const NotificationsContext = createContext<State>({
 });
 
 export const NotificationsProvider = ({ children }: ChildrenProp) => {
+  const { isAuthenticated } = useAuth();
+  const { authUpdateFirebaseToken } = useAuthUpdateFirebaseToken();
+
   const { onCallAfar } = useCallFromAfar();
   const showMessage: State['showMessage'] = (n) => {
     toast(renderNotificationsContent(n));
   };
 
-  const handleUpdateNotification = (additionalData: NotificationAdditionalData) => {
-    const { data, type } = additionalData;
+  const handleUpdateNotification = (payload: MessagePayload) => {
+    const { data } = payload;
+    const notificationPayload =
+      data?.payload && (JSON.parse(data.payload) as NotificationToUpdatePayload | undefined);
 
-    switch (type) {
-      case 'POST_AMOUNT_STOCK_CHANGE': {
-        const { postId, stockAmount } = data || {};
-        onCallAfar('updatePostAmount', { postId, stockAmount });
-        return;
-      }
-      default: {
-        return;
+    if (notificationPayload) {
+      const { type } = notificationPayload;
+
+      switch (type) {
+        case 'POST_AMOUNT_STOCK_CHANGE': {
+          const { postId, stockAmount } = notificationPayload;
+
+          onCallAfar('updatePostAmount', { postId, stockAmount });
+          return;
+        }
+        default: {
+          return;
+        }
       }
     }
   };
 
-  const init = async () => {
-    await OneSignal.init({
-      //TODO set as env var
-      appId: '902b9855-f697-4a7a-aa2b-1e970a9034c4',
-      allowLocalhostAsSecureOrigin: true,
-      autoResubscribe: true,
-    });
-
-    OneSignal.Slidedown.promptPush();
-
-    OneSignal.Notifications.addEventListener('foregroundWillDisplay', (arg) => {
-      const notification = arg.notification as Notification;
+  const handleGetToken = async (messaging: Messaging): Promise<string | undefined> => {
+    try {
+      const newToken = await getToken(messaging, {
+        vapidKey: firebaseVapidKey,
+      });
 
       if (DEVELOPMENT) {
-        console.log('notification', notification);
+        console.log('Firebase token from getToken: ', `${newToken}`);
       }
 
-      const { title, body, additionalData } = notification;
+      if (newToken) {
+        return newToken;
+      } else {
+        console.log('No registration token available. Request permission to generate one.');
+        return;
+      }
+    } catch (err) {
+      console.log('An error occurred while retrieving token. ', err);
+      return;
+    }
+  };
 
-      if (title && body) {
-        return showMessage({
-          body,
-          title,
+  const init = async () => {
+    const suported = await isSupported();
+
+    if (suported) {
+      const newMessaging = getFirebaseMessaging();
+
+      const newToken = await handleGetToken(newMessaging);
+
+      if (newToken) {
+        authUpdateFirebaseToken.fetch({ firebaseToken: newToken });
+        onMessage(newMessaging, (payload) => {
+          if (payload) {
+            if (DEVELOPMENT) {
+              console.log('firebase payload:', payload);
+            }
+
+            handleUpdateNotification(payload);
+          }
         });
       }
-
-      if (additionalData) {
-        handleUpdateNotification(additionalData);
-      }
-    });
+    }
   };
 
   useEffect(() => {
-    init();
-  }, []);
+    if (isAuthenticated) {
+      init();
+    }
+  }, [isAuthenticated]);
 
   return (
     <NotificationsContext.Provider
