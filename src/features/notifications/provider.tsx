@@ -2,6 +2,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { createContext, useEffect } from 'react';
 import { toast, ToastContainer } from 'react-toastify';
 
+import { useAuthUpdateFirebaseToken } from 'features/api/auth/useAuthUpdateFirebaseToken';
 import { useAuth } from 'features/api-slices/useAuth';
 
 import { useCallFromAfar } from 'hooks/useCallFromAfar';
@@ -25,6 +26,7 @@ export const NotificationsContext = createContext<State>({
 
 export const NotificationsProvider = ({ children }: ChildrenProp) => {
   const { isAuthenticated } = useAuth();
+  const { authUpdateFirebaseToken } = useAuthUpdateFirebaseToken();
 
   const { onCallAfar } = useCallFromAfar();
   const showMessage: State['showMessage'] = (n) => {
@@ -84,6 +86,7 @@ export const NotificationsProvider = ({ children }: ChildrenProp) => {
       const newToken = await handleGetToken(newMessaging);
 
       if (newToken) {
+        authUpdateFirebaseToken.fetch({ firebaseToken: newToken });
         onMessage(newMessaging, (payload) => {
           if (payload) {
             if (DEVELOPMENT) {
